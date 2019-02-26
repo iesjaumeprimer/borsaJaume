@@ -67,7 +67,7 @@
       loadData() {
         API.getTable("menu")
           .then(resp => {
-              let menu = resp.data.filter(item=>item.active);
+              let menu = resp.data.data.filter(item=>item.active);
               // Si tiene subitems sustituimos su código por el item entero 
               menu.filter(item=>item.children).map(item=>{
                   item.children=JSON.parse(item.children);

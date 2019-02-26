@@ -279,7 +279,7 @@ export default {
   methods: {
     loadData() {
       API.getTable("menu")
-        .then(resp => this.items = resp.data)
+        .then(resp => this.items = resp.data.data)
         .catch(err => this.msgErr(err));
     },
     editarItem(item) {

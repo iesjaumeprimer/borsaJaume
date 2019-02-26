@@ -11,5 +11,7 @@ class Empresa extends Model
     protected $table = 'empreses';
     
     protected $guarded = [];
+
+
     
 }

@@ -9,4 +9,6 @@ class EmpresaController extends ApiBaseController
 
     protected $model = 'Empresa';
 
+    protected $rules = [];
+
 }

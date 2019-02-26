@@ -38,11 +38,11 @@ class ApiBaseController extends Controller
     public function store(Request $request)
     {
         try {
-//          $this->validate($request, $this->rules);
-//            if (empty($errors)) {
-            $this->class::create($request->all());
-            return $this->sendResponse(['created' => true], 'OK');
-//            }
+            //$this->validate($request, $this->rules);
+            //if (empty($errors)) {
+                $this->class::create($request->all());
+                return $this->sendResponse($this->class);
+            //}
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -51,13 +51,13 @@ class ApiBaseController extends Controller
     public function update(Request $request, $id)
     {
         try {
-//            $this->validate($request, $this->rules);
-//            if (empty($errors)){
-            $registro = $this->class::find($id);
-            $registro->update($request->all());
-            $registro->save();
-            return $this->sendResponse(['updated' => true], 'OK');
-//            }
+            $this->validate($request, $this->rules);
+            if (empty($errors)){
+                $registro = $this->class::find($id);
+                $registro->update($request->all());
+                $registro->save();
+                return $this->sendResponse($registro);
+            }
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
@@ -120,7 +120,6 @@ class ApiBaseController extends Controller
     protected function sendResponse($result, $message)
     {
         return response()->json($result);
-        //return Response::json(ResponseUtil::makeResponse($message, $result));
     }
 
     protected function sendError($error, $code = 404)
