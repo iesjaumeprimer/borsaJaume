@@ -254,7 +254,7 @@ export default {
     methods: {
         loadData() {
             API.getItem('users')
-            .then(resp => this.item = resp.data)
+            .then(resp => this.item = resp.data.data)
             .catch(err=>this.errors.push({msg: err.data.message || err.message, type: 'error', show: true}))
         },        
       submit () {

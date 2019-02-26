@@ -202,12 +202,12 @@ export default {
   methods: {
     loadData() {
       API.getTable(this.table)
-        .then(resp => (this.items = resp.data))
+        .then(resp => (this.items = resp.data.data))
         .catch(err => this.msgErr(err));
       API.getTable("responsables")
-        .then(resp2 => {this.profes = resp2.data.map(profe=>{
+        .then(resp2 => {this.profes = resp2.data.data.map(profe=>{
           return {id: profe.id, nombre: profe.apellidos+', '+profe.nombre};
-        }); console.log(resp2.data);})          
+        }); console.log(resp2.data.data);})
         .catch(err => this.msgErr(err));
     },
     nomProfe(id) {

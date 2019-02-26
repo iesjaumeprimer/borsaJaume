@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiBaseController;
 
-class EmpresaController extends ApiBaseController
+class EmpresaController extends ApiBaseResourceController
 {
 
     protected $model = 'Empresa';
 
-    protected $rules = [];
+    protected $rules = ['cif' => 'required'];
+
 
 }

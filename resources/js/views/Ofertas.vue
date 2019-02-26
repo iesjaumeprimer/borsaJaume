@@ -325,7 +325,7 @@ export default {
   methods: {
     loadData() {
       API.getTable(this.table, this.$route.query)
-        .then(resp => this.items = resp.data)
+        .then(resp => this.items = resp.data.data)
 //          let aux = resp.data;
           //   // Completamos la oferta con sus ciclos e idiomas
           //   API.getTable("ofertas_ciclos")
@@ -344,7 +344,7 @@ export default {
       API.getTable("empresas")
         .then(
           resp =>
-            (this.empresas = resp.data.map(empresa => {
+            (this.empresas = resp.data.data.map(empresa => {
               return {
                 id: empresa.id,
                 nombre: empresa.nombre,
@@ -358,7 +358,7 @@ export default {
       API.getTable("ciclos")
         .then(
           resp =>
-            (this.ciclos = resp.data.map(ciclo => {
+            (this.ciclos = resp.data.data.map(ciclo => {
               return {
                 id: ciclo.id,
                 ciclo: ciclo.ciclo,
@@ -370,7 +370,7 @@ export default {
       API.getTable("empresas")
         .then(
           resp =>
-            (this.idiomas = resp.data.map(idioma => {
+            (this.idiomas = resp.data.data.map(idioma => {
               return {
                 id: idioma.id,
                 nombre: idioma.nombre

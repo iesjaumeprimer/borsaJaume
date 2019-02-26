@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiBaseController;
 
-class OfertaController extends ApiBaseController
+class OfertaController extends ApiBaseResourceController
 {
 
     protected $model = 'Oferta';
+    protected $rules = [];
 
 }
 

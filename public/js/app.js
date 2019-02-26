@@ -2242,10 +2242,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
-        _this.items = resp.data;
+        _this.items = resp.data.data;
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("alumnos_ciclos").then(function (resp2) {
           return _this.items.forEach(function (alumno) {
-            alumno.ciclos = resp2.data.filter(function (respData) {
+            alumno.ciclos = resp2.data.data.filter(function (respData) {
               return alumno.id == respData.id_alumno;
             });
           });
@@ -2256,7 +2256,7 @@ __webpack_require__.r(__webpack_exports__);
         return _this.msgErr(err);
       });
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("ciclos").then(function (resp) {
-        return _this.ciclos = resp.data.map(function (ciclo) {
+        return _this.ciclos = resp.data.data.map(function (ciclo) {
           return {
             id: ciclo.id,
             ciclo: ciclo.ciclo,
@@ -2501,7 +2501,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
-        _this.items = resp.data;
+        _this.items = resp.data.data;
       }).catch(function (err) {
         return _this.msgErr(err);
       });
@@ -2937,18 +2937,18 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
-        return _this.items = resp.data;
+        return _this.items = resp.data.data;
       }).catch(function (err) {
         return _this.msgErr(err);
       });
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("responsables").then(function (resp2) {
-        _this.profes = resp2.data.map(function (profe) {
+        _this.profes = resp2.data.data.map(function (profe) {
           return {
             id: profe.id,
             nombre: profe.apellidos + ', ' + profe.nombre
           };
         });
-        console.log(resp2.data);
+        console.log(resp2.data.data);
       }).catch(function (err) {
         return _this.msgErr(err);
       });
@@ -3210,7 +3210,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
-        return _this.items = resp.data;
+        return _this.items = resp.data.data;
       }).catch(function (err) {
         return _this.msgErr(err);
       });
@@ -3976,7 +3976,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table, this.$route.query).then(function (resp) {
-        return _this.items = resp.data;
+        return _this.items = resp.data.data;
       }) //          let aux = resp.data;
       //   // Completamos la oferta con sus ciclos e idiomas
       //   API.getTable("ofertas_ciclos")
@@ -3994,7 +3994,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return _this.msgErr(err);
       });
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("empresas").then(function (resp) {
-        return _this.empresas = resp.data.map(function (empresa) {
+        return _this.empresas = resp.data.data.map(function (empresa) {
           return {
             id: empresa.id,
             nombre: empresa.nombre,
@@ -4007,7 +4007,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return _this.msgErr(err);
       });
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("ciclos").then(function (resp) {
-        return _this.ciclos = resp.data.map(function (ciclo) {
+        return _this.ciclos = resp.data.data.map(function (ciclo) {
           return {
             id: ciclo.id,
             ciclo: ciclo.ciclo,
@@ -4018,7 +4018,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return _this.msgErr(err);
       });
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("empresas").then(function (resp) {
-        return _this.idiomas = resp.data.map(function (idioma) {
+        return _this.idiomas = resp.data.data.map(function (idioma) {
           return {
             id: idioma.id,
             nombre: idioma.nombre
@@ -4378,7 +4378,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getItem('users').then(function (resp) {
-        return _this.item = resp.data;
+        return _this.item = resp.data.data;
       }).catch(function (err) {
         return _this.errors.push({
           msg: err.data.message || err.message,

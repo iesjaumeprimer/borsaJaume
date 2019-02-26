@@ -286,16 +286,16 @@ export default {
     loadData() {
       API.getTable(this.table)
         .then(resp => {
-          this.items = resp.data;
+          this.items = resp.data.data;
           API.getTable("alumnos_ciclos")
             .then(resp2 => this.items.forEach(alumno => {
-              alumno.ciclos = resp2.data.filter(respData=>alumno.id==respData.id_alumno)
+              alumno.ciclos = resp2.data.data.filter(respData=>alumno.id==respData.id_alumno)
             }))
             .catch(err => this.msgErr(err));          
         })
         .catch(err => this.msgErr(err));
       API.getTable("ciclos")
-        .then(resp => this.ciclos = resp.data.map(ciclo=>{
+        .then(resp => this.ciclos = resp.data.data.map(ciclo=>{
           return {
             id: ciclo.id, 
             ciclo: ciclo.ciclo,

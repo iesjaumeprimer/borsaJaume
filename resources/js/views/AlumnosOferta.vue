@@ -168,7 +168,7 @@ export default {
     loadData() {
       API.getTable(this.table)
         .then(resp => {
-          this.items = resp.data;
+          this.items = resp.data.data;
         })
         .catch(err => this.msgErr(err));
     },

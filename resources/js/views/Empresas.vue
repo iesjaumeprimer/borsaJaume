@@ -233,7 +233,7 @@ export default {
     },
     loadData() {
       API.getTable(this.table)
-        .then(resp => this.items = resp.data)
+        .then(resp => this.items = resp.data.data)
         .catch(err => this.msgErr(err));
     },
     showItem(id) {

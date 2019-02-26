@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiBaseController;
 
-class AlumneController extends ApiBaseController
+
+class AlumneController extends ApiBaseResourceController
 {
 
     protected $model = 'Alumne';
+    protected $rules = [];
 
 }

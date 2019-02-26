@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiBaseController;
 
-class CicloController extends ApiBaseController
+class CicloController extends ApiBaseResourceController
 {
 
     protected $model = 'Ciclo';
+    protected $rules = [];
 
 }

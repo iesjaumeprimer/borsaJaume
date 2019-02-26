@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiBaseController;
 
-class ResponsableController extends ApiBaseController
+
+class ResponsableController extends ApiBaseResourceController
 {
 
     protected $model = 'Responsable';
+    protected $rules = [];
     
 
 }
