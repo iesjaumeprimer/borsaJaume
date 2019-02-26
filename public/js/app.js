@@ -3241,6 +3241,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -4412,8 +4441,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_API__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/API */ "./resources/js/lib/API.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
-//
-//
 //
 //
 //
@@ -43903,7 +43930,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Home")])
+  return _c("div", [
+    _c("h1", [_vm._v("Què es la Borsa")]),
+    _vm._v(" "),
+    _c("p", [
+      _vm._v(
+        "Aquesta és la Borsa de Treball del CIP FP Batoi. \n    És un punt de trobada entre els nostres alumnes i ex-alumnes i\n    les empreses que busquen professionals qualificats per a incorporar\n    a les seues plantilles.\n  "
+      )
+    ]),
+    _vm._v(" "),
+    _c("h2", [_vm._v("Sóc una empresa que busca un professional")]),
+    _vm._v(" "),
+    _c("p", [
+      _vm._v(
+        "Per a les empreses oferim una gran bolsa de professionals que han\n    s'han preparat en el nostre Centre y que pensem que s'adaptaran\n    perfectament als seus requeriments.\n  "
+      )
+    ]),
+    _vm._v(" "),
+    _c("p", [
+      _vm._v(
+        "Una vegada publicada una oferta podem veure el curriculum de les\n    persones que cumpleixen els requisits que hem indicat. Els aspirants \n    també ens poden indicar el seu interés per la nostra oferta de manera\n    que siga sencill posar-se en contacte amb els que millor s'adapten a\n    les nostres necessitats.\n  "
+      )
+    ]),
+    _vm._v(" "),
+    _c("h2", [_vm._v("Sóc un ex-alumne que busque treball")]),
+    _vm._v(" "),
+    _c("p", [
+      _vm._v(
+        "Si busques treball l'únic que has de fer és registrar-te en la\n    plataforma, indicant els cicles que has fet. Una vegada que el responsable\n    de cada cicle els valide tindras accés a totes les ofertes que es \n    publiquen demanant persones amb algú dels teus cicles.\n  "
+      )
+    ]),
+    _vm._v(" "),
+    _c("h2", [_vm._v("Com comence?")]),
+    _vm._v(" "),
+    _c("p", [
+      _vm._v(
+        "El primer pas per a participar en la Borsa, tant si eres empresa \n    com alumne, és "
+      ),
+      _c(
+        "a",
+        {
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.$router.push("/register")
+            }
+          }
+        },
+        [_vm._v("registrar-te")]
+      ),
+      _vm._v(" i crear el teu compte. Si ja el tens només \n    t'has de "),
+      _c(
+        "a",
+        {
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.$router.push("/login")
+            }
+          }
+        },
+        [_vm._v("loguejar")]
+      ),
+      _vm._v(".\n  ")
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -46155,7 +46246,7 @@ var render = function() {
                 _vm._v(
                   "\n      " +
                     _vm._s(_vm.isNew ? "Nou" : "Editar") +
-                    " cicle\n    "
+                    " usuari\n    "
                 )
               ]),
               _vm._v(" "),
@@ -87789,10 +87880,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'form-rules',
-  data: function data() {
+  data: function data(val) {
     return {
       requiredRules: [function (v) {
-        return !!v || 'El camp és obligatori';
+        return !!v || 'El camp és obligatori-' + val;
       }],
       requiredCheckRules: [function (v) {
         return !!v || 'Has de marcar la casella';
@@ -87822,7 +87913,7 @@ __webpack_require__.r(__webpack_exports__);
         return v && v.length <= 10 || 'La mida ha de ser menor de 10 caracters';
       }],
       required20Rules: [function (v) {
-        return !!v || 'El camp és obligatori';
+        return !!v || 'El camp és obligatori-' + val;
       }, function (v) {
         return v && v.length <= 20 || 'La mida ha de ser menor de 20 caracters';
       }],

@@ -1,10 +1,10 @@
 export default {
     name: 'form-rules',
 
-    data() {
+    data(val) {
         return {
             requiredRules: [
-                v => !!v || 'El camp és obligatori',
+                v => !!v || 'El camp és obligatori-'+val,
             ],
             requiredCheckRules: [
                 v => !!v || 'Has de marcar la casella',
@@ -28,7 +28,7 @@ export default {
                 v => (v && v.length <= 10) || 'La mida ha de ser menor de 10 caracters'
             ],
             required20Rules: [
-                v => !!v || 'El camp és obligatori',
+                v => !!v || 'El camp és obligatori-'+val,
                 v => (v && v.length <= 20) || 'La mida ha de ser menor de 20 caracters'
             ],
             required50Rules: [
