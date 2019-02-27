@@ -4447,6 +4447,78 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -46126,16 +46198,186 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _vm._l(_vm.errors, function(error, i) {
+        return _c(
+          "div",
+          { key: i },
+          [
+            _c(
+              "v-alert",
+              {
+                attrs: { type: error.type, dismissible: "" },
+                model: {
+                  value: error.show,
+                  callback: function($$v) {
+                    _vm.$set(error, "show", $$v)
+                  },
+                  expression: "error.show"
+                }
+              },
+              [_vm._v("\n            " + _vm._s(error.msg) + "\n        ")]
+            )
+          ],
+          1
+        )
+      }),
+      _vm._v(" "),
+      _c(
+        "v-card",
+        [
+          _c(
+            "v-form",
+            {
+              ref: "form",
+              attrs: { "lazy-validation": "" },
+              model: {
+                value: _vm.valid,
+                callback: function($$v) {
+                  _vm.valid = $$v
+                },
+                expression: "valid"
+              }
+            },
+            [
+              _c("v-card-title", { staticClass: "grey lighten-4 py-4 title" }, [
+                _vm._v(
+                  "\n      " +
+                    _vm._s(_vm.isNew ? "Nou" : "Editar") +
+                    " usuari\n    "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                { staticClass: "pa-4", attrs: { "grid-list-sm": "" } },
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Nom d'usuari",
+                          title: "Nom d'usuari",
+                          required: "",
+                          rules: _vm.usernameRules
+                        },
+                        on: { change: _vm.checkUser },
+                        model: {
+                          value: _vm.item.username,
+                          callback: function($$v) {
+                            _vm.$set(_vm.item, "username", $$v)
+                          },
+                          expression: "item.username"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Contrasenya",
+                          title: "Contrasenya",
+                          required: "",
+                          min: "4",
+                          max: "25",
+                          counter: "25",
+                          rules: _vm.required25Rules
+                        },
+                        model: {
+                          value: _vm.item.password,
+                          callback: function($$v) {
+                            _vm.$set(_vm.item, "password", $$v)
+                          },
+                          expression: "item.password"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Repeteix la contrasenya",
+                          title: "Repeteix la contrasenya",
+                          required: ""
+                        },
+                        on: { change: _vm.checkUser },
+                        model: {
+                          value: _vm.password2,
+                          callback: function($$v) {
+                            _vm.password2 = $$v
+                          },
+                          expression: "password2"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "E-mail",
+                          title: "E-mail",
+                          required: "",
+                          rules: _vm.emailRules
+                        },
+                        model: {
+                          value: _vm.item.email,
+                          callback: function($$v) {
+                            _vm.$set(_vm.item, "email", $$v)
+                          },
+                          expression: "item.email"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.isNew
+                        ? _c(
+                            "v-radio-group",
+                            {
+                              attrs: {
+                                hint: "Indica el teu rol en la Borsa:",
+                                "persistent-hint": true,
+                                required: ""
+                              },
+                              model: {
+                                value: _vm.item.rol,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.item, "rol", $$v)
+                                },
+                                expression: "item.rol"
+                              }
+                            },
+                            [
+                              _c("v-radio", {
+                                attrs: {
+                                  label: "Empresa - Ofereix un treball",
+                                  value: 5
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("v-radio", {
+                                attrs: {
+                                  label: "Alumne - Busque un treball",
+                                  value: 7
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    2
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("resigtro")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -87638,10 +87880,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'form-rules',
-  data: function data() {
+  data: function data(val) {
     return {
       requiredRules: [function (v) {
-        return !!v || 'El camp és obligatori';
+        return !!v || 'El camp és obligatori-' + val;
       }],
       requiredCheckRules: [function (v) {
         return !!v || 'Has de marcar la casella';
@@ -87671,7 +87913,7 @@ __webpack_require__.r(__webpack_exports__);
         return v && v.length <= 10 || 'La mida ha de ser menor de 10 caracters';
       }],
       required20Rules: [function (v) {
-        return !!v || 'El camp és obligatori';
+        return !!v || 'El camp és obligatori-' + val;
       }, function (v) {
         return v && v.length <= 20 || 'La mida ha de ser menor de 20 caracters';
       }],
