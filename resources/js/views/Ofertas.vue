@@ -325,7 +325,10 @@ export default {
   methods: {
     loadData() {
       API.getTable(this.table, this.$route.query)
-        .then(resp => this.items = resp.data.data)
+        .then(resp => {
+            console.log("ofertas");
+            this.items = resp.data.data
+        })
 //          let aux = resp.data;
           //   // Completamos la oferta con sus ciclos e idiomas
           //   API.getTable("ofertas_ciclos")

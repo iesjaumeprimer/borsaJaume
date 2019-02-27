@@ -16,8 +16,8 @@ use App\Http\Controllers\Controller;
 
 class ApiBaseResourceController extends Controller
 {
-    private $resource;
-    private $class;
+    protected $resource;
+    protected $class;
 
     public function __construct(){
        $this->resource = 'App\Http\Resources\\'.$this->model.'Resource';
@@ -43,7 +43,6 @@ class ApiBaseResourceController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $this->validate($request, $this->rules);
         $registro = $this->class::find($id);
         $registro->update($request->all());

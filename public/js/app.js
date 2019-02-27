@@ -3976,7 +3976,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table, this.$route.query).then(function (resp) {
-        return _this.items = resp.data.data;
+        console.log("ofertas");
+        _this.items = resp.data.data;
       }) //          let aux = resp.data;
       //   // Completamos la oferta con sus ciclos e idiomas
       //   API.getTable("ofertas_ciclos")
