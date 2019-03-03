@@ -158,15 +158,6 @@
               required
               ></v-textarea>
             </v-flex>
-            <v-flex xs5>
-              <v-text-field
-              label="E-mail"
-              placeholder="E-mail"
-              v-model="editItem.email"
-              counter="100"
-              :rules="required100Rules"
-              ></v-text-field>
-            </v-flex>
             <v-flex xs3>
               <v-text-field
               label="Telèfon"
@@ -200,25 +191,6 @@
           hint="Els aspirants han de tindre algú d'quests cicles"
           persistent-hint
         >
-          <template slot="append">
-            <span>append</span>
-          </template>
-          <p>sin nada</p>
-          <template slot="append-item">
-            <span>append-item</span>
-          </template>
-          <template slot="append-outer">
-            <span>append-outer</span>
-          </template>
-          <template slot="default">
-            <span>default</span>
-          </template>
-          <template slot="prepend">
-            <span>prepend</span>
-          </template>
-          <template slot="prepend-item">
-            <span>prepend-item</span>
-          </template>
         </v-select>
       </v-flex>
             <v-flex xs2>
@@ -325,6 +297,15 @@ export default {
     } else {
       this.loadData();
     }
+      API.getTable("ciclos")
+        .then(resp => this.ciclos = resp.data.data.map(ciclo=>{
+          return {
+            id: ciclo.id, 
+            ciclo: ciclo.ciclo,
+            descrip: ciclo.vCiclo
+          };
+        }))          
+        .catch(err => this.msgErr('2'+err));
   },
   methods: {
     loadData() {
@@ -343,15 +324,6 @@ export default {
           })
           .catch(err => this.msgErr(err));
       }
-      API.getTable("ciclos")
-        .then(resp => this.ciclos = resp.data.data.map(ciclo=>{
-          return {
-            id: ciclo.id, 
-            ciclo: ciclo.ciclo,
-            descrip: ciclo.vCiclo
-          };
-        }))          
-        .catch(err => this.msgErr('2'+err));
     },
     closeDialogCiclo() {
       this.dialogCiclo = false;

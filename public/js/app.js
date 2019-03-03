@@ -2973,34 +2973,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3048,6 +3020,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     console.log('Alumnos mounted');
     this.$emit('setTitle', 'Manteniment d\'Alumnes');
     this.user_rol = sessionStorage.user_rol;
@@ -3058,39 +3032,39 @@ __webpack_require__.r(__webpack_exports__);
     } else {
       this.loadData();
     }
+
+    _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("ciclos").then(function (resp) {
+      return _this.ciclos = resp.data.data.map(function (ciclo) {
+        return {
+          id: ciclo.id,
+          ciclo: ciclo.ciclo,
+          descrip: ciclo.vCiclo
+        };
+      });
+    }).catch(function (err) {
+      return _this.msgErr('2' + err);
+    });
   },
   methods: {
     loadData: function loadData() {
-      var _this = this;
+      var _this2 = this;
 
       console.log('carga alumnos');
 
       if (this.user_rol == 7) {
         // Es un alumno y sólo puede verse a sí mismo
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getItem(this.table, sessionStorage.user_id).then(function (resp) {
-          _this.items = [resp.data.data];
+          _this2.items = [resp.data.data];
         }).catch(function (err) {
-          return _this.msgErr(err);
+          return _this2.msgErr(err);
         });
       } else {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
-          _this.items = resp.data.data;
+          _this2.items = resp.data.data;
         }).catch(function (err) {
-          return _this.msgErr(err);
+          return _this2.msgErr(err);
         });
       }
-
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("ciclos").then(function (resp) {
-        return _this.ciclos = resp.data.data.map(function (ciclo) {
-          return {
-            id: ciclo.id,
-            ciclo: ciclo.ciclo,
-            descrip: ciclo.vCiclo
-          };
-        });
-      }).catch(function (err) {
-        return _this.msgErr('2' + err);
-      });
     },
     closeDialogCiclo: function closeDialogCiclo() {
       this.dialogCiclo = false;
@@ -3112,17 +3086,17 @@ __webpack_require__.r(__webpack_exports__);
       this.dialogCiclo = true;
     },
     validaCiclo: function validaCiclo() {
-      var _this2 = this;
+      var _this3 = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem('alumnos_ciclos', this.ciclo.id, this.ciclo).then(function (resp) {
-        _this2.ciclos[_this2.ciclos.indexOf(resp.data)] = resp.data;
+        _this3.ciclos[_this3.ciclos.indexOf(resp.data)] = resp.data;
 
-        _this2.closeDialogCiclo(); // No es el diálogo estándar
+        _this3.closeDialogCiclo(); // No es el diálogo estándar
 
 
-        _this2.msgOk('updateCiclo', 'Ciclo ' + (resp.data.validado ? 'validado' : 'desvalidado') + ' correctamente');
+        _this3.msgOk('updateCiclo', 'Ciclo ' + (resp.data.validado ? 'validado' : 'desvalidado') + ' correctamente');
       }).catch(function (err) {
-        return _this2.msgErr('3' + err);
+        return _this3.msgErr('3' + err);
       });
     }
   }
@@ -5079,8 +5053,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 
@@ -5129,31 +5101,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.user_id = sessionStorage.user_id;
     this.user_rol = sessionStorage.user_rol;
     this.$emit("setTitle", "Ofertes actives");
-    this.loadItems();
+    this.loadData();
     this.editItem.ciclos = [];
   },
   methods: {
     loadData: function loadData() {
       var _this = this;
 
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table, this.$route.query).then(function (resp) {
-        return _this.items = resp.data.data;
-      }).catch(function (err) {
-        return _this.msgErr(err);
-      });
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("empresas").then(function (resp) {
-        return _this.empresas = resp.data.data.map(function (empresa) {
-          return {
-            id: empresa.id,
-            nombre: empresa.nombre,
-            contacto: empresa.contacto,
-            telefono: empresa.telefono,
-            email: empresa.email
-          };
-        });
-      }).catch(function (err) {
-        return _this.msgErr(err);
-      });
+      this.loadItems();
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("ciclos").then(function (resp) {
         return _this.ciclos = resp.data.data.map(function (ciclo) {
           return {
@@ -44147,29 +44102,6 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs5: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: "E-mail",
-                                  placeholder: "E-mail",
-                                  counter: "100",
-                                  rules: _vm.required100Rules
-                                },
-                                model: {
-                                  value: _vm.editItem.email,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.editItem, "email", $$v)
-                                  },
-                                  expression: "editItem.email"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
                             { attrs: { xs3: "" } },
                             [
                               _c("v-text-field", {
@@ -44236,57 +44168,26 @@ var render = function() {
                             "v-flex",
                             { attrs: { xs9: "" } },
                             [
-                              _c(
-                                "v-select",
-                                {
-                                  attrs: {
-                                    items: _vm.ciclos,
-                                    "item-text": "ciclo",
-                                    "item-value": "id",
-                                    label: "Cicles demanats",
-                                    multiple: "",
-                                    chips: "",
-                                    hint:
-                                      "Els aspirants han de tindre algú d'quests cicles",
-                                    "persistent-hint": ""
-                                  },
-                                  model: {
-                                    value: _vm.editItem.ciclos,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.editItem, "ciclos", $$v)
-                                    },
-                                    expression: "editItem.ciclos"
-                                  }
+                              _c("v-select", {
+                                attrs: {
+                                  items: _vm.ciclos,
+                                  "item-text": "ciclo",
+                                  "item-value": "id",
+                                  label: "Cicles demanats",
+                                  multiple: "",
+                                  chips: "",
+                                  hint:
+                                    "Els aspirants han de tindre algú d'quests cicles",
+                                  "persistent-hint": ""
                                 },
-                                [
-                                  _c("template", { slot: "append" }, [
-                                    _c("span", [_vm._v("append")])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v("sin nada")]),
-                                  _vm._v(" "),
-                                  _c("template", { slot: "append-item" }, [
-                                    _c("span", [_vm._v("append-item")])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("template", { slot: "append-outer" }, [
-                                    _c("span", [_vm._v("append-outer")])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("template", { slot: "default" }, [
-                                    _c("span", [_vm._v("default")])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("template", { slot: "prepend" }, [
-                                    _c("span", [_vm._v("prepend")])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("template", { slot: "prepend-item" }, [
-                                    _c("span", [_vm._v("prepend-item")])
-                                  ])
-                                ],
-                                2
-                              )
+                                model: {
+                                  value: _vm.editItem.ciclos,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editItem, "ciclos", $$v)
+                                  },
+                                  expression: "editItem.ciclos"
+                                }
+                              })
                             ],
                             1
                           ),
@@ -48029,9 +47930,7 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(_vm.nomEmpresa(props.item.id_empresa)))
-                        ]),
+                        _c("td", [_vm._v(_vm._s(props.item.empresa.nombre))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(props.item.puesto))]),
                         _vm._v(" "),
@@ -48087,47 +47986,7 @@ var render = function() {
                                 ])
                               ],
                               1
-                            ),
-                            _vm._v(" "),
-                            _vm.user_rol == 5
-                              ? _c(
-                                  "div",
-                                  [
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        staticClass: "mx-0",
-                                        attrs: { icon: "" },
-                                        on: {
-                                          click: function($event) {
-                                            $event.stopPropagation()
-                                            return _vm.openDialog(props.item)
-                                          }
-                                        }
-                                      },
-                                      [_c("v-icon", [_vm._v("edit")])],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        staticClass: "mx-0",
-                                        attrs: { icon: "" },
-                                        on: {
-                                          click: function($event) {
-                                            $event.stopPropagation()
-                                            return _vm.deleteItem(props.item)
-                                          }
-                                        }
-                                      },
-                                      [_c("v-icon", [_vm._v("delete")])],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              : _vm._e()
+                            )
                           ],
                           1
                         )
@@ -48198,7 +48057,31 @@ var render = function() {
                                         "\n            "
                                     )
                                   ]
-                                : _vm._e()
+                                : _vm._e(),
+                              _vm._v(" "),
+                              [
+                                _c("br"),
+                                _c("strong", [_vm._v("DADES EMPRESA:")]),
+                                _vm._v(" "),
+                                _c("br"),
+                                _c("strong", [_vm._v("Domicil·li:")]),
+                                _vm._v(
+                                  _vm._s(props.item.empresa.domicilio) +
+                                    "\n              "
+                                ),
+                                _c("br"),
+                                _c("strong", [_vm._v("Localitat:")]),
+                                _vm._v(
+                                  _vm._s(props.item.empresa.localidad) +
+                                    "\n              "
+                                ),
+                                _c("br"),
+                                _c("strong", [_vm._v("Pàgina web:")]),
+                                _vm._v(
+                                  _vm._s(props.item.empresa.web) +
+                                    "\n            "
+                                )
+                              ]
                             ],
                             2
                           )
