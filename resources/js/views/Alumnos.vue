@@ -287,11 +287,6 @@ export default {
       API.getTable(this.table)
         .then(resp => {
           this.items = resp.data.data;
-          API.getTable("alumnos_ciclos")
-            .then(resp2 => this.items.forEach(alumno => {
-              alumno.ciclos = resp2.data.data.filter(respData=>alumno.id==respData.id_alumno)
-            }))
-            .catch(err => this.msgErr(err));          
         })
         .catch(err => this.msgErr(err));
       API.getTable("ciclos")

@@ -367,17 +367,6 @@ export default {
             }))
         )
         .catch(err => this.msgErr(err));
-      API.getTable("empresas")
-        .then(
-          resp =>
-            (this.idiomas = resp.data.data.map(idioma => {
-              return {
-                id: idioma.id,
-                nombre: idioma.nombre
-              };
-            }))
-        )
-        .catch(err => this.msgErr(err));
     },
     nomEmpresa(id) {
       return id && this.empresas.length
@@ -397,10 +386,6 @@ export default {
     canviaAny(ciclo) {
       // dialog con nombre ciclo y cuándo se acaba
       console.log(ciclo);
-    },
-    saveItem() {
-      alert('va')
-      this.addItem();
     },
     rellenaContacto() {
       let newEmpresa = this.empresas.find(

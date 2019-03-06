@@ -199,7 +199,7 @@
         <v-card-actions>
           <v-btn flat color="primary">More</v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="primary" :disabled="!valid" @click="saveItem">Guardar</v-btn>
+          <v-btn flat color="primary" :disabled="!valid" @click="addItem">Guardar</v-btn>
           <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
         </v-card-actions>
                     </v-form>
@@ -227,10 +227,6 @@ export default {
     this.loadData();
   },
   methods: {
-    saveItem() {
-      alert('vaS')
-      this.addItem();
-    },
     loadData() {
       API.getTable(this.table)
         .then(resp => this.items = resp.data.data)
