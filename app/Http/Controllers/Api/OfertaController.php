@@ -18,13 +18,12 @@ class OfertaController extends ApiBaseResourceController
         $this->validate($request, $this->rules);
         $registro->update($request->all());
         $registro->save();
-        if ($request->ciclos){
-            foreach ($request->ciclos as $idCiclo)
-               $registro->Ciclos()->attach($idCiclo);
-        }
+        $registro->ciclos()->sync($request->ciclos);
 
         return response($registro,200);
     }
+
+
     public function index(){
         return OfertaResource::collection(Oferta::all());
     }

@@ -9,7 +9,10 @@ class Oferta extends Model
 {
     public $timestamps = false;
     protected $table = 'ofertes';
-    protected $guarded = [];
+    protected $fillable = [
+            'id', 'id_empresa','descripcion','puesto','tipo_contrato', 'activa','contacto',
+            'telefono','email','validada', 'any','archivada'
+        ];
 
     public function Ciclos()
     {
