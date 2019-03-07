@@ -2243,15 +2243,6 @@ __webpack_require__.r(__webpack_exports__);
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
         _this.items = resp.data.data;
-        _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("alumnos_ciclos").then(function (resp2) {
-          return _this.items.forEach(function (alumno) {
-            alumno.ciclos = resp2.data.data.filter(function (respData) {
-              return alumno.id == respData.id_alumno;
-            });
-          });
-        }).catch(function (err) {
-          return _this.msgErr(err);
-        });
       }).catch(function (err) {
         return _this.msgErr(err);
       });
@@ -3202,10 +3193,6 @@ __webpack_require__.r(__webpack_exports__);
     this.loadData();
   },
   methods: {
-    saveItem: function saveItem() {
-      alert('vaS');
-      this.addItem();
-    },
     loadData: function loadData() {
       var _this = this;
 
@@ -4018,16 +4005,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).catch(function (err) {
         return _this.msgErr(err);
       });
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("empresas").then(function (resp) {
-        return _this.idiomas = resp.data.data.map(function (idioma) {
-          return {
-            id: idioma.id,
-            nombre: idioma.nombre
-          };
-        });
-      }).catch(function (err) {
-        return _this.msgErr(err);
-      });
     },
     nomEmpresa: function nomEmpresa(id) {
       return id && this.empresas.length ? this.empresas.find(function (empresa) {
@@ -4047,10 +4024,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     canviaAny: function canviaAny(ciclo) {
       // dialog con nombre ciclo y cuándo se acaba
       console.log(ciclo);
-    },
-    saveItem: function saveItem() {
-      alert('va');
-      this.addItem();
     },
     rellenaContacto: function rellenaContacto() {
       var _this2 = this;
@@ -43883,7 +43856,7 @@ var render = function() {
                             color: "primary",
                             disabled: !_vm.valid
                           },
-                          on: { click: _vm.saveItem }
+                          on: { click: _vm.addItem }
                         },
                         [_vm._v("Guardar")]
                       ),
