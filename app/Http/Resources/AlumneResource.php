@@ -12,8 +12,27 @@ class AlumneResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+
     public function toArray($request)
     {
-        return parent::toArray($request);
+
+        return [
+            'id'=>$this->id,
+            'nombre' => $this->nombre,
+            'apellidos' => $this->apellidos,
+            'domicilio' => $this->domicilio,
+            'info' => $this->info,
+            'bolsa' => $this->bolsa,
+            'cv_enlace' => $this->cv_enlace,
+            'telefono' => $this->telefono,
+            'email' => $this->email,
+            'ciclos' => $this->ciclosArray($this->ciclos)
+        ];
+    }
+    private function ciclosArray($ciclos){
+        foreach ($ciclos as $ciclo){
+            $array[] = $ciclo->id;
+        }
+        return $array;
     }
 }

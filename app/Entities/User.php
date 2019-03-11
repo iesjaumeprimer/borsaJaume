@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Entities;
 
 
 use Laravel\Passport\HasApiTokens;
@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'name', 'email', 'password','rol'
     ];
 
     /**
