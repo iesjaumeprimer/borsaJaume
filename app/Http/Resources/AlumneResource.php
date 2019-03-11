@@ -26,7 +26,7 @@ class AlumneResource extends JsonResource
             'cv_enlace' => $this->cv_enlace,
             'telefono' => $this->telefono,
             'email' => $this->email,
-            'ciclos' => $this->ciclosArray($this->ciclos)
+            'ciclos' => $this->ciclos
         ];
     }
     private function ciclosArray($ciclos){
