@@ -184,7 +184,7 @@ export default {
       { text: "Cicle", value: "ciclo" },
       { text: "Nom", value: "vCiclo" },
       { text: "Responsable", value: "responsable" },
-      { text: "Cod.", value: "Dept" },
+      { text: "CodDep.", value: "Dept" },
       { text: "Família", value: "vDept" },
     ],
   }),

@@ -2226,6 +2226,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: "Borsa",
         value: "bolsa"
+      }, {
+        text: "Accions",
+        value: ""
       }],
       ciclos: [],
       // Para el dialogo de ciclos
@@ -2241,10 +2244,11 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
+      console.log('carga alumnos');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
         _this.items = resp.data.data;
       }).catch(function (err) {
-        return _this.msgErr(err);
+        return _this.msgErr('1' + err);
       });
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("ciclos").then(function (resp) {
         return _this.ciclos = resp.data.data.map(function (ciclo) {
@@ -2255,7 +2259,7 @@ __webpack_require__.r(__webpack_exports__);
           };
         });
       }).catch(function (err) {
-        return _this.msgErr(err);
+        return _this.msgErr('2' + err);
       });
     },
     closeDialogCiclo: function closeDialogCiclo() {
@@ -2288,7 +2292,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.msgOk('updateCiclo', 'Ciclo ' + (resp.data.validado ? 'validado' : 'desvalidado') + ' correctamente');
       }).catch(function (err) {
-        return _this2.msgErr(err);
+        return _this2.msgErr('3' + err);
       });
     }
   }
@@ -2902,7 +2906,7 @@ __webpack_require__.r(__webpack_exports__);
         text: "Responsable",
         value: "responsable"
       }, {
-        text: "Cod.",
+        text: "CodDep.",
         value: "Dept"
       }, {
         text: "Família",
