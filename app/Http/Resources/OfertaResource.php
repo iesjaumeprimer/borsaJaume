@@ -28,12 +28,12 @@ class OfertaResource extends JsonResource
             'validada' => $this->validada,
             'any' => $this->any,
             'archivada' => $this->archivada,
-            'ciclos' => $this->ciclos
+            'ciclos' => $this->ciclosArray($this->ciclos),
         ];
     }
     private function ciclosArray($ciclos){
         foreach ($ciclos as $ciclo){
-            $array[] = $ciclo->id;
+            $array[$ciclo->id] = $ciclo->pivot;
         }
         return $array;
     }

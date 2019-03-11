@@ -26,12 +26,12 @@ class AlumneResource extends JsonResource
             'cv_enlace' => $this->cv_enlace,
             'telefono' => $this->telefono,
             'email' => $this->email,
-            'ciclos' => $this->ciclos
+            'ciclos' => $this->ciclosArray($this->ciclos)
         ];
     }
     private function ciclosArray($ciclos){
         foreach ($ciclos as $ciclo){
-            $array[] = $ciclo->id;
+            $array[$ciclo->id] = $ciclo->pivot;
         }
         return $array;
     }
