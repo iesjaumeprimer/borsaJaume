@@ -24,8 +24,9 @@ class ApiBaseResourceController extends Controller
        $this->class = 'App\Entities\\'.$this->model;
     }
     public function index(){
-        return new $this->resource($this->class::all());
+        return $this->resource::collection($this->class::all());
     }
+
     public function show($id){
         return new $this->resource($this->class::find($id));
     }
