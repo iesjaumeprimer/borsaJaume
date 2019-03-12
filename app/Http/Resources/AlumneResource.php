@@ -30,6 +30,7 @@ class AlumneResource extends JsonResource
         ];
     }
     private function ciclosArray($ciclos){
+        $array = [];
         foreach ($ciclos as $ciclo){
             $array[$ciclo->id] = $ciclo->pivot;
         }

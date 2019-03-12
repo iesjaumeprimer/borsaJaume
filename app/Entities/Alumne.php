@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Alumne extends Model
 {
     public $timestamps = false;
-    protected $guarded = [];
+    protected $fillable = [
+        'id', 'nombre','apellidos','email','domicilio', 'telefono','info',
+        'bolsa','cv_enlace'
+    ];
 
     public function Ciclos()
     {
