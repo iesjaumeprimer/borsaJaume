@@ -272,6 +272,7 @@ export default {
       { text: "CV", value: "cv_enlace", sortable: false },
       { text: "Info", value: "info"},
       { text: "Borsa", value: "bolsa" },
+      { text: "Accions", value: "" },
     ],
     ciclos: [],
     // Para el dialogo de ciclos
@@ -284,11 +285,12 @@ export default {
   },
   methods: {
     loadData() {
+      console.log('carga alumnos');
       API.getTable(this.table)
         .then(resp => {
           this.items = resp.data.data;
         })
-        .catch(err => this.msgErr(err));
+        .catch(err => this.msgErr('1'+err));
       API.getTable("ciclos")
         .then(resp => this.ciclos = resp.data.data.map(ciclo=>{
           return {
@@ -297,7 +299,7 @@ export default {
             descrip: ciclo.vCiclo
           };
         }))          
-        .catch(err => this.msgErr(err));
+        .catch(err => this.msgErr('2'+err));
     },
     closeDialogCiclo() {
       this.dialogCiclo = false;
@@ -321,7 +323,7 @@ export default {
             this.closeDialogCiclo();  // No es el diálogo estándar
             this.msgOk('updateCiclo', 'Ciclo '+(resp.data.validado?'validado':'desvalidado')+' correctamente');
           })
-          .catch(err => this.msgErr(err));      
+          .catch(err => this.msgErr('3'+err));      
     }
   }
 };

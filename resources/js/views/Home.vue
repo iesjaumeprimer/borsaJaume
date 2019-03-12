@@ -33,5 +33,8 @@
 
 <script>
   export default {
+    mounted() {
+      this.$emit('setTitle', 'Inici');
+    },
   }
 </script>
