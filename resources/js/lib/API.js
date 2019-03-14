@@ -43,7 +43,11 @@ export default {
         return axios.get(API_URL + 'users/', item)
     },
     saveUser(item) {
-        return axios.post(API_URL + 'auth/signup', item);
+        return axios.post(API_URL + 'auth/signup', item, 
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+            }});
         // prova
        return response={
            data: {
