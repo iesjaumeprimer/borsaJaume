@@ -24,12 +24,12 @@ Route::namespace('Api')->group(function () {
 });
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', 'Authcontroller@login');
-    Route::post('signup', 'Authcontroller@signup');
+    Route::post('login', 'AuthController@login');
+    Route::post('signup', 'AuthController@signup');
 
     Route::group(['middleware' => 'auth:api'], function() {
-        Route::get('logout', 'Authcontroller@logout');
-        Route::get('user', 'Authcontroller@user');
+        Route::get('logout', 'AuthController@logout');
+        Route::get('user', 'AuthController@user');
     });
 });
 
