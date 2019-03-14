@@ -27,6 +27,7 @@ i copiem el fitxer **.env** que no es descarrega de git.
 Creem la BBDD `borsatreball` i executem la migración:
 ```bash
 php artisan migrate
+php artisan db:seed
 ```
 
 Instalar [laravel/passport](https://laravel.com/docs/5.8/passport) (Next, you should run the passport:install command. This command will create the encryption keys needed to generate secure access tokens. In addition, the command will create "personal access" and "password grant" clients which will be used to generate access tokens):
