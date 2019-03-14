@@ -63,12 +63,12 @@
         <td>
           <v-chip 
             v-for="ciclo in props.item.ciclos" 
-            :key="'cicl-'+ciclo"
-            :title="descCiclo(ciclo)"
+            :key="'cicl-'+ciclo.id_ciclo"
+            :title="descCiclo(ciclo.id_ciclo)"
           >
-            {{ nomCiclo(ciclo) }}
+            <v-avatar color="grey"><strong>{{ ciclo.any_fin }}</strong></v-avatar>
+            {{ nomCiclo(ciclo.id_ciclo) }}
         </v-chip>
-
         </td>
         <td>{{ props.item.any }}</td>
         <td class="justify-center layout px-0">
@@ -305,9 +305,6 @@ export default {
     ],
     empresas: [],
     ciclos: [],
-    cicloDesc: [],
-    cicloDesc2: [],
-    idiomas: [],
     // Dialog validar
     dialogValidar: false,
     ofertaValidar: {}
@@ -317,32 +314,10 @@ export default {
     this.loadData();
     this.editItem.ciclos = [];
   },
-  computed: {
-    ciclosCod2Desc() {
-      return this.ciclos.map(ciclo => ciclo.ciclo);
-    }
-  },
   methods: {
     loadData() {
       API.getTable(this.table, this.$route.query)
-        .then(resp => {
-            console.log("ofertas");
-            this.items = resp.data.data
-        })
-//          let aux = resp.data;
-          //   // Completamos la oferta con sus ciclos e idiomas
-          //   API.getTable("ofertas_ciclos")
-          //     .then(resp2 => {
-          //       aux.forEach(oferta => {
-          //         oferta.ciclos = resp2.data
-          //           .filter(elem => oferta.id == elem.id_oferta)
-          //           .map(elem => elem.id_ciclo);
-          //       });
-  //          this.items = aux;
-    
-          //     })
-          //     .catch(err => this.msgErr(err));
-//        })
+        .then(resp => this.items = resp.data.data)
         .catch(err => this.msgErr(err));
       API.getTable("empresas")
         .then(

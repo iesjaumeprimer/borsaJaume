@@ -32,7 +32,7 @@
                 min="4"
                 max="25"
                 counter="25"
-                :rules="required25Rules"
+                :rules="required20Rules"
             >
             </v-text-field>
             <v-text-field
@@ -40,7 +40,7 @@
                 label="Repeteix la contrasenya" 
                 title="Repeteix la contrasenya" 
                 required
-                @change="checkUser"
+                @change="checkPassword"
             >
             </v-text-field>
             <v-text-field
@@ -68,6 +68,15 @@
       ></v-radio>
     </v-radio-group>
 
+        <v-btn
+          bottom
+          right
+          color="blue"
+          dark
+          @click.stop="saveUser()"
+          >
+          <v-icon>add</v-icon>Continuar
+        </v-btn>
 
           </v-layout>
         </v-container>
@@ -88,6 +97,9 @@ export default {
         item: {},
         password2: '',
     }),
+    mounted() {
+      this.$emit('setTitle', 'Registre de nou usuari')
+    },
     methods: {
         checkPassword() {
             if (this.password2 !== this.item.password) {
@@ -96,6 +108,8 @@ export default {
             }
         },
         checkUser() {
+          alert('checkeado');
+          return;
               API.ckeckUsername(this.item.username)
                 .then(resp => {
                     if (resp.data!='ok') {
@@ -107,24 +121,31 @@ export default {
 
         },
         saveUser() {
-            API.saveItem('users' ,{
+            API.saveUser('users' ,{
                 username: this.item.username,
                 password: this.item.password,
+                email: this.item.email,
                 rol: this.item.rol
             })
             .then(resp => {
                 let table=(rol==5?'empresas':'alumnos');
                 this.item.id=resp.data.id;
-                API.saveItem(table, this.item)
-                .then(resp=>{
-                    let msg='El teu usuari s\'ha creat correctament. ';
-                    msg+=(rol==5
-                        ?'Ja pots crear ofertes de treball des del menú.'
-                        :'Ara edita el teu perfil per a afegir els cicles que has fet en nosaltres');
-                    alert(msg);
-                    this.$router.push({ path: '/about'})
-                })
-                .catch(err => this.msgErr(err));
+                let msg=`El teu usuari s'ha creat correctament.
+                  Ara has d'omplir les teues dades com `;
+                msg+=(rol==5
+                    ?'empresa':'ex-alumne');
+                alert(msg);
+                this.$router.push({ path: '/about'})
+                // API.saveItem(table, this.item)
+                // .then(resp=>{
+                //     let msg='El teu usuari s\'ha creat correctament. ';
+                //     msg+=(rol==5
+                //         ?'Ja pots crear ofertes de treball des del menú.'
+                //         :'Ara edita el teu perfil per a afegir els cicles que has fet en nosaltres');
+                //     alert(msg);
+                //     this.$router.push({ path: '/about'})
+                // })
+                // .catch(err => this.msgErr(err));
             })
             .catch(err => this.msgErr(err));
         }

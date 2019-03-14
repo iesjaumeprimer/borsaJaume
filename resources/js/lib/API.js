@@ -43,6 +43,7 @@ export default {
         return axios.get(API_URL + 'users/', item)
     },
     saveUser(item) {
+        return axios.post(API_URL + 'auth/signup', item);
         // prova
        return response={
            data: {

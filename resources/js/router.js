@@ -14,6 +14,12 @@ import AlumnosOferta from './views/AlumnosOferta'
 //import OfertasArxiu from './views/OfertasArxiu'
 import AppLogout from './views/AppLogout'
 import AppLogin from './views/AppLogin'
+import PageNotFound from './views/404'
+// Passport ???
+import Pass1 from './components/passport/AuthorizedClients'
+import Pass2 from './components/passport/Clients'
+import Pass3 from './components/passport/PersonalAccessTokens'
+
 
 Vue.use(Router)
 
@@ -105,6 +111,24 @@ export default new Router({
       component: Menu,
       beforeEnter: ifAuthenticated,
     },
+    {
+      path: '/pass1',
+      name: 'pass1',
+      component: Pass1,
+      beforeEnter: ifAuthenticated,
+    },
+    {
+      path: '/pass2',
+      name: 'pass2',
+      component: Pass2,
+      beforeEnter: ifAuthenticated,
+    },
+    {
+      path: '/pass3',
+      name: 'pass3',
+      component: Pass3,
+      beforeEnter: ifAuthenticated,
+    },
     // {
     //   path: '/menu-edit/:id',
     //   name: 'menu-edit',
@@ -116,6 +140,10 @@ export default new Router({
       name: 'logout',
       component: AppLogout,
       beforeEnter: ifAuthenticated,
+    },
+    {
+      path: '*',
+      component: PageNotFound,
     }
   ]
 })
