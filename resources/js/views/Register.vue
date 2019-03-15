@@ -120,26 +120,29 @@ export default {
 
         },
         saveUser() {
+          console.log('registrnado...')
             API.saveUser(this.item)
-            .then(resp => { 
-                let table=(rol==5?'empresas':'alumnos');
-                this.item.id=resp.data.id;
-                let msg=`El teu usuari s'ha creat correctament.
-                  Ara has d'omplir les teues dades com `;
-                msg+=(rol==5
-                    ?'empresa':'ex-alumne');
-                alert(msg);
-                this.$router.push({ path: '/about'})
-                // API.saveItem(table, this.item)
-                // .then(resp=>{
-                //     let msg='El teu usuari s\'ha creat correctament. ';
-                //     msg+=(rol==5
-                //         ?'Ja pots crear ofertes de treball des del menú.'
-                //         :'Ara edita el teu perfil per a afegir els cicles que has fet en nosaltres');
-                //     alert(msg);
-                //     this.$router.push({ path: '/about'})
-                // })
-                // .catch(err => this.msgErr(err));
+            .then(resp => {
+              localStorage.access_token=resp.data.access_token;
+              localStorage.expires_at=resp.data.expires_at;
+              localStorage.user_rol=resp.data.rol;
+              localStorage.token_type=resp.data.token_type;
+               
+              alert(`El teu usuari s'ha creat correctament.
+                  Ara has d'omplir les teues dades`);
+              if (resp.data.rol==5) {
+                // Es una empresa
+                this.$router.push({name: 'empresas', params: {
+                  new: true,
+                  id: resp.data.id
+                }})
+              } else {
+                // Es un alumnos
+                this.$router.push({name: 'alumnos', params: {
+                  new: true,
+                  id: resp.data.id
+                }})
+              }
             })
             .catch(err => this.msgErr(err));
         }

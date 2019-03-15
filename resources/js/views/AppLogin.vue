@@ -8,11 +8,11 @@
         </div>
   <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
-                v-model="item.username" 
-                label="Nom d'usuari" 
-                title="Nom d'usuari" 
+                v-model="item.email" 
+                label="e-Mail" 
+                title="e-Mail" 
                 required
-                :rules="usernameRules"
+                :rules="emailRules"
             >
             </v-text-field>
             <v-text-field

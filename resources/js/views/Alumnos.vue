@@ -282,6 +282,10 @@ export default {
   mounted() {
     this.$emit('setTitle', 'Manteniment d\'Alumnes')
     this.loadData();
+    if (this.$route.params.new) {
+      this.dialog=true;
+      this.editItem.id=this.$route.params.id;
+    }
   },
   methods: {
     loadData() {

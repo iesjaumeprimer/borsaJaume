@@ -3056,6 +3056,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$emit('setTitle', 'Manteniment d\'Alumnes');
     this.loadData();
+
+    if (this.$route.params.new) {
+      this.dialog = true;
+      this.editItem.id = this.$route.params.id;
+    }
   },
   methods: {
     loadData: function loadData() {
@@ -5342,26 +5347,33 @@ __webpack_require__.r(__webpack_exports__);
     saveUser: function saveUser() {
       var _this2 = this;
 
+      console.log('registrnado...');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.item).then(function (resp) {
-        var table = rol == 5 ? 'empresas' : 'alumnos';
-        _this2.item.id = resp.data.id;
-        var msg = "El teu usuari s'ha creat correctament.\n                  Ara has d'omplir les teues dades com ";
-        msg += rol == 5 ? 'empresa' : 'ex-alumne';
-        alert(msg);
+        localStorage.access_token = resp.data.access_token;
+        localStorage.expires_at = resp.data.expires_at;
+        localStorage.user_rol = resp.data.rol;
+        localStorage.token_type = resp.data.token_type;
+        alert("El teu usuari s'ha creat correctament.\n                  Ara has d'omplir les teues dades");
 
-        _this2.$router.push({
-          path: '/about'
-        }); // API.saveItem(table, this.item)
-        // .then(resp=>{
-        //     let msg='El teu usuari s\'ha creat correctament. ';
-        //     msg+=(rol==5
-        //         ?'Ja pots crear ofertes de treball des del menú.'
-        //         :'Ara edita el teu perfil per a afegir els cicles que has fet en nosaltres');
-        //     alert(msg);
-        //     this.$router.push({ path: '/about'})
-        // })
-        // .catch(err => this.msgErr(err));
-
+        if (resp.data.rol == 5) {
+          // Es una empresa
+          _this2.$router.push({
+            name: 'empresas',
+            params: {
+              new: true,
+              id: resp.data.id
+            }
+          });
+        } else {
+          // Es un alumnos
+          _this2.$router.push({
+            name: 'alumnos',
+            params: {
+              new: true,
+              id: resp.data.id
+            }
+          });
+        }
       }).catch(function (err) {
         return _this2.msgErr(err);
       });
@@ -44569,17 +44581,17 @@ var render = function() {
         [
           _c("v-text-field", {
             attrs: {
-              label: "Nom d'usuari",
-              title: "Nom d'usuari",
+              label: "e-Mail",
+              title: "e-Mail",
               required: "",
-              rules: _vm.usernameRules
+              rules: _vm.emailRules
             },
             model: {
-              value: _vm.item.username,
+              value: _vm.item.email,
               callback: function($$v) {
-                _vm.$set(_vm.item, "username", $$v)
+                _vm.$set(_vm.item, "email", $$v)
               },
-              expression: "item.username"
+              expression: "item.email"
             }
           }),
           _vm._v(" "),
@@ -89792,93 +89804,9 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./resources/js/lib/API.js ***!
   \*********************************/
 /*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-var API_URL = 'http://borsaTreball.my/api/'; //const API_URL = 'http://localhost:3000/';
-
-var myId = 1;
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  getTable: function getTable(table, query) {
-    if (query) {
-      var queryString = '';
-
-      for (var i in query) {
-        queryString += i + '=' + query[i] + '&';
-      }
-
-      queryString = queryString.substr(0, queryString.length - 1);
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '?' + queryString);
-    } else {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table);
-    }
-  },
-  getItem: function getItem(table) {
-    var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : myId;
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '/' + id);
-  },
-  delItem: function delItem(table, id) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(API_URL + table + '/' + id);
-  },
-  saveItem: function saveItem(table, item) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + table, item);
-  },
-  updateItem: function updateItem(table, id, item) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + table + '/' + id, item);
-  },
-  getUser: function getUser(item) {
-    // prova
-    return new Promise(function (resolve) {
-      resolve({
-        data: {
-          id: 5,
-          user: item.user,
-          rol: 2,
-          token: 'asdad6acguas6utash768a'
-        }
-      });
-    });
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'users/', item);
-  },
-  saveUser: function saveUser(item) {
-    // Convertimos el objeto a urlencoded
-    var pairs = [];
-
-    for (var prop in item) {
-      if (item.hasOwnProperty(prop)) {
-        var k = encodeURIComponent(prop),
-            v = encodeURIComponent(item[prop]);
-        pairs.push(k + "=" + v);
-      }
-    }
-
-    var str = pairs.join("&");
-    var config = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    };
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', str, config); // prova
-
-    return response = {
-      data: {
-        id: 5,
-        user: item.user,
-        rol: 2,
-        token: 'asdad6acguas6utash768a'
-      } // No se usa saveItem porque hay que guardarlo en Users y en Alumnos/Empresas
-
-    };
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'users/', item);
-  },
-  sendMail: function sendMail(mail) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + '/mail', mail);
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /home/vagrant/code/borsaTreball/resources/js/lib/API.js: Unexpected token, expected \",\" (6:76)\n\n\u001b[0m \u001b[90m 4 | \u001b[39mlet config \u001b[33m=\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 5 | \u001b[39m    headers\u001b[33m:\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 | \u001b[39m      \u001b[32m'Authorization'\u001b[39m\u001b[33m:\u001b[39m localStorage\u001b[33m.\u001b[39mtoken_type\u001b[33m+\u001b[39m\u001b[32m' '\u001b[39m\u001b[33m+\u001b[39mlocalStorage\u001b[33m.\u001b[39maccess_token\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   | \u001b[39m                                                                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 | \u001b[39m      \u001b[32m'Content-Type'\u001b[39m\u001b[33m:\u001b[39m \u001b[32m'json'\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 8 | \u001b[39m    }\u001b[0m\n\u001b[0m \u001b[90m 9 | \u001b[39m}\u001b[0m\n    at Parser.raise (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:3831:17)\n    at Parser.unexpected (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5143:16)\n    at Parser.expect (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5135:28)\n    at Parser.parseObj (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:6600:14)\n    at Parser.parseExprAtom (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:6229:21)\n    at Parser.parseExprSubscripts (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5862:23)\n    at Parser.parseMaybeUnary (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5842:21)\n    at Parser.parseExprOps (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5729:23)\n    at Parser.parseMaybeConditional (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5702:23)\n    at Parser.parseMaybeAssign (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5647:21)\n    at Parser.parseObjectProperty (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:6730:101)\n    at Parser.parseObjPropValue (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:6755:101)\n    at Parser.parseObj (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:6670:12)\n    at Parser.parseExprAtom (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:6229:21)\n    at Parser.parseExprSubscripts (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5862:23)\n    at Parser.parseMaybeUnary (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5842:21)\n    at Parser.parseExprOps (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5729:23)\n    at Parser.parseMaybeConditional (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5702:23)\n    at Parser.parseMaybeAssign (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:5647:21)\n    at Parser.parseVar (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:7880:26)\n    at Parser.parseVarStatement (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:7714:10)\n    at Parser.parseStatementContent (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:7310:21)\n    at Parser.parseStatement (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:7243:17)\n    at Parser.parseBlockOrModuleBlockBody (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:7810:25)\n    at Parser.parseBlockBody (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:7797:10)\n    at Parser.parseTopLevel (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:7181:10)\n    at Parser.parse (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:8660:17)\n    at parse (/home/vagrant/code/borsaTreball/node_modules/@babel/parser/lib/index.js:10660:38)\n    at parser (/home/vagrant/code/borsaTreball/node_modules/@babel/core/lib/transformation/normalize-file.js:170:34)\n    at normalizeFile (/home/vagrant/code/borsaTreball/node_modules/@babel/core/lib/transformation/normalize-file.js:138:11)\n    at runSync (/home/vagrant/code/borsaTreball/node_modules/@babel/core/lib/transformation/index.js:44:43)\n    at runAsync (/home/vagrant/code/borsaTreball/node_modules/@babel/core/lib/transformation/index.js:35:14)\n    at process.nextTick (/home/vagrant/code/borsaTreball/node_modules/@babel/core/lib/transform.js:34:34)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
 
 /***/ }),
 
