@@ -1,6 +1,14 @@
 const API_URL = 'http://borsaTreball.my/api/';
 //const API_URL = 'http://localhost:3000/';
 const myId=1;
+let config = {
+    headers: {
+      'Authorization': localStorage.token_type+' '+localStorage.access_token;
+      'Content-Type': 'json'
+    }
+}
+
+
 import axios from 'axios'
 
 export default {
@@ -11,22 +19,22 @@ export default {
                 queryString += i + '=' + query[i] + '&';
             }
             queryString = queryString.substr(0, queryString.length - 1);
-            return axios.get(API_URL + table + '?' + queryString);
+            return axios.get(API_URL + table + '?' + queryString, config);
         } else {
-            return axios.get(API_URL + table);
+            return axios.get(API_URL + table, config);
         }
     },
     getItem(table, id = myId) {
-        return axios.get(API_URL + table + '/' + id);
+        return axios.get(API_URL + table + '/' + id, config);
     },
     delItem(table, id) {
-        return axios.delete(API_URL + table + '/' + id);
+        return axios.delete(API_URL + table + '/' + id, config);
     },
     saveItem(table, item) {
-        return axios.post(API_URL + table, item);
+        return axios.post(API_URL + table, item, config);
     },
     updateItem(table, id, item) {
-        return axios.put(API_URL + table + '/' + id, item);
+        return axios.put(API_URL + table + '/' + id, item, config);
     },
     getUser(item) {
         // prova
@@ -40,7 +48,7 @@ export default {
                 }    
             })
         });
-        return axios.get(API_URL + 'users/', item)
+        return axios.get(API_URL + 'users/', item, config)
     },
     saveUser(item) {
         // Convertimos el objeto a urlencoded
@@ -54,11 +62,7 @@ export default {
         }
         const str = pairs.join("&");
 
-        const config = {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }
+        config.headers['Content-Type']='application/x-www-form-urlencoded';
         return axios.post(API_URL + 'auth/signup', str, config);
         // prova
        return response={
@@ -70,9 +74,9 @@ export default {
            }
        }
         // No se usa saveItem porque hay que guardarlo en Users y en Alumnos/Empresas
-        return axios.post(API_URL + 'users/', item);
+        return axios.post(API_URL + 'users/', item, config);
     },
     sendMail(mail) {
-        return axios.post(API_URL + '/mail', mail);
+        return axios.post(API_URL + '/mail', mail, config);
     }
 }
