@@ -22,7 +22,6 @@ class CreateEmpresesTable extends Migration {
 			$table->string('contacto', 50)->nullable();
 			$table->string('telefono', 25)->nullable();
 			$table->string('web', 50)->nullable();
-			$table->string('email', 50)->nullable();
 			$table->string('descripcion', 200)->nullable();
 		});
 	}
