@@ -8,16 +8,6 @@
 
   <v-card>
     <v-card-title>
-    <v-btn
-      top
-      right
-      color="blue"
-      dark
-      @click.stop="openDialog(false)"
-    >
-      <v-icon>add</v-icon>
-    </v-btn>
-
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -225,6 +215,10 @@ export default {
   mounted() {
     this.$emit('setTitle', 'Manteniment d\'Empreses');
     this.loadData();
+    if (this.$route.params.new) {
+      this.dialog=true;
+      this.editItem.id=this.$route.params.id;
+    }
   },
   methods: {
     loadData() {

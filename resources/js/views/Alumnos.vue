@@ -8,16 +8,6 @@
 
     <v-card>
       <v-card-title>
-        <v-btn
-          top
-          right
-          color="blue"
-          dark
-          @click.stop="openDialog(false)"
-          >
-          <v-icon>add</v-icon>
-        </v-btn>
-
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"

@@ -2998,16 +2998,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3990,16 +3980,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -4017,6 +3997,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$emit('setTitle', 'Manteniment d\'Empreses');
     this.loadData();
+
+    if (this.$route.params.new) {
+      this.dialog = true;
+      this.editItem.id = this.$route.params.id;
+    }
   },
   methods: {
     loadData: function loadData() {
@@ -43359,21 +43344,6 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _c(
-                "v-btn",
-                {
-                  attrs: { top: "", right: "", color: "blue", dark: "" },
-                  on: {
-                    click: function($event) {
-                      $event.stopPropagation()
-                      return _vm.openDialog(false)
-                    }
-                  }
-                },
-                [_c("v-icon", [_vm._v("add")])],
-                1
-              ),
-              _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
@@ -45432,21 +45402,6 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _c(
-                "v-btn",
-                {
-                  attrs: { top: "", right: "", color: "blue", dark: "" },
-                  on: {
-                    click: function($event) {
-                      $event.stopPropagation()
-                      return _vm.openDialog(false)
-                    }
-                  }
-                },
-                [_c("v-icon", [_vm._v("add")])],
-                1
-              ),
-              _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
@@ -89816,7 +89771,7 @@ var myId = 1;
 var config = {
   headers: {
     'Authorization': localStorage.token_type + ' ' + localStorage.access_token,
-    'Content-Type': 'json'
+    'Content-Type': 'application/json'
   }
 };
 

@@ -4,7 +4,7 @@ const myId=1;
 let config = {
     headers: {
       'Authorization': localStorage.token_type+' '+localStorage.access_token,
-      'Content-Type': 'json'
+      'Content-Type': 'application/json'
     }
 }
 
