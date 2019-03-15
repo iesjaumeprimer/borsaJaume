@@ -33,12 +33,14 @@ Route::group(['prefix' => 'auth'], function () {
     });
 });
 
-Route::apiResources(
-    [
-        'users' => 'Api\UserController',
-        'ciclos' => 'Api\CicloController',
-        'alumnos' => 'Api\AlumneController',
-        'empresas' => 'Api\EmpresaController',
-        'ofertas' => 'Api\OfertaController',
-        'responsables' => 'Api\ResponsableController'
-    ]);
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::apiResources(
+        [
+            'users' => 'Api\UserController',
+            'ciclos' => 'Api\CicloController',
+            'alumnos' => 'Api\AlumneController',
+            'empresas' => 'Api\EmpresaController',
+            'ofertas' => 'Api\OfertaController',
+            'responsables' => 'Api\ResponsableController'
+        ]);
+});
