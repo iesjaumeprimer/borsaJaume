@@ -27,8 +27,21 @@ class AuthController extends Controller
             'rol'      => $request->rol
          ]);
         $user->save();
-        return response()->json([
-            'message' => 'Successfully created user!'], 201);
+        return response()->json($this->getToken($user), 201);
+    }
+
+    private function getToken($user){
+        $tokenResult = $user->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+        $token->save();
+        return[
+            'access_token' => $tokenResult->accessToken,
+            'rol'          => $user->rol,
+            'token_type'   => 'Bearer',
+            'id'           => $user->id,
+            'expires_at'   => Carbon::parse(
+                $tokenResult->token->expires_at)
+                ->toDateTimeString()];
     }
 
     public function login(Request $request)
@@ -36,27 +49,13 @@ class AuthController extends Controller
         $request->validate([
             'email'       => 'required|string|email',
             'password'    => 'required|string',
-            'remember_me' => 'boolean',
         ]);
         $credentials = request(['email', 'password']);
         if (!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Unauthorized'], 401);
         }
-        $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-        if ($request->remember_me) {
-            $token->expires_at = Carbon::now()->addWeeks(1);
-        }
-        $token->save();
-        return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type'   => 'Bearer',
-            'expires_at'   => Carbon::parse(
-                $tokenResult->token->expires_at)
-                ->toDateTimeString(),
-        ]);
+        return response()->json($this->getToken($request->user), 201);
     }
 
     public function logout(Request $request)

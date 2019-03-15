@@ -29,4 +29,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    protected $rules = [
+        'name'     => 'required|string',
+        'email'    => 'required|string|email|unique:users',
+        'password' => 'required|string|confirmed',
+        'rol'      => 'required'
+    ];
 }
