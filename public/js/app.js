@@ -5312,8 +5312,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['username', 'password', 'rol'],
   data: function data() {
     return {
-      item: {},
-      password2: ''
+      item: {}
     };
   },
   mounted: function mounted() {
@@ -5321,9 +5320,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     checkPassword: function checkPassword() {
-      if (this.password2 !== this.item.password) {
+      if (this.item.password_confirmation !== this.item.password) {
         alert('Les contrasenyes no coincideixen');
-        this.password2 = '';
+        this.item.password_confirmation = '';
       }
     },
     checkUser: function checkUser() {
@@ -5343,12 +5342,7 @@ __webpack_require__.r(__webpack_exports__);
     saveUser: function saveUser() {
       var _this2 = this;
 
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser('users', {
-        username: this.item.username,
-        password: this.item.password,
-        email: this.item.email,
-        rol: this.item.rol
-      }).then(function (resp) {
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.item).then(function (resp) {
         var table = rol == 5 ? 'empresas' : 'alumnos';
         _this2.item.id = resp.data.id;
         var msg = "El teu usuari s'ha creat correctament.\n                  Ara has d'omplir les teues dades com ";
@@ -48380,11 +48374,11 @@ var render = function() {
                         },
                         on: { change: _vm.checkUser },
                         model: {
-                          value: _vm.item.username,
+                          value: _vm.item.name,
                           callback: function($$v) {
-                            _vm.$set(_vm.item, "username", $$v)
+                            _vm.$set(_vm.item, "name", $$v)
                           },
-                          expression: "item.username"
+                          expression: "item.name"
                         }
                       }),
                       _vm._v(" "),
@@ -48415,11 +48409,11 @@ var render = function() {
                         },
                         on: { change: _vm.checkPassword },
                         model: {
-                          value: _vm.password2,
+                          value: _vm.item.password_confirmation,
                           callback: function($$v) {
-                            _vm.password2 = $$v
+                            _vm.$set(_vm.item, "password_confirmation", $$v)
                           },
-                          expression: "password2"
+                          expression: "item.password_confirmation"
                         }
                       }),
                       _vm._v(" "),
@@ -89851,11 +89845,24 @@ var myId = 1;
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'users/', item);
   },
   saveUser: function saveUser(item) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', item, {
+    // Convertimos el objeto a urlencoded
+    var pairs = [];
+
+    for (var prop in item) {
+      if (item.hasOwnProperty(prop)) {
+        var k = encodeURIComponent(prop),
+            v = encodeURIComponent(item[prop]);
+        pairs.push(k + "=" + v);
+      }
+    }
+
+    var str = pairs.join("&");
+    var config = {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
-    }); // prova
+    };
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', str, config); // prova
 
     return response = {
       data: {
@@ -90571,14 +90578,14 @@ var ifAuthenticated = function ifAuthenticated(to, from, next) {
   mode: 'history',
   base: Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).BASE_URL,
   routes: [{
+    path: '/',
+    name: 'home',
+    component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }, {
     path: '/login',
     name: 'login',
     component: _views_AppLogin__WEBPACK_IMPORTED_MODULE_13__["default"],
     beforeEnter: ifNotAuthenticated
-  }, {
-    path: '/home',
-    name: 'home',
-    component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: '/about',
     name: 'about',

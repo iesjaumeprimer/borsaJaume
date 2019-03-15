@@ -43,11 +43,23 @@ export default {
         return axios.get(API_URL + 'users/', item)
     },
     saveUser(item) {
-        return axios.post(API_URL + 'auth/signup', item, 
-            {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-            }});
+        // Convertimos el objeto a urlencoded
+        let pairs = [];
+        for (var prop in item) {
+            if (item.hasOwnProperty(prop)) {
+                var k = encodeURIComponent(prop),
+                    v = encodeURIComponent(item[prop]);
+                pairs.push( k + "=" + v);
+            }
+        }
+        const str = pairs.join("&");
+
+        const config = {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }
+        return axios.post(API_URL + 'auth/signup', str, config);
         // prova
        return response={
            data: {

@@ -16,7 +16,7 @@
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
             <v-text-field
-                v-model="item.username" 
+                v-model="item.name" 
                 label="Nom d'usuari" 
                 title="Nom d'usuari" 
                 required
@@ -36,7 +36,7 @@
             >
             </v-text-field>
             <v-text-field
-                v-model="password2" 
+                v-model="item.password_confirmation" 
                 label="Repeteix la contrasenya" 
                 title="Repeteix la contrasenya" 
                 required
@@ -95,16 +95,15 @@ export default {
   props: ['username', 'password', 'rol'],
       data: () => ({
         item: {},
-        password2: '',
     }),
     mounted() {
       this.$emit('setTitle', 'Registre de nou usuari')
     },
     methods: {
         checkPassword() {
-            if (this.password2 !== this.item.password) {
+            if (this.item.password_confirmation !== this.item.password) {
                 alert('Les contrasenyes no coincideixen');
-                this.password2='';
+                this.item.password_confirmation='';
             }
         },
         checkUser() {
@@ -121,13 +120,8 @@ export default {
 
         },
         saveUser() {
-            API.saveUser('users' ,{
-                username: this.item.username,
-                password: this.item.password,
-                email: this.item.email,
-                rol: this.item.rol
-            })
-            .then(resp => {
+            API.saveUser(this.item)
+            .then(resp => { 
                 let table=(rol==5?'empresas':'alumnos');
                 this.item.id=resp.data.id;
                 let msg=`El teu usuari s'ha creat correctament.

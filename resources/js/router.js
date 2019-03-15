@@ -44,15 +44,15 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
+    {
       path: '/login',
       name: 'login',
       component: AppLogin,
       beforeEnter: ifNotAuthenticated,
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: Home
     },
     {
       path: '/about',
