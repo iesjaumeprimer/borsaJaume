@@ -17,7 +17,6 @@ class CreateAlumnesTable extends Migration {
 			$table->increments('id');
 			$table->string('nombre', 25);
 			$table->string('apellidos', 50);
-			$table->string('email', 50);
 			$table->string('domicilio', 80);
 			$table->string('telefono', 25)->nullable();
 			$table->boolean('info');
