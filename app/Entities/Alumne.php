@@ -18,4 +18,17 @@ class Alumne extends Model
         return $this->belongsToMany(Ciclo::class,'alumnos_ciclos', 'id_alumno',
             'id_ciclo', 'id', 'id')->withPivot(['any','validado']);
     }
+
+    public function User()
+    {
+        return $this->hasOne(User::class,'id');
+    }
+
+    public function getMyCiclosAttribute(){
+        $array = [];
+        foreach ($this->ciclos as $ciclo){
+            $array[$ciclo->id] = $ciclo->pivot;
+        }
+        return $array;
+    }
 }

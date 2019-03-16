@@ -18,4 +18,12 @@ class Oferta extends Model
     {
         return $this->belongsToMany(Ciclo::class,'ofertas_ciclos', 'id_oferta', 'id_ciclo', 'id', 'id')->withPivot('any_fin');
     }
+
+    public function getMyCiclosAttribute(){
+        $array = [];
+        foreach ($this->ciclos as $ciclo){
+            $array[$ciclo->id] = $ciclo->pivot;
+        }
+        return $array;
+    }
 }
