@@ -17,7 +17,7 @@ class AlumneResource extends JsonResource
     {
 
         return [
-            'id'=>$this->id,
+            'id' => $this->id,
             'nombre' => $this->nombre,
             'apellidos' => $this->apellidos,
             'domicilio' => $this->domicilio,
@@ -29,6 +29,7 @@ class AlumneResource extends JsonResource
             'ciclos' => $this->ciclosArray($this->ciclos)
         ];
     }
+
     private function ciclosArray($ciclos){
         $array = [];
         foreach ($ciclos as $ciclo){

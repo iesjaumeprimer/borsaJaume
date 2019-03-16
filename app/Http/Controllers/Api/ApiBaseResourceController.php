@@ -18,6 +18,8 @@ class ApiBaseResourceController extends Controller
 {
     protected $resource;
     protected $class;
+    protected $relationShip;
+
 
     public function __construct(){
        $this->resource = 'App\Http\Resources\\'.$this->model.'Resource';
@@ -39,7 +41,10 @@ class ApiBaseResourceController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->rules);
-        return response($this->class::create($request->all()),200);
+        $registro = $this->class::create($request->all());
+        if ($this->relationShip) $this->manageRelation($registro,$request);
+
+        return response($this->show($registro->id),200);
     }
 
     public function update(Request $request, $id)
@@ -47,8 +52,14 @@ class ApiBaseResourceController extends Controller
         $this->validate($request, $this->rules);
         $registro = $this->class::find($id);
         $registro->update($request->all());
-        $registro->save();
-        return response($registro,200);
+        if ($this->relationShip) $this->manageRelation($registro,$request);
+        return response($this->show($registro->id),200);
+    }
+
+    protected function manageRelation($registro,Request $request)
+    {
+        $relation = $this->relationShip;
+        $registro->$relation()->sync($request->$relation);
     }
 
 
