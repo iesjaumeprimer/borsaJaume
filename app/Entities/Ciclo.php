@@ -9,5 +9,6 @@ class Ciclo extends Model
 {
     public $timestamps = false;
     protected $guarded = [];
-    
+
+
 }

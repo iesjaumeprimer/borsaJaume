@@ -12,6 +12,9 @@ class Empresa extends Model
     
     protected $guarded = [];
 
-
+    public function User()
+    {
+        return $this->hasOne(User::class,'id');
+    }
     
 }

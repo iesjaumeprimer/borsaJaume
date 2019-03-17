@@ -35,12 +35,11 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::apiResources(
-        [
-            'users' => 'Api\UserController',
-            'ciclos' => 'Api\CicloController',
+        [   'users' => 'Api\UserController',
             'alumnos' => 'Api\AlumneController',
             'empresas' => 'Api\EmpresaController',
             'ofertas' => 'Api\OfertaController',
+            'ciclos' => 'Api\CicloController',
             'responsables' => 'Api\ResponsableController'
         ]);
 });
