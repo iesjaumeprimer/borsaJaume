@@ -123,10 +123,10 @@ export default {
           console.log('registrnado...')
             API.saveUser(this.item)
             .then(resp => {
-              localStorage.access_token=resp.data.access_token;
-              localStorage.expires_at=resp.data.expires_at;
-              localStorage.user_rol=resp.data.rol;
-              localStorage.token_type=resp.data.token_type;
+              sessionStorage.user_data.access_token=resp.data.access_token;
+              sessionStorage.user_data.expires_at=resp.data.expires_at;
+              sessionStorage.user_data.user_rol=resp.data.rol;
+              sessionStorage.user_data.token_type=resp.data.token_type;
                
               alert(`El teu usuari s'ha creat correctament.
                   Ara has d'omplir les teues dades`);
@@ -144,7 +144,10 @@ export default {
                 }})
               }
             })
-            .catch(err => this.msgErr(err));
+            .catch(err => {
+              sessionStorage.removeItem('user_data');
+              this.msgErr(err);
+            }); // if the request fails, remove any possible user token if possible
         }
     },
 }

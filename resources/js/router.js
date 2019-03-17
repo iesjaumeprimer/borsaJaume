@@ -23,13 +23,13 @@ import Pass3 from './components/passport/PersonalAccessTokens'
 
 Vue.use(Router)
 
-const USERAUTH = true // sessionStorage.getItem('user-data');
+const USERAUTH = sessionStorage.getItem('user_data');
 const ifNotAuthenticated = (to, from, next) => {
   if (!USERAUTH) {
     next()
     return
   }
-  next('/home')
+  next('/')
 }
 const ifAuthenticated = (to, from, next) => {
   if (USERAUTH) {
@@ -74,7 +74,8 @@ export default new Router({
     {
       path: '/register',
       name: 'register',
-      component: Register
+      component: Register,
+      beforeEnter: ifNotAuthenticated,
     },
     {
       path: '/ciclos',

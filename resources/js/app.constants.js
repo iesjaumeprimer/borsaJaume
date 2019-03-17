@@ -4,7 +4,7 @@ export const ROLES=[
         rol: 'Administrador'
     }, {
         id: 3,
-        rol: 'Professor'
+        rol: 'Responsable'
     }, {
         id: 5,
         rol: 'Empleador'

@@ -138,7 +138,10 @@ export default {
           registerUser() {
             API.saveUser(this.editUser)
             .then(resp => {
-              sessionStorage.setItem('user-data', JSON.stringify(resp.data));
+              sessionStorage.user_data.access_token=resp.data.access_token;
+              sessionStorage.user_data.expires_at=resp.data.expires_at;
+              sessionStorage.user_data.user_rol=resp.data.rol;
+              sessionStorage.user_data.token_type=resp.data.token_type;
               this.$router.push('/home');
             }) // store the token in localstorage
             .catch(err => {

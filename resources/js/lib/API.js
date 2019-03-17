@@ -1,18 +1,39 @@
 const API_URL = 'http://borsaTreball.my/api/';
 //const API_URL = 'http://localhost:3000/';
 const myId=1;
-let config = {
-    headers: {
-      'Authorization': localStorage.token_type+' '+localStorage.access_token,
-      'Content-Type': 'application/json'
+// const config = {
+//     headers: {
+//       'Authorization': sessionStorage.user_data.token_type+' '
+//         +sessionStorage.user_data.user_data.access_token,
+//       'Content-Type': 'application/json'
+//     }
+// }
+
+function checkAuth() {
+    if (!sessionStorage.user_data ||
+        new Date(sessionStorage.user_data.expires_at)<new Date()) {
+            return false;
+    }
+    return {
+        headers: {
+          'Authorization': sessionStorage.user_data.token_type+' '
+            +sessionStorage.user_data.user_data.access_token,
+          'Content-Type': 'application/json'
+        }
     }
 }
 
-
 import axios from 'axios'
+
 
 export default {
     getTable(table, query) {
+        const config=checkAuth();
+        if (!config && table!='menu') {
+            console.log('pido datos');
+//            this.$router.push('/login');
+            return false;
+        }
         if (query) {
             let queryString = '';
             for (let i in query) {
@@ -62,8 +83,13 @@ export default {
         }
         const str = pairs.join("&");
 
-        config.headers['Content-Type']='application/x-www-form-urlencoded';
-        return axios.post(API_URL + 'auth/signup', str, config);
+        const configRegister = {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }
+
+        return axios.post(API_URL + 'auth/signup', str, configRegister);
         // prova
        return response={
            data: {

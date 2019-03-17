@@ -230,7 +230,7 @@
           chips
           hint="Els aspirants han de tindre algú d'quests cicles"
           persistent-hint
-        ></v-select>
+        ><optgroup label="US">asdas</optgroup></v-select>
       </v-flex>
             <v-flex xs3>
               <v-text-field
@@ -340,7 +340,9 @@ export default {
               return {
                 id: ciclo.id,
                 ciclo: ciclo.ciclo,
-                descrip: ciclo.vCiclo
+                descrip: ciclo.vCiclo,
+                dept: Dept,
+                familia: ciclo.vDept
               };
             }))
         )

@@ -100,7 +100,7 @@
       </v-data-table>
     </v-card>
 
-    <v-dialog v-model="dialog" width="800px">
+    <v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog">
       <v-form ref="form" v-model="valid" lazy-validation>
 
         <v-card>
@@ -162,7 +162,7 @@
               v-model="editItem.telefono"
               ></v-text-field>
             </v-flex>
-            <v-flex xs5>
+            <v-flex xs6>
               <v-text-field
               label="C.V."
               placeholder="Enllaç al CV en Linkedin, ..."
@@ -176,6 +176,39 @@
               placeholder="Si vols rebre informació del Centre"
               ></v-checkbox>
             </v-flex>
+      <v-flex xs9>
+        <v-select
+          :items="ciclos"
+          v-model="editItem.ciclos"
+          item-text="ciclo"
+          item-value="id"
+          label="Cicles demanats"
+          multiple
+          chips
+          hint="Els aspirants han de tindre algú d'quests cicles"
+          persistent-hint
+        >
+          <template slot="append">
+            <span>append</span>
+          </template>
+          <p>sin nada</p>
+          <template slot="append-item">
+            <span>append-item</span>
+          </template>
+          <template slot="append-outer">
+            <span>append-outer</span>
+          </template>
+          <template slot="default">
+            <span>default</span>
+          </template>
+          <template slot="prepend">
+            <span>prepend</span>
+          </template>
+          <template slot="prepend-item">
+            <span>prepend-item</span>
+          </template>
+        </v-select>
+      </v-flex>
             <v-flex xs2>
               <v-checkbox
               v-model="editItem.bolsa"

@@ -88,7 +88,7 @@
         <v-card-title
           class="grey lighten-4 py-4 title"
         >
-          {{ isNew?'Nou':'Editar' }} cicle
+          {{ isNew?'Nou':'Editar' }} empresa
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
@@ -138,6 +138,18 @@
                 :rules="required50Rules"
                 required
               ></v-text-field>
+            </v-flex>
+              <v-flex>
+                <v-text-field
+                  label="Telèfon"
+                  placeholder="Telèfon"
+                  v-model="editItem.telefono"
+                  counter="20"
+                  :rules="required20Rules"
+                  required
+                ></v-text-field>
+              </v-flex>
+            <v-flex xs6>
               <v-text-field
                 label="Persona de contacte"
                 placeholder="Persona de contacte"
@@ -147,32 +159,13 @@
                 required
               ></v-text-field>
             </v-flex>
-            <v-flex xs3>
-              <v-text-field
-                label="Telèfon"
-                placeholder="Telèfon"
-                v-model="editItem.telefono"
-                counter="20"
-                :rules="required20Rules"
-                required
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs4>
+            <v-flex xs6>
               <v-text-field
                 label="Pàgina web"
                 placeholder="Pàgina web"
                 v-model="editItem.web"
                 counter="50"
                 :rules="required50Rules"
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs5>
-              <v-text-field
-                label="E-mail"
-                placeholder="E-mail"
-                v-model="editItem.email"
-                counter="100"
-                :rules="required100Rules"
               ></v-text-field>
             </v-flex>
             <v-flex xs12>
@@ -222,6 +215,7 @@ export default {
   },
   methods: {
     loadData() {
+      console.log('carga empresas');
       API.getTable(this.table)
         .then(resp => this.items = resp.data.data)
         .catch(err => this.msgErr(err));

@@ -278,6 +278,7 @@ export default {
   },
   methods: {
     loadData() {
+      console.log('cargo menu')
       API.getTable("menu")
         .then(resp => this.items = resp.data.data)
         .catch(err => this.msgErr(err));

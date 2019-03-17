@@ -2998,6 +2998,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3473,7 +3506,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.editUser).then(function (resp) {
-        sessionStorage.setItem('user-data', JSON.stringify(resp.data));
+        sessionStorage.user_data.access_token = resp.data.access_token;
+        sessionStorage.user_data.expires_at = resp.data.expires_at;
+        sessionStorage.user_data.user_rol = resp.data.rol;
+        sessionStorage.user_data.token_type = resp.data.token_type;
 
         _this2.$router.push('/home');
       }) // store the token in localstorage
@@ -3973,13 +4009,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -4007,6 +4036,7 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
+      console.log('carga empresas');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
         return _this.items = resp.data.data;
       }).catch(function (err) {
@@ -4380,6 +4410,7 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this2 = this;
 
+      console.log('cargo menu');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("menu").then(function (resp) {
         return _this2.items = resp.data.data;
       }).catch(function (err) {
@@ -4791,7 +4822,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           return {
             id: ciclo.id,
             ciclo: ciclo.ciclo,
-            descrip: ciclo.vCiclo
+            descrip: ciclo.vCiclo,
+            dept: Dept,
+            familia: ciclo.vDept
           };
         });
       }).catch(function (err) {
@@ -5334,10 +5367,10 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log('registrnado...');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.item).then(function (resp) {
-        localStorage.access_token = resp.data.access_token;
-        localStorage.expires_at = resp.data.expires_at;
-        localStorage.user_rol = resp.data.rol;
-        localStorage.token_type = resp.data.token_type;
+        sessionStorage.user_data.access_token = resp.data.access_token;
+        sessionStorage.user_data.expires_at = resp.data.expires_at;
+        sessionStorage.user_data.user_rol = resp.data.rol;
+        sessionStorage.user_data.token_type = resp.data.token_type;
         alert("El teu usuari s'ha creat correctament.\n                  Ara has d'omplir les teues dades");
 
         if (resp.data.rol == 5) {
@@ -5360,8 +5393,10 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       }).catch(function (err) {
-        return _this2.msgErr(err);
-      });
+        sessionStorage.removeItem('user_data');
+
+        _this2.msgErr(err);
+      }); // if the request fails, remove any possible user token if possible
     }
   }
 });
@@ -43649,6 +43684,17 @@ var render = function() {
         "v-dialog",
         {
           attrs: { width: "800px" },
+          on: {
+            keydown: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])
+              ) {
+                return null
+              }
+              return _vm.closeDialog($event)
+            }
+          },
           model: {
             value: _vm.dialog,
             callback: function($$v) {
@@ -43832,7 +43878,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs5: "" } },
+                            { attrs: { xs6: "" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
@@ -43869,6 +43915,65 @@ var render = function() {
                                   expression: "editItem.info"
                                 }
                               })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs9: "" } },
+                            [
+                              _c(
+                                "v-select",
+                                {
+                                  attrs: {
+                                    items: _vm.ciclos,
+                                    "item-text": "ciclo",
+                                    "item-value": "id",
+                                    label: "Cicles demanats",
+                                    multiple: "",
+                                    chips: "",
+                                    hint:
+                                      "Els aspirants han de tindre algú d'quests cicles",
+                                    "persistent-hint": ""
+                                  },
+                                  model: {
+                                    value: _vm.editItem.ciclos,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.editItem, "ciclos", $$v)
+                                    },
+                                    expression: "editItem.ciclos"
+                                  }
+                                },
+                                [
+                                  _c("template", { slot: "append" }, [
+                                    _c("span", [_vm._v("append")])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", [_vm._v("sin nada")]),
+                                  _vm._v(" "),
+                                  _c("template", { slot: "append-item" }, [
+                                    _c("span", [_vm._v("append-item")])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("template", { slot: "append-outer" }, [
+                                    _c("span", [_vm._v("append-outer")])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("template", { slot: "default" }, [
+                                    _c("span", [_vm._v("default")])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("template", { slot: "prepend" }, [
+                                    _c("span", [_vm._v("prepend")])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("template", { slot: "prepend-item" }, [
+                                    _c("span", [_vm._v("prepend-item")])
+                                  ])
+                                ],
+                                2
+                              )
                             ],
                             1
                           ),
@@ -45689,7 +45794,7 @@ var render = function() {
                       _vm._v(
                         "\n          " +
                           _vm._s(_vm.isNew ? "Nou" : "Editar") +
-                          " cicle\n        "
+                          " empresa\n        "
                       )
                     ]
                   ),
@@ -45814,23 +45919,6 @@ var render = function() {
                                   },
                                   expression: "editItem.localidad"
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: "Persona de contacte",
-                                  placeholder: "Persona de contacte",
-                                  counter: "50",
-                                  rules: _vm.required50Rules,
-                                  required: ""
-                                },
-                                model: {
-                                  value: _vm.editItem.contacto,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.editItem, "contacto", $$v)
-                                  },
-                                  expression: "editItem.contacto"
-                                }
                               })
                             ],
                             1
@@ -45838,7 +45926,6 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs3: "" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
@@ -45862,7 +45949,31 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs4: "" } },
+                            { attrs: { xs6: "" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Persona de contacte",
+                                  placeholder: "Persona de contacte",
+                                  counter: "50",
+                                  rules: _vm.required50Rules,
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.editItem.contacto,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editItem, "contacto", $$v)
+                                  },
+                                  expression: "editItem.contacto"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs6: "" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
@@ -45877,29 +45988,6 @@ var render = function() {
                                     _vm.$set(_vm.editItem, "web", $$v)
                                   },
                                   expression: "editItem.web"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs5: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: "E-mail",
-                                  placeholder: "E-mail",
-                                  counter: "100",
-                                  rules: _vm.required100Rules
-                                },
-                                model: {
-                                  value: _vm.editItem.email,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.editItem, "email", $$v)
-                                  },
-                                  expression: "editItem.email"
                                 }
                               })
                             ],
@@ -47435,26 +47523,34 @@ var render = function() {
                         "v-flex",
                         { attrs: { xs9: "" } },
                         [
-                          _c("v-select", {
-                            attrs: {
-                              items: _vm.ciclos,
-                              "item-text": "ciclo",
-                              "item-value": "id",
-                              label: "Cicles demanats",
-                              multiple: "",
-                              chips: "",
-                              hint:
-                                "Els aspirants han de tindre algú d'quests cicles",
-                              "persistent-hint": ""
-                            },
-                            model: {
-                              value: _vm.editItem.ciclos,
-                              callback: function($$v) {
-                                _vm.$set(_vm.editItem, "ciclos", $$v)
+                          _c(
+                            "v-select",
+                            {
+                              attrs: {
+                                items: _vm.ciclos,
+                                "item-text": "ciclo",
+                                "item-value": "id",
+                                label: "Cicles demanats",
+                                multiple: "",
+                                chips: "",
+                                hint:
+                                  "Els aspirants han de tindre algú d'quests cicles",
+                                "persistent-hint": ""
                               },
-                              expression: "editItem.ciclos"
-                            }
-                          })
+                              model: {
+                                value: _vm.editItem.ciclos,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.editItem, "ciclos", $$v)
+                                },
+                                expression: "editItem.ciclos"
+                              }
+                            },
+                            [
+                              _c("optgroup", { attrs: { label: "US" } }, [
+                                _vm._v("asdas")
+                              ])
+                            ]
+                          )
                         ],
                         1
                       ),
@@ -89235,7 +89331,7 @@ var ROLES = [{
   rol: 'Administrador'
 }, {
   id: 3,
-  rol: 'Professor'
+  rol: 'Responsable'
 }, {
   id: 5,
   rol: 'Empleador'
@@ -89767,16 +89863,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 var API_URL = 'http://borsaTreball.my/api/'; //const API_URL = 'http://localhost:3000/';
 
-var myId = 1;
-var config = {
-  headers: {
-    'Authorization': localStorage.token_type + ' ' + localStorage.access_token,
-    'Content-Type': 'application/json'
+var myId = 1; // const config = {
+//     headers: {
+//       'Authorization': sessionStorage.user_data.token_type+' '
+//         +sessionStorage.user_data.user_data.access_token,
+//       'Content-Type': 'application/json'
+//     }
+// }
+
+function checkAuth() {
+  if (!sessionStorage.user_data || new Date(sessionStorage.user_data.expires_at) < new Date()) {
+    return false;
   }
-};
+
+  return {
+    headers: {
+      'Authorization': sessionStorage.user_data.token_type + ' ' + sessionStorage.user_data.user_data.access_token,
+      'Content-Type': 'application/json'
+    }
+  };
+}
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getTable: function getTable(table, query) {
+    var config = checkAuth();
+
+    if (!config && table != 'menu') {
+      console.log('pido datos'); //            this.$router.push('/login');
+
+      return false;
+    }
+
     if (query) {
       var queryString = '';
 
@@ -89830,8 +89948,12 @@ var config = {
     }
 
     var str = pairs.join("&");
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', str, config); // prova
+    var configRegister = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', str, configRegister); // prova
 
     return response = {
       data: {
@@ -90523,7 +90645,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var USERAUTH = true; // sessionStorage.getItem('user-data');
+var USERAUTH = sessionStorage.getItem('user_data');
 
 var ifNotAuthenticated = function ifNotAuthenticated(to, from, next) {
   if (!USERAUTH) {
@@ -90531,7 +90653,7 @@ var ifNotAuthenticated = function ifNotAuthenticated(to, from, next) {
     return;
   }
 
-  next('/home');
+  next('/');
 };
 
 var ifAuthenticated = function ifAuthenticated(to, from, next) {
@@ -90572,7 +90694,8 @@ var ifAuthenticated = function ifAuthenticated(to, from, next) {
   }, {
     path: '/register',
     name: 'register',
-    component: _views_Register__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _views_Register__WEBPACK_IMPORTED_MODULE_6__["default"],
+    beforeEnter: ifNotAuthenticated
   }, {
     path: '/ciclos',
     name: 'ciclos',
