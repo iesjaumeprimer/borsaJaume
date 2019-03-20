@@ -1,51 +1,53 @@
 const API_URL = 'http://borsaTreball.my/api/';
-//const API_URL = 'http://localhost:3000/';
-const myId=1;
-// const config = {
-//     headers: {
-//       'Authorization': sessionStorage.user_data.token_type+' '
-//         +sessionStorage.user_data.user_data.access_token,
-//       'Content-Type': 'application/json'
-//     }
-// }
-
-function checkAuth() {
-    if (!sessionStorage.user_data ||
-        new Date(sessionStorage.user_data.expires_at)<new Date()) {
-            return false;
+const config = {
+    headers: {
+      'Authorization': sessionStorage.token_type+' '
+        +sessionStorage.access_token,
+      'Content-Type': 'application/json'
     }
-    return {
-        headers: {
-          'Authorization': sessionStorage.user_data.token_type+' '
-            +sessionStorage.user_data.user_data.access_token,
-          'Content-Type': 'application/json'
-        }
+}
+const configLogin = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
 }
 
 import axios from 'axios'
 
+function checkAuth() {
+    return (sessionStorage.expires_at &&
+        new Date(sessionStorage.expires_at)>new Date())
+}
 
+function json2urlencoded(json) {
+    let pairs = [];
+    for (var prop in json) {
+        if (json.hasOwnProperty(prop)) {
+            var k = encodeURIComponent(prop),
+                v = encodeURIComponent(json[prop]);
+            pairs.push( k + "=" + v);
+        }
+    }
+    return pairs.join("&");
+}
 export default {
     getTable(table, query) {
-        const config=checkAuth();
-        if (!config && table!='menu') {
+        console.log('get table')
+        if (!checkAuth() && table!='menu') {
             console.log('pido datos');
 //            this.$router.push('/login');
-            return false;
+            return new Promise((resolve,reject)=>{
+                reject(new Error('No estás validado'))
+            });
         }
         if (query) {
-            let queryString = '';
-            for (let i in query) {
-                queryString += i + '=' + query[i] + '&';
-            }
-            queryString = queryString.substr(0, queryString.length - 1);
-            return axios.get(API_URL + table + '?' + queryString, config);
+            return axios.get(API_URL + table + '?' + json2urlencoded(query), config);
         } else {
             return axios.get(API_URL + table, config);
         }
     },
-    getItem(table, id = myId) {
+    getItem(table, id) {
+        console.log('get item')
         return axios.get(API_URL + table + '/' + id, config);
     },
     delItem(table, id) {
@@ -59,48 +61,23 @@ export default {
     },
     getUser(item) {
         // prova
-        return new Promise(function(resolve) {
-            resolve({
-                data: {
-                    id:5,
-                    user:item.user,
-                    rol:2,
-                    token:'asdad6acguas6utash768a'
-                }    
-            })
-        });
-        return axios.get(API_URL + 'users/', item, config)
+        // return new Promise(function(resolve) {
+        //     resolve({
+        //         data: {
+        //             id:5,
+        //             user:item.user,
+        //             rol:2,
+        //             token:'asdad6acguas6utash768a'
+        //         }    
+        //     })
+        // });
+        return axios.post(API_URL + 'auth/login', json2urlencoded(item), configLogin)
     },
     saveUser(item) {
-        // Convertimos el objeto a urlencoded
-        let pairs = [];
-        for (var prop in item) {
-            if (item.hasOwnProperty(prop)) {
-                var k = encodeURIComponent(prop),
-                    v = encodeURIComponent(item[prop]);
-                pairs.push( k + "=" + v);
-            }
-        }
-        const str = pairs.join("&");
-
-        const configRegister = {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }
-
-        return axios.post(API_URL + 'auth/signup', str, configRegister);
-        // prova
-       return response={
-           data: {
-               id:5,
-               user:item.user,
-               rol:2,
-               token:'asdad6acguas6utash768a'
-           }
-       }
-        // No se usa saveItem porque hay que guardarlo en Users y en Alumnos/Empresas
-        return axios.post(API_URL + 'users/', item, config);
+        return axios.post(API_URL + 'auth/signup', json2urlencoded(item), configLogin);
+    },
+    logoutUser() {
+        return axios.get(API_URL + 'auth/logout', configLogin);
     },
     sendMail(mail) {
         return axios.post(API_URL + '/mail', mail, config);

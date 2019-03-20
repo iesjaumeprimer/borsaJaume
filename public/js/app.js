@@ -2700,6 +2700,48 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/404.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/404.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    back: function back() {
+      console.log('Atras');
+      this.$router.go(-1);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Alumnos.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Alumnos.vue?vue&type=script&lang=js& ***!
@@ -3035,6 +3077,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    console.log('Alumnos mounted');
     this.$emit('setTitle', 'Manteniment d\'Alumnes');
     this.loadData();
 
@@ -3048,11 +3091,22 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       console.log('carga alumnos');
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
-        _this.items = resp.data.data;
-      }).catch(function (err) {
-        return _this.msgErr('1' + err);
-      });
+
+      if (sessionStorage.user_rol == 7) {
+        // Es un alumno y sólo puede verse a sí mismo
+        _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getItem(this.table, sessionStorage.user_id).then(function (resp) {
+          _this.items = [resp.data.data];
+        }).catch(function (err) {
+          return _this.msgErr(err);
+        });
+      } else {
+        _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
+          _this.items = resp.data.data;
+        }).catch(function (err) {
+          return _this.msgErr(err);
+        });
+      }
+
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("ciclos").then(function (resp) {
         return _this.ciclos = resp.data.data.map(function (ciclo) {
           return {
@@ -3451,29 +3505,48 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getUser(this.item).then(function (resp) {
-        sessionStorage.setItem('user-data', JSON.stringify(resp.data));
+        if (resp.data.access_token) {
+          sessionStorage.access_token = resp.data.access_token;
+          sessionStorage.expires_at = resp.data.expires_at;
+          sessionStorage.user_rol = resp.data.rol;
+          sessionStorage.user_id = resp.data.id;
+          sessionStorage.token_type = resp.data.token_type;
 
-        _this.$router.push('/ofertas');
+          _this.$router.push('/ofertas');
+        } else {
+          _this.msgErr('ERROR, no s\'ha pogut loguejar: ' + resp.data);
+        }
       }) // store the token in localstorage
       .catch(function (err) {
-        sessionStorage.removeItem('user-data');
-        msgErr('ERROR: ' + err);
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('expires_at');
+        sessionStorage.removeItem('user_rol');
+        sessionStorage.removeItem('user_id');
+        sessionStorage.removeItem('token_type');
+
+        _this.msgErr('ERROR: ' + err);
       }); // if the request fails, remove any possible user token if possible
     },
     registerUser: function registerUser() {
       var _this2 = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.editUser).then(function (resp) {
-        sessionStorage.user_data.access_token = resp.data.access_token;
-        sessionStorage.user_data.expires_at = resp.data.expires_at;
-        sessionStorage.user_data.user_rol = resp.data.rol;
-        sessionStorage.user_data.token_type = resp.data.token_type;
+        sessionStorage.access_token = resp.data.access_token;
+        sessionStorage.expires_at = resp.data.expires_at;
+        sessionStorage.user_rol = resp.data.rol;
+        sessionStorage.user_id = resp.data.id;
+        sessionStorage.token_type = resp.data.token_type;
 
         _this2.$router.push('/home');
       }) // store the token in localstorage
       .catch(function (err) {
-        sessionStorage.removeItem('user-data');
-        msgErr('ERROR: ' + err);
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('expires_at');
+        sessionStorage.removeItem('user_rol');
+        sessionStorage.removeItem('user_id');
+        sessionStorage.removeItem('token_type');
+
+        _this2.msgErr('ERROR: ' + err);
       }); // if the request fails, remove any possible user token if possible
     }
   }
@@ -3490,15 +3563,33 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lib_API__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/API */ "./resources/js/lib/API.js");
+/* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 //
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_utils_js__WEBPACK_IMPORTED_MODULE_1__["default"], formRulesMixin],
   created: function created() {
+    var _this = this;
+
     if (confirm('¿Vols tancar la sessió?')) {
-      sessionStorage.removeItem('user-data');
-      this.$router.push('/login');
+      console.log('logout');
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].logoutUser().then(function (resp) {
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('expires_at');
+        sessionStorage.removeItem('user_rol');
+        sessionStorage.removeItem('user_id');
+        sessionStorage.removeItem('token_type');
+
+        _this.$router.push('/');
+      }) // store the token in localstorage
+      .catch(function (err) {
+        _this.msgErr('ERROR: ' + err);
+      }); // if the request fails, remove any possible user token if possible
     } else {
       this.$router.go(-1);
     }
@@ -3995,11 +4086,21 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       console.log('carga empresas');
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
-        return _this.items = resp.data.data;
-      }).catch(function (err) {
-        return _this.msgErr(err);
-      });
+
+      if (sessionStorage.user_rol == 5) {
+        // Es una empresa y sólo puede verse a sí misma
+        _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getItem(this.table, sessionStorage.user_id).then(function (resp) {
+          _this.items = [resp.data.data];
+        }).catch(function (err) {
+          return _this.msgErr(err);
+        });
+      } else {
+        _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
+          _this.items = resp.data.data;
+        }).catch(function (err) {
+          return _this.msgErr(err);
+        });
+      }
     },
     showItem: function showItem(id) {
       this.$router.push({
@@ -5325,10 +5426,11 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log('registrnado...');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.item).then(function (resp) {
-        sessionStorage.user_data.access_token = resp.data.access_token;
-        sessionStorage.user_data.expires_at = resp.data.expires_at;
-        sessionStorage.user_data.user_rol = resp.data.rol;
-        sessionStorage.user_data.token_type = resp.data.token_type;
+        sessionStorage.access_token = resp.data.access_token;
+        sessionStorage.expires_at = resp.data.expires_at;
+        sessionStorage.user_rol = resp.data.rol;
+        sessionStorage.user_id = resp.data.id;
+        sessionStorage.token_type = resp.data.token_type;
         alert("El teu usuari s'ha creat correctament.\n                  Ara has d'omplir les teues dades");
 
         if (resp.data.rol == 5) {
@@ -5351,7 +5453,11 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       }).catch(function (err) {
-        sessionStorage.removeItem('user_data');
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('expires_at');
+        sessionStorage.removeItem('user_rol');
+        sessionStorage.removeItem('user_id');
+        sessionStorage.removeItem('token_type');
 
         _this2.msgErr(err);
       }); // if the request fails, remove any possible user token if possible
@@ -43155,6 +43261,101 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/404.vue?vue&type=template&id=d215c3ee&functional=true&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/404.vue?vue&type=template&id=d215c3ee&functional=true& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function(_h, _vm) {
+  var _c = _vm._c
+  return _c(
+    "v-container",
+    { attrs: { "grid-list-md": "" } },
+    [
+      _c(
+        "v-layout",
+        { attrs: { row: "", wrap: "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c(
+                "v-card",
+                [
+                  _c(
+                    "v-card-title",
+                    {
+                      staticClass: "red darken-3 white--text subheading",
+                      attrs: { "primary-title": "" }
+                    },
+                    [
+                      _c("span", { staticClass: "title" }, [
+                        _vm._v("404 - Page not found")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("v-card-text", [
+                    _vm._v(
+                      "\n          La pàgina que busques no es troba. Tria altra opció del menú\n          o torna enrere.\n        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "red darken-3 white--text",
+                          attrs: { flat: "", to: "$router.go(-1)" }
+                        },
+                        [_vm._v("Back")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.back()
+                            }
+                          }
+                        },
+                        [_vm._v("Back")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -89724,55 +89925,58 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-var API_URL = 'http://borsaTreball.my/api/'; //const API_URL = 'http://localhost:3000/';
+var API_URL = 'http://borsaTreball.my/api/';
+var config = {
+  headers: {
+    'Authorization': sessionStorage.token_type + ' ' + sessionStorage.access_token,
+    'Content-Type': 'application/json'
+  }
+};
+var configLogin = {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+};
 
-var myId = 1; // const config = {
-//     headers: {
-//       'Authorization': sessionStorage.user_data.token_type+' '
-//         +sessionStorage.user_data.user_data.access_token,
-//       'Content-Type': 'application/json'
-//     }
-// }
 
 function checkAuth() {
-  if (!sessionStorage.user_data || new Date(sessionStorage.user_data.expires_at) < new Date()) {
-    return false;
-  }
-
-  return {
-    headers: {
-      'Authorization': sessionStorage.user_data.token_type + ' ' + sessionStorage.user_data.user_data.access_token,
-      'Content-Type': 'application/json'
-    }
-  };
+  return sessionStorage.expires_at && new Date(sessionStorage.expires_at) > new Date();
 }
 
+function json2urlencoded(json) {
+  var pairs = [];
+
+  for (var prop in json) {
+    if (json.hasOwnProperty(prop)) {
+      var k = encodeURIComponent(prop),
+          v = encodeURIComponent(json[prop]);
+      pairs.push(k + "=" + v);
+    }
+  }
+
+  return pairs.join("&");
+}
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getTable: function getTable(table, query) {
-    var config = checkAuth();
+    console.log('get table');
 
-    if (!config && table != 'menu') {
+    if (!checkAuth() && table != 'menu') {
       console.log('pido datos'); //            this.$router.push('/login');
 
-      return false;
+      return new Promise(function (resolve, reject) {
+        reject(new Error('No estás validado'));
+      });
     }
 
     if (query) {
-      var queryString = '';
-
-      for (var i in query) {
-        queryString += i + '=' + query[i] + '&';
-      }
-
-      queryString = queryString.substr(0, queryString.length - 1);
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '?' + queryString, config);
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '?' + json2urlencoded(query), config);
     } else {
       return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table, config);
     }
   },
-  getItem: function getItem(table) {
-    var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : myId;
+  getItem: function getItem(table, id) {
+    console.log('get item');
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '/' + id, config);
   },
   delItem: function delItem(table, id) {
@@ -89786,48 +89990,23 @@ function checkAuth() {
   },
   getUser: function getUser(item) {
     // prova
-    return new Promise(function (resolve) {
-      resolve({
-        data: {
-          id: 5,
-          user: item.user,
-          rol: 2,
-          token: 'asdad6acguas6utash768a'
-        }
-      });
-    });
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'users/', item, config);
+    // return new Promise(function(resolve) {
+    //     resolve({
+    //         data: {
+    //             id:5,
+    //             user:item.user,
+    //             rol:2,
+    //             token:'asdad6acguas6utash768a'
+    //         }    
+    //     })
+    // });
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/login', json2urlencoded(item), configLogin);
   },
   saveUser: function saveUser(item) {
-    // Convertimos el objeto a urlencoded
-    var pairs = [];
-
-    for (var prop in item) {
-      if (item.hasOwnProperty(prop)) {
-        var k = encodeURIComponent(prop),
-            v = encodeURIComponent(item[prop]);
-        pairs.push(k + "=" + v);
-      }
-    }
-
-    var str = pairs.join("&");
-    var configRegister = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    };
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', str, configRegister); // prova
-
-    return response = {
-      data: {
-        id: 5,
-        user: item.user,
-        rol: 2,
-        token: 'asdad6acguas6utash768a'
-      } // No se usa saveItem porque hay que guardarlo en Users y en Alumnos/Empresas
-
-    };
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'users/', item, config);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', json2urlencoded(item), configLogin);
+  },
+  logoutUser: function logoutUser() {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'auth/logout', configLogin);
   },
   sendMail: function sendMail(mail) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + '/mail', mail, config);
@@ -90482,7 +90661,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_AlumnosOferta__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/AlumnosOferta */ "./resources/js/views/AlumnosOferta.vue");
 /* harmony import */ var _views_AppLogout__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./views/AppLogout */ "./resources/js/views/AppLogout.vue");
 /* harmony import */ var _views_AppLogin__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./views/AppLogin */ "./resources/js/views/AppLogin.vue");
-!(function webpackMissingModule() { var e = new Error("Cannot find module './views/404'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _views_404__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./views/404 */ "./resources/js/views/404.vue");
 /* harmony import */ var _components_passport_AuthorizedClients__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/passport/AuthorizedClients */ "./resources/js/components/passport/AuthorizedClients.vue");
 /* harmony import */ var _components_passport_Clients__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/passport/Clients */ "./resources/js/components/passport/Clients.vue");
 /* harmony import */ var _components_passport_PersonalAccessTokens__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/passport/PersonalAccessTokens */ "./resources/js/components/passport/PersonalAccessTokens.vue");
@@ -90508,7 +90687,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var USERAUTH = sessionStorage.getItem('user_data');
+var USERAUTH = sessionStorage.getItem('access_token');
 
 var ifNotAuthenticated = function ifNotAuthenticated(to, from, next) {
   if (!USERAUTH) {
@@ -90516,6 +90695,7 @@ var ifNotAuthenticated = function ifNotAuthenticated(to, from, next) {
     return;
   }
 
+  alert('Debes desloguearte primero');
   next('/');
 };
 
@@ -90617,9 +90797,78 @@ var ifAuthenticated = function ifAuthenticated(to, from, next) {
     beforeEnter: ifAuthenticated
   }, {
     path: '*',
-    component: !(function webpackMissingModule() { var e = new Error("Cannot find module './views/404'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
+    component: _views_404__WEBPACK_IMPORTED_MODULE_14__["default"]
   }]
 }));
+
+/***/ }),
+
+/***/ "./resources/js/views/404.vue":
+/*!************************************!*\
+  !*** ./resources/js/views/404.vue ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _404_vue_vue_type_template_id_d215c3ee_functional_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./404.vue?vue&type=template&id=d215c3ee&functional=true& */ "./resources/js/views/404.vue?vue&type=template&id=d215c3ee&functional=true&");
+/* harmony import */ var _404_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./404.vue?vue&type=script&lang=js& */ "./resources/js/views/404.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _404_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _404_vue_vue_type_template_id_d215c3ee_functional_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _404_vue_vue_type_template_id_d215c3ee_functional_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  true,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/404.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/404.vue?vue&type=script&lang=js&":
+/*!*************************************************************!*\
+  !*** ./resources/js/views/404.vue?vue&type=script&lang=js& ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_404_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./404.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/404.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_404_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/404.vue?vue&type=template&id=d215c3ee&functional=true&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/views/404.vue?vue&type=template&id=d215c3ee&functional=true& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_404_vue_vue_type_template_id_d215c3ee_functional_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./404.vue?vue&type=template&id=d215c3ee&functional=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/404.vue?vue&type=template&id=d215c3ee&functional=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_404_vue_vue_type_template_id_d215c3ee_functional_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_404_vue_vue_type_template_id_d215c3ee_functional_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -91453,8 +91702,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/Code/borsaBatoi/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/Code/borsaBatoi/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/borsaTreball/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/borsaTreball/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

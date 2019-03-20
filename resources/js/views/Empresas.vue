@@ -216,9 +216,20 @@ export default {
   methods: {
     loadData() {
       console.log('carga empresas');
-      API.getTable(this.table)
-        .then(resp => this.items = resp.data.data)
-        .catch(err => this.msgErr(err));
+      if (sessionStorage.user_rol==5) {
+        // Es una empresa y sólo puede verse a sí misma
+        API.getItem(this.table, sessionStorage.user_id)
+          .then(resp => {
+            this.items = [resp.data.data];
+          })
+          .catch(err => this.msgErr(err));
+      } else {
+        API.getTable(this.table)
+          .then(resp => {
+            this.items = resp.data.data;
+          })
+          .catch(err => this.msgErr(err));
+      }
     },
     showItem(id) {
       this.$router.push({ path: '/ofertas', query: { id_empresa: id }})

@@ -23,12 +23,13 @@ import Pass3 from './components/passport/PersonalAccessTokens'
 
 Vue.use(Router)
 
-const USERAUTH = sessionStorage.getItem('user_data');
+const USERAUTH = sessionStorage.getItem('access_token');
 const ifNotAuthenticated = (to, from, next) => {
   if (!USERAUTH) {
     next()
     return
   }
+  alert('Debes desloguearte primero');
   next('/')
 }
 const ifAuthenticated = (to, from, next) => {

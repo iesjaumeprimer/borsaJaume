@@ -303,6 +303,7 @@ export default {
     ciclo: {}
   }),
   mounted() {
+    console.log('Alumnos mounted');
     this.$emit('setTitle', 'Manteniment d\'Alumnes')
     this.loadData();
     if (this.$route.params.new) {
@@ -313,11 +314,20 @@ export default {
   methods: {
     loadData() {
       console.log('carga alumnos');
-      API.getTable(this.table)
-        .then(resp => {
-          this.items = resp.data.data;
-        })
-        .catch(err => this.msgErr('1'+err));
+      if (sessionStorage.user_rol==7) {
+        // Es un alumno y sólo puede verse a sí mismo
+        API.getItem(this.table, sessionStorage.user_id)
+          .then(resp => {
+            this.items = [resp.data.data];
+          })
+          .catch(err => this.msgErr(err));
+      } else {
+        API.getTable(this.table)
+          .then(resp => {
+            this.items = resp.data.data;
+          })
+          .catch(err => this.msgErr(err));
+      }
       API.getTable("ciclos")
         .then(resp => this.ciclos = resp.data.data.map(ciclo=>{
           return {

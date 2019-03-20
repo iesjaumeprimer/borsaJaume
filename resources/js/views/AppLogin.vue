@@ -127,26 +127,43 @@ export default {
           submit() {
             API.getUser(this.item)
             .then(resp => {
-              sessionStorage.setItem('user-data', JSON.stringify(resp.data));
-              this.$router.push('/ofertas');
+              if (resp.data.access_token) {
+                sessionStorage.access_token=resp.data.access_token;
+                sessionStorage.expires_at=resp.data.expires_at;
+                sessionStorage.user_rol=resp.data.rol;
+                sessionStorage.user_id=resp.data.id;
+                sessionStorage.token_type=resp.data.token_type;
+                this.$router.push('/ofertas');
+              } else {
+                this.msgErr('ERROR, no s\'ha pogut loguejar: '+resp.data);
+              }
             }) // store the token in localstorage
             .catch(err => {
-              sessionStorage.removeItem('user-data');
-              msgErr('ERROR: '+err);
+              sessionStorage.removeItem('access_token');
+              sessionStorage.removeItem('expires_at');
+              sessionStorage.removeItem('user_rol');
+              sessionStorage.removeItem('user_id');
+              sessionStorage.removeItem('token_type');
+              this.msgErr('ERROR: '+err);
             }); // if the request fails, remove any possible user token if possible
           },
           registerUser() {
             API.saveUser(this.editUser)
             .then(resp => {
-              sessionStorage.user_data.access_token=resp.data.access_token;
-              sessionStorage.user_data.expires_at=resp.data.expires_at;
-              sessionStorage.user_data.user_rol=resp.data.rol;
-              sessionStorage.user_data.token_type=resp.data.token_type;
+              sessionStorage.access_token=resp.data.access_token;
+              sessionStorage.expires_at=resp.data.expires_at;
+              sessionStorage.user_rol=resp.data.rol;
+              sessionStorage.user_id=resp.data.id;
+              sessionStorage.token_type=resp.data.token_type;
               this.$router.push('/home');
             }) // store the token in localstorage
             .catch(err => {
-              sessionStorage.removeItem('user-data');
-              msgErr('ERROR: '+err);
+              sessionStorage.removeItem('access_token');
+              sessionStorage.removeItem('expires_at');
+              sessionStorage.removeItem('user_rol');
+              sessionStorage.removeItem('user_id');
+              sessionStorage.removeItem('token_type');
+              this.msgErr('ERROR: '+err);
             }); // if the request fails, remove any possible user token if possible
           },
       }    
