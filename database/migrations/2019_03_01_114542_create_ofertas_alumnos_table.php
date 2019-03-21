@@ -17,7 +17,7 @@ class CreateOfertasAlumnosTable extends Migration {
 			$table->integer('id', true);
 			$table->integer('id_oferta')->unsigned()->index('id_oferta');
 			$table->integer('id_alumno')->unsigned()->index('id_alumno');
-			$table->tinyInteger('estado')->default(0);
+			$table->tinyInteger('interesado')->default(0);
 		});
 	}
 

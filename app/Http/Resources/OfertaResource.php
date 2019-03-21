@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class OfertaResource extends JsonResource
 {
@@ -14,8 +16,7 @@ class OfertaResource extends JsonResource
      */
     public function toArray($request)
     {
-
-        return [
+         return [
             'id'=>$this->id,
             'id_empresa' => $this->id_empresa,
             'descripcion' => $this->descripcion,
@@ -30,7 +31,12 @@ class OfertaResource extends JsonResource
             'archivada' => $this->archivada,
             'ciclos' => hazArray($this->ciclos,'id','pivot'),
             'empresa' => $this->empresa,
+            'interesado' => $this->when(AuthUser()->isAlumno() , $this->getInteresting() ),
         ];
+    }
+    private function getInteresting(){
+        if ($this->alumnos->where('id',AuthUser()->id)->count()==0) return null;
+        return $this->alumnos->where('id',AuthUser()->id)->first()->pivot->interesado;
     }
 
 

@@ -38,4 +38,13 @@ class User extends Authenticatable
         'password' => 'required|string|confirmed',
         'rol'      => 'required'
     ];
+    public function isAlumno(){
+       return $this->rol == config('role.alumno');
+    }
+    public function isEmpresa(){
+        return $this->rol == config('role.empresa');
+    }
+    public function isResponsable(){
+        return $this->rol == config('role.responsable');
+    }
 }
