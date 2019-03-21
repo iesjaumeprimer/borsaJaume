@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AlumneResource extends JsonResource
+class AlumnoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -26,7 +26,7 @@ class AlumneResource extends JsonResource
             'cv_enlace' => $this->cv_enlace,
             'telefono' => $this->telefono,
             'email' => $this->User->email,
-            'ciclos' => $this->myCiclos
+            'ciclos' => hazArray($this->ciclos,'id', 'pivot')
         ];
     }
 

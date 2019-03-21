@@ -25,6 +25,7 @@ class ApiBaseResourceController extends Controller
        $this->resource = 'App\Http\Resources\\'.$this->model.'Resource';
        $this->class = 'App\Entities\\'.$this->model;
     }
+
     public function index(){
         return $this->resource::collection($this->class::all());
     }

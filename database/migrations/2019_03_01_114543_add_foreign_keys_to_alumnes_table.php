@@ -12,7 +12,7 @@ class AddForeignKeysToAlumnesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('alumnes', function(Blueprint $table)
+		Schema::table('alumnos', function(Blueprint $table)
 		{
 			$table->foreign('id', 'user_foreign')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
@@ -26,7 +26,7 @@ class AddForeignKeysToAlumnesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('alumnes', function(Blueprint $table)
+		Schema::table('alumnos', function(Blueprint $table)
 		{
 			$table->dropForeign('user_foreign');
 		});

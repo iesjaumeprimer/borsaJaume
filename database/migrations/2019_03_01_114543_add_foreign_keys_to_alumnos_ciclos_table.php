@@ -14,7 +14,7 @@ class AddForeignKeysToAlumnosCiclosTable extends Migration {
 	{
 		Schema::table('alumnos_ciclos', function(Blueprint $table)
 		{
-			$table->foreign('id_alumno', 'alumnos_foreign')->references('id')->on('alumnes')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('id_alumno', 'alumnos_foreign')->references('id')->on('alumnos')->onUpdate('CASCADE')->onDelete('CASCADE');
 			$table->foreign('id_ciclo', 'ciclos_foreign')->references('id')->on('ciclos')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}

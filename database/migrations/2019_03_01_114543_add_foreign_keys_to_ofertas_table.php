@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToOfertesTable extends Migration {
+class AddForeignKeysToOfertasTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,9 @@ class AddForeignKeysToOfertesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('ofertes', function(Blueprint $table)
+		Schema::table('ofertas', function(Blueprint $table)
 		{
-			$table->foreign('id_empresa', 'empresa_foreign')->references('id')->on('empreses')->onUpdate('CASCADE')->onDelete('SET NULL');
+			$table->foreign('id_empresa', 'empresa_foreign')->references('id')->on('empresas')->onUpdate('CASCADE')->onDelete('SET NULL');
 		});
 	}
 
@@ -26,7 +26,7 @@ class AddForeignKeysToOfertesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('ofertes', function(Blueprint $table)
+		Schema::table('ofertas', function(Blueprint $table)
 		{
 			$table->dropForeign('empresa_foreign');
 		});

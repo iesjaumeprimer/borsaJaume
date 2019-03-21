@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateAlumnosCiclosTable extends Migration {
+class CreateOfertasAlumnosTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,12 @@ class CreateAlumnosCiclosTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('alumnos_ciclos', function(Blueprint $table)
+		Schema::create('ofertas_alumnos', function(Blueprint $table)
 		{
-            $table->increments('id');
+			$table->integer('id', true);
+			$table->integer('id_oferta')->unsigned()->index('id_oferta');
 			$table->integer('id_alumno')->unsigned()->index('id_alumno');
-			$table->integer('id_ciclo')->unsigned()->index('id_ciclo');
-			$table->integer('any');
-			$table->boolean('validado');
+			$table->tinyInteger('estado')->default(0);
 		});
 	}
 
@@ -30,7 +29,7 @@ class CreateAlumnosCiclosTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('alumnos_ciclos');
+		Schema::drop('ofertas_alumnos');
 	}
 
 }

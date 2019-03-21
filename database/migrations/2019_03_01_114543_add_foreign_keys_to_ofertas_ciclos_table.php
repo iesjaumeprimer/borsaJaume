@@ -14,8 +14,8 @@ class AddForeignKeysToOfertasCiclosTable extends Migration {
 	{
 		Schema::table('ofertas_ciclos', function(Blueprint $table)
 		{
-			$table->foreign('id_ciclo', 'ciclo_foreign')->references('id')->on('ciclos')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('id_oferta', 'oferta_foreign')->references('id')->on('ofertes')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('id_ciclo', 'ciclo_oferta_ciclo_foreign')->references('id')->on('ciclos')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('id_oferta', 'oferta_oferta_ciclo_foreign')->references('id')->on('ofertas')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 
@@ -29,8 +29,8 @@ class AddForeignKeysToOfertasCiclosTable extends Migration {
 	{
 		Schema::table('ofertas_ciclos', function(Blueprint $table)
 		{
-			$table->dropForeign('ciclo_foreign');
-			$table->dropForeign('oferta_foreign');
+			$table->dropForeign('ciclo_oferta_ciclo_foreign');
+			$table->dropForeign('oferta_oferta_ciclo_foreign');
 		});
 	}
 

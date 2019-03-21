@@ -6,10 +6,10 @@ use App\Entities\Alumne;
 
 
 
-class AlumneController extends ApiBaseResourceController
+class AlumnoController extends ApiBaseResourceController
 {
 
-    protected $model = 'Alumne';
+    protected $model = 'Alumno';
     protected $rules = ['nombre'=> 'required'];
     protected $relationShip = 'ciclos';
 

@@ -28,7 +28,8 @@ class OfertaResource extends JsonResource
             'validada' => $this->validada,
             'any' => $this->any,
             'archivada' => $this->archivada,
-            'ciclos' => $this->myCiclos
+            'ciclos' => hazArray($this->ciclos,'id','pivot'),
+            'empresa' => $this->empresa,
         ];
     }
 

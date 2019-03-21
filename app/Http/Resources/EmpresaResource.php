@@ -14,6 +14,17 @@ class EmpresaResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'cif' => $this->cif,
+            'nombre' => $this->nombre,
+            'domicilio' => $this->domicilio,
+            'localidad' => $this->localidad,
+            'contacto' => $this->contacto,
+            'web' => $this->web,
+            'telefono' => $this->telefono,
+            'email' => $this->User->email,
+            'descripcion' => $this->descripcion
+        ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Alumne extends Model
+class Alumno extends Model
 {
     public $timestamps = false;
     protected $fillable = [
@@ -24,11 +24,5 @@ class Alumne extends Model
         return $this->hasOne(User::class,'id');
     }
 
-    public function getMyCiclosAttribute(){
-        $array = [];
-        foreach ($this->ciclos as $ciclo){
-            $array[$ciclo->id] = $ciclo->pivot;
-        }
-        return $array;
-    }
+
 }
