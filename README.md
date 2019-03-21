@@ -34,5 +34,6 @@ Instalar [laravel/passport](https://laravel.com/docs/5.8/passport) (Next, you sh
 ```bash
 php artisan passport:install
 ```
-
+## Cosas raras
+1. Cada vez que te cargas la bbd hay que ejecutar `php artisan passport:client --personal`
 
