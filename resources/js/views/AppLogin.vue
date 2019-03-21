@@ -144,7 +144,16 @@ export default {
               sessionStorage.removeItem('user_rol');
               sessionStorage.removeItem('user_id');
               sessionStorage.removeItem('token_type');
-              this.msgErr('ERROR: '+err);
+              let msg='';
+              console.log(err)
+              switch (err.response.status) {
+                case 401:
+                  msg='El email o la contraseña no son correctos'
+                  break;
+                default:
+                  msg='ERROR: '+err;
+              }
+              this.msgErr(msg);
             }); // if the request fails, remove any possible user token if possible
           },
           registerUser() {
