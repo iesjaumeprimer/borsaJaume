@@ -8,12 +8,16 @@
 
   <v-card>
     <v-card-title>
-    <v-btn
+    <v-btn v-if="user_rol==5"
       top
       right
       color="blue"
       dark
-      @click.stop="openDialog(false, {activa: true, ciclos: []})"
+      @click.stop="openDialog(false, {
+        activa: true, 
+        ciclos: [],
+        id_empresa: user_id
+      })"
     >
       <v-icon>add</v-icon>
     </v-btn>
@@ -57,7 +61,7 @@
         >
           <yes-no-icon :value="props.item.activa"></yes-no-icon>
         </v-chip></td>
-        <td>{{ nomEmpresa(props.item.id_empresa) }}</td>
+        <td>{{ props.item.empresa.nombre }}</td>
         <td>{{ props.item.puesto }}</td>
         <td>{{ props.item.tipo_contrato }}</td>
         <td>
@@ -75,12 +79,14 @@
           <v-btn icon class="mx-0" @click="props.expanded = !props.expanded" title="Més dades">
             <v-icon>{{ props.expanded?'remove':'add' }}</v-icon>
           </v-btn>
-          <v-btn icon class="mx-0" @click.stop="openDialog(props.item)">
-            <v-icon>edit</v-icon>
-          </v-btn>
-          <v-btn icon class="mx-0" @click.stop="deleteItem(props.item)">
-            <v-icon>delete</v-icon>
-          </v-btn>
+          <div v-if="user_rol==5">
+            <v-btn icon class="mx-0" @click.stop="openDialog(props.item)">
+              <v-icon>edit</v-icon>
+            </v-btn>
+            <v-btn icon class="mx-0" @click.stop="deleteItem(props.item)">
+              <v-icon>delete</v-icon>
+            </v-btn>
+          </div>
         </td>
         </tr>
       </template>
@@ -307,9 +313,14 @@ export default {
     ciclos: [],
     // Dialog validar
     dialogValidar: false,
-    ofertaValidar: {}
+    ofertaValidar: {},
+    user_id: null,
+    user_rol: null,
   }),
   mounted() {
+    this.user_id=sessionStorage.user_id;
+    this.user_rol=sessionStorage.user_rol;
+    console.error('user_id: '+this.user_id+'/'+this.user_rol)
     this.$emit("setTitle", "Manteniment d'Ofertes");
     this.loadData();
     this.editItem.ciclos = [];
@@ -341,7 +352,7 @@ export default {
                 id: ciclo.id,
                 ciclo: ciclo.ciclo,
                 descrip: ciclo.vCiclo,
-                dept: Dept,
+                dept: ciclo.Dept,
                 familia: ciclo.vDept
               };
             }))

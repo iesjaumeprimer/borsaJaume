@@ -7,7 +7,7 @@ import API from '../lib/API';
 import utilsMixin from '../mixins/utils.js';
 
 export default {
-    mixins: [utilsMixin, formRulesMixin],
+    mixins: [utilsMixin],
     created() {
         if (confirm('¿Vols tancar la sessió?')) {
             console.log('logout')

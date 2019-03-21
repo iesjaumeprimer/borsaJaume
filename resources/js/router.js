@@ -10,6 +10,7 @@ import Menu from './views/Menu'
 //import MenuEdit from './views/MenuComponent/Edit'
 import Empresas from './views/Empresas'
 import Ofertas from './views/Ofertas'
+import OfertasxAlumno from './views/OfertasxAlumno'
 import AlumnosOferta from './views/AlumnosOferta'
 //import OfertasArxiu from './views/OfertasArxiu'
 import AppLogout from './views/AppLogout'
@@ -24,6 +25,7 @@ import Pass3 from './components/passport/PersonalAccessTokens'
 Vue.use(Router)
 
 const USERAUTH = sessionStorage.getItem('access_token');
+const user_rol = sessionStorage.user_rol;
 const ifNotAuthenticated = (to, from, next) => {
   if (!USERAUTH) {
     next()
@@ -93,7 +95,7 @@ export default new Router({
     {
       path: '/ofertas',
       name: 'ofertas',
-      component: Ofertas,
+      component: (user_rol==7?OfertasxAlumno:Ofertas),
       beforeEnter: ifAuthenticated,
     },
     {
