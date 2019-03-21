@@ -27,5 +27,11 @@ class OfertaController extends ApiBaseResourceController
         return parent::index();
     }
 
+    public function alumnoInterested(Request $request,$id)
+    {
+        Oferta::find($id)->alumnos()->sync([AuthUser()->id =>['interesado'=>$request->interesado]]);
+        return response($this->show($id),200);
+    }
+
 }
 
