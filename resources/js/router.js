@@ -15,7 +15,7 @@ import AlumnosOferta from './views/AlumnosOferta'
 //import OfertasArxiu from './views/OfertasArxiu'
 import AppLogout from './views/AppLogout'
 import AppLogin from './views/AppLogin'
-import PageNotFound from './views/404'
+import PageNotFound from './views/page404'
 // Passport ???
 import Pass1 from './components/passport/AuthorizedClients'
 import Pass2 from './components/passport/Clients'
