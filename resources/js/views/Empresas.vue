@@ -207,10 +207,11 @@ export default {
   }),
   mounted() {
     this.$emit('setTitle', 'Manteniment d\'Empreses');
-    this.loadData();
     if (this.$route.params.new) {
       this.dialog=true;
       this.editItem.id=this.$route.params.id;
+    } else {
+      this.loadData();
     }
   },
   methods: {
@@ -222,13 +223,47 @@ export default {
           .then(resp => {
             this.items = [resp.data.data];
           })
-          .catch(err => this.msgErr(err));
+          .catch(err => {
+              let msg='';
+              console.log(err)
+              switch (err.response.status) {
+                case 401:
+                  sessionStorage.removeItem('access_token');
+                  sessionStorage.removeItem('expires_at');
+                  sessionStorage.removeItem('user_rol');
+                  sessionStorage.removeItem('user_id');
+                  sessionStorage.removeItem('token_type');
+                  msg='Debes volverte a loguear'
+                  break;
+                default:
+                  msg='ERROR: '+err;
+              }
+              this.msgErr(msg);
+
+          });
       } else {
         API.getTable(this.table)
           .then(resp => {
             this.items = resp.data.data;
           })
-          .catch(err => this.msgErr(err));
+          .catch(err => {
+              let msg='';
+              console.log(err)
+              switch (err.response.status) {
+                case 401:
+                  sessionStorage.removeItem('access_token');
+                  sessionStorage.removeItem('expires_at');
+                  sessionStorage.removeItem('user_rol');
+                  sessionStorage.removeItem('user_id');
+                  sessionStorage.removeItem('token_type');
+                  msg='Debes volverte a loguear'
+                  break;
+                default:
+                  msg='ERROR: '+err;
+              }
+              this.msgErr(msg);
+
+          });
       }
     },
     showItem(id) {

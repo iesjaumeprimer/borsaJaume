@@ -4043,11 +4043,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$emit('setTitle', 'Manteniment d\'Empreses');
-    this.loadData();
 
     if (this.$route.params.new) {
       this.dialog = true;
       this.editItem.id = this.$route.params.id;
+    } else {
+      this.loadData();
     }
   },
   methods: {
@@ -4061,13 +4062,47 @@ __webpack_require__.r(__webpack_exports__);
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getItem(this.table, sessionStorage.user_id).then(function (resp) {
           _this.items = [resp.data.data];
         }).catch(function (err) {
-          return _this.msgErr(err);
+          var msg = '';
+          console.log(err);
+
+          switch (err.response.status) {
+            case 401:
+              sessionStorage.removeItem('access_token');
+              sessionStorage.removeItem('expires_at');
+              sessionStorage.removeItem('user_rol');
+              sessionStorage.removeItem('user_id');
+              sessionStorage.removeItem('token_type');
+              msg = 'Debes volverte a loguear';
+              break;
+
+            default:
+              msg = 'ERROR: ' + err;
+          }
+
+          _this.msgErr(msg);
         });
       } else {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
           _this.items = resp.data.data;
         }).catch(function (err) {
-          return _this.msgErr(err);
+          var msg = '';
+          console.log(err);
+
+          switch (err.response.status) {
+            case 401:
+              sessionStorage.removeItem('access_token');
+              sessionStorage.removeItem('expires_at');
+              sessionStorage.removeItem('user_rol');
+              sessionStorage.removeItem('user_id');
+              sessionStorage.removeItem('token_type');
+              msg = 'Debes volverte a loguear';
+              break;
+
+            default:
+              msg = 'ERROR: ' + err;
+          }
+
+          _this.msgErr(msg);
         });
       }
     },
@@ -90756,17 +90791,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 var API_URL = 'http://borsaTreball.my/api/';
-var config = {
-  headers: {
-    'Authorization': sessionStorage.token_type + ' ' + sessionStorage.access_token,
-    'Content-Type': 'application/json'
-  }
-};
-var configLogin = {
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  }
-};
 
 
 function checkAuth() {
@@ -90788,7 +90812,25 @@ function json2urlencoded(json) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  getConfig: function getConfig(auth) {
+    if (auth) return {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };else return {
+      headers: {
+        'Authorization': sessionStorage.token_type + ' ' + sessionStorage.access_token,
+        'Content-Type': 'application/json'
+      }
+    };
+  },
   getTable: function getTable(table, query) {
+    var config = {
+      headers: {
+        'Authorization': sessionStorage.token_type + ' ' + sessionStorage.access_token,
+        'Content-Type': 'application/json'
+      }
+    };
     console.log('get table');
 
     if (!checkAuth() && table != 'menu') {
@@ -90800,23 +90842,23 @@ function json2urlencoded(json) {
     }
 
     if (query) {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '?' + json2urlencoded(query), config);
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '?' + json2urlencoded(query), this.getConfig());
     } else {
       return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table, config);
     }
   },
   getItem: function getItem(table, id) {
     console.log('get item');
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '/' + id, config);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '/' + id, this.getConfig());
   },
   delItem: function delItem(table, id) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(API_URL + table + '/' + id, config);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(API_URL + table + '/' + id, this.getConfig());
   },
   saveItem: function saveItem(table, item) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + table, item, config);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + table, item, this.getConfig());
   },
   updateItem: function updateItem(table, id, item) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + table + '/' + id, item, config);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + table + '/' + id, item, this.getConfig());
   },
   getUser: function getUser(item) {
     // prova
@@ -90830,16 +90872,16 @@ function json2urlencoded(json) {
     //         }    
     //     })
     // });
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/login', json2urlencoded(item), configLogin);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig(true));
   },
   saveUser: function saveUser(item) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', json2urlencoded(item), configLogin);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', json2urlencoded(item), this.getConfig(true));
   },
   logoutUser: function logoutUser() {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'auth/logout', configLogin);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'auth/logout', this.getConfig(true));
   },
   sendMail: function sendMail(mail) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + '/mail', mail, config);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + '/mail', mail, this.getConfig());
   }
 });
 
@@ -91523,7 +91565,7 @@ var USERAUTH = sessionStorage.getItem('access_token');
 var user_rol = sessionStorage.user_rol;
 
 var ifNotAuthenticated = function ifNotAuthenticated(to, from, next) {
-  if (!USERAUTH) {
+  if (!sessionStorage.getItem('access_token')) {
     next();
     return;
   }
@@ -91533,7 +91575,7 @@ var ifNotAuthenticated = function ifNotAuthenticated(to, from, next) {
 };
 
 var ifAuthenticated = function ifAuthenticated(to, from, next) {
-  if (USERAUTH) {
+  if (sessionStorage.getItem('access_token')) {
     next();
     return;
   }

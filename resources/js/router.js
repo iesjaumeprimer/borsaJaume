@@ -26,16 +26,16 @@ Vue.use(Router)
 
 const USERAUTH = sessionStorage.getItem('access_token');
 const user_rol = sessionStorage.user_rol;
-const ifNotAuthenticated = (to, from, next) => {
-  if (!USERAUTH) {
+var ifNotAuthenticated = (to, from, next) => {
+  if (!sessionStorage.getItem('access_token')) {
     next()
     return
   }
   alert('Debes desloguearte primero');
   next('/')
 }
-const ifAuthenticated = (to, from, next) => {
-  if (USERAUTH) {
+var ifAuthenticated = (to, from, next) => {
+  if (sessionStorage.getItem('access_token')) {
     next()
     return
   }
