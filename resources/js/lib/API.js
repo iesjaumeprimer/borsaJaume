@@ -19,19 +19,17 @@ function json2urlencoded(json) {
     return pairs.join("&");
 }
 export default {
-    getConfig(auth) {
-        if (auth) return {
-                headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }
-        else return {
-                headers: {
-                'Authorization': sessionStorage.token_type+' '
-                    +sessionStorage.access_token,
-                'Content-Type': 'application/json'
+    getConfig(type, auth) {
+        let config={
+            headers: {
+                'Content-Type': type=='json'?
+                    'application/json':
+                    'application/x-www-form-urlencoded'
             }
         }
+        if (auth) config.headers.Authorization=
+            sessionStorage.token_type+' '+sessionStorage.access_token;
+        return config;
     },
     getTable(table, query) {
         const config={
@@ -50,45 +48,34 @@ export default {
             });
         }
         if (query) {
-            return axios.get(API_URL + table + '?' + json2urlencoded(query), this.getConfig());
+            return axios.get(API_URL + table + '?' + json2urlencoded(query), this.getConfig('json', true));
         } else {
-            return axios.get(API_URL + table, config);
+            return axios.get(API_URL + table, this.getConfig('json', true));
         }
     },
     getItem(table, id) {
         console.log('get item')
-        return axios.get(API_URL + table + '/' + id, this.getConfig());
+        return axios.get(API_URL + table + '/' + id, this.getConfig('json', true));
     },
     delItem(table, id) {
-        return axios.delete(API_URL + table + '/' + id, this.getConfig());
+        return axios.delete(API_URL + table + '/' + id, this.getConfig('json', true));
     },
     saveItem(table, item) {
-        return axios.post(API_URL + table, item, this.getConfig());
+        return axios.post(API_URL + table, item, this.getConfig('json', true));
     },
     updateItem(table, id, item) {
-        return axios.put(API_URL + table + '/' + id, item, this.getConfig());
+        return axios.put(API_URL + table + '/' + id, item, this.getConfig('json', true));
     },
     getUser(item) {
-        // prova
-        // return new Promise(function(resolve) {
-        //     resolve({
-        //         data: {
-        //             id:5,
-        //             user:item.user,
-        //             rol:2,
-        //             token:'asdad6acguas6utash768a'
-        //         }    
-        //     })
-        // });
-        return axios.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig(true))
+        return axios.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig('urlencoded'))
     },
     saveUser(item) {
-        return axios.post(API_URL + 'auth/signup', json2urlencoded(item), this.getConfig(true));
+        return axios.post(API_URL + 'auth/signup', json2urlencoded(item), this.getConfig('urlencoded'));
     },
     logoutUser() {
-        return axios.get(API_URL + 'auth/logout', this.getConfig(true));
+        return axios.get(API_URL + 'auth/logout', this.getConfig('urlencoded', true));
     },
     sendMail(mail) {
-        return axios.post(API_URL + '/mail', mail, this.getConfig());
+        return axios.post(API_URL + '/mail', mail, this.getConfig('json', true));
     }
 }

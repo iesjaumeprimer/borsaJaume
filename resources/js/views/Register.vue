@@ -66,6 +66,10 @@
         label="Alumne - Busque un treball"
         :value="7"
       ></v-radio>
+      <v-radio v-if="user_rol==2"
+        label="Responsable - Gestiona la borsa"
+        :value="3"
+      ></v-radio>
     </v-radio-group>
 
         <v-btn
@@ -95,9 +99,11 @@ export default {
   props: ['username', 'password', 'rol'],
       data: () => ({
         item: {},
+        user_rol: null
     }),
     mounted() {
-      this.$emit('setTitle', 'Registre de nou usuari')
+      this.$emit('setTitle', 'Registre de nou usuari');
+      this.user_rol=sessionStorage.user_rol;
     },
     methods: {
         checkPassword() {

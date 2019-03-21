@@ -8,6 +8,18 @@
 
     <v-card>
       <v-card-title>
+    <v-btn
+      v-if="user_rol<=3"
+      top
+      right
+      color="blue"
+      dark
+      @click.stop="openDialog(false)"
+    >
+      <v-icon>add</v-icon>
+    </v-btn>
+
+
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -300,21 +312,24 @@ export default {
     ciclos: [],
     // Para el dialogo de ciclos
     dialogCiclo: false,
-    ciclo: {}
+    ciclo: {},
+    user_rol: null
   }),
   mounted() {
     console.log('Alumnos mounted');
-    this.$emit('setTitle', 'Manteniment d\'Alumnes')
-    this.loadData();
+    this.$emit('setTitle', 'Manteniment d\'Alumnes');
+    this.user_rol=sessionStorage.user_rol;
     if (this.$route.params.new) {
       this.dialog=true;
       this.editItem.id=this.$route.params.id;
+    } else {
+      this.loadData();
     }
   },
   methods: {
     loadData() {
       console.log('carga alumnos');
-      if (sessionStorage.user_rol==7) {
+      if (this.user_rol==7) {
         // Es un alumno y sólo puede verse a sí mismo
         API.getItem(this.table, sessionStorage.user_id)
           .then(resp => {

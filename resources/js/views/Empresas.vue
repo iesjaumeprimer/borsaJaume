@@ -8,6 +8,17 @@
 
   <v-card>
     <v-card-title>
+    <v-btn
+      v-if="user_rol<=3"
+      top
+      right
+      color="blue"
+      dark
+      @click.stop="openDialog(false)"
+    >
+      <v-icon>add</v-icon>
+    </v-btn>
+
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -204,8 +215,10 @@ export default {
     headers: Headers.getTable('empresas'),
     // Para el dialogo
     dialogCiclos: false,
+    user_rol: null,
   }),
   mounted() {
+    this.user_rol=sessionStorage.user_rol;
     this.$emit('setTitle', 'Manteniment d\'Empreses');
     if (this.$route.params.new) {
       this.dialog=true;
@@ -217,7 +230,7 @@ export default {
   methods: {
     loadData() {
       console.log('carga empresas');
-      if (sessionStorage.user_rol==5) {
+      if (this.user_rol==5) {
         // Es una empresa y sólo puede verse a sí misma
         API.getItem(this.table, sessionStorage.user_id)
           .then(resp => {

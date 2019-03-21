@@ -2989,6 +2989,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3031,17 +3043,20 @@ __webpack_require__.r(__webpack_exports__);
       ciclos: [],
       // Para el dialogo de ciclos
       dialogCiclo: false,
-      ciclo: {}
+      ciclo: {},
+      user_rol: null
     };
   },
   mounted: function mounted() {
     console.log('Alumnos mounted');
     this.$emit('setTitle', 'Manteniment d\'Alumnes');
-    this.loadData();
+    this.user_rol = sessionStorage.user_rol;
 
     if (this.$route.params.new) {
       this.dialog = true;
       this.editItem.id = this.$route.params.id;
+    } else {
+      this.loadData();
     }
   },
   methods: {
@@ -3050,7 +3065,7 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log('carga alumnos');
 
-      if (sessionStorage.user_rol == 7) {
+      if (this.user_rol == 7) {
         // Es un alumno y sólo puede verse a sí mismo
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getItem(this.table, sessionStorage.user_id).then(function (resp) {
           _this.items = [resp.data.data];
@@ -3374,78 +3389,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3476,11 +3419,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       }) // store the token in localstorage
       .catch(function (err) {
-        sessionStorage.removeItem('access_token');
-        sessionStorage.removeItem('expires_at');
-        sessionStorage.removeItem('user_rol');
-        sessionStorage.removeItem('user_id');
-        sessionStorage.removeItem('token_type');
+        // sessionStorage.removeItem('access_token');
+        // sessionStorage.removeItem('expires_at');
+        // sessionStorage.removeItem('user_rol');
+        // sessionStorage.removeItem('user_id');
+        // sessionStorage.removeItem('token_type');
         var msg = '';
         console.log(err);
 
@@ -3497,26 +3440,7 @@ __webpack_require__.r(__webpack_exports__);
       }); // if the request fails, remove any possible user token if possible
     },
     registerUser: function registerUser() {
-      var _this2 = this;
-
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.editUser).then(function (resp) {
-        sessionStorage.access_token = resp.data.access_token;
-        sessionStorage.expires_at = resp.data.expires_at;
-        sessionStorage.user_rol = resp.data.rol;
-        sessionStorage.user_id = resp.data.id;
-        sessionStorage.token_type = resp.data.token_type;
-
-        _this2.$router.push('/home');
-      }) // store the token in localstorage
-      .catch(function (err) {
-        sessionStorage.removeItem('access_token');
-        sessionStorage.removeItem('expires_at');
-        sessionStorage.removeItem('user_rol');
-        sessionStorage.removeItem('user_id');
-        sessionStorage.removeItem('token_type');
-
-        _this2.msgErr('ERROR: ' + err);
-      }); // if the request fails, remove any possible user token if possible
+      this.$router.push('/register');
     }
   }
 });
@@ -4027,6 +3951,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4038,10 +3973,12 @@ __webpack_require__.r(__webpack_exports__);
       table: 'empresas',
       headers: _lib_Headers_js__WEBPACK_IMPORTED_MODULE_1__["default"].getTable('empresas'),
       // Para el dialogo
-      dialogCiclos: false
+      dialogCiclos: false,
+      user_rol: null
     };
   },
   mounted: function mounted() {
+    this.user_rol = sessionStorage.user_rol;
     this.$emit('setTitle', 'Manteniment d\'Empreses');
 
     if (this.$route.params.new) {
@@ -4057,7 +3994,7 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log('carga empresas');
 
-      if (sessionStorage.user_rol == 5) {
+      if (this.user_rol == 5) {
         // Es una empresa y sólo puede verse a sí misma
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getItem(this.table, sessionStorage.user_id).then(function (resp) {
           _this.items = [resp.data.data];
@@ -4817,10 +4754,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -4862,8 +4795,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   mounted: function mounted() {
-    this.user_id = sessionStorage.user_id;
-    this.user_rol = sessionStorage.user_rol;
+    this.user_id = Number(sessionStorage.user_id);
+    this.user_rol = Number(sessionStorage.user_rol);
     console.error('user_id: ' + this.user_id + '/' + this.user_rol);
     this.$emit("setTitle", "Manteniment d'Ofertes");
     this.loadData();
@@ -4873,11 +4806,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loadData: function loadData() {
       var _this = this;
 
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table, this.$route.query).then(function (resp) {
-        return _this.items = resp.data.data;
-      }).catch(function (err) {
-        return _this.msgErr(err);
-      });
+      this.loadItems(); // API.getTable(this.table, this.$route.query)
+      //   .then(resp => this.items = resp.data.data)
+      //   .catch(err => this.msgErr(err));
+
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("empresas").then(function (resp) {
         return _this.empresas = resp.data.data.map(function (empresa) {
           return {
@@ -4937,13 +4869,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (!this.editItem[campo]) this.editItem[campo] = newEmpresa[campo];
       }
     },
-    newOferta: function newOferta() {
-      // Asignamos los valores por defecto
-      this.editItem = {
+    dialogNewOferta: function dialogNewOferta() {
+      var defaultItem = {
         activa: true,
         ciclos: []
       };
-      this.openDialog(false);
+
+      if (this.user_rol == 5) {
+        var miEmpresa = this.empresas.find(function (empresa) {
+          return empresa.id == sessionStorage.user_id;
+        });
+        defaultItem.id_empresa = miEmpresa.id;
+        defaultItem.contacto = miEmpresa.contacto;
+        defaultItem.telefono = miEmpresa.telefono;
+        defaultItem.email = miEmpresa.email;
+      }
+
+      this.openDialog(false, defaultItem);
     },
     openDialogValidar: function openDialogValidar(oferta) {
       if (oferta.activa || oferta.validada) {
@@ -5185,7 +5127,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.user_id = sessionStorage.user_id;
     this.user_rol = sessionStorage.user_rol;
     this.$emit("setTitle", "Ofertes actives");
-    this.loadData();
+    this.loadItems();
     this.editItem.ciclos = [];
   },
   methods: {
@@ -5720,6 +5662,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -5728,11 +5674,13 @@ __webpack_require__.r(__webpack_exports__);
   props: ['username', 'password', 'rol'],
   data: function data() {
     return {
-      item: {}
+      item: {},
+      user_rol: null
     };
   },
   mounted: function mounted() {
     this.$emit('setTitle', 'Registre de nou usuari');
+    this.user_rol = sessionStorage.user_rol;
   },
   methods: {
     checkPassword: function checkPassword() {
@@ -43725,6 +43673,23 @@ var render = function() {
           _c(
             "v-card-title",
             [
+              _vm.user_rol <= 3
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: { top: "", right: "", color: "blue", dark: "" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          return _vm.openDialog(false)
+                        }
+                      }
+                    },
+                    [_c("v-icon", [_vm._v("add")])],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
@@ -45050,214 +45015,11 @@ var render = function() {
               on: {
                 click: function($event) {
                   $event.stopPropagation()
-                  return _vm.openDialog(false)
+                  return _vm.registerUser($event)
                 }
               }
             },
             [_vm._v("Registrar-se")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-dialog",
-        {
-          attrs: { width: "800px" },
-          model: {
-            value: _vm.dialog,
-            callback: function($$v) {
-              _vm.dialog = $$v
-            },
-            expression: "dialog"
-          }
-        },
-        [
-          _c(
-            "v-card",
-            [
-              _c(
-                "v-form",
-                {
-                  ref: "form",
-                  attrs: { "lazy-validation": "" },
-                  model: {
-                    value: _vm.valid,
-                    callback: function($$v) {
-                      _vm.valid = $$v
-                    },
-                    expression: "valid"
-                  }
-                },
-                [
-                  _c(
-                    "v-card-title",
-                    { staticClass: "grey lighten-4 py-4 title" },
-                    [
-                      _vm._v(
-                        "\n        " +
-                          _vm._s(_vm.isNew ? "Nou" : "Editar") +
-                          " compte\n      "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-container",
-                    { staticClass: "pa-4", attrs: { "grid-list-sm": "" } },
-                    [
-                      _c(
-                        "v-layout",
-                        { attrs: { row: "", wrap: "" } },
-                        [
-                          _c("v-text-field", {
-                            attrs: {
-                              label: "Nom d'usuari",
-                              title: "Nom d'usuari",
-                              required: "",
-                              rules: _vm.usernameRules
-                            },
-                            model: {
-                              value: _vm.editItem.username,
-                              callback: function($$v) {
-                                _vm.$set(_vm.editItem, "username", $$v)
-                              },
-                              expression: "editItem.username"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              label: "Contrasenya",
-                              title: "Contrasenya",
-                              required: "",
-                              rules: _vm.usernameRules
-                            },
-                            model: {
-                              value: _vm.editItem.password,
-                              callback: function($$v) {
-                                _vm.$set(_vm.editItem, "password", $$v)
-                              },
-                              expression: "editItem.password"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              label: "Repeteix la contrasenya",
-                              title: "Repeteix la contrasenya",
-                              required: "",
-                              rules: _vm.usernameRules
-                            },
-                            model: {
-                              value: _vm.password2,
-                              callback: function($$v) {
-                                _vm.password2 = $$v
-                              },
-                              expression: "password2"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              label: "E-mail",
-                              title: "E-mail",
-                              required: "",
-                              rules: _vm.emailRules
-                            },
-                            model: {
-                              value: _vm.editItem.email,
-                              callback: function($$v) {
-                                _vm.$set(_vm.editItem, "email", $$v)
-                              },
-                              expression: "editItem.email"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.isNew
-                            ? _c(
-                                "v-radio-group",
-                                {
-                                  attrs: {
-                                    hint: "Indica el teu rol en la borsa:",
-                                    "persistent-hint": true,
-                                    required: ""
-                                  },
-                                  model: {
-                                    value: _vm.editItem.rol,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.editItem, "rol", $$v)
-                                    },
-                                    expression: "editItem.rol"
-                                  }
-                                },
-                                [
-                                  _c("v-radio", {
-                                    attrs: {
-                                      label: "Empresa - Ofereix un treball",
-                                      value: 5
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-radio", {
-                                    attrs: {
-                                      label: "Alumne - Busque un treball",
-                                      value: 7
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            : _vm._e()
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-actions",
-                    [
-                      _c("v-btn", { attrs: { flat: "", color: "primary" } }, [
-                        _vm._v("More")
-                      ]),
-                      _vm._v(" "),
-                      _c("v-spacer"),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            flat: "",
-                            color: "primary",
-                            disabled: !_vm.valid
-                          },
-                          on: { click: _vm.registerUser }
-                        },
-                        [_vm._v("Guardar")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: { flat: "" },
-                          on: {
-                            click: function($event) {
-                              return _vm.closeDialog()
-                            }
-                          }
-                        },
-                        [_vm._v("Cancel·lar")]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
           )
         ],
         1
@@ -45853,6 +45615,23 @@ var render = function() {
           _c(
             "v-card-title",
             [
+              _vm.user_rol <= 3
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: { top: "", right: "", color: "blue", dark: "" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          return _vm.openDialog(false)
+                        }
+                      }
+                    },
+                    [_c("v-icon", [_vm._v("add")])],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
@@ -47277,11 +47056,7 @@ var render = function() {
                       on: {
                         click: function($event) {
                           $event.stopPropagation()
-                          return _vm.openDialog(false, {
-                            activa: true,
-                            ciclos: [],
-                            id_empresa: _vm.user_id
-                          })
+                          return _vm.dialogNewOferta($event)
                         }
                       }
                     },
@@ -47715,6 +47490,7 @@ var render = function() {
                         [
                           _c("v-select", {
                             attrs: {
+                              readonly: _vm.user_rol > 3,
                               label: "Descripció",
                               placeholder: "Empresa",
                               items: _vm.empresas,
@@ -49362,7 +49138,16 @@ var render = function() {
                                   label: "Alumne - Busque un treball",
                                   value: 7
                                 }
-                              })
+                              }),
+                              _vm._v(" "),
+                              _vm.user_rol == 2
+                                ? _c("v-radio", {
+                                    attrs: {
+                                      label: "Responsable - Gestiona la borsa",
+                                      value: 3
+                                    }
+                                  })
+                                : _vm._e()
                             ],
                             1
                           )
@@ -90814,17 +90599,14 @@ function json2urlencoded(json) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  getConfig: function getConfig(auth) {
-    if (auth) return {
+  getConfig: function getConfig(type, auth) {
+    var config = {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    };else return {
-      headers: {
-        'Authorization': sessionStorage.token_type + ' ' + sessionStorage.access_token,
-        'Content-Type': 'application/json'
+        'Content-Type': type == 'json' ? 'application/json' : 'application/x-www-form-urlencoded'
       }
     };
+    if (auth) config.headers.Authorization = sessionStorage.token_type + ' ' + sessionStorage.access_token;
+    return config;
   },
   getTable: function getTable(table, query) {
     var config = {
@@ -90844,46 +90626,35 @@ function json2urlencoded(json) {
     }
 
     if (query) {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '?' + json2urlencoded(query), this.getConfig());
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '?' + json2urlencoded(query), this.getConfig('json', true));
     } else {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table, config);
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table, this.getConfig('json', true));
     }
   },
   getItem: function getItem(table, id) {
     console.log('get item');
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '/' + id, this.getConfig());
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '/' + id, this.getConfig('json', true));
   },
   delItem: function delItem(table, id) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(API_URL + table + '/' + id, this.getConfig());
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(API_URL + table + '/' + id, this.getConfig('json', true));
   },
   saveItem: function saveItem(table, item) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + table, item, this.getConfig());
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + table, item, this.getConfig('json', true));
   },
   updateItem: function updateItem(table, id, item) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + table + '/' + id, item, this.getConfig());
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + table + '/' + id, item, this.getConfig('json', true));
   },
   getUser: function getUser(item) {
-    // prova
-    // return new Promise(function(resolve) {
-    //     resolve({
-    //         data: {
-    //             id:5,
-    //             user:item.user,
-    //             rol:2,
-    //             token:'asdad6acguas6utash768a'
-    //         }    
-    //     })
-    // });
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig(true));
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig('urlencoded'));
   },
   saveUser: function saveUser(item) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', json2urlencoded(item), this.getConfig(true));
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', json2urlencoded(item), this.getConfig('urlencoded'));
   },
   logoutUser: function logoutUser() {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'auth/logout', this.getConfig(true));
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'auth/logout', this.getConfig('urlencoded', true));
   },
   sendMail: function sendMail(mail) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + '/mail', mail, this.getConfig());
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + '/mail', mail, this.getConfig('json', true));
   }
 });
 
@@ -91406,8 +91177,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.pagination.descending = false;
       }
     },
-    addItem: function addItem() {
+    loadItems: function loadItems() {
       var _this = this;
+
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
+        _this.items = resp.data.data;
+      }).catch(function (err) {
+        var msg = '';
+        console.log(err);
+
+        switch (err.response.status) {
+          case 401:
+            sessionStorage.removeItem('access_token');
+            sessionStorage.removeItem('expires_at');
+            sessionStorage.removeItem('user_rol');
+            sessionStorage.removeItem('user_id');
+            sessionStorage.removeItem('token_type');
+            msg = 'Debes volverte a loguear';
+            break;
+
+          default:
+            msg = 'ERROR: ' + err;
+        }
+
+        _this.msgErr(msg);
+      });
+    },
+    addItem: function addItem() {
+      var _this2 = this;
 
       // OJO. SObreescrito en: MenuView.vue
       console.log('this: ' + this.$refs.form);
@@ -91415,41 +91212,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (this.isNew) {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveItem(this.table, this.editItem).then(function (resp) {
-          _this.items.push(resp.data);
+          _this2.items.push(resp.data);
 
-          _this.msgOk('save');
+          _this2.msgOk('save');
 
           console.log('resp: ' + resp.data);
         }).catch(function (err) {
-          return _this.msgErr(err);
+          return _this2.msgErr(err);
         });
       } else {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem(this.table, this.editItem.id, this.editItem).then(function (resp) {
-          var index = _this.items.findIndex(function (item) {
+          var index = _this2.items.findIndex(function (item) {
             return item.id == resp.data.id;
           });
 
-          _this.items.splice(index, 1, resp.data);
+          _this2.items.splice(index, 1, resp.data);
 
-          _this.msgOk('update');
+          _this2.msgOk('update');
         }).catch(function (err) {
-          return _this.msgErr(err);
+          return _this2.msgErr(err);
         });
       } //        }
 
     },
     deleteItem: function deleteItem(item, msg) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (confirm("¿Segur que vols esborrar " + msg + "?")) {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].delItem(this.table, item.id).then(function (resp) {
-          _this2.items = _this2.items.filter(function (elem) {
+          _this3.items = _this3.items.filter(function (elem) {
             return elem != item;
           });
 
-          _this2.msgOk('delete');
+          _this3.msgOk('delete');
         }).catch(function (err) {
-          return _this2.msgErr(err);
+          return _this3.msgErr(err);
         });
       }
     },
@@ -91498,7 +91295,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.editItem = _objectSpread({}, item);
         this.isNew = false;
       } else {
-        if (!this.isNew) this.editItem = defaultItem; // Si estavem editant un item l'esborrem
+        //                if (!this.isNew) 
+        this.editItem = defaultItem; // Si estavem editant un item l'esborrem
 
         this.isNew = true;
       }

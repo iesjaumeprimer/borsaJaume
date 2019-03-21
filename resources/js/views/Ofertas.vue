@@ -13,11 +13,7 @@
       right
       color="blue"
       dark
-      @click.stop="openDialog(false, {
-        activa: true, 
-        ciclos: [],
-        id_empresa: user_id
-      })"
+      @click.stop="dialogNewOferta"
     >
       <v-icon>add</v-icon>
     </v-btn>
@@ -154,7 +150,7 @@
               ></v-checkbox>
             </v-flex>
             <v-flex xs6>
-        <v-select
+        <v-select :readonly="user_rol>3"
 
            label="Descripció"
                 placeholder="Empresa"
@@ -318,8 +314,8 @@ export default {
     user_rol: null,
   }),
   mounted() {
-    this.user_id=sessionStorage.user_id;
-    this.user_rol=sessionStorage.user_rol;
+    this.user_id=Number(sessionStorage.user_id);
+    this.user_rol=Number(sessionStorage.user_rol);
     console.error('user_id: '+this.user_id+'/'+this.user_rol)
     this.$emit("setTitle", "Manteniment d'Ofertes");
     this.loadData();
@@ -327,9 +323,10 @@ export default {
   },
   methods: {
     loadData() {
-      API.getTable(this.table, this.$route.query)
-        .then(resp => this.items = resp.data.data)
-        .catch(err => this.msgErr(err));
+      this.loadItems();
+      // API.getTable(this.table, this.$route.query)
+      //   .then(resp => this.items = resp.data.data)
+      //   .catch(err => this.msgErr(err));
       API.getTable("empresas")
         .then(
           resp =>
@@ -385,13 +382,20 @@ export default {
       for (let campo of ["telefono", "email", "contacto"])
         if (!this.editItem[campo]) this.editItem[campo] = newEmpresa[campo];
     },
-    newOferta() {
-      // Asignamos los valores por defecto
-      this.editItem = {
-        activa: true,
-        ciclos: []
-      };
-      this.openDialog(false);
+    dialogNewOferta() {
+      let defaultItem={
+        activa: true, 
+        ciclos: [],
+      }
+      if (this.user_rol==5) {
+        let miEmpresa=this.empresas.find(empresa=>
+          empresa.id==sessionStorage.user_id);
+        defaultItem.id_empresa=miEmpresa.id;
+        defaultItem.contacto=miEmpresa.contacto;
+        defaultItem.telefono=miEmpresa.telefono;
+        defaultItem.email=miEmpresa.email;
+      }
+      this.openDialog(false, defaultItem);
     },
     openDialogValidar(oferta) {
       if (oferta.activa || oferta.validada) {

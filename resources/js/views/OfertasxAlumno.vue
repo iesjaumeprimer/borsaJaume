@@ -172,7 +172,7 @@ export default {
     this.user_id=sessionStorage.user_id;
     this.user_rol=sessionStorage.user_rol;
     this.$emit("setTitle", "Ofertes actives");
-    this.loadData();
+    this.loadItems();
     this.editItem.ciclos = [];
   },
   methods: {
