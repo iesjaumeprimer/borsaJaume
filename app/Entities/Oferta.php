@@ -19,6 +19,10 @@ class Oferta extends Model
     {
         return $this->belongsToMany(Ciclo::class,'ofertas_ciclos', 'id_oferta', 'id_ciclo', 'id', 'id')->withPivot('any_fin');
     }
+    public function Alumnos()
+    {
+        return $this->belongsToMany(Alumno::class,'ofertas_alumnos', 'id_oferta', 'id_alumno', 'id', 'id')->withPivot('interesado');
+    }
     public function Empresa(){
         return $this->belongsTo(Empresa::class,'id_empresa');
     }

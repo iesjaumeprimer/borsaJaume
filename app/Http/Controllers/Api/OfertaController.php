@@ -18,11 +18,11 @@ class OfertaController extends ApiBaseResourceController
     public function index()
     {
 
-        if (AuthUser()->rol == config('role.empresa'))
+        if (AuthUser()->isEmpresa())
             return OfertaResource::collection(Oferta::BelongsToEnterprise(AuthUser()->id)->get());
-        if (AuthUser()->rol == config('role.alumno'))
+        if (AuthUser()->isAlumno())
             return OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true)));
-        if (AuthUser()->rol == config('role.responsable'))
+        if (AuthUser()->isResponsable())
             return OfertaResource::collection(Oferta.BelongsToFamlily(AuthUser()->id)->get());
         return parent::index();
     }
