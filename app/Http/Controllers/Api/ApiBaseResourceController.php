@@ -33,12 +33,14 @@ class ApiBaseResourceController extends Controller
     public function show($id){
         return new $this->resource($this->class::find($id));
     }
+
     public function destroy($id)
     {
         if ($this->class::destroy($id)) return response(1,200);
 
         return response("No he pogut Esborrar $id",400);
     }
+
     public function store(Request $request)
     {
         $this->validate($request, $this->rules);

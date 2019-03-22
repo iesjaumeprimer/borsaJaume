@@ -41,7 +41,6 @@ Route::group(['middleware' => 'auth:api'], function() {
             'empresas' => 'Api\EmpresaController',
             'ofertas' => 'Api\OfertaController',
             'ciclos' => 'Api\CicloController',
-            'responsables' => 'Api\ResponsableController'
         ]);
     Route::put('ofertas/{id}/alumno', 'Api\OfertaController@AlumnoInterested');
 });
