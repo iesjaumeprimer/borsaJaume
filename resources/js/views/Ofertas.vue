@@ -303,7 +303,8 @@ export default {
       { text: "Lloc de traball", value: "puesto" },
       { text: "Contracte", value: "tipo_contrato" },
       { text: "Cicles", value: "cicles" },
-      { text: "Any", value: "any" }
+      { text: "Any", value: "any" },
+      { text: "Accions" }
     ],
     empresas: [],
     ciclos: [],
