@@ -6,8 +6,9 @@
                 {{ error.msg }}
             </v-alert>
         </div>
-  <v-form ref="form" v-model="valid" lazy-validation>
+  <v-form @submit.prevent="submit" ref="form" v-model="valid" lazy-validation>
             <v-text-field
+                autofocus
                 v-model="item.email" 
                 label="e-Mail" 
                 title="e-Mail" 
@@ -24,12 +25,7 @@
             >
             </v-text-field>
             <p><a href="#">He oblidat la meua contrasenya</a></p>
-    <v-btn
-      :disabled="!valid"
-      @click="submit"
-    >
-      Login
-    </v-btn>
+    <v-btn type="submit" :disabled="!valid">Login</v-btn>
     <v-btn @click.stop="registerUser">Registrar-se</v-btn>
   </v-form>
 

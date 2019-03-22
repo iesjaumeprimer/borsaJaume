@@ -2713,6 +2713,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_base_YesNoIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/base/YesNoIcon */ "./resources/js/components/base/YesNoIcon.vue");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
 //
 //
 //
@@ -3066,6 +3072,14 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    preOpenDialog: function preOpenDialog(item) {
+      var itemCiclos = _objectSpread({}, item);
+
+      itemCiclos.ciclos = itemCiclos.ciclos.map(function (ciclo) {
+        return ciclo.id_ciclo;
+      });
+      this.openDialog(itemCiclos);
+    },
     closeDialogCiclo: function closeDialogCiclo() {
       this.dialogCiclo = false;
       this.ciclo = {};
@@ -3325,10 +3339,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_API__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/API */ "./resources/js/lib/API.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
-//
-//
-//
-//
 //
 //
 //
@@ -4813,6 +4823,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return _this.msgErr(err);
       });
     },
+    preOpenDialog: function preOpenDialog(item) {
+      var itemCiclos = _objectSpread({}, item);
+
+      itemCiclos.ciclos = itemCiclos.ciclos.map(function (ciclo) {
+        return ciclo.id_ciclo;
+      });
+      this.openDialog(itemCiclos);
+    },
     nomEmpresa: function nomEmpresa(id) {
       return id && this.empresas.length ? this.empresas.find(function (empresa) {
         return empresa.id == id;
@@ -5052,6 +5070,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5069,8 +5097,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         text: "Activa",
         value: "activa"
       }, {
-        text: "Interessat",
-        value: "interessat"
+        text: "interesado",
+        value: "interesado"
       }, {
         text: "Empresa",
         value: "id_empresa"
@@ -5169,9 +5197,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     validaOferta: function validaOferta() {
       var _this3 = this;
 
-      console.error(this.ofertaValidar.interessat == 1 ? false : true);
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateInteresado(this.ofertaValidar.id, this.ofertaValidar.interessat == 1 ? false : true).then(function (res) {
-        return _this3.ofertaValidar.interessat = res.data.interessat;
+      console.error(this.ofertaValidar.interesado == 1 ? false : true);
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateInteresado(this.ofertaValidar.id, this.ofertaValidar.interesado == 1 ? false : true).then(function (res) {
+        return _this3.ofertaValidar.interesado = res.data.interesado;
       }).catch(function (err) {
         return _this3.msgErr(err);
       });
@@ -43725,10 +43753,7 @@ var render = function() {
                               "v-chip",
                               {
                                 key: "cicl-" + ciclo.id_ciclo,
-                                attrs: {
-                                  title: _vm.descCiclo(ciclo.id_ciclo),
-                                  color: ciclo.validado ? "" : "red lighten-4"
-                                },
+                                attrs: { title: _vm.descCiclo(ciclo.id_ciclo) },
                                 on: {
                                   dblclick: function($event) {
                                     return _vm.toogleValida(
@@ -43741,9 +43766,20 @@ var render = function() {
                                 }
                               },
                               [
-                                _c("v-avatar", { attrs: { color: "grey" } }, [
-                                  _c("strong", [_vm._v(_vm._s(ciclo.any))])
-                                ]),
+                                _c(
+                                  "v-avatar",
+                                  {
+                                    attrs: {
+                                      color: ciclo.validado
+                                        ? "teal"
+                                        : "red lighten-4",
+                                      title: ciclo.validado
+                                        ? "Validado"
+                                        : "No validado?"
+                                    }
+                                  },
+                                  [_c("strong", [_vm._v(_vm._s(ciclo.any))])]
+                                ),
                                 _vm._v(
                                   "\n\n              " +
                                     _vm._s(_vm.nomCiclo(ciclo.id_ciclo)) +
@@ -43824,7 +43860,7 @@ var render = function() {
                                 attrs: { icon: "" },
                                 on: {
                                   click: function($event) {
-                                    return _vm.openDialog(props.item)
+                                    return _vm.preOpenDialog(props.item)
                                   }
                                 }
                               },
@@ -44856,6 +44892,12 @@ var render = function() {
         {
           ref: "form",
           attrs: { "lazy-validation": "" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submit($event)
+            }
+          },
           model: {
             value: _vm.valid,
             callback: function($$v) {
@@ -44867,6 +44909,7 @@ var render = function() {
         [
           _c("v-text-field", {
             attrs: {
+              autofocus: "",
               label: "e-Mail",
               title: "e-Mail",
               required: "",
@@ -44903,11 +44946,9 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "v-btn",
-            { attrs: { disabled: !_vm.valid }, on: { click: _vm.submit } },
-            [_vm._v("\n    Login\n  ")]
-          ),
+          _c("v-btn", { attrs: { type: "submit", disabled: !_vm.valid } }, [
+            _vm._v("Login")
+          ]),
           _vm._v(" "),
           _c(
             "v-btn",
@@ -47136,7 +47177,7 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             $event.stopPropagation()
-                                            return _vm.openDialog(props.item)
+                                            return _vm.preOpenDialog(props.item)
                                           }
                                         }
                                       },
@@ -47557,34 +47598,26 @@ var render = function() {
                         "v-flex",
                         { attrs: { xs9: "" } },
                         [
-                          _c(
-                            "v-select",
-                            {
-                              attrs: {
-                                items: _vm.ciclos,
-                                "item-text": "ciclo",
-                                "item-value": "id",
-                                label: "Cicles demanats",
-                                multiple: "",
-                                chips: "",
-                                hint:
-                                  "Els aspirants han de tindre algú d'quests cicles",
-                                "persistent-hint": ""
-                              },
-                              model: {
-                                value: _vm.editItem.ciclos,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.editItem, "ciclos", $$v)
-                                },
-                                expression: "editItem.ciclos"
-                              }
+                          _c("v-select", {
+                            attrs: {
+                              items: _vm.ciclos,
+                              "item-text": "ciclo",
+                              "item-value": "id",
+                              label: "Cicles demanats",
+                              multiple: "",
+                              chips: "",
+                              hint:
+                                "Els aspirants han de tindre algú d'quests cicles",
+                              "persistent-hint": ""
                             },
-                            [
-                              _c("optgroup", { attrs: { label: "US" } }, [
-                                _vm._v("asdas")
-                              ])
-                            ]
-                          )
+                            model: {
+                              value: _vm.editItem.ciclos,
+                              callback: function($$v) {
+                                _vm.$set(_vm.editItem, "ciclos", $$v)
+                              },
+                              expression: "editItem.ciclos"
+                            }
+                          })
                         ],
                         1
                       ),
@@ -47916,7 +47949,7 @@ var render = function() {
                               "v-chip",
                               {
                                 attrs: {
-                                  color: props.item.interessat ? "teal" : "red"
+                                  color: props.item.interesado ? "teal" : "red"
                                 },
                                 on: {
                                   dblclick: function($event) {
@@ -47926,10 +47959,10 @@ var render = function() {
                                 }
                               },
                               [
-                                props.item.interessat == undefined
-                                  ? _c("v-icon", [_vm._v("help")])
+                                props.item.interesado == undefined
+                                  ? _c("v-icon", [_vm._v("help_outline")])
                                   : _c("yes-no-icon", {
-                                      attrs: { value: props.item.interessat }
+                                      attrs: { value: props.item.interesado }
                                     })
                               ],
                               1
@@ -48007,97 +48040,134 @@ var render = function() {
                   fn: function(props) {
                     return [
                       _c(
-                        "v-card",
-                        { attrs: { flat: "" } },
+                        "v-layout",
+                        { attrs: { row: "", wrap: "" } },
                         [
                           _c(
-                            "v-card-text",
+                            "v-flex",
+                            { attrs: { xs6: "" } },
                             [
-                              _c("strong", [_vm._v("Descripció:")]),
-                              _vm._v(
-                                " " +
-                                  _vm._s(props.item.descripcion) +
-                                  "\n            "
-                              ),
-                              props.item.contacto
-                                ? [
-                                    _c("br"),
-                                    _c("strong", [_vm._v("Contacte:")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(props.item.contacto) +
-                                        "\n            "
-                                    )
-                                  ]
-                                : _vm._e(),
-                              _vm._v(" "),
-                              props.item.email
-                                ? [
-                                    _c("br"),
-                                    _c("strong", [_vm._v("E-mail:")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(props.item.email) +
-                                        "\n            "
-                                    )
-                                  ]
-                                : _vm._e(),
-                              _vm._v(" "),
-                              props.item.telefono
-                                ? [
-                                    _c("br"),
-                                    _c("strong", [_vm._v("Telèfon:")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(props.item.telefono) +
-                                        "\n            "
-                                    )
-                                  ]
-                                : _vm._e(),
-                              _vm._v(" "),
-                              props.item.resultat
-                                ? [
-                                    _c("br"),
-                                    _c("strong", [_vm._v("Resultat:")]),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(props.item.resultat) +
-                                        "\n            "
-                                    )
-                                  ]
-                                : _vm._e(),
-                              _vm._v(" "),
-                              [
-                                _c("br"),
-                                _c("strong", [_vm._v("DADES EMPRESA")]),
-                                _vm._v(" "),
-                                _c("br"),
-                                _c("strong", [_vm._v("Domicil·li: ")]),
-                                _vm._v(
-                                  _vm._s(props.item.empresa.domicilio) +
-                                    "\n              "
-                                ),
-                                _c("br"),
-                                _c("strong", [_vm._v("Localitat: ")]),
-                                _vm._v(
-                                  _vm._s(props.item.empresa.localidad) +
-                                    "\n              "
-                                ),
-                                _c("br"),
-                                _c("strong", [_vm._v("Pàgina web: ")]),
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: {
-                                      target: "_blank",
-                                      href: props.item.empresa.web
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(props.item.empresa.web))]
-                                )
-                              ]
+                              _c(
+                                "v-card",
+                                { attrs: { flat: "" } },
+                                [
+                                  _c(
+                                    "v-card-text",
+                                    [
+                                      _c("strong", [_vm._v("Descripció:")]),
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(props.item.descripcion) +
+                                          "\n            "
+                                      ),
+                                      props.item.contacto
+                                        ? [
+                                            _c("br"),
+                                            _c("strong", [_vm._v("Contacte:")]),
+                                            _vm._v(
+                                              " " +
+                                                _vm._s(props.item.contacto) +
+                                                "\n            "
+                                            )
+                                          ]
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      props.item.email
+                                        ? [
+                                            _c("br"),
+                                            _c("strong", [_vm._v("E-mail:")]),
+                                            _vm._v(
+                                              " " +
+                                                _vm._s(props.item.email) +
+                                                "\n            "
+                                            )
+                                          ]
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      props.item.telefono
+                                        ? [
+                                            _c("br"),
+                                            _c("strong", [_vm._v("Telèfon:")]),
+                                            _vm._v(
+                                              " " +
+                                                _vm._s(props.item.telefono) +
+                                                "\n            "
+                                            )
+                                          ]
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      props.item.resultat
+                                        ? [
+                                            _c("br"),
+                                            _c("strong", [_vm._v("Resultat:")]),
+                                            _vm._v(
+                                              " " +
+                                                _vm._s(props.item.resultat) +
+                                                "\n            "
+                                            )
+                                          ]
+                                        : _vm._e()
+                                    ],
+                                    2
+                                  )
+                                ],
+                                1
+                              )
                             ],
-                            2
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs6: "" } },
+                            [
+                              _c(
+                                "v-card",
+                                { attrs: { flat: "" } },
+                                [
+                                  _c(
+                                    "v-card-text",
+                                    [
+                                      [
+                                        _c("strong", [_vm._v("DADES EMPRESA")]),
+                                        _vm._v(" "),
+                                        _c("br"),
+                                        _c("strong", [_vm._v("Domicil·li: ")]),
+                                        _vm._v(
+                                          _vm._s(props.item.empresa.domicilio) +
+                                            "\n              "
+                                        ),
+                                        _c("br"),
+                                        _c("strong", [_vm._v("Localitat: ")]),
+                                        _vm._v(
+                                          _vm._s(props.item.empresa.localidad) +
+                                            "\n              "
+                                        ),
+                                        _c("br"),
+                                        _c("strong", [_vm._v("Pàgina web: ")]),
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              target: "_blank",
+                                              href: props.item.empresa.web
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              _vm._s(props.item.empresa.web)
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    ],
+                                    2
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
                           )
                         ],
                         1
@@ -48175,7 +48245,7 @@ var render = function() {
                   _c("v-card-title", { staticClass: "headline" }, [
                     _vm._v(
                       _vm._s(
-                        _vm.ofertaValidar.interessat == 1
+                        _vm.ofertaValidar.interesado == 1
                           ? "Desapuntar-te"
                           : "Apuntar-te"
                       ) + " a l'Oferta"
@@ -48186,7 +48256,7 @@ var render = function() {
                     _vm._v(
                       "\n        Vas a " +
                         _vm._s(
-                          _vm.ofertaValidar.interessat == 1
+                          _vm.ofertaValidar.interesado == 1
                             ? "Desapuntar-te"
                             : "Apuntar-te"
                         ) +
@@ -91094,7 +91164,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.items = resp.data.data;
       }).catch(function (err) {
         var msg = '';
-        console.log(err);
 
         switch (err.response.status) {
           case 401:
@@ -91117,16 +91186,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       // OJO. SObreescrito en: MenuView.vue
-      console.log('this: ' + this.$refs.form);
-      this.kk = this; //            if (this.$refs.form.validate()) {
-
       if (this.isNew) {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveItem(this.table, this.editItem).then(function (resp) {
           _this2.items.push(resp.data);
 
           _this2.msgOk('save');
-
-          console.log('resp: ' + resp.data);
         }).catch(function (err) {
           return _this2.msgErr(err);
         });
@@ -91272,7 +91336,6 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var USERAUTH = sessionStorage.getItem('access_token');
-var user_rol = sessionStorage.user_rol;
 
 var ifNotAuthenticated = function ifNotAuthenticated(to, from, next) {
   if (!sessionStorage.getItem('access_token')) {
@@ -91337,7 +91400,7 @@ var ifAuthenticated = function ifAuthenticated(to, from, next) {
   }, {
     path: '/ofertas',
     name: 'ofertas',
-    component: user_rol == 7 ? _views_OfertasxAlumno__WEBPACK_IMPORTED_MODULE_11__["default"] : _views_Ofertas__WEBPACK_IMPORTED_MODULE_10__["default"],
+    component: sessionStorage.user_rol == 7 ? _views_OfertasxAlumno__WEBPACK_IMPORTED_MODULE_11__["default"] : _views_Ofertas__WEBPACK_IMPORTED_MODULE_10__["default"],
     beforeEnter: ifAuthenticated
   }, {
     path: '/alumnos-oferta',
@@ -92356,8 +92419,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/Code/borsaBatoi/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/Code/borsaBatoi/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/borsaTreball/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/borsaTreball/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

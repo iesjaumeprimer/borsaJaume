@@ -25,7 +25,6 @@ import Pass3 from './components/passport/PersonalAccessTokens'
 Vue.use(Router)
 
 const USERAUTH = sessionStorage.getItem('access_token');
-const user_rol = sessionStorage.user_rol;
 var ifNotAuthenticated = (to, from, next) => {
   if (!sessionStorage.getItem('access_token')) {
     next()
@@ -95,7 +94,7 @@ export default new Router({
     {
       path: '/ofertas',
       name: 'ofertas',
-      component: (user_rol==7?OfertasxAlumno:Ofertas),
+      component: (sessionStorage.user_rol==7?OfertasxAlumno:Ofertas),
       beforeEnter: ifAuthenticated,
     },
     {

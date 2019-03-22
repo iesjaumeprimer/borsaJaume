@@ -76,7 +76,7 @@
             <v-icon>{{ props.expanded?'remove':'add' }}</v-icon>
           </v-btn>
           <div v-if="user_rol==5">
-            <v-btn icon class="mx-0" @click.stop="openDialog(props.item)">
+            <v-btn icon class="mx-0" @click.stop="preOpenDialog(props.item)">
               <v-icon>edit</v-icon>
             </v-btn>
             <v-btn icon class="mx-0" @click.stop="deleteItem(props.item)">
@@ -232,7 +232,7 @@
           chips
           hint="Els aspirants han de tindre algú d'quests cicles"
           persistent-hint
-        ><optgroup label="US">asdas</optgroup></v-select>
+        ></v-select>
       </v-flex>
             <v-flex xs3>
               <v-text-field
@@ -356,6 +356,11 @@ export default {
             }))
         )
         .catch(err => this.msgErr(err));
+    },
+    preOpenDialog(item) {
+      let itemCiclos={...item};
+      itemCiclos.ciclos=itemCiclos.ciclos.map(ciclo=>ciclo.id_ciclo);
+      this.openDialog(itemCiclos);
     },
     nomEmpresa(id) {
       return id && this.empresas.length

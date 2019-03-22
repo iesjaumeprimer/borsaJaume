@@ -60,9 +60,11 @@
                 :key="'cicl-'+ciclo.id_ciclo"
                 @dblclick="toogleValida(ciclo, props.item.nombre+' '+props.item.apellidos)"
                 :title="descCiclo(ciclo.id_ciclo)"
-                :color="ciclo.validado?'':'red lighten-4'"
                 >
-                <v-avatar color="grey"><strong>{{ ciclo.any }}</strong></v-avatar>
+                <v-avatar 
+                  :color="ciclo.validado?'teal':'red lighten-4'"
+                  :title="ciclo.validado?'Validado':'No validado?'"
+                ><strong>{{ ciclo.any }}</strong></v-avatar>
 
                 {{ nomCiclo(ciclo.id_ciclo) }}
               </v-chip>
@@ -82,7 +84,7 @@
               <v-btn icon class="mx-0"  @click="props.expanded = !props.expanded" title="Més dades">
                 <v-icon>{{ props.expanded?'remove':'add' }}</v-icon>
               </v-btn>
-              <v-btn icon class="mx-0" @click="openDialog(props.item)">
+              <v-btn icon class="mx-0" @click="preOpenDialog(props.item)">
                 <v-icon>edit</v-icon>
               </v-btn>
               <v-btn icon class="mx-0" @click="deleteItem(props.item, `l'alumne '${props.item.nombre} ${props.item.apellidos}'`)">
@@ -324,6 +326,11 @@ export default {
           })
           .catch(err => this.msgErr(err));
       }
+    },
+    preOpenDialog(item) {
+      let itemCiclos={...item};
+      itemCiclos.ciclos=itemCiclos.ciclos.map(ciclo=>ciclo.id_ciclo);
+      this.openDialog(itemCiclos);
     },
     closeDialogCiclo() {
       this.dialogCiclo = false;

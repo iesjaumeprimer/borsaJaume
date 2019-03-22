@@ -48,10 +48,10 @@
         </v-chip></td>
         <td><v-chip
           @dblclick.stop="openDialogValidar(props.item)"
-          :color="props.item.interessat?'teal':'red'">
-          <v-icon v-if="props.item.interessat==undefined">help</v-icon>
+          :color="props.item.interesado?'teal':'red'">
+          <v-icon v-if="props.item.interesado==undefined">help_outline</v-icon>
           <yes-no-icon v-else
-            :value="props.item.interessat">
+            :value="props.item.interesado">
           </yes-no-icon>
         </v-chip></td>
         <td>{{ props.item.empresa.nombre }}</td>
@@ -80,6 +80,8 @@
       </v-alert>
 
       <template slot="expand" slot-scope="props">
+        <v-layout row wrap>
+        <v-flex xs6>
         <v-card flat>
             <v-card-text>
               <strong>Descripció:</strong> {{ props.item.descripcion }}
@@ -95,14 +97,22 @@
               <template v-if="props.item.resultat">
                 <br><strong>Resultat:</strong> {{ props.item.resultat }}
               </template>
+            </v-card-text>
+        </v-card>
+        </v-flex>
+        <v-flex xs6>
+        <v-card flat>
+            <v-card-text>
               <template>
-                <br><strong>DADES EMPRESA</strong>
+                <strong>DADES EMPRESA</strong>
                 <br><strong>Domicil·li: </strong>{{ props.item.empresa.domicilio }}
                 <br><strong>Localitat: </strong>{{ props.item.empresa.localidad }}
                 <br><strong>Pàgina web: </strong><a target="_blank" :href="props.item.empresa.web">{{ props.item.empresa.web }}</a>
               </template>
              </v-card-text>
         </v-card>
+         </v-flex>
+         </v-layout>
       </template>
 
     <template slot="pageText" slot-scope="props">      
@@ -116,9 +126,9 @@
   <v-layout row justify-center>
     <v-dialog v-model="dialogValidar" persistent max-width="290">
       <v-card>
-        <v-card-title class="headline">{{ ofertaValidar.interessat==1?'Desapuntar-te':'Apuntar-te'}} a l'Oferta</v-card-title>
+        <v-card-title class="headline">{{ ofertaValidar.interesado==1?'Desapuntar-te':'Apuntar-te'}} a l'Oferta</v-card-title>
         <v-card-text>
-          Vas a {{ ofertaValidar.interessat==1?'Desapuntar-te':'Apuntar-te'}} a l'oferta '
+          Vas a {{ ofertaValidar.interesado==1?'Desapuntar-te':'Apuntar-te'}} a l'oferta '
             <strong>{{ ofertaValidar.puesto }}</strong>
             '. ¿Deseas continuar?
         </v-card-text>
@@ -150,7 +160,7 @@ export default {
     table: "ofertas",
     headers: [
       { text: "Activa", value: "activa" },
-      { text: "Interessat", value: "interessat" },
+      { text: "interesado", value: "interesado" },
       { text: "Empresa", value: "id_empresa" },
       { text: "Lloc de traball", value: "puesto" },
       { text: "Contracte", value: "tipo_contrato" },
@@ -229,9 +239,9 @@ export default {
         this.ofertaValidar = oferta;
     },
     validaOferta() {
-      console.error(this.ofertaValidar.interessat==1?false:true);
-      API.updateInteresado(this.ofertaValidar.id, this.ofertaValidar.interessat==1?false:true)
-      .then(res=>this.ofertaValidar.interessat=res.data.interessat)
+      console.error(this.ofertaValidar.interesado==1?false:true);
+      API.updateInteresado(this.ofertaValidar.id, this.ofertaValidar.interesado==1?false:true)
+      .then(res=>this.ofertaValidar.interesado=res.data.interesado)
       .catch(err => this.msgErr(err));
       this.dialogValidar = false;
     },

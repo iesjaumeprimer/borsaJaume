@@ -42,7 +42,6 @@ export default {
             })
             .catch(err => {
                 let msg='';
-                console.log(err)
                 switch (err.response.status) {
                   case 401:
                     sessionStorage.removeItem('access_token');
@@ -62,15 +61,11 @@ export default {
         },
         addItem() {
             // OJO. SObreescrito en: MenuView.vue
-            console.log('this: '+this.$refs.form)
-            this.kk=this
-//            if (this.$refs.form.validate()) {
             if (this.isNew) {
               API.saveItem(this.table, this.editItem)
                 .then(resp => {
                   this.items.push(resp.data);
                   this.msgOk('save');
-                  console.log('resp: '+resp.data)
                 })
                 .catch(err => this.msgErr(err));
             } else {
