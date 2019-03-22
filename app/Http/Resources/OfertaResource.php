@@ -17,27 +17,29 @@ class OfertaResource extends JsonResource
     public function toArray($request)
     {
          return [
-            'id'=>$this->id,
-            'id_empresa' => $this->id_empresa,
-            'descripcion' => $this->descripcion,
-            'puesto' => $this->puesto,
-            'tipo_contrato' => $this->tipo_contrato,
-            'activa' => $this->activa,
-            'contacto' => $this->contacto,
-            'telefono' => $this->telefono,
-            'email' => $this->email,
-            'validada' => $this->validada,
-            'any' => $this->any,
-            'archivada' => $this->archivada,
-            'ciclos' => hazArray($this->ciclos,'id','pivot'),
-            'empresa' => $this->empresa,
-            'interesado' => $this->when(AuthUser()->isAlumno() , $this->getInteresting() ),
+             'id'=>$this->id,
+             'id_empresa' => $this->id_empresa,
+             'descripcion' => $this->descripcion,
+             'puesto' => $this->puesto,
+             'tipo_contrato' => $this->tipo_contrato,
+             'activa' => $this->activa,
+             'contacto' => $this->contacto,
+             'telefono' => $this->telefono,
+             'email' => $this->email,
+             'validada' => $this->validada,
+             'any' => $this->any,
+             'archivada' => $this->archivada,
+             'ciclos' => hazArray($this->ciclos,'id','pivot'),
+             'empresa' => $this->empresa,
+             'interesado' => $this->when(AuthUser()->isAlumno() , $this->getInterested()),
+             'alumnos' => $this->when(AuthUser()->isEmpresa(), $this->alumnos)
         ];
     }
-    private function getInteresting(){
+    private function getInterested(){
         if ($this->alumnos->where('id',AuthUser()->id)->count()==0) return null;
         return $this->alumnos->where('id',AuthUser()->id)->first()->pivot->interesado;
     }
+
 
 
 
