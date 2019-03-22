@@ -5052,7 +5052,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -5164,20 +5163,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.openDialog(false);
     },
     openDialogValidar: function openDialogValidar(oferta) {
-      if (oferta.activa || oferta.validada) {
-        // Si la oferta está activa puede validarse o invalidarse
-        // Si no está activa sólo puede invalidarse
-        this.dialogValidar = true;
-        this.ofertaValidar = _objectSpread({}, oferta);
-      }
+      this.dialogValidar = true;
+      this.ofertaValidar = oferta;
     },
     validaOferta: function validaOferta() {
-      this.editItem = this.ofertaValidar; // La cambiamos la validación
+      var _this3 = this;
 
-      this.editItem.validada = !this.editItem.validada; // Y guardamos la modificación
-
-      this.isNew = false;
-      this.addItem();
+      console.error(this.ofertaValidar.interessat == 1 ? false : true);
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateInteresado(this.ofertaValidar.id, this.ofertaValidar.interessat == 1 ? false : true).then(function (res) {
+        return _this3.ofertaValidar.interessat = res.data.interessat;
+      }).catch(function (err) {
+        return _this3.msgErr(err);
+      });
       this.dialogValidar = false;
     },
     deleteItem: function deleteItem(oferta) {
@@ -47899,12 +47896,6 @@ var render = function() {
                                     (props.item.validada
                                       ? "Validada"
                                       : "No validada")
-                                },
-                                on: {
-                                  dblclick: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.openDialogValidar(props.item)
-                                  }
                                 }
                               },
                               [
@@ -47921,11 +47912,28 @@ var render = function() {
                         _c(
                           "td",
                           [
-                            props.item.interessat == undefined
-                              ? _c("v-icon", [_vm._v("help")])
-                              : _c("yes-no-icon", {
-                                  attrs: { value: props.item.interessat }
-                                })
+                            _c(
+                              "v-chip",
+                              {
+                                attrs: {
+                                  color: props.item.interessat ? "teal" : "red"
+                                },
+                                on: {
+                                  dblclick: function($event) {
+                                    $event.stopPropagation()
+                                    return _vm.openDialogValidar(props.item)
+                                  }
+                                }
+                              },
+                              [
+                                props.item.interessat == undefined
+                                  ? _c("v-icon", [_vm._v("help")])
+                                  : _c("yes-no-icon", {
+                                      attrs: { value: props.item.interessat }
+                                    })
+                              ],
+                              1
+                            )
                           ],
                           1
                         ),
@@ -48061,25 +48069,31 @@ var render = function() {
                               _vm._v(" "),
                               [
                                 _c("br"),
-                                _c("strong", [_vm._v("DADES EMPRESA:")]),
+                                _c("strong", [_vm._v("DADES EMPRESA")]),
                                 _vm._v(" "),
                                 _c("br"),
-                                _c("strong", [_vm._v("Domicil·li:")]),
+                                _c("strong", [_vm._v("Domicil·li: ")]),
                                 _vm._v(
                                   _vm._s(props.item.empresa.domicilio) +
                                     "\n              "
                                 ),
                                 _c("br"),
-                                _c("strong", [_vm._v("Localitat:")]),
+                                _c("strong", [_vm._v("Localitat: ")]),
                                 _vm._v(
                                   _vm._s(props.item.empresa.localidad) +
                                     "\n              "
                                 ),
                                 _c("br"),
-                                _c("strong", [_vm._v("Pàgina web:")]),
-                                _vm._v(
-                                  _vm._s(props.item.empresa.web) +
-                                    "\n            "
+                                _c("strong", [_vm._v("Pàgina web: ")]),
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      target: "_blank",
+                                      href: props.item.empresa.web
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(props.item.empresa.web))]
                                 )
                               ]
                             ],
@@ -48161,16 +48175,22 @@ var render = function() {
                   _c("v-card-title", { staticClass: "headline" }, [
                     _vm._v(
                       _vm._s(
-                        _vm.ofertaValidar.validada ? "Invalidar" : "Validar"
-                      ) + " Oferta"
+                        _vm.ofertaValidar.interessat == 1
+                          ? "Desapuntar-te"
+                          : "Apuntar-te"
+                      ) + " a l'Oferta"
                     )
                   ]),
                   _vm._v(" "),
                   _c("v-card-text", [
                     _vm._v(
                       "\n        Vas a " +
-                        _vm._s(_vm.ofertaValidar.validada ? "in" : "") +
-                        "validar l'oferta '\n          "
+                        _vm._s(
+                          _vm.ofertaValidar.interessat == 1
+                            ? "Desapuntar-te"
+                            : "Apuntar-te"
+                        ) +
+                        " a l'oferta '\n          "
                     ),
                     _c("strong", [_vm._v(_vm._s(_vm.ofertaValidar.puesto))]),
                     _vm._v("\n          '. ¿Deseas continuar?\n      ")
@@ -90528,6 +90548,11 @@ function json2urlencoded(json) {
   },
   updateItem: function updateItem(table, id, item) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + table + '/' + id, item, this.getConfig('json', true));
+  },
+  updateInteresado: function updateInteresado(idOferta, interesado) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + 'ofertas/' + idOferta + '/alumno', {
+      interesado: interesado
+    }, this.getConfig('json', true));
   },
   getUser: function getUser(item) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig('urlencoded'));

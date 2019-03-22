@@ -41,18 +41,19 @@
         <tr color="red">
         <td><v-chip 
           :color="props.item.validada?'teal':'red'"
-          @dblclick.stop="openDialogValidar(props.item)"
           :title="(props.item.activa?'Activa':'No activa')+' / '
             +(props.item.validada?'Validada':'No validada')"
         >
           <yes-no-icon :value="props.item.activa"></yes-no-icon>
         </v-chip></td>
-        <td>
+        <td><v-chip
+          @dblclick.stop="openDialogValidar(props.item)"
+          :color="props.item.interessat?'teal':'red'">
           <v-icon v-if="props.item.interessat==undefined">help</v-icon>
           <yes-no-icon v-else
             :value="props.item.interessat">
           </yes-no-icon>
-        </td>
+        </v-chip></td>
         <td>{{ props.item.empresa.nombre }}</td>
         <td>{{ props.item.puesto }}</td>
         <td>{{ props.item.tipo_contrato }}</td>
@@ -95,10 +96,10 @@
                 <br><strong>Resultat:</strong> {{ props.item.resultat }}
               </template>
               <template>
-                <br><strong>DADES EMPRESA:</strong>
-                <br><strong>Domicil·li:</strong>{{ props.item.empresa.domicilio }}
-                <br><strong>Localitat:</strong>{{ props.item.empresa.localidad }}
-                <br><strong>Pàgina web:</strong>{{ props.item.empresa.web }}
+                <br><strong>DADES EMPRESA</strong>
+                <br><strong>Domicil·li: </strong>{{ props.item.empresa.domicilio }}
+                <br><strong>Localitat: </strong>{{ props.item.empresa.localidad }}
+                <br><strong>Pàgina web: </strong><a target="_blank" :href="props.item.empresa.web">{{ props.item.empresa.web }}</a>
               </template>
              </v-card-text>
         </v-card>
@@ -111,15 +112,13 @@
     </v-data-table>
   </v-card>
 
-  <!-- Dialog empresa -->
-
-  <!-- Dialog validar -->
+  <!-- Dialog interesado -->
   <v-layout row justify-center>
     <v-dialog v-model="dialogValidar" persistent max-width="290">
       <v-card>
-        <v-card-title class="headline">{{ ofertaValidar.validada?'Invalidar':'Validar'}} Oferta</v-card-title>
+        <v-card-title class="headline">{{ ofertaValidar.interessat==1?'Desapuntar-te':'Apuntar-te'}} a l'Oferta</v-card-title>
         <v-card-text>
-          Vas a {{ ofertaValidar.validada?'in':''}}validar l'oferta '
+          Vas a {{ ofertaValidar.interessat==1?'Desapuntar-te':'Apuntar-te'}} a l'oferta '
             <strong>{{ ofertaValidar.puesto }}</strong>
             '. ¿Deseas continuar?
         </v-card-text>
@@ -226,20 +225,14 @@ export default {
       this.openDialog(false);
     },
     openDialogValidar(oferta) {
-      if (oferta.activa || oferta.validada) {
-        // Si la oferta está activa puede validarse o invalidarse
-        // Si no está activa sólo puede invalidarse
         this.dialogValidar = true;
-        this.ofertaValidar = { ...oferta };
-      }
+        this.ofertaValidar = oferta;
     },
     validaOferta() {
-      this.editItem = this.ofertaValidar;
-      // La cambiamos la validación
-      this.editItem.validada = !this.editItem.validada;
-      // Y guardamos la modificación
-      this.isNew = false;
-      this.addItem();
+      console.error(this.ofertaValidar.interessat==1?false:true);
+      API.updateInteresado(this.ofertaValidar.id, this.ofertaValidar.interessat==1?false:true)
+      .then(res=>this.ofertaValidar.interessat=res.data.interessat)
+      .catch(err => this.msgErr(err));
       this.dialogValidar = false;
     },
     deleteItem(oferta) {

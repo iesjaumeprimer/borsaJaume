@@ -66,6 +66,9 @@ export default {
     updateItem(table, id, item) {
         return axios.put(API_URL + table + '/' + id, item, this.getConfig('json', true));
     },
+    updateInteresado(idOferta, interesado) {
+        return axios.put(API_URL + 'ofertas/' + idOferta + '/alumno', {interesado: interesado}, this.getConfig('json', true));
+    },
     getUser(item) {
         return axios.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig('urlencoded'))
     },
