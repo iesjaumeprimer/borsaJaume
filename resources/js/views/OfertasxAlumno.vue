@@ -53,7 +53,7 @@
             :value="props.item.interessat">
           </yes-no-icon>
         </td>
-        <td>{{ nomEmpresa(props.item.id_empresa) }}</td>
+        <td>{{ props.item.empresa.nombre }}</td>
         <td>{{ props.item.puesto }}</td>
         <td>{{ props.item.tipo_contrato }}</td>
         <td>
@@ -71,14 +71,6 @@
           <v-btn icon class="mx-0" @click="props.expanded = !props.expanded" title="Més dades">
             <v-icon>{{ props.expanded?'remove':'add' }}</v-icon>
           </v-btn>
-          <div v-if="user_rol==5">
-            <v-btn icon class="mx-0" @click.stop="openDialog(props.item)">
-              <v-icon>edit</v-icon>
-            </v-btn>
-            <v-btn icon class="mx-0" @click.stop="deleteItem(props.item)">
-              <v-icon>delete</v-icon>
-            </v-btn>
-          </div>
         </td>
         </tr>
       </template>
@@ -101,6 +93,12 @@
               </template>
               <template v-if="props.item.resultat">
                 <br><strong>Resultat:</strong> {{ props.item.resultat }}
+              </template>
+              <template>
+                <br><strong>DADES EMPRESA:</strong>
+                <br><strong>Domicil·li:</strong>{{ props.item.empresa.domicilio }}
+                <br><strong>Localitat:</strong>{{ props.item.empresa.localidad }}
+                <br><strong>Pàgina web:</strong>{{ props.item.empresa.web }}
               </template>
              </v-card-text>
         </v-card>
@@ -172,28 +170,12 @@ export default {
     this.user_id=sessionStorage.user_id;
     this.user_rol=sessionStorage.user_rol;
     this.$emit("setTitle", "Ofertes actives");
-    this.loadItems();
+    this.loadData();
     this.editItem.ciclos = [];
   },
   methods: {
     loadData() {
-      API.getTable(this.table, this.$route.query)
-        .then(resp => this.items = resp.data.data)
-        .catch(err => this.msgErr(err));
-      API.getTable("empresas")
-        .then(
-          resp =>
-            (this.empresas = resp.data.data.map(empresa => {
-              return {
-                id: empresa.id,
-                nombre: empresa.nombre,
-                contacto: empresa.contacto,
-                telefono: empresa.telefono,
-                email: empresa.email
-              };
-            }))
-        )
-        .catch(err => this.msgErr(err));
+      this.loadItems();
       API.getTable("ciclos")
         .then(
           resp =>
