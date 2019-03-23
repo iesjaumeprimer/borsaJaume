@@ -186,5 +186,21 @@ class MenusTableSeeder extends Seeder
             'comments'=>NULL,
             'icon_alt'=>NULL
         ] );
+
+
+
+        Menu::create( [
+            'id'=>14,
+            'order'=>75,
+            'icon'=>'security',
+            'text'=>'Responsables',
+            'path'=>'/responsables',
+            'rol'=>2,
+            'parent'=>NULL,
+            'model'=>NULL,
+            'active'=>1,
+            'comments'=>NULL,
+            'icon_alt'=>NULL
+        ] );
     }
 }

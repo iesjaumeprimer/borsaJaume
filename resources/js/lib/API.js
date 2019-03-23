@@ -32,16 +32,9 @@ export default {
         return config;
     },
     getTable(table, query) {
-        const config={
-            headers: {
-            'Authorization': sessionStorage.token_type+' '
-                +sessionStorage.access_token,
-            'Content-Type': 'application/json'
-        }
-    }
-        console.log('get table')
+        console.log('pido datos');
         if (!checkAuth() && table!='menu') {
-            console.log('pido datos');
+            console.error('pido datos');
 //            this.$router.push('/login');
             return new Promise((resolve,reject)=>{
                 reject(new Error('No estás validado'))
@@ -54,7 +47,6 @@ export default {
         }
     },
     getItem(table, id) {
-        console.log('get item')
         return axios.get(API_URL + table + '/' + id, this.getConfig('json', true));
     },
     delItem(table, id) {
@@ -70,7 +62,7 @@ export default {
         return axios.put(API_URL + 'ofertas/' + idOferta + '/alumno', {interesado: interesado}, this.getConfig('json', true));
     },
     getUser(item) {
-        return axios.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig('urlencoded'))
+        return axios.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig('urlencoded'));
     },
     saveUser(item) {
         return axios.post(API_URL + 'auth/signup', json2urlencoded(item), this.getConfig('urlencoded'));

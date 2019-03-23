@@ -9,7 +9,7 @@
     <v-card>
       <v-card-title>
     <v-btn
-      v-if="user_rol<=3"
+      v-if="imResponsable"
       top
       right
       color="blue"
@@ -287,12 +287,10 @@ export default {
     // Para el dialogo de ciclos
     dialogCiclo: false,
     ciclo: {},
-    user_rol: null
   }),
   mounted() {
     console.log('Alumnos mounted');
     this.$emit('setTitle', 'Manteniment d\'Alumnes');
-    this.user_rol=sessionStorage.user_rol;
     if (this.$route.params.new) {
       this.dialog=true;
       this.editItem.id=this.$route.params.id;
@@ -312,9 +310,9 @@ export default {
   methods: {
     loadData() {
       console.log('carga alumnos');
-      if (this.user_rol==7) {
+      if (this.imAlumno) {
         // Es un alumno y sólo puede verse a sí mismo
-        API.getItem(this.table, sessionStorage.user_id)
+        API.getItem(this.table, this.myId)
           .then(resp => {
             this.items = [resp.data.data];
           })
@@ -343,9 +341,11 @@ export default {
       return (id&&this.ciclos.length)?this.ciclos.find(ciclo => ciclo.id==id).descrip:'';
     },
     toogleValida(ciclo, alumno) {
+      if (this.imResponsable) {
       this.ciclo=ciclo;
       this.ciclo.nombre=alumno;
       this.dialogCiclo=true;
+      }
     },
     validaCiclo() {
         API.updateItem('alumnos_ciclos', this.ciclo.id, this.ciclo)

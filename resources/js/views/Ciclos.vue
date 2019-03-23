@@ -8,7 +8,7 @@
 
   <v-card>
     <v-card-title>
-    <v-btn
+    <v-btn v-if="imAdmin"
       top
       right
       color="blue"
@@ -54,7 +54,7 @@
         <td>{{ props.item.responsable?objectProfes[props.item.responsable]:'' }}</td>
         <td>{{ props.item.Dept }}</td>
         <td>{{ props.item.vDept }}</td>
-        <td v-if="admin" class="justify-center layout px-0">
+        <td v-if="imAdmin" class="justify-center layout px-0">
           <v-btn icon class="mx-0" @click="openDialog(props.item)">
             <v-icon>edit</v-icon>
           </v-btn>
@@ -190,7 +190,7 @@ export default {
   }),
   mounted() {
     this.$emit('setTitle', 'Manteniment de Cicles');
-    this.loadData();
+    this.loadItems();
   },
   computed: {
     objectProfes() {
@@ -203,11 +203,6 @@ export default {
     loadData() {
       API.getTable(this.table)
         .then(resp => (this.items = resp.data.data))
-        .catch(err => this.msgErr(err));
-      API.getTable("responsables")
-        .then(resp2 => {this.profes = resp2.data.data.map(profe=>{
-          return {id: profe.id, nombre: profe.apellidos+', '+profe.nombre};
-        }); console.log(resp2.data.data);})
         .catch(err => this.msgErr(err));
     },
     nomProfe(id) {
