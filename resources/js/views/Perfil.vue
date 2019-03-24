@@ -219,7 +219,7 @@
 
             {{ nomCiclo(ciclo.id_ciclo) }}
         </v-chip>
-            </v-text-field>
+
     <v-btn
       :disabled="!valid"
       @click="submit"

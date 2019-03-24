@@ -124,7 +124,6 @@ export default {
 
         },
         saveUser() {
-          console.log('registrnado...')
             API.saveUser(this.item)
             .then(resp => {
               sessionStorage.access_token=resp.data.access_token;

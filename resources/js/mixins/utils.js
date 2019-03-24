@@ -1,5 +1,4 @@
 import API from '../lib/API';
-import Rols from '../lib/Rols';
 
 export default {
     data: () => ({
@@ -11,9 +10,6 @@ export default {
         editItem: {},
         editIndex: -1,
         valid: true,
-        // Para modificar
-        admin: true,
-        kk: {},
     }),
     computed: {
         isNew () {
@@ -33,7 +29,11 @@ export default {
         },
         myId() {
             return Number(sessionStorage.user_id);
-        }
+        },
+        // myRol() {
+        //     console.error('calculo myrol')
+        //     return Number(sessionStorage.user_rol);
+        // },
     },
     methods: {
         // Métodos de DataTable
@@ -75,7 +75,7 @@ export default {
         },
         addItem() {
             // OJO. SObreescrito en: MenuView.vue
-            console.error('addItem')
+            // TB en Responsables.vue pq no hace saveItem sino saveUser
             if (this.editIndex > -1) {
                 API.updateItem(this.table, this.editItem.id, this.editItem)
                 .then(resp => {

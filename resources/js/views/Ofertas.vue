@@ -121,7 +121,7 @@
     </v-data-table>
   </v-card>
 
-    <v-dialog v-model="dialog" width="800px">
+    <v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog">
       <v-card>
         <v-card-title
           class="grey lighten-4 py-4 title"
@@ -307,7 +307,7 @@ export default {
       { text: "Lloc de traball", value: "puesto" },
       { text: "Contracte", value: "tipo_contrato" },
       { text: "Cicles", value: "cicles" },
-      { text: "Accions" }
+      { text: "Accions", value: "id_empresa" }
     ],
     empresas: [],
     ciclos: [],

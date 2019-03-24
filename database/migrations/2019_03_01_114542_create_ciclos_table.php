@@ -17,7 +17,7 @@ class CreateCiclosTable extends Migration {
 			$table->increments('id');
 			$table->string('codigo', 4);
 			$table->string('ciclo', 50);
-			$table->integer('Dept');
+			$table->string('Dept', 3);
 			$table->string('cDept', 50);
 			$table->string('vDept', 50);
 			$table->integer('responsable')->nullable();

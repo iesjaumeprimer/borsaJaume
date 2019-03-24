@@ -109,7 +109,7 @@
     </v-data-table>
   </v-card>
 
-    <v-dialog v-model="dialog" width="800px">
+    <v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog">
               <v-form ref="form" v-model="valid" lazy-validation>
 
       <v-card>
@@ -269,7 +269,7 @@ export default {
   }),
   mounted() {
     this.$emit('setTitle', 'Manteniment del Menú');
-    this.loadData();
+    this.loadItems();
   },
   computed: {
     childItems() {
@@ -277,12 +277,6 @@ export default {
     }
   },
   methods: {
-    loadData() {
-      console.log('cargo menu')
-      API.getTable("menu")
-        .then(resp => this.items = resp.data.data)
-        .catch(err => this.msgErr(err));
-    },
     editarItem(item) {
       if (item.children) {
         this.submenus = JSON.parse(item.children).map(elem => {

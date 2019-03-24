@@ -92,7 +92,7 @@
     </v-data-table>
   </v-card>
 
-<v-dialog v-model="dialog" width="800px">
+<v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog">
       <v-card>
         <v-form ref="form" v-model="valid" lazy-validation>
 

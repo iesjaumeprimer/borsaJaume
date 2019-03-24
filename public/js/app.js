@@ -1818,21 +1818,29 @@ __webpack_require__.r(__webpack_exports__);
     return {
       drawer: null,
       items: [],
-      title: 'Borsa de treball'
+      title: 'Borsa de treball',
+      myRol: 0
     };
-  },
-  props: {
-    source: String
   },
   components: {
     MenuItem: _components_base_MenuItem__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  mounted: function mounted() {
+  created: function created() {
+    this.myRol = Number(sessionStorage.user_rol);
     this.loadData();
+  },
+  computed: {
+    itemsForRol: function itemsForRol() {
+      var _this = this;
+
+      return this.items.filter(function (item) {
+        return !(item.rol % _this.myRol);
+      });
+    }
   },
   methods: {
     loadData: function loadData() {
-      var _this = this;
+      var _this2 = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("menu").then(function (resp) {
         var menu = resp.data.data.filter(function (item) {
@@ -1850,7 +1858,7 @@ __webpack_require__.r(__webpack_exports__);
           });
           return item;
         });
-        _this.items = menu;
+        _this2.items = menu;
       }).catch(function (err) {
         return console.error(err.data ? err.data.message : err.message);
       });
@@ -2978,7 +2986,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -3063,11 +3070,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           return _this2.msgErr(err);
         });
       } else {
-        _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
-          _this2.items = resp.data.data;
-        }).catch(function (err) {
-          return _this2.msgErr(err);
-        });
+        this.loadItems();
       }
     },
     preOpenDialog: function preOpenDialog(item) {
@@ -3457,7 +3460,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       table: 'ciclos',
-      profes: [],
+      responsables: [],
       headers: [{
         text: "Codi",
         value: "codigo"
@@ -3481,12 +3484,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$emit('setTitle', 'Manteniment de Cicles');
-    this.loadItems();
+    this.loadData();
   },
   computed: {
     objectProfes: function objectProfes() {
       var aux = {};
-      this.profes.forEach(function (profe) {
+      this.responsables.forEach(function (profe) {
         return aux[profe.id] = profe.nombre;
       });
       return aux;
@@ -3496,13 +3499,25 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
-        return _this.items = resp.data.data;
+      this.loadItems();
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("users").then(function (resp) {
+        return _this.responsables = resp.data.data.filter(function (resp) {
+          return resp.rol == "3";
+        }).map(function (resp) {
+          return {
+            id: resp.id,
+            name: resp.name
+          };
+        });
       }).catch(function (err) {
         return _this.msgErr(err);
       });
     },
-    nomProfe: function nomProfe(id) {//      return id?this.profes.find(profe => profe.id==id).nombre:'';
+    nomResponsable: function nomResponsable(id_resp) {
+      var responsable = this.responsables.find(function (resp) {
+        return resp.id == id_resp;
+      });
+      return responsable ? responsable.name : '';
     }
   }
 });
@@ -4157,7 +4172,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$emit('setTitle', 'Manteniment del Menú');
-    this.loadData();
+    this.loadItems();
   },
   computed: {
     childItems: function childItems() {
@@ -4169,16 +4184,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    loadData: function loadData() {
-      var _this2 = this;
-
-      console.log('cargo menu');
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("menu").then(function (resp) {
-        return _this2.items = resp.data.data;
-      }).catch(function (err) {
-        return _this2.msgErr(err);
-      });
-    },
     editarItem: function editarItem(item) {
       if (item.children) {
         this.submenus = JSON.parse(item.children).map(function (elem) {
@@ -4548,7 +4553,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         text: "Cicles",
         value: "cicles"
       }, {
-        text: "Accions"
+        text: "Accions",
+        value: "id_empresa"
       }],
       empresas: [],
       ciclos: [],
@@ -5458,7 +5464,6 @@ __webpack_require__.r(__webpack_exports__);
     saveUser: function saveUser() {
       var _this2 = this;
 
-      console.log('registrnado...');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.item).then(function (resp) {
         sessionStorage.access_token = resp.data.access_token;
         sessionStorage.expires_at = resp.data.expires_at;
@@ -5514,6 +5519,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_base_YesNoIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/base/YesNoIcon */ "./resources/js/components/base/YesNoIcon.vue");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
+/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../app.constants */ "./resources/js/app.constants.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -5603,6 +5613,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -5614,34 +5634,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      table: 'users',
-      //      dialog: false,
+      table: "users",
       headers: [{
-        text: 'Nom',
-        align: 'left',
-        value: 'nombre'
+        text: "Nom",
+        align: "left",
+        value: "nombre"
       }, {
-        text: 'e-mail',
+        text: "e-mail",
         sortable: false,
-        value: 'email'
+        value: "email"
       }, {
-        text: 'Rol',
-        value: 'rol'
+        text: "Rol",
+        value: "rol"
       }, {
-        text: 'Actiu',
-        value: 'active'
+        text: "Actiu",
+        value: "active"
       }, {
-        text: 'Accions',
+        text: "Accions",
         sortable: false
       }],
-      editIndex: -1 //   editItem: {
-      //     name: '',
-      //     calories: 0,
-      //     fat: 0,
-      //     carbs: 0,
-      //     protein: 0
-      //   },
-
+      roles: _app_constants__WEBPACK_IMPORTED_MODULE_4__["ROLES"]
     };
   },
   watch: {
@@ -5650,8 +5662,69 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.$emit('setTitle', 'Manteniment de Responsables');
+    this.$emit("setTitle", "Manteniment de Responsables");
     this.loadItems();
+  },
+  methods: {
+    addItem: function addItem() {
+      var _this = this;
+
+      // OJO. SObreescrito de utils.js pq no hace POST sino SINGUP
+      if (this.editIndex > -1) {
+        _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem(this.table, this.editItem.id, this.editItem).then(function (resp) {
+          var index = _this.items.findIndex(function (item) {
+            return item.id == resp.data.id;
+          });
+
+          _this.items.splice(index, 1, resp.data);
+
+          _this.msgOk("update");
+        }).catch(function (err) {
+          return _this.msgErr(err);
+        });
+      } else {
+        var itemSaved = _objectSpread({}, this.editItem);
+
+        _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.editItem).then(function (resp) {
+          _this.items.push({
+            id: resp.data.id,
+            name: itemSaved.name,
+            rol: itemSaved.rol,
+            email: itemSaved.email,
+            active: itemSaved.active
+          });
+
+          _this.msgOk("save");
+
+          if (resp.data.rol == 5) {
+            // Es una empresa
+            _this.$router.push({
+              name: 'empresas',
+              params: {
+                new: true,
+                id: resp.data.id
+              }
+            });
+
+            alert("S'ha creat l'usuari. Ara has de crear l'empresa i omplir les seues dades");
+          } else if (resp.data.rol == 7) {
+            // Es un alumno
+            _this.$router.push({
+              name: 'alumnos',
+              params: {
+                new: true,
+                id: resp.data.id
+              }
+            });
+
+            alert("S'ha creat l'usuari. Ara has de crear l'alumne i omplir les seues dades");
+          }
+        }).catch(function (err) {
+          return _this.msgErr(err);
+        });
+        this.closeDialog();
+      }
+    }
   }
 });
 
@@ -42289,7 +42362,7 @@ var render = function() {
           _c(
             "v-list",
             { attrs: { dense: "" } },
-            _vm._l(_vm.items, function(item) {
+            _vm._l(_vm.itemsForRol, function(item) {
               return _c("menu-item", {
                 key: item.id,
                 attrs: { icon: item.icon, title: item.text },
@@ -44132,11 +44205,9 @@ var render = function() {
                                   items: _vm.ciclos,
                                   "item-text": "ciclo",
                                   "item-value": "id",
-                                  label: "Cicles demanats",
+                                  label: "Cicles finalitzats",
                                   multiple: "",
                                   chips: "",
-                                  hint:
-                                    "Els aspirants han de tindre algú d'quests cicles",
                                   "persistent-hint": ""
                                 },
                                 model: {
@@ -44650,11 +44721,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          _vm._s(
-                            props.item.responsable
-                              ? _vm.objectProfes[props.item.responsable]
-                              : ""
-                          )
+                          _vm._s(_vm.nomResponsable(props.item.responsable))
                         )
                       ]),
                       _vm._v(" "),
@@ -44754,6 +44821,17 @@ var render = function() {
         "v-dialog",
         {
           attrs: { width: "800px" },
+          on: {
+            keydown: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])
+              ) {
+                return null
+              }
+              return _vm.closeDialog($event)
+            }
+          },
           model: {
             value: _vm.dialog,
             callback: function($$v) {
@@ -44948,8 +45026,8 @@ var render = function() {
                               _c("v-select", {
                                 attrs: {
                                   label: "Responsable",
-                                  items: _vm.profes,
-                                  "item-text": "nombre",
+                                  items: _vm.responsables,
+                                  "item-text": "name",
                                   "item-value": "id",
                                   required: "",
                                   "single-line": ""
@@ -45341,6 +45419,17 @@ var render = function() {
         "v-dialog",
         {
           attrs: { width: "800px" },
+          on: {
+            keydown: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])
+              ) {
+                return null
+              }
+              return _vm.closeDialog($event)
+            }
+          },
           model: {
             value: _vm.dialog,
             callback: function($$v) {
@@ -46117,6 +46206,17 @@ var render = function() {
         "v-dialog",
         {
           attrs: { width: "800px" },
+          on: {
+            keydown: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])
+              ) {
+                return null
+              }
+              return _vm.closeDialog($event)
+            }
+          },
           model: {
             value: _vm.dialog,
             callback: function($$v) {
@@ -46834,6 +46934,17 @@ var render = function() {
         "v-dialog",
         {
           attrs: { width: "800px" },
+          on: {
+            keydown: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])
+              ) {
+                return null
+              }
+              return _vm.closeDialog($event)
+            }
+          },
           model: {
             value: _vm.dialog,
             callback: function($$v) {
@@ -48709,7 +48820,7 @@ var render = function() {
                   expression: "error.show"
                 }
               },
-              [_vm._v("\n      " + _vm._s(error.msg) + "\n    ")]
+              [_vm._v(_vm._s(error.msg))]
             )
           ],
           1
@@ -48742,6 +48853,20 @@ var render = function() {
             "v-dialog",
             {
               attrs: { "max-width": "500px" },
+              on: {
+                keydown: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "esc", 27, $event.key, [
+                      "Esc",
+                      "Escape"
+                    ])
+                  ) {
+                    return null
+                  }
+                  return _vm.closeDialog($event)
+                }
+              },
               scopedSlots: _vm._u([
                 {
                   key: "activator",
@@ -48780,7 +48905,7 @@ var render = function() {
                   _c("v-card-title", [
                     _c("span", { staticClass: "headline" }, [
                       _vm._v(
-                        _vm._s(_vm.isNew ? "Nuevo" : "Editar") + " responsable"
+                        _vm._s(_vm.isNew ? "Nou" : "Editar") + " responsable"
                       )
                     ])
                   ]),
@@ -48798,7 +48923,7 @@ var render = function() {
                             [
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
+                                { attrs: { xs12: "", sm8: "" } },
                                 [
                                   _c("v-text-field", {
                                     attrs: { label: "Nom" },
@@ -48816,7 +48941,30 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
+                                { attrs: { xs12: "", sm4: "" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.roles,
+                                      "item-text": "rol",
+                                      "item-value": "id",
+                                      label: "Rol"
+                                    },
+                                    model: {
+                                      value: _vm.editItem.rol,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.editItem, "rol", $$v)
+                                      },
+                                      expression: "editItem.rol"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", sm9: "" } },
                                 [
                                   _c("v-text-field", {
                                     attrs: { label: "e-mail" },
@@ -48834,28 +48982,14 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
+                                { attrs: { xs12: "", sm3: "" } },
                                 [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Rol" },
-                                    model: {
-                                      value: _vm.editItem.rol,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.editItem, "rol", $$v)
-                                      },
-                                      expression: "editItem.rol"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Actiu" },
+                                  _c("v-checkbox", {
+                                    attrs: {
+                                      label: "Actiu",
+                                      placeholder: "Actiu",
+                                      disabled: _vm.editItem.rol > 3
+                                    },
                                     model: {
                                       value: _vm.editItem.active,
                                       callback: function($$v) {
@@ -48866,7 +49000,59 @@ var render = function() {
                                   })
                                 ],
                                 1
-                              )
+                              ),
+                              _vm._v(" "),
+                              _vm.isNew
+                                ? _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: { label: "Contrasenya" },
+                                        model: {
+                                          value: _vm.editItem.password,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.editItem,
+                                              "password",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "editItem.password"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.isNew
+                                ? _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          label: "Repeteix la contrasenya"
+                                        },
+                                        model: {
+                                          value:
+                                            _vm.editItem.password_confirmation,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.editItem,
+                                              "password_confirmation",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "editItem.password_confirmation"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                : _vm._e()
                             ],
                             1
                           )
@@ -48954,7 +49140,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\n          edit\n        ")]
+                      [_vm._v("edit")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -48969,7 +49155,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\n          delete\n        ")]
+                      [_vm._v("delete")]
                     )
                   ],
                   1
@@ -90945,8 +91131,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_API__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/API */ "./resources/js/lib/API.js");
-/* harmony import */ var _lib_Rols__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/Rols */ "./resources/js/lib/Rols.js");
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -90958,10 +91142,7 @@ __webpack_require__.r(__webpack_exports__);
       dialog: false,
       editItem: {},
       editIndex: -1,
-      valid: true,
-      // Para modificar
-      admin: true,
-      kk: {}
+      valid: true
     };
   },
   computed: {
@@ -91026,8 +91207,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       // OJO. SObreescrito en: MenuView.vue
-      console.error('addItem');
-
+      // TB en Responsables.vue pq no hace saveItem sino saveUser
       if (this.editIndex > -1) {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem(this.table, this.editItem.id, this.editItem).then(function (resp) {
           var index = _this2.items.findIndex(function (item) {

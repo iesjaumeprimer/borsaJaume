@@ -187,10 +187,9 @@
           v-model="editItem.ciclos"
           item-text="ciclo"
           item-value="id"
-          label="Cicles demanats"
+          label="Cicles finalitzats"
           multiple
           chips
-          hint="Els aspirants han de tindre algú d'quests cicles"
           persistent-hint
         >
         </v-select>
@@ -318,11 +317,7 @@ export default {
           })
           .catch(err => this.msgErr(err));
       } else {
-        API.getTable(this.table)
-          .then(resp => {
-            this.items = resp.data.data;
-          })
-          .catch(err => this.msgErr(err));
+        this.loadItems();
       }
     },
     preOpenDialog(item) {

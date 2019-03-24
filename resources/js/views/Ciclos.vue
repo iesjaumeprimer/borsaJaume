@@ -51,7 +51,7 @@
         <td>{{ props.item.codigo }}</td>
         <td>{{ props.item.ciclo }}</td>
         <td>{{ props.item.vCiclo }}</td>
-        <td>{{ props.item.responsable?objectProfes[props.item.responsable]:'' }}</td>
+        <td>{{ nomResponsable(props.item.responsable) }}</td>
         <td>{{ props.item.Dept }}</td>
         <td>{{ props.item.vDept }}</td>
         <td v-if="imAdmin" class="justify-center layout px-0">
@@ -74,7 +74,7 @@
     </v-data-table>
   </v-card>
 
-    <v-dialog v-model="dialog" width="800px">
+    <v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog">
         <v-form ref="form" v-model="valid" lazy-validation>
 
       <v-card>
@@ -145,11 +145,11 @@
             <v-flex xs6>
         <v-select
                 label="Responsable"
-          :items="profes"
+          :items="responsables"
           v-model="editItem.responsable"
-          item-text="nombre"
+          item-text="name"
           item-value="id"
-                required
+          required
           single-line
         ></v-select>
             </v-flex>
@@ -178,7 +178,7 @@ export default {
   mixins: [formRulesMixin, utilsMixin],
   data: () => ({
     table: 'ciclos',
-    profes: [],
+    responsables: [],
     headers: [
       { text: "Codi", value: "codigo" },
       { text: "Cicle", value: "ciclo" },
@@ -190,23 +190,35 @@ export default {
   }),
   mounted() {
     this.$emit('setTitle', 'Manteniment de Cicles');
-    this.loadItems();
+    this.loadData();
   },
   computed: {
     objectProfes() {
       let aux={};
-      this.profes.forEach(profe=>aux[profe.id]=profe.nombre);
+      this.responsables.forEach(profe=>aux[profe.id]=profe.nombre);
       return aux;
     }
   },
   methods: {
     loadData() {
-      API.getTable(this.table)
-        .then(resp => (this.items = resp.data.data))
+      this.loadItems();
+      API.getTable("users")
+        .then(
+          resp =>
+            (this.responsables = resp.data.data
+            .filter(resp=>resp.rol=="3")
+            .map(resp => {
+              return {
+                id: resp.id,
+                name: resp.name,
+              };
+            }))
+        )
         .catch(err => this.msgErr(err));
     },
-    nomProfe(id) {
-//      return id?this.profes.find(profe => profe.id==id).nombre:'';
+    nomResponsable(id_resp) {
+      let responsable=this.responsables.find(resp=>resp.id==id_resp);
+      return (responsable?responsable.name:'');
     }
   }
 };

@@ -8,7 +8,7 @@
     <!-- Menú items-->
       <v-list dense>
         <menu-item
-          v-for="item in items"
+          v-for="item in itemsForRol"
           :key="item.id"
           :icon="item.icon"
           :title="item.text"
@@ -53,15 +53,19 @@
       drawer: null,
       items: [],
       title: 'Borsa de treball',
+      myRol: 0,
     }),
-    props: {
-      source: String
-    },
     components: {
       MenuItem,
     },
-    mounted() {
+    created() {
+      this.myRol=Number(sessionStorage.user_rol);
       this.loadData();
+    },
+    computed: {
+      itemsForRol() {
+        return this.items.filter(item=>!(item.rol%this.myRol))
+      }
     },
     methods: {
       loadData() {
