@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 
-class EmpresaController extends ApiBaseResourceController
+class EmpresaController extends ApiBaseController
 {
 
-    protected $model = 'Empresa';
-
-    protected $rules = ['cif' => 'required'];
 
 
+    public function rules(){
+        return ['cif' => 'required'];
+    }
+
+    public function model(){
+        return 'Empresa';
+    }
 }

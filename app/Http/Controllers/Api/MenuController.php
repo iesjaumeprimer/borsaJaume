@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 
-class MenuController extends ApiBaseResourceController
+class MenuController extends ApiBaseController
 {
-    protected $model = 'Menu';
 
-    protected $rules = [];
+
+    public function model(){
+        return 'Menu';
+    }
 
 }
