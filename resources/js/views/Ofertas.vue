@@ -8,7 +8,7 @@
 
   <v-card>
     <v-card-title>
-    <v-btn v-if="user_rol==5"
+    <v-btn v-if="imEmpresa || imResponsable"
       top
       right
       color="blue"
@@ -70,13 +70,15 @@
             {{ nomCiclo(ciclo.id_ciclo) }}
         </v-chip>
         </td>
-        <td>{{ props.item.any }}</td>
         <td class="justify-center layout px-0">
-          <v-btn icon class="mx-0" @click="props.expanded = !props.expanded" title="Més dades">
-            <v-icon>{{ props.expanded?'remove':'add' }}</v-icon>
+          <v-btn 
+            icon class="mx-0" 
+            @click="props.expanded = !props.expanded" 
+            title="Alumnes interessats">
+            <v-icon>{{ props.expanded?'remove':'people' }}</v-icon>
           </v-btn>
-          <div v-if="user_rol==5">
-            <v-btn icon class="mx-0" @click.stop="openDialog(props.item)">
+          <div v-if="imEmpresa || imResponsable">
+            <v-btn icon class="mx-0" @click.stop="preOpenDialog(props.item)">
               <v-icon>edit</v-icon>
             </v-btn>
             <v-btn icon class="mx-0" @click.stop="deleteItem(props.item)">
@@ -92,21 +94,23 @@
 
       <template slot="expand" slot-scope="props">
         <v-card flat>
+            <v-card-title>ALUMNES INTERESSATS</v-card-title>
             <v-card-text>
-              <strong>Descripció:</strong> {{ props.item.descripcion }}
-              <template v-if="props.item.telefono">
-                <br><strong>Telèfon:</strong> {{ props.item.telefono }}
-              </template>
-              <template v-if="props.item.email">
-                <br><strong>E-mail:</strong> {{ props.item.email }}
-              </template>
-              <template v-if="props.item.contacto">
-                <br><strong>Contacte:</strong> {{ props.item.contacto }}
-              </template>
-              <template v-if="props.item.resultat">
-                <br><strong>Resultat:</strong> {{ props.item.resultat }}
-              </template>
-             </v-card-text>
+              <div
+              v-for="alum in props.item.alumnos"
+              :key="alum.id">
+              <strong>
+                <a target="_blank" href="alum.cv_enlace">
+                 {{ alum.nombre+' '+alum.apellidos }}
+                 </a>
+              </strong>
+               &mdash; 
+              <strong>e-mail:</strong>
+               {{ alum.email }}
+                &mdash; 
+              <strong>Tel.:</strong>
+               {{ alum.telefono }}
+             </div></v-card-text>
         </v-card>
       </template>
 
@@ -150,7 +154,7 @@
               ></v-checkbox>
             </v-flex>
             <v-flex xs6>
-        <v-select :readonly="user_rol>3"
+        <v-select :readonly="!imResponsable"
 
            label="Descripció"
                 placeholder="Empresa"
@@ -232,7 +236,7 @@
           chips
           hint="Els aspirants han de tindre algú d'quests cicles"
           persistent-hint
-        ><optgroup label="US">asdas</optgroup></v-select>
+        ></v-select>
       </v-flex>
             <v-flex xs3>
               <v-text-field
@@ -243,10 +247,10 @@
                 :disabled="!editItem.ciclos || editItem.ciclos.length==0"
               ></v-text-field>
             </v-flex>
-            <v-flex xs12>
+            <v-flex v-if="editItem.validada" xs12>
               <v-textarea
                 label="Resultat"
-                placeholder="Per favor, indica el resultat de l'oferta (si s'ha cobert o no i per què)"
+                placeholder="Per favor, quan finalitze el procés indica ací el resultat de l'oferta (si s'ha cobert o no i per què)"
                 v-model="editItem.resultat"
               ></v-textarea>
             </v-flex>
@@ -303,7 +307,6 @@ export default {
       { text: "Lloc de traball", value: "puesto" },
       { text: "Contracte", value: "tipo_contrato" },
       { text: "Cicles", value: "cicles" },
-      { text: "Any", value: "any" },
       { text: "Accions" }
     ],
     empresas: [],
@@ -311,13 +314,8 @@ export default {
     // Dialog validar
     dialogValidar: false,
     ofertaValidar: {},
-    user_id: null,
-    user_rol: null,
   }),
   mounted() {
-    this.user_id=Number(sessionStorage.user_id);
-    this.user_rol=Number(sessionStorage.user_rol);
-    console.error('user_id: '+this.user_id+'/'+this.user_rol)
     this.$emit("setTitle", "Manteniment d'Ofertes");
     this.loadData();
     this.editItem.ciclos = [];
@@ -357,6 +355,11 @@ export default {
         )
         .catch(err => this.msgErr(err));
     },
+    preOpenDialog(item) {
+      let itemCiclos={...item};
+      itemCiclos.ciclos=itemCiclos.ciclos.map(ciclo=>ciclo.id_ciclo);
+      this.openDialog(itemCiclos);
+    },
     nomEmpresa(id) {
       return id && this.empresas.length
         ? this.empresas.find(empresa => empresa.id == id).nombre
@@ -388,25 +391,28 @@ export default {
         activa: true, 
         ciclos: [],
       }
-      if (this.user_rol==5) {
+      if (this.imEmpresa) {
         let miEmpresa=this.empresas.find(empresa=>
-          empresa.id==sessionStorage.user_id);
+          empresa.id==this.myId);
         defaultItem.id_empresa=miEmpresa.id;
         defaultItem.contacto=miEmpresa.contacto;
         defaultItem.telefono=miEmpresa.telefono;
         defaultItem.email=miEmpresa.email;
       }
-      this.openDialog(false, defaultItem);
+      this.openDialog(defaultItem);
     },
     openDialogValidar(oferta) {
-      if (oferta.activa || oferta.validada) {
-        // Si la oferta está activa puede validarse o invalidarse
-        // Si no está activa sólo puede invalidarse
-        this.dialogValidar = true;
-        this.ofertaValidar = { ...oferta };
+      if (this.imResponsable) {
+        if (oferta.activa || oferta.validada) {
+          // Si la oferta está activa puede validarse o invalidarse
+          // Si no está activa sólo puede invalidarse
+          this.dialogValidar = true;
+          this.ofertaValidar = { ...oferta };
+        }
       }
     },
     validaOferta() {
+      // HAY QUE CAMBIARLO TODO
       this.editItem = this.ofertaValidar;
       // La cambiamos la validación
       this.editItem.validada = !this.editItem.validada;
@@ -420,12 +426,12 @@ export default {
       if (confirm("Segur que vols arxivar definitivament l'oferta '" + oferta.puesto 
         + "' de l'empresa '"+this.nomEmpresa(oferta.id_empresa)+"'?")) {
           // La marcamos como archivada
+          this.editIndex = this.items.indexOf(oferta)
           this.editItem = {...oferta};
           this.editItem.archivada=true;
           // Y guardamos la modificación
-          this.isNew=false;
           this.addItem();
-          this.items = this.items.filter(elem => elem.id != oferta.id);
+//          this.items = this.items.filter(elem => elem.id != oferta.id);
       }
     }
   }

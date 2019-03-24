@@ -9,7 +9,7 @@
     <v-card>
       <v-card-title>
     <v-btn
-      v-if="user_rol<=3"
+      v-if="imResponsable"
       top
       right
       color="blue"
@@ -60,9 +60,11 @@
                 :key="'cicl-'+ciclo.id_ciclo"
                 @dblclick="toogleValida(ciclo, props.item.nombre+' '+props.item.apellidos)"
                 :title="descCiclo(ciclo.id_ciclo)"
-                :color="ciclo.validado?'':'red lighten-4'"
                 >
-                <v-avatar color="grey"><strong>{{ ciclo.any }}</strong></v-avatar>
+                <v-avatar 
+                  :color="ciclo.validado?'teal':'red lighten-4'"
+                  :title="ciclo.validado?'Validado':'No validado?'"
+                ><strong>{{ ciclo.any }}</strong></v-avatar>
 
                 {{ nomCiclo(ciclo.id_ciclo) }}
               </v-chip>
@@ -82,7 +84,7 @@
               <v-btn icon class="mx-0"  @click="props.expanded = !props.expanded" title="Més dades">
                 <v-icon>{{ props.expanded?'remove':'add' }}</v-icon>
               </v-btn>
-              <v-btn icon class="mx-0" @click="openDialog(props.item)">
+              <v-btn icon class="mx-0" @click="preOpenDialog(props.item)">
                 <v-icon>edit</v-icon>
               </v-btn>
               <v-btn icon class="mx-0" @click="deleteItem(props.item, `l'alumne '${props.item.nombre} ${props.item.apellidos}'`)">
@@ -285,12 +287,10 @@ export default {
     // Para el dialogo de ciclos
     dialogCiclo: false,
     ciclo: {},
-    user_rol: null
   }),
   mounted() {
     console.log('Alumnos mounted');
     this.$emit('setTitle', 'Manteniment d\'Alumnes');
-    this.user_rol=sessionStorage.user_rol;
     if (this.$route.params.new) {
       this.dialog=true;
       this.editItem.id=this.$route.params.id;
@@ -310,9 +310,9 @@ export default {
   methods: {
     loadData() {
       console.log('carga alumnos');
-      if (this.user_rol==7) {
+      if (this.imAlumno) {
         // Es un alumno y sólo puede verse a sí mismo
-        API.getItem(this.table, sessionStorage.user_id)
+        API.getItem(this.table, this.myId)
           .then(resp => {
             this.items = [resp.data.data];
           })
@@ -325,6 +325,11 @@ export default {
           .catch(err => this.msgErr(err));
       }
     },
+    preOpenDialog(item) {
+      let itemCiclos={...item};
+      itemCiclos.ciclos=itemCiclos.ciclos.map(ciclo=>ciclo.id_ciclo);
+      this.openDialog(itemCiclos);
+    },
     closeDialogCiclo() {
       this.dialogCiclo = false;
       this.ciclo = {};
@@ -336,9 +341,11 @@ export default {
       return (id&&this.ciclos.length)?this.ciclos.find(ciclo => ciclo.id==id).descrip:'';
     },
     toogleValida(ciclo, alumno) {
+      if (this.imResponsable) {
       this.ciclo=ciclo;
       this.ciclo.nombre=alumno;
       this.dialogCiclo=true;
+      }
     },
     validaCiclo() {
         API.updateItem('alumnos_ciclos', this.ciclo.id, this.ciclo)

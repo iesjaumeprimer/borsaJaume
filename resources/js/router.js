@@ -6,12 +6,12 @@ import Alumnos from './views/Alumnos'
 import Perfil from './views/Perfil'
 import Register from './views/Register'
 import Ciclos from './views/Ciclos'
+import Responsables from './views/Responsables'
 import Menu from './views/Menu'
 //import MenuEdit from './views/MenuComponent/Edit'
 import Empresas from './views/Empresas'
 import Ofertas from './views/Ofertas'
 import OfertasxAlumno from './views/OfertasxAlumno'
-import AlumnosOferta from './views/AlumnosOferta'
 //import OfertasArxiu from './views/OfertasArxiu'
 import AppLogout from './views/AppLogout'
 import AppLogin from './views/AppLogin'
@@ -25,7 +25,6 @@ import Pass3 from './components/passport/PersonalAccessTokens'
 Vue.use(Router)
 
 const USERAUTH = sessionStorage.getItem('access_token');
-const user_rol = sessionStorage.user_rol;
 var ifNotAuthenticated = (to, from, next) => {
   if (!sessionStorage.getItem('access_token')) {
     next()
@@ -81,6 +80,12 @@ export default new Router({
       beforeEnter: ifNotAuthenticated,
     },
     {
+      path: '/responsables',
+      name: 'responsables',
+      component: Responsables,
+      beforeEnter: ifAuthenticated,
+    },
+    {
       path: '/ciclos',
       name: 'ciclos',
       component: Ciclos,
@@ -95,13 +100,7 @@ export default new Router({
     {
       path: '/ofertas',
       name: 'ofertas',
-      component: (user_rol==7?OfertasxAlumno:Ofertas),
-      beforeEnter: ifAuthenticated,
-    },
-    {
-      path: '/alumnos-oferta',
-      name: 'alumnos-oferta',
-      component: AlumnosOferta,
+      component: (sessionStorage.user_rol==7?OfertasxAlumno:Ofertas),
       beforeEnter: ifAuthenticated,
     },
     // {

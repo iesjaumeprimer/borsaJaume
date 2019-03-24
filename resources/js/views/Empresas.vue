@@ -9,7 +9,7 @@
   <v-card>
     <v-card-title>
     <v-btn
-      v-if="user_rol<=3"
+      v-if="imResponsable"
       top
       right
       color="blue"
@@ -215,10 +215,8 @@ export default {
     headers: Headers.getTable('empresas'),
     // Para el dialogo
     dialogCiclos: false,
-    user_rol: null,
   }),
   mounted() {
-    this.user_rol=sessionStorage.user_rol;
     this.$emit('setTitle', 'Manteniment d\'Empreses');
     if (this.$route.params.new) {
       this.dialog=true;
@@ -230,9 +228,9 @@ export default {
   methods: {
     loadData() {
       console.log('carga empresas');
-      if (this.user_rol==5) {
+      if (this.imEmpresa) {
         // Es una empresa y sólo puede verse a sí misma
-        API.getItem(this.table, sessionStorage.user_id)
+        API.getItem(this.table, this.myId)
           .then(resp => {
             this.items = [resp.data.data];
           })

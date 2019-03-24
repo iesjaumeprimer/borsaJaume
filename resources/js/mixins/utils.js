@@ -7,19 +7,33 @@ export default {
         items: [],    
         errors: [],
         // Para el dialogo
-        isNew: true,
         dialog: false,
         editItem: {},
+        editIndex: -1,
         valid: true,
         // Para modificar
         admin: true,
         kk: {},
     }),
     computed: {
-        imAdmin() {
-            console.log(getRoles(2))
-            return getRoles(2).includes('Administrador');
+        isNew () {
+            return this.editIndex === -1;
         },
+        imAdmin() {
+            return sessionStorage.user_rol=="2";
+        },
+        imResponsable() {
+            return Number(sessionStorage.user_rol)<=3;
+        },
+        imEmpresa() {
+            return sessionStorage.user_rol=="5";
+        },
+        imAlumno() {
+            return sessionStorage.user_rol=="7";
+        },
+        myId() {
+            return Number(sessionStorage.user_id);
+        }
     },
     methods: {
         // Métodos de DataTable
@@ -36,13 +50,12 @@ export default {
             }
         },
         loadItems() {
-            API.getTable(this.table)
+            API.getTable(this.table, this.$route.query)
             .then(resp => {
               this.items = resp.data.data;
             })
             .catch(err => {
                 let msg='';
-                console.log(err)
                 switch (err.response.status) {
                   case 401:
                     sessionStorage.removeItem('access_token');
@@ -62,35 +75,53 @@ export default {
         },
         addItem() {
             // OJO. SObreescrito en: MenuView.vue
-            console.log('this: '+this.$refs.form)
-            this.kk=this
-//            if (this.$refs.form.validate()) {
-            if (this.isNew) {
-              API.saveItem(this.table, this.editItem)
-                .then(resp => {
-                  this.items.push(resp.data);
-                  this.msgOk('save');
-                  console.log('resp: '+resp.data)
-                })
-                .catch(err => this.msgErr(err));
-            } else {
-              API.updateItem(this.table, this.editItem.id, this.editItem)
+            console.error('addItem')
+            if (this.editIndex > -1) {
+                API.updateItem(this.table, this.editItem.id, this.editItem)
                 .then(resp => {
                     let index = this.items.findIndex(item => item.id==resp.data.id);
                     this.items.splice(index,1,resp.data);
-                  this.msgOk('update');
+//                    Object.assign(this.items[this.editIndex], resp.data)
+                    this.msgOk('update');
+                })
+                .catch(err => this.msgErr(err));
+            } else {
+                API.saveItem(this.table, this.editItem)
+                .then(resp => {
+                  this.items.push(resp.data);
+                  this.msgOk('save');
                 })
                 .catch(err => this.msgErr(err));
             }
+            this.closeDialog();
+      
+
+            // if (this.isNew) {
+            //   API.saveItem(this.table, this.editItem)
+            //     .then(resp => {
+            //       this.items.push(resp.data);
+            //       this.msgOk('save');
+            //     })
+            //     .catch(err => this.msgErr(err));
+            // } else {
+            //   API.updateItem(this.table, this.editItem.id, this.editItem)
+            //     .then(resp => {
+            //         let index = this.items.findIndex(item => item.id==resp.data.id);
+            //         this.items.splice(index,1,resp.data);
+            //       this.msgOk('update');
+            //     })
+            //     .catch(err => this.msgErr(err));
+            // }
 //        }
         },
 
         deleteItem(item, msg) {
             if (confirm("¿Segur que vols esborrar " + msg+ "?")) {
-              API.delItem(this.table, item.id)
-                .then(resp => {
-                  this.items = this.items.filter(elem=>elem!=item);
-                  this.msgOk('delete')
+                const index = this.items.indexOf(item)
+                API.delItem(this.table, item.id)
+                .then(() => {
+                  this.items.splice(index, 1);
+                  this.msgOk('delete');
                 })
                 .catch(err => this.msgErr(err));
             }
@@ -139,7 +170,14 @@ export default {
             // Parámetros:
             // id: number. La id del item a editar o false si es añadir
             // defaultItem: object. Si se está añadiendo un objeto sus propiedades por defecto
+            this.editIndex = this.items.findIndex(elem=>elem.id==item.id);
+//            this.editIndex = this.items.indexOf(item)
+            this.editItem = Object.assign({}, item);
             this.dialog = true;
+    
+
+
+/*             this.dialog = true;
             if (item.id) {
                 this.editItem = {...item};
                 this.isNew = false;
@@ -147,11 +185,17 @@ export default {
 //                if (!this.isNew) 
                     this.editItem = defaultItem; // Si estavem editant un item l'esborrem
                 this.isNew = true;
-            }
+            } */
         },
         
         closeDialog() {
-            this.dialog = false;
+            this.dialog = false
+            setTimeout(() => {
+//                this.editItem = Object.assign({}, this.defaultItem)
+                this.editItem = {};
+                this.editIndex = -1;
+            }, 300)
+
 //            this.editItem = {};
         },
     } 
