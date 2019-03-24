@@ -7,13 +7,17 @@ use App\Http\Resources\OfertaResource;
 use Illuminate\Http\Request;
 use App\Entities\Alumno;
 
-class OfertaController extends ApiBaseResourceController
+class OfertaController extends ApiBaseController
 {
+    use traitRelation;
 
-    protected $model = 'Oferta';
-    protected $rules = [];
-    protected $relationShip = 'ciclos';
-
+    public function model(){
+        return 'Oferta';
+    }
+    protected function relationShip()
+    {
+        return 'ciclos';
+    }
 
     public function index()
     {
@@ -32,6 +36,8 @@ class OfertaController extends ApiBaseResourceController
         Oferta::find($id)->alumnos()->sync([AuthUser()->id =>['interesado'=>$request->interesado]]);
         return response($this->show($id),200);
     }
+
+
 
 }
 

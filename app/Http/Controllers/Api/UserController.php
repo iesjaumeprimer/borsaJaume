@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 
 
-class UserController extends ApiBaseResourceController
+class UserController extends ApiBaseController
 {
 
-    protected $model = 'User';
-    protected $rules = [];
-
+    public function model(){
+        return 'User';
+    }
 }
