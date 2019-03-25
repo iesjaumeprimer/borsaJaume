@@ -149,8 +149,13 @@ export default {
         msgErr(err) {
             if (this.dialog)
             this.dialog = false;
+            console.error('error');
+            let msg=err.data ? err.data.message : err.message || err;
+            if (err.response.data.errors)
+                Array.from(err.response.data.errors).forEach(error=>
+                    msg+='\n- ${error.message}');
             this.errors.push({
-                msg: err.data ? err.data.message : err.message || err,
+                msg: msg,
                 type: "error",
                 show: true
             });

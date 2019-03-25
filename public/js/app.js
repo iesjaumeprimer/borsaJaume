@@ -91283,8 +91283,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     msgErr: function msgErr(err) {
       if (this.dialog) this.dialog = false;
+      console.error('error');
+      var msg = err.data ? err.data.message : err.message || err;
+      if (err.response.data.errors) Array.from(err.response.data.errors).forEach(function (error) {
+        return msg += '\n- ${error.message}';
+      });
       this.errors.push({
-        msg: err.data ? err.data.message : err.message || err,
+        msg: msg,
         type: "error",
         show: true
       });

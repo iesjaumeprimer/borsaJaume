@@ -16,11 +16,11 @@ class CreateAlumnosTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('nombre', 25);
-			$table->string('apellidos', 50);
-			$table->string('domicilio', 80);
+			$table->string('apellidos', 50)->nullable();
+			$table->string('domicilio', 80)->nullable();
 			$table->string('telefono', 25)->nullable();
-			$table->boolean('info');
-			$table->boolean('bolsa');
+			$table->boolean('info')->default(false);
+			$table->boolean('bolsa')->default(false);
 			$table->string('cv_enlace', 80)->nullable();
 		});
 	}

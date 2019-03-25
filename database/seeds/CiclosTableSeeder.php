@@ -19,7 +19,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Img',
             'cDept'=>'Imagen Personal',
             'vDept'=>'Imatge Personal',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>NULL,
             'cCiclo'=>NULL
         ] );
@@ -33,7 +33,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Srv',
             'cDept'=>'Servicios a la Comunidad',
             'vDept'=>'Serveis a la Comunitat',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Atenció a persones en situació de dependència',
             'cCiclo'=>'Atención a personas en situación de dependencia'
         ] );
@@ -47,7 +47,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'San',
             'cDept'=>'Sanitaria',
             'vDept'=>'Sanitària',
-            'responsable'=>1,
+            'responsable'=>3,
             'vCiclo'=>'Farmàcia i parafarmàcia',
             'cCiclo'=>'Farmacia y parafarmacia'
         ] );
@@ -61,7 +61,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'San',
             'cDept'=>'Sanitaria',
             'vDept'=>'Sanitària',
-            'responsable'=>1,
+            'responsable'=>3,
             'vCiclo'=>'Cures auxiliares d\'infermeria',
             'cCiclo'=>'Curas auxiliares de enfermería'
         ] );
@@ -75,7 +75,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Hos',
             'cDept'=>'Hostelería y Turismo',
             'vDept'=>'Hosteleria i Turisme',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Cuina i gastronomia',
             'cCiclo'=>'Cocina y gastronomía'
         ] );
@@ -89,7 +89,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Img',
             'cDept'=>'Imagen Personal',
             'vDept'=>'Imatge Personal',
-            'responsable'=>1,
+            'responsable'=>3,
             'vCiclo'=>'Estètica i bellesa',
             'cCiclo'=>'Estética y belleza'
         ] );
@@ -103,7 +103,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Adm',
             'cDept'=>'Administrativo',
             'vDept'=>'Administratiu',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Gestió administrativa',
             'cCiclo'=>'Gestión administrativa'
         ] );
@@ -117,7 +117,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Img',
             'cDept'=>'Imagen Personal',
             'vDept'=>'Imatge Personal',
-            'responsable'=>1,
+            'responsable'=>3,
             'vCiclo'=>'Perruqueria i cosmètica capilar',
             'cCiclo'=>'Peluquería y cosmética capilar'
         ] );
@@ -131,7 +131,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Hos',
             'cDept'=>'Hostelería y Turismo',
             'vDept'=>'Hosteleria i Turisme',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Servicis en restauració',
             'cCiclo'=>'Servicios en restauración'
         ] );
@@ -145,7 +145,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Inf',
             'cDept'=>'Informática',
             'vDept'=>'Informàtica',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Sistemes microinformàtics i xarxes',
             'cCiclo'=>'Sistemas microinformáticos y redes'
         ] );
@@ -159,7 +159,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Adm',
             'cDept'=>'Administrativo',
             'vDept'=>'Administratiu',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Administració i finances',
             'cCiclo'=>'Administración y finanzas'
         ] );
@@ -173,7 +173,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Inf',
             'cDept'=>'Informática',
             'vDept'=>'Informàtica',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Administració de sistemes informàtics en xarxa',
             'cCiclo'=>'Administración de sistemas informáticos en red'
         ] );
@@ -187,7 +187,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Inf',
             'cDept'=>'Informática',
             'vDept'=>'Informàtica',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Desenrotllament d\'aplicacions multiplataforma',
             'cCiclo'=>'Desarrollo de aplicaciones multiplataforma'
         ] );
@@ -201,7 +201,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Inf',
             'cDept'=>'Informática',
             'vDept'=>'Informàtica',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Desenrotllament d\'aplicacions web',
             'cCiclo'=>'Desarrollo de aplicaciones  web'
         ] );
@@ -215,7 +215,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Hos',
             'cDept'=>'Hostelería y Turismo',
             'vDept'=>'Hosteleria i Turisme',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Direcció de cuina',
             'cCiclo'=>'Dirección de cocina'
         ] );
@@ -229,7 +229,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Hos',
             'cDept'=>'Hostelería y Turismo',
             'vDept'=>'Hosteleria i Turisme',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Direcció en servicis de restauració',
             'cCiclo'=>'Dirección en servicios de restauración'
         ] );
@@ -243,7 +243,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Srv',
             'cDept'=>'Servicios a la Comunidad',
             'vDept'=>'Serveis a la Comunitat',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Educació infantil',
             'cCiclo'=>'Educación infantil'
         ] );
@@ -257,7 +257,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Img',
             'cDept'=>'Imagen Personal',
             'vDept'=>'Imatge Personal',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Estètica integral i benestar',
             'cCiclo'=>'Estética integral y bienestar'
         ] );
@@ -271,7 +271,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Srv',
             'cDept'=>'Servicios a la Comunidad',
             'vDept'=>'Serveis a la Comunitat',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Integració Social',
             'cCiclo'=>'Integración Social'
         ] );
@@ -285,7 +285,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'San',
             'cDept'=>'Sanitaria',
             'vDept'=>'Sanitària',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Laboratori clínic i biomèdic',
             'cCiclo'=>'Laboratorio clinico y biomédico'
         ] );
@@ -299,7 +299,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'San',
             'cDept'=>'Sanitaria',
             'vDept'=>'Sanitària',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Laboratori de diagnòstic clínic',
             'cCiclo'=>'Laboratorio de diagnostico clínico'
         ] );
@@ -313,7 +313,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'San',
             'cDept'=>'Sanitaria',
             'vDept'=>'Sanitària',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Imatge per al diagnòstic',
             'cCiclo'=>'Imagen para el diagnóstico'
         ] );
@@ -327,7 +327,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'San',
             'cDept'=>'Sanitaria',
             'vDept'=>'Sanitària',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Imatge per al diagnòtic i medicina nuclear',
             'cCiclo'=>'Imagen para el diagnóstico y medicina nuclear'
         ] );
@@ -341,7 +341,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'San',
             'cDept'=>'Sanitaria',
             'vDept'=>'Sanitària',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Salut ambiental',
             'cCiclo'=>'Salud ambiental'
         ] );
@@ -355,7 +355,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Srv',
             'cDept'=>'Servicios a la Comunidad',
             'vDept'=>'Serveis a la Comunitat',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Animació Sociocultural',
             'cCiclo'=>'Animación Sociocultural'
         ] );
@@ -369,7 +369,7 @@ class CiclosTableSeeder extends Seeder
             'Dept'=>'Srv',
             'cDept'=>'Servicios a la Comunidad',
             'vDept'=>'Serveis a la Comunitat',
-            'responsable'=>NULL,
+            'responsable'=>3,
             'vCiclo'=>'Animació Sociocultural i turística',
             'cCiclo'=>'Animación Sociocultural y turística'
         ] );
