@@ -63,6 +63,7 @@ class AuthController extends Controller
             'rol'          => $user->rol,
             'token_type'   => 'Bearer',
             'id'           => $user->id,
+            'name'         => $user->name,
             'expires_at'   => Carbon::parse(
                 $tokenResult->token->expires_at)
                 ->toDateTimeString()];
