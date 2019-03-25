@@ -2,10 +2,7 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-
-
-class Alumno extends Model
+class Alumno extends Entity
 {
     public $timestamps = false;
     protected $fillable = [
@@ -23,6 +20,10 @@ class Alumno extends Model
     {
         return $this->hasOne(User::class,'id');
     }
+    public static function rules(){
+        return ['nombre'=> 'required'];
+    }
+
 
 
 }

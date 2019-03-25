@@ -15,9 +15,6 @@ class AlumnoController extends ApiBaseController
         return 'Alumno';
     }
 
-    public function rules(){
-        return ['nombre'=> 'required'];
-    }
 
     protected function relationShip()
     {

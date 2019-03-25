@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Oferta extends Model
+class Oferta extends Entity
 {
     public $timestamps = false;
     protected $table = 'ofertas';

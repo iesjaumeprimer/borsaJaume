@@ -18,7 +18,6 @@ trait traitRelation
         return parent::manageResponse($registro, $request);
     }
 
-
     abstract protected function relationShip();
     protected function validateRelation($relations){
         return $relations;

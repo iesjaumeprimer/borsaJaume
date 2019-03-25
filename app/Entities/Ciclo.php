@@ -5,7 +5,7 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Ciclo extends Model
+class Ciclo extends Entity
 {
     public $timestamps = false;
     protected $guarded = [];

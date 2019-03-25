@@ -32,13 +32,14 @@ class OfertaResource extends JsonResource
              'ciclos' => hazArray($this->ciclos,'id','pivot'),
              'empresa' => $this->empresa,
              'interesado' => $this->when(AuthUser()->isAlumno() , $this->getInterested()),
-             'alumnos' => $this->when(AuthUser()->isEmpresa(), $this->alumnos)
+             'alumnos' => $this->when(AuthUser()->isEmpresa(), AlumnoResource::collection($this->alumnos))
         ];
     }
     private function getInterested(){
         if ($this->alumnos->where('id',AuthUser()->id)->count()==0) return null;
         return $this->alumnos->where('id',AuthUser()->id)->first()->pivot->interesado;
     }
+
 
 
 

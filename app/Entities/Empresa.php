@@ -5,7 +5,7 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Empresa extends Model
+class Empresa extends Entity
 {
     public $timestamps = false;
 
@@ -16,5 +16,11 @@ class Empresa extends Model
     {
         return $this->hasOne(User::class,'id');
     }
-    
+
+    static public function rules()
+    {
+        return ['cif' => 'required'];
+    }
+
+
 }

@@ -30,9 +30,7 @@ abstract class ApiBaseController extends Controller
         return $this->resource::collection($this->entity::all());
     }
 
-    public function show($id){
-        return new $this->resource($this->entity::find($id));
-    }
+
 
     public function destroy($id)
     {
@@ -43,14 +41,15 @@ abstract class ApiBaseController extends Controller
 
     public function store(Request $request)
     {
-        if ($errors = $this->validate($request, $this->rules())) return $this->response($errors);
+        if ($errors = $this->validate($request, $this->entity::rules())) return $this->response($errors);
 
         return $this->manageResponse($this->entity::create($request->all()),$request);
     }
 
     public function update(Request $request, $id)
     {
-        if ($errors = $this->validate($request, $this->rules())) return $this->response($errors);
+
+        if ($errors = $this->validate($request, $this->entity::rules())) return $this->response($errors);
 
         $registro = $this->entity::find($id);
         $registro->update($request->all());
@@ -63,8 +62,6 @@ abstract class ApiBaseController extends Controller
 
         return new $this->resource($registro);
     }
-
-
 
 
     public function validate(Request $request, array $rules, array $messages = Array(), array $customAttributes = Array()){
@@ -92,11 +89,58 @@ abstract class ApiBaseController extends Controller
         ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public abstract function model();
+    public function show($cadena)
+    {
+        if (!strpos($cadena, '=') && !strpos($cadena, '>') && !strpos($cadena, '<') && !strpos($cadena, ']') && !strpos($cadena, '['))
+            return new $this->resource($this->entity::find($cadena));
 
-    public function rules(){
-        return [];
+        $filtros = explode('&', $cadena);
+        $data = $this->entity::all();
+
+        foreach ($filtros as $filtro) {
+            foreach (['=', '<', '>', ']', '['] as $operacion) {
+                $data = $this->filterOperation($operacion, $filtro, $data);
+            }
+        }
+
+        return $this->resource::collection($data);
     }
 
+    public abstract function model();
+
+    /**
+     * @param $operacion
+     * @param $filtro
+     * @param $data
+     * @return mixed
+     */
+    private function filterOperation($operacion, $filtro, $data)
+    {
+        $campos = explode($operacion, $filtro);
+        if (count($campos) == 2) {
+            $value = $campos[0];
+            $key = $campos[1];
+            $data = $data->filter(function ($filtro) use ($value, $key, $operacion) {
+                switch ($operacion) {
+                    case '=' :
+                        return $filtro->$value == $key;
+                        break;
+                    case '>' :
+                        return $filtro->$value > $key;
+                        break;
+                    case '<' :
+                        return $filtro->$value < $key;
+                        break;
+                    case ']' :
+                        return $filtro->$value >= $key;
+                        break;
+                    case '[' :
+                        return $filtro->$value <= $key;
+                        break;
+                }
+            });
+        }
+        return $data;
+    }
 
 }
