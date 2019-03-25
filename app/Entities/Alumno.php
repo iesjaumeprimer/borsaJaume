@@ -6,7 +6,7 @@ class Alumno extends Entity
 {
     public $timestamps = false;
     protected $fillable = [
-        'id', 'nombre','apellidos','email','domicilio', 'telefono','info',
+        'id', 'nombre','apellidos','domicilio', 'telefono','info',
         'bolsa','cv_enlace'
     ];
 
