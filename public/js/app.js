@@ -1831,16 +1831,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     itemsForRol: function itemsForRol() {
-      var _this = this;
-
-      return this.items.filter(function (item) {
-        return !(item.rol % _this.myRol);
-      });
+      //        return this.items.filter(item=>!(item.rol%this.myRol))
+      return this.items;
     }
   },
   methods: {
     loadData: function loadData() {
-      var _this2 = this;
+      var _this = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("menu").then(function (resp) {
         var menu = resp.data.data.filter(function (item) {
@@ -1858,7 +1855,7 @@ __webpack_require__.r(__webpack_exports__);
           });
           return item;
         });
-        _this2.items = menu;
+        _this.items = menu;
       }).catch(function (err) {
         return console.error(err.data ? err.data.message : err.message);
       });
@@ -91208,13 +91205,15 @@ __webpack_require__.r(__webpack_exports__);
 
       // OJO. SObreescrito en: MenuView.vue
       // TB en Responsables.vue pq no hace saveItem sino saveUser
+      console.error('additem');
+
       if (this.editIndex > -1) {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem(this.table, this.editItem.id, this.editItem).then(function (resp) {
           var index = _this2.items.findIndex(function (item) {
-            return item.id == resp.data.id;
+            return item.id == resp.data.data.id;
           });
 
-          _this2.items.splice(index, 1, resp.data); //                    Object.assign(this.items[this.editIndex], resp.data)
+          _this2.items.splice(index, 1, resp.data.data); //                    Object.assign(this.items[this.editIndex], resp.data)
 
 
           _this2.msgOk('update');
@@ -91223,7 +91222,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveItem(this.table, this.editItem).then(function (resp) {
-          _this2.items.push(resp.data);
+          _this2.items.push(resp.data.data);
 
           _this2.msgOk('save');
         }).catch(function (err) {

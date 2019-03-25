@@ -76,11 +76,12 @@ export default {
         addItem() {
             // OJO. SObreescrito en: MenuView.vue
             // TB en Responsables.vue pq no hace saveItem sino saveUser
+            console.error('additem')
             if (this.editIndex > -1) {
                 API.updateItem(this.table, this.editItem.id, this.editItem)
                 .then(resp => {
-                    let index = this.items.findIndex(item => item.id==resp.data.id);
-                    this.items.splice(index,1,resp.data);
+                    let index = this.items.findIndex(item => item.id==resp.data.data.id);
+                    this.items.splice(index,1,resp.data.data);
 //                    Object.assign(this.items[this.editIndex], resp.data)
                     this.msgOk('update');
                 })
@@ -88,7 +89,7 @@ export default {
             } else {
                 API.saveItem(this.table, this.editItem)
                 .then(resp => {
-                  this.items.push(resp.data);
+                  this.items.push(resp.data.data);
                   this.msgOk('save');
                 })
                 .catch(err => this.msgErr(err));

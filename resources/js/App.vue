@@ -64,7 +64,8 @@
     },
     computed: {
       itemsForRol() {
-        return this.items.filter(item=>!(item.rol%this.myRol))
+//        return this.items.filter(item=>!(item.rol%this.myRol))
+        return this.items
       }
     },
     methods: {
