@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Entities\Alumno;
 
 class AlumnosCiclosTableSeeder extends Seeder
 {
@@ -11,37 +12,10 @@ class AlumnosCiclosTableSeeder extends Seeder
      */
     public function run()
     {
-        Alumnosciclo::create( [
-            'id'=>1,
-            'id_alumno'=>6,
-            'id_ciclo'=>3,
-            'any'=>2015,
-            'validado'=>1
-            ] );
-
-        Alumnosciclo::create( [
-            'id'=>1,
-            'id_alumno'=>6,
-            'id_ciclo'=>3,
-            'any'=>2015,
-            'validado'=>1
-            ] );
-
-        Alumnosciclo::create( [
-            'id'=>2,
-            'id_alumno'=>6,
-            'id_ciclo'=>5,
-            'any'=>2012,
-            'validado'=>0
-            ] );
-
-        Alumnosciclo::create( [
-            'id'=>3,
-            'id_alumno'=>7,
-            'id_ciclo'=>3,
-            'any'=>2015,
-            'validado'=>1
-            ] );
-
-    }
+        $alumno = Alumno::find(6);
+        $alumno->ciclos()->attach(3,['any'=>2015,'validado'=>1]);
+        $alumno->ciclos()->attach(4,['any'=>2012,'validado'=>0]);
+        $alumno = Alumno::find(7);
+        $alumno->ciclos()->attach(3,['any'=>2015,'validado'=>1]);
+}
 }

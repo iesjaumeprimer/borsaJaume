@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Entities\Oferta;
 
 class OfertasCiclosTableSeeder extends Seeder
 {
@@ -11,100 +12,19 @@ class OfertasCiclosTableSeeder extends Seeder
      */
     public function run()
     {
-        Ofertasciclo::create( [
-            'id'=>4,
-            'id_oferta'=>1,
-            'id_ciclo'=>3,
-            'any_fin'=>NULL
-            ] );            
-                        
-            Ofertasciclo::create( [
-            'id'=>5,
-            'id_oferta'=>1,
-            'id_ciclo'=>4,
-            'any_fin'=>NULL
-            ] );
-            
-            
-                        
-            Ofertasciclo::create( [
-            'id'=>6,
-            'id_oferta'=>1,
-            'id_ciclo'=>12,
-            'any_fin'=>NULL
-            ] );
-            
-            
-                        
-            Ofertasciclo::create( [
-            'id'=>13,
-            'id_oferta'=>2,
-            'id_ciclo'=>3,
-            'any_fin'=>NULL
-            ] );
-            
-            
-                        
-            Ofertasciclo::create( [
-            'id'=>14,
-            'id_oferta'=>2,
-            'id_ciclo'=>8,
-            'any_fin'=>NULL
-            ] );
-            
-            
-                        
-            Ofertasciclo::create( [
-            'id'=>17,
-            'id_oferta'=>2,
-            'id_ciclo'=>30,
-            'any_fin'=>NULL
-            ] );
-            
-            
-                        
-            Ofertasciclo::create( [
-            'id'=>18,
-            'id_oferta'=>3,
-            'id_ciclo'=>3,
-            'any_fin'=>NULL
-            ] );
-            
-            
-                        
-            Ofertasciclo::create( [
-            'id'=>19,
-            'id_oferta'=>4,
-            'id_ciclo'=>8,
-            'any_fin'=>NULL
-            ] );
-            
-            
-                        
-            Ofertasciclo::create( [
-            'id'=>20,
-            'id_oferta'=>4,
-            'id_ciclo'=>16,
-            'any_fin'=>NULL
-            ] );
-            
-            
-                        
-            Ofertasciclo::create( [
-            'id'=>21,
-            'id_oferta'=>5,
-            'id_ciclo'=>3,
-            'any_fin'=>NULL
-            ] );
-            
-            
-                        
-            Ofertasciclo::create( [
-            'id'=>24,
-            'id_oferta'=>5,
-            'id_ciclo'=>2,
-            'any_fin'=>NULL
-            ] );
-            
+        $oferta = Oferta::find(1);
+        $oferta->ciclos()->attach(3);
+        $oferta->ciclos()->attach(4);
+        $oferta->ciclos()->attach(12);
+        $oferta = Oferta::find(2);
+        $oferta->ciclos()->attach(8);
+        $oferta->ciclos()->attach(30);
+        $oferta = Oferta::find(3);
+        $oferta->ciclos()->attach(3);
+        $oferta = Oferta::find(4);
+        $oferta->ciclos()->attach(8);
+        $oferta->ciclos()->attach(16);
+        $oferta = Oferta::find(5);
+        $oferta->ciclos()->attach(2);
     }
 }
