@@ -23,8 +23,7 @@ class CreateUsersTable extends Migration {
 			$table->string('remember_token', 100)->nullable();
             $table->boolean('active')->default(false);
             $table->string('activation_token')->nullable();
-            $table->softDeletes();
-			$table->timestamps();
+            $table->timestamps();
 		});
 	}
 
