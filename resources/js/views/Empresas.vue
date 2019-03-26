@@ -8,17 +8,6 @@
 
   <v-card>
     <v-card-title>
-    <v-btn
-      v-if="imResponsable"
-      top
-      right
-      color="blue"
-      dark
-      @click.stop="openDialog(false)"
-    >
-      <v-icon>add</v-icon>
-    </v-btn>
-
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -218,63 +207,36 @@ export default {
   }),
   mounted() {
     this.$emit('setTitle', 'Manteniment d\'Empreses');
-    if (this.$route.params.new) {
-      this.dialog=true;
-      this.editItem.id=this.$route.params.id;
-    } else {
-      this.loadData();
-    }
+    this.loadData();
   },
   methods: {
     loadData() {
-      console.log('carga empresas');
+console.error('newempresa')
       if (this.imEmpresa) {
         // Es una empresa y sólo puede verse a sí misma
         API.getItem(this.table, this.myId)
           .then(resp => {
             this.items = [resp.data.data];
+            // Si estoy creando un nuevo usuario lo edito
+            if (this.$route.params.new) {
+              let newEmpresa=this.items.find(item=>item.id==this.$route.params.id);
+              newEmpresa.nombre=this.$route.params.name;
+              this.openDialog(newEmpresa);
+            }
           })
-          .catch(err => {
-              let msg='';
-              console.log(err)
-              switch (err.response.status) {
-                case 401:
-                  sessionStorage.removeItem('access_token');
-                  sessionStorage.removeItem('expires_at');
-                  sessionStorage.removeItem('user_rol');
-                  sessionStorage.removeItem('user_id');
-                  sessionStorage.removeItem('token_type');
-                  msg='Debes volverte a loguear'
-                  break;
-                default:
-                  msg='ERROR: '+err;
-              }
-              this.msgErr(msg);
-
-          });
+          .catch(err => this.msgErr(err));
       } else {
         API.getTable(this.table)
           .then(resp => {
             this.items = resp.data.data;
+            // Si estoy creando un nuevo usuario lo edito
+            if (this.$route.params.new) {
+              let newEmpresa=this.items.find(item=>item.id==this.$route.params.id);
+              newEmpresa.nombre=this.$route.params.name;
+              this.openDialog(newEmpresa);
+            }
           })
-          .catch(err => {
-              let msg='';
-              console.log(err)
-              switch (err.response.status) {
-                case 401:
-                  sessionStorage.removeItem('access_token');
-                  sessionStorage.removeItem('expires_at');
-                  sessionStorage.removeItem('user_rol');
-                  sessionStorage.removeItem('user_id');
-                  sessionStorage.removeItem('token_type');
-                  msg='Debes volverte a loguear'
-                  break;
-                default:
-                  msg='ERROR: '+err;
-              }
-              this.msgErr(msg);
-
-          });
+          .catch(err => this.msgErr(err));
       }
     },
     showItem(id) {

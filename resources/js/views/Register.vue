@@ -138,13 +138,15 @@ export default {
                 // Es una empresa
                 this.$router.push({name: 'empresas', params: {
                   new: true,
-                  id: resp.data.id
+                  id: resp.data.id,
+                  name: resp.data.name
                 }})
               } else {
                 // Es un alumnos
                 this.$router.push({name: 'alumnos', params: {
                   new: true,
-                  id: resp.data.id
+                  id: resp.data.id,
+                  name: resp.data.name
                 }})
               }
             })

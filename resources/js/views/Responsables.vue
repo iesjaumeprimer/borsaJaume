@@ -162,7 +162,8 @@ export default {
               // Es una empresa
                 this.$router.push({name: 'empresas', params: {
                   new: true,
-                  id: resp.data.id
+                  id: resp.data.id,
+                  name: resp.data.name
                 }})
               alert(
                 "S'ha creat l'usuari. Ara has de crear l'empresa i omplir les seues dades"
@@ -171,7 +172,8 @@ export default {
               // Es un alumno
                 this.$router.push({name: 'alumnos', params: {
                   new: true,
-                  id: resp.data.id
+                  id: resp.data.id,
+                  name: resp.data.name
                 }})
               alert(
                 "S'ha creat l'usuari. Ara has de crear l'alumne i omplir les seues dades"

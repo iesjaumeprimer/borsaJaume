@@ -2971,18 +2971,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3029,46 +3017,61 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    console.log('Alumnos mounted');
     this.$emit('setTitle', 'Manteniment d\'Alumnes');
-
-    if (this.$route.params.new) {
-      this.dialog = true;
-      this.editItem.id = this.$route.params.id;
-    } else {
-      this.loadData();
-    }
-
-    _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("ciclos").then(function (resp) {
-      return _this.ciclos = resp.data.data.map(function (ciclo) {
-        return {
-          id: ciclo.id,
-          ciclo: ciclo.ciclo,
-          descrip: ciclo.vCiclo
-        };
-      });
-    }).catch(function (err) {
-      return _this.msgErr('2' + err);
-    });
+    this.loadData();
   },
   methods: {
     loadData: function loadData() {
-      var _this2 = this;
+      var _this = this;
 
       console.log('carga alumnos');
 
       if (this.imAlumno) {
         // Es un alumno y sólo puede verse a sí mismo
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getItem(this.table, this.myId).then(function (resp) {
-          _this2.items = [resp.data.data];
+          _this.items = [resp.data.data]; // Si estoy creando un nuevo usuario lo edito
+
+          if (_this.$route.params.new) {
+            var newAlumno = _this.items.find(function (item) {
+              return item.id == _this.$route.params.id;
+            });
+
+            newAlumno.nombre = _this.$route.params.name;
+
+            _this.openDialog(newAlumno);
+          }
         }).catch(function (err) {
-          return _this2.msgErr(err);
+          return _this.msgErr(err);
         });
       } else {
-        this.loadItems();
+        _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table, this.$route.query).then(function (resp) {
+          _this.items = resp.data.data; // Si estoy creando un nuevo usuario lo edito
+
+          if (_this.$route.params.new) {
+            var newAlumno = _this.items.find(function (item) {
+              return item.id == _this.$route.params.id;
+            });
+
+            newAlumno.nombre = _this.$route.params.name;
+
+            _this.openDialog(newAlumno);
+          }
+        }).catch(function (err) {
+          return _this.msgErr(err);
+        });
       }
+
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("ciclos").then(function (resp) {
+        return _this.ciclos = resp.data.data.map(function (ciclo) {
+          return {
+            id: ciclo.id,
+            ciclo: ciclo.ciclo,
+            descrip: ciclo.vCiclo
+          };
+        });
+      }).catch(function (err) {
+        return _this.msgErr('2' + err);
+      });
     },
     preOpenDialog: function preOpenDialog(item) {
       var itemCiclos = _objectSpread({}, item);
@@ -3100,17 +3103,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     validaCiclo: function validaCiclo() {
-      var _this3 = this;
+      var _this2 = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem('alumnos_ciclos', this.ciclo.id, this.ciclo).then(function (resp) {
-        _this3.ciclos[_this3.ciclos.indexOf(resp.data)] = resp.data;
+        _this2.ciclos[_this2.ciclos.indexOf(resp.data)] = resp.data;
 
-        _this3.closeDialogCiclo(); // No es el diálogo estándar
+        _this2.closeDialogCiclo(); // No es el diálogo estándar
 
 
-        _this3.msgOk('updateCiclo', 'Ciclo ' + (resp.data.validado ? 'validado' : 'desvalidado') + ' correctamente');
+        _this2.msgOk('updateCiclo', 'Ciclo ' + (resp.data.validado ? 'validado' : 'desvalidado') + ' correctamente');
       }).catch(function (err) {
-        return _this3.msgErr('3' + err);
+        return _this2.msgErr('3' + err);
       });
     }
   }
@@ -3727,17 +3730,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3754,66 +3746,46 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$emit('setTitle', 'Manteniment d\'Empreses');
-
-    if (this.$route.params.new) {
-      this.dialog = true;
-      this.editItem.id = this.$route.params.id;
-    } else {
-      this.loadData();
-    }
+    this.loadData();
   },
   methods: {
     loadData: function loadData() {
       var _this = this;
 
-      console.log('carga empresas');
+      console.error('newempresa');
 
       if (this.imEmpresa) {
         // Es una empresa y sólo puede verse a sí misma
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getItem(this.table, this.myId).then(function (resp) {
-          _this.items = [resp.data.data];
-        }).catch(function (err) {
-          var msg = '';
-          console.log(err);
+          _this.items = [resp.data.data]; // Si estoy creando un nuevo usuario lo edito
 
-          switch (err.response.status) {
-            case 401:
-              sessionStorage.removeItem('access_token');
-              sessionStorage.removeItem('expires_at');
-              sessionStorage.removeItem('user_rol');
-              sessionStorage.removeItem('user_id');
-              sessionStorage.removeItem('token_type');
-              msg = 'Debes volverte a loguear';
-              break;
+          if (_this.$route.params.new) {
+            var newEmpresa = _this.items.find(function (item) {
+              return item.id == _this.$route.params.id;
+            });
 
-            default:
-              msg = 'ERROR: ' + err;
+            newEmpresa.nombre = _this.$route.params.name;
+
+            _this.openDialog(newEmpresa);
           }
-
-          _this.msgErr(msg);
+        }).catch(function (err) {
+          return _this.msgErr(err);
         });
       } else {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
-          _this.items = resp.data.data;
-        }).catch(function (err) {
-          var msg = '';
-          console.log(err);
+          _this.items = resp.data.data; // Si estoy creando un nuevo usuario lo edito
 
-          switch (err.response.status) {
-            case 401:
-              sessionStorage.removeItem('access_token');
-              sessionStorage.removeItem('expires_at');
-              sessionStorage.removeItem('user_rol');
-              sessionStorage.removeItem('user_id');
-              sessionStorage.removeItem('token_type');
-              msg = 'Debes volverte a loguear';
-              break;
+          if (_this.$route.params.new) {
+            var newEmpresa = _this.items.find(function (item) {
+              return item.id == _this.$route.params.id;
+            });
 
-            default:
-              msg = 'ERROR: ' + err;
+            newEmpresa.nombre = _this.$route.params.name;
+
+            _this.openDialog(newEmpresa);
           }
-
-          _this.msgErr(msg);
+        }).catch(function (err) {
+          return _this.msgErr(err);
         });
       }
     },
@@ -5475,7 +5447,8 @@ __webpack_require__.r(__webpack_exports__);
             name: 'empresas',
             params: {
               new: true,
-              id: resp.data.id
+              id: resp.data.id,
+              name: resp.data.name
             }
           });
         } else {
@@ -5484,7 +5457,8 @@ __webpack_require__.r(__webpack_exports__);
             name: 'alumnos',
             params: {
               new: true,
-              id: resp.data.id
+              id: resp.data.id,
+              name: resp.data.name
             }
           });
         }
@@ -5699,7 +5673,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               name: 'empresas',
               params: {
                 new: true,
-                id: resp.data.id
+                id: resp.data.id,
+                name: resp.data.name
               }
             });
 
@@ -5710,7 +5685,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               name: 'alumnos',
               params: {
                 new: true,
-                id: resp.data.id
+                id: resp.data.id,
+                name: resp.data.name
               }
             });
 
@@ -43651,23 +43627,6 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _vm.imResponsable
-                ? _c(
-                    "v-btn",
-                    {
-                      attrs: { top: "", right: "", color: "blue", dark: "" },
-                      on: {
-                        click: function($event) {
-                          $event.stopPropagation()
-                          return _vm.openDialog(false)
-                        }
-                      }
-                    },
-                    [_c("v-icon", [_vm._v("add")])],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
@@ -45145,23 +45104,6 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _vm.imResponsable
-                ? _c(
-                    "v-btn",
-                    {
-                      attrs: { top: "", right: "", color: "blue", dark: "" },
-                      on: {
-                        click: function($event) {
-                          $event.stopPropagation()
-                          return _vm.openDialog(false)
-                        }
-                      }
-                    },
-                    [_c("v-icon", [_vm._v("add")])],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
@@ -90615,7 +90557,7 @@ function json2urlencoded(json) {
     }
 
     if (query) {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '?' + json2urlencoded(query), this.getConfig('json', true));
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table + '/' + json2urlencoded(query), this.getConfig('json', true));
     } else {
       return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + table, this.getConfig('json', true));
     }
@@ -91181,23 +91123,7 @@ __webpack_require__.r(__webpack_exports__);
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table, this.$route.query).then(function (resp) {
         _this.items = resp.data.data;
       }).catch(function (err) {
-        var msg = '';
-
-        switch (err.response.status) {
-          case 401:
-            sessionStorage.removeItem('access_token');
-            sessionStorage.removeItem('expires_at');
-            sessionStorage.removeItem('user_rol');
-            sessionStorage.removeItem('user_id');
-            sessionStorage.removeItem('token_type');
-            msg = 'Debes volverte a loguear';
-            break;
-
-          default:
-            msg = 'ERROR: ' + err;
-        }
-
-        _this.msgErr(msg);
+        return _this.msgErr(err);
       });
     },
     addItem: function addItem() {
@@ -91283,11 +91209,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     msgErr: function msgErr(err) {
       if (this.dialog) this.dialog = false;
-      console.error('error');
-      var msg = err.data ? err.data.message : err.message || err;
-      if (err.response.data.errors) Array.from(err.response.data.errors).forEach(function (error) {
-        return msg += '\n- ${error.message}';
-      });
+      console.error('msgError');
+      var msg = '';
+      if (!err.response) msg = 'Error ' + err.response.status + ': ' + err.response.statusText;else {
+        msg = 'Error ' + err.response.status + ': ' + err.response.statusText;
+
+        if (err.response.status == 401) {
+          sessionStorage.removeItem('access_token');
+          sessionStorage.removeItem('expires_at');
+          sessionStorage.removeItem('user_rol');
+          sessionStorage.removeItem('user_id');
+          sessionStorage.removeItem('token_type');
+          msg += ' - Debes volverte a loguear';
+        } else if (err.response.status == 500 && this.imResponsable) {
+          msg += ' - ' + err.response.data.message + ' in file ' + err.response.data.file;
+        } else if (err.response.data.errors) Array.from(err.response.data.errors).forEach(function (error) {
+          return msg += '\n - ' + error.message;
+        });
+      }
       this.errors.push({
         msg: msg,
         type: "error",

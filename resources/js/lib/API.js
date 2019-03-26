@@ -41,7 +41,7 @@ export default {
             });
         }
         if (query) {
-            return axios.get(API_URL + table + '?' + json2urlencoded(query), this.getConfig('json', true));
+            return axios.get(API_URL + table + '/' + json2urlencoded(query), this.getConfig('json', true));
         } else {
             return axios.get(API_URL + table, this.getConfig('json', true));
         }

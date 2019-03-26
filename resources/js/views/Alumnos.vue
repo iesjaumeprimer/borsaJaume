@@ -8,18 +8,6 @@
 
     <v-card>
       <v-card-title>
-    <v-btn
-      v-if="imResponsable"
-      top
-      right
-      color="blue"
-      dark
-      @click.stop="openDialog(false)"
-    >
-      <v-icon>add</v-icon>
-    </v-btn>
-
-
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -288,23 +276,8 @@ export default {
     ciclo: {},
   }),
   mounted() {
-    console.log('Alumnos mounted');
     this.$emit('setTitle', 'Manteniment d\'Alumnes');
-    if (this.$route.params.new) {
-      this.dialog=true;
-      this.editItem.id=this.$route.params.id;
-    } else {
-      this.loadData();
-    }
-      API.getTable("ciclos")
-        .then(resp => this.ciclos = resp.data.data.map(ciclo=>{
-          return {
-            id: ciclo.id, 
-            ciclo: ciclo.ciclo,
-            descrip: ciclo.vCiclo
-          };
-        }))          
-        .catch(err => this.msgErr('2'+err));
+    this.loadData();
   },
   methods: {
     loadData() {
@@ -314,11 +287,36 @@ export default {
         API.getItem(this.table, this.myId)
           .then(resp => {
             this.items = [resp.data.data];
+            // Si estoy creando un nuevo usuario lo edito
+            if (this.$route.params.new) {
+              let newAlumno=this.items.find(item=>item.id==this.$route.params.id);
+              newAlumno.nombre=this.$route.params.name;
+              this.openDialog(newAlumno);
+            }
           })
           .catch(err => this.msgErr(err));
       } else {
-        this.loadItems();
+        API.getTable(this.table, this.$route.query)
+          .then(resp => {
+            this.items = resp.data.data;
+            // Si estoy creando un nuevo usuario lo edito
+            if (this.$route.params.new) {
+              let newAlumno=this.items.find(item=>item.id==this.$route.params.id);
+              newAlumno.nombre=this.$route.params.name;
+              this.openDialog(newAlumno);
+            }
+          })
+          .catch(err => this.msgErr(err));  
       }
+      API.getTable("ciclos")
+        .then(resp => this.ciclos = resp.data.data.map(ciclo=>{
+          return {
+            id: ciclo.id, 
+            ciclo: ciclo.ciclo,
+            descrip: ciclo.vCiclo
+          };
+        }))          
+        .catch(err => this.msgErr('2'+err));
     },
     preOpenDialog(item) {
       let itemCiclos={...item};

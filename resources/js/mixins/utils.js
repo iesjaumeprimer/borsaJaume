@@ -54,24 +54,7 @@ export default {
             .then(resp => {
               this.items = resp.data.data;
             })
-            .catch(err => {
-                let msg='';
-                switch (err.response.status) {
-                  case 401:
-                    sessionStorage.removeItem('access_token');
-                    sessionStorage.removeItem('expires_at');
-                    sessionStorage.removeItem('user_rol');
-                    sessionStorage.removeItem('user_id');
-                    sessionStorage.removeItem('token_type');
-                    msg='Debes volverte a loguear';
-                    break;
-                  default:
-                    msg='ERROR: '+err;
-                }
-                this.msgErr(msg);
-  
-            });
-  
+            .catch(err => this.msgErr(err));  
         },
         addItem() {
             // OJO. SObreescrito en: MenuView.vue
@@ -147,13 +130,27 @@ export default {
         },
   
         msgErr(err) {
-            if (this.dialog)
-            this.dialog = false;
-            console.error('error');
-            let msg=err.data ? err.data.message : err.message || err;
-            if (err.response.data.errors)
-                Array.from(err.response.data.errors).forEach(error=>
-                    msg+='\n- ${error.message}');
+            if (this.dialog) this.dialog = false;
+console.error('msgError')
+            let msg='';
+            if (!err.response) msg='Error '+err.response.status+': '+err.response.statusText;
+            else {
+                msg='Error '+err.response.status+': '+err.response.statusText 
+                if (err.response.status==401) {
+                    sessionStorage.removeItem('access_token');
+                    sessionStorage.removeItem('expires_at');
+                    sessionStorage.removeItem('user_rol');
+                    sessionStorage.removeItem('user_id');
+                    sessionStorage.removeItem('token_type');
+                    msg+=' - Debes volverte a loguear';
+                } else if (err.response.status==500 && this.imResponsable) {
+                    msg+=' - '+err.response.data.message
+                        +' in file '+err.response.data.file;
+                } else if (err.response.data.errors)
+                    Array.from(err.response.data.errors).forEach(error=>
+                        msg+='\n - '+error.message);
+
+            } 
             this.errors.push({
                 msg: msg,
                 type: "error",
