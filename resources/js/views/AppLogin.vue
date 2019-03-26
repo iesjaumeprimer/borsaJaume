@@ -49,6 +49,7 @@ export default {
       },
       methods: {
           submit() {
+            console.error('login')
             API.getUser(this.item)
             .then(resp => {
               if (resp.data.access_token) {
@@ -57,17 +58,13 @@ export default {
                 sessionStorage.user_rol=resp.data.rol;
                 sessionStorage.user_id=resp.data.id;
                 sessionStorage.token_type=resp.data.token_type;
+                this.$emit('setRol', Number(resp.data.rol));
                 this.$router.push('/ofertas');
               } else {
                 this.msgErr('ERROR, no s\'ha pogut loguejar: '+resp.data);
               }
             }) // store the token in localstorage
             .catch(err => {
-              // sessionStorage.removeItem('access_token');
-              // sessionStorage.removeItem('expires_at');
-              // sessionStorage.removeItem('user_rol');
-              // sessionStorage.removeItem('user_id');
-              // sessionStorage.removeItem('token_type');
               let msg='';
               console.log(err)
               switch (err.response.status) {

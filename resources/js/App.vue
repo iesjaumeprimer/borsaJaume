@@ -32,7 +32,10 @@
           justify-center
           align-center
         >
-          <router-view @setTitle="setTitle"></router-view>
+          <router-view 
+            @setTitle="setTitle"
+            @setRol="setRol">
+          </router-view>
 
         </v-layout>
       </v-container>
@@ -50,22 +53,22 @@
 
   export default {
     data: () => ({
-      drawer: null,
+      drawer: false,
       items: [],
       title: 'Borsa de treball',
-      myRol: 0,
+      myRol: 9999,
     }),
     components: {
       MenuItem,
     },
     created() {
-      this.myRol=Number(sessionStorage.user_rol);
+      this.myRol=sessionStorage.user_rol || 9999;
       this.loadData();
     },
     computed: {
       itemsForRol() {
-//        return this.items.filter(item=>!(item.rol%this.myRol))
-        return this.items
+        console.error('computed')
+        return this.items.filter(item=>!(item.rol%this.myRol))
       }
     },
     methods: {
@@ -88,6 +91,10 @@
       },
       setTitle(title) {
         this.title=title;
+      },
+      setRol(rol) {
+        console.error('cambia rol')
+        this.myRol=rol?rol:9999;
       }
     }
   }

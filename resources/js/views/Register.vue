@@ -128,9 +128,10 @@ export default {
             .then(resp => {
               sessionStorage.access_token=resp.data.access_token;
               sessionStorage.expires_at=resp.data.expires_at;
-              sessionStorage.user_rol=resp.data.rol;
+              sessionStorage.user_rol=Number(resp.data.rol);
               sessionStorage.user_id=resp.data.id;
               sessionStorage.token_type=resp.data.token_type;
+              this.$emit('setRol', Number(resp.data.rol));
                
               alert(`El teu usuari s'ha creat correctament.
                   Ara has d'omplir les teues dades`);
@@ -156,6 +157,7 @@ export default {
               sessionStorage.removeItem('user_rol');
               sessionStorage.removeItem('user_id');
               sessionStorage.removeItem('token_type');
+              this.$emit('setRol');
               this.msgErr(err);
             }); // if the request fails, remove any possible user token if possible
         }

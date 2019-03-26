@@ -1811,33 +1811,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      drawer: null,
+      drawer: false,
       items: [],
       title: 'Borsa de treball',
-      myRol: 0
+      myRol: 9999
     };
   },
   components: {
     MenuItem: _components_base_MenuItem__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   created: function created() {
-    this.myRol = Number(sessionStorage.user_rol);
+    this.myRol = sessionStorage.user_rol || 9999;
     this.loadData();
   },
   computed: {
     itemsForRol: function itemsForRol() {
-      //        return this.items.filter(item=>!(item.rol%this.myRol))
-      return this.items;
+      var _this = this;
+
+      console.error('computed');
+      return this.items.filter(function (item) {
+        return !(item.rol % _this.myRol);
+      });
     }
   },
   methods: {
     loadData: function loadData() {
-      var _this = this;
+      var _this2 = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("menu").then(function (resp) {
         var menu = resp.data.data.filter(function (item) {
@@ -1855,7 +1862,7 @@ __webpack_require__.r(__webpack_exports__);
           });
           return item;
         });
-        _this.items = menu;
+        _this2.items = menu;
       }).catch(function (err) {
         return console.error(err.data ? err.data.message : err.message);
       });
@@ -1865,6 +1872,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     setTitle: function setTitle(title) {
       this.title = title;
+    },
+    setRol: function setRol(rol) {
+      console.error('cambia rol');
+      this.myRol = rol ? rol : 9999;
     }
   }
 });
@@ -3180,6 +3191,7 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
+      console.error('login');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getUser(this.item).then(function (resp) {
         if (resp.data.access_token) {
           sessionStorage.access_token = resp.data.access_token;
@@ -3188,17 +3200,14 @@ __webpack_require__.r(__webpack_exports__);
           sessionStorage.user_id = resp.data.id;
           sessionStorage.token_type = resp.data.token_type;
 
+          _this.$emit('setRol', Number(resp.data.rol));
+
           _this.$router.push('/ofertas');
         } else {
           _this.msgErr('ERROR, no s\'ha pogut loguejar: ' + resp.data);
         }
       }) // store the token in localstorage
       .catch(function (err) {
-        // sessionStorage.removeItem('access_token');
-        // sessionStorage.removeItem('expires_at');
-        // sessionStorage.removeItem('user_rol');
-        // sessionStorage.removeItem('user_id');
-        // sessionStorage.removeItem('token_type');
         var msg = '';
         console.log(err);
 
@@ -3256,7 +3265,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.$router.push('/');
       }) // store the token in localstorage
       .catch(function (err) {
-        _this.msgErr('ERROR: ' + err);
+        return _this.msgErr(err);
       }); // if the request fails, remove any possible user token if possible
     } else {
       this.$router.go(-1);
@@ -5430,9 +5439,12 @@ __webpack_require__.r(__webpack_exports__);
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.item).then(function (resp) {
         sessionStorage.access_token = resp.data.access_token;
         sessionStorage.expires_at = resp.data.expires_at;
-        sessionStorage.user_rol = resp.data.rol;
+        sessionStorage.user_rol = Number(resp.data.rol);
         sessionStorage.user_id = resp.data.id;
         sessionStorage.token_type = resp.data.token_type;
+
+        _this2.$emit('setRol', Number(resp.data.rol));
+
         alert("El teu usuari s'ha creat correctament.\n                  Ara has d'omplir les teues dades");
 
         if (resp.data.rol == 5) {
@@ -5462,6 +5474,8 @@ __webpack_require__.r(__webpack_exports__);
         sessionStorage.removeItem('user_rol');
         sessionStorage.removeItem('user_id');
         sessionStorage.removeItem('token_type');
+
+        _this2.$emit('setRol');
 
         _this2.msgErr(err);
       }); // if the request fails, remove any possible user token if possible
@@ -42380,7 +42394,11 @@ var render = function() {
               _c(
                 "v-layout",
                 { attrs: { "justify-center": "", "align-center": "" } },
-                [_c("router-view", { on: { setTitle: _vm.setTitle } })],
+                [
+                  _c("router-view", {
+                    on: { setTitle: _vm.setTitle, setRol: _vm.setRol }
+                  })
+                ],
                 1
               )
             ],
@@ -91164,7 +91182,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.dialog) this.dialog = false;
       console.error('msgError');
       var msg = '';
-      if (!err.response) msg = 'Error ' + err.response.status + ': ' + err.response.statusText;else {
+      if (!err.response) msg = err.message || err;else {
         msg = 'Error ' + err.response.status + ': ' + err.response.statusText;
 
         if (err.response.status == 401) {
@@ -91173,6 +91191,7 @@ __webpack_require__.r(__webpack_exports__);
           sessionStorage.removeItem('user_rol');
           sessionStorage.removeItem('user_id');
           sessionStorage.removeItem('token_type');
+          this.$emit('setRol');
           msg += ' - Debes volverte a loguear';
         } else if (err.response.status == 500 && this.imResponsable) {
           msg += ' - ' + err.response.data.message + ' in file ' + err.response.data.file;
