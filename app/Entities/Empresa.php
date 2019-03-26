@@ -2,8 +2,6 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-
 
 class Empresa extends Entity
 {
@@ -14,7 +12,7 @@ class Empresa extends Entity
     ];
 
     
-    protected $guarded = [];
+    protected $fillable = ['id','cif','nombre','domicilio','localidad','contacto','telefono','web','descripcion'];
 
     public function User()
     {

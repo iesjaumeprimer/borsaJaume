@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens,Notifiable,SoftDeletes;
+    use HasApiTokens,Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +22,6 @@ class User extends Authenticatable
         'name', 'email', 'password','rol','active', 'activation_token',
     ];
 
-    protected $dates = ['deleted_at'];
     /**
      * The attributes excluded from the model's JSON form.
      *

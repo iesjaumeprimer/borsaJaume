@@ -35,10 +35,11 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth:api'], function() {
+
+    Route::resource('alumnos', 'Api\AlumnoController', ['except' => ['edit', 'create','destroy']]);
+    Route::resource('empresas', 'Api\EmpresaController', ['except' => ['edit', 'create','destroy']]);
     Route::apiResources(
         [   'users' => 'Api\UserController',
-            'alumnos' => 'Api\AlumnoController',
-            'empresas' => 'Api\EmpresaController',
             'ofertas' => 'Api\OfertaController',
             'ciclos' => 'Api\CicloController',
         ]);

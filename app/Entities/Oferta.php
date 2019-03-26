@@ -38,4 +38,5 @@ class Oferta extends Entity
         }
         return $ofertas;
     }
+
 }
