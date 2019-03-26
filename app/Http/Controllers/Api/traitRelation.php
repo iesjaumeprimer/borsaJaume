@@ -14,12 +14,10 @@ trait traitRelation
     protected function manageResponse($registro, Request $request)
     {
         $relation = $this->relationShip();
-        $registro->$relation()->sync($this->validateRelation($request->$relation));
+        $registro->$relation()->sync($request->$relation);
         return parent::manageResponse($registro, $request);
     }
 
     abstract protected function relationShip();
-    protected function validateRelation($relations){
-        return $relations;
-    }
+
 }
