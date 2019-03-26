@@ -142,7 +142,7 @@ class MenusTableSeeder extends Seeder
 
 
         Menu::create( [
-            'id'=>9,
+            'id'=>29,
             'order'=>98,
             'icon'=>'exit_to_app',
             'text'=>'Registrar-te',
@@ -158,7 +158,7 @@ class MenusTableSeeder extends Seeder
 
 
         Menu::create( [
-            'id'=>9,
+            'id'=>30,
             'order'=>99,
             'icon'=>'power_settings_new',
             'text'=>'Eixir',

@@ -1836,7 +1836,6 @@ __webpack_require__.r(__webpack_exports__);
     itemsForRol: function itemsForRol() {
       var _this = this;
 
-      console.error('computed');
       return this.items.filter(function (item) {
         return !(item.rol % _this.myRol);
       });
@@ -1874,7 +1873,6 @@ __webpack_require__.r(__webpack_exports__);
       this.title = title;
     },
     setRol: function setRol(rol) {
-      console.error('cambia rol');
       this.myRol = rol ? rol : 9999;
     }
   }
@@ -3208,19 +3206,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       }) // store the token in localstorage
       .catch(function (err) {
-        var msg = '';
-        console.log(err);
-
-        switch (err.response.status) {
-          case 401:
-            msg = 'El email o la contraseña no son correctos';
-            break;
-
-          default:
-            msg = 'ERROR: ' + err;
+        if (err.response && err.response.status == 401) {
+          _this.msgErr('Error 401: El email o la contraseña no son correctos');
+        } else {
+          _this.msgErr(err);
         }
-
-        _this.msgErr(msg);
       }); // if the request fails, remove any possible user token if possible
     },
     registerUser: function registerUser() {

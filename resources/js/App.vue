@@ -67,7 +67,6 @@
     },
     computed: {
       itemsForRol() {
-        console.error('computed')
         return this.items.filter(item=>!(item.rol%this.myRol))
       }
     },
@@ -93,7 +92,6 @@
         this.title=title;
       },
       setRol(rol) {
-        console.error('cambia rol')
         this.myRol=rol?rol:9999;
       }
     }

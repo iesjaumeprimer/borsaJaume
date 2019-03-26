@@ -65,16 +65,11 @@ export default {
               }
             }) // store the token in localstorage
             .catch(err => {
-              let msg='';
-              console.log(err)
-              switch (err.response.status) {
-                case 401:
-                  msg='El email o la contraseña no son correctos'
-                  break;
-                default:
-                  msg='ERROR: '+err;
+              if (err.response && err.response.status==401) {
+                this.msgErr('Error 401: El email o la contraseña no son correctos');
+              } else {
+                this.msgErr(err);
               }
-              this.msgErr(msg);
             }); // if the request fails, remove any possible user token if possible
           },
           registerUser() {
