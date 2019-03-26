@@ -2968,9 +2968,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -3537,9 +3534,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_Headers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/Headers.js */ "./resources/js/lib/Headers.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
-//
-//
-//
 //
 //
 //
@@ -43821,28 +43815,6 @@ var render = function() {
                               },
                               [_c("v-icon", [_vm._v("edit")])],
                               1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "mx-0",
-                                attrs: { icon: "" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteItem(
-                                      props.item,
-                                      "l'alumne '" +
-                                        props.item.nombre +
-                                        " " +
-                                        props.item.apellidos +
-                                        "'"
-                                    )
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("delete")])],
-                              1
                             )
                           ],
                           1
@@ -45220,25 +45192,6 @@ var render = function() {
                                 }
                               },
                               [_c("v-icon", [_vm._v("edit")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "mx-0",
-                                attrs: { icon: "" },
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.deleteItem(
-                                      props.item,
-                                      "l'empresa '" + props.item.nombre + "'"
-                                    )
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("delete")])],
                               1
                             ),
                             _vm._v(" "),
@@ -91381,7 +91334,7 @@ var ifAuthenticated = function ifAuthenticated(to, from, next) {
     component: _views_Register__WEBPACK_IMPORTED_MODULE_6__["default"],
     beforeEnter: ifNotAuthenticated
   }, {
-    path: '/responsables',
+    path: '/users',
     name: 'responsables',
     component: _views_Responsables__WEBPACK_IMPORTED_MODULE_8__["default"],
     beforeEnter: ifAuthenticated

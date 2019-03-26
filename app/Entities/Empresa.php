@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Empresa extends Entity
 {
     public $timestamps = false;
+    protected $fillable = [
+        'id', 'cif', 'nombre','domicilio', 'localidad', 'contacto', 
+        'telefono', 'web', 'descripcion'
+    ];
 
     
     protected $guarded = [];

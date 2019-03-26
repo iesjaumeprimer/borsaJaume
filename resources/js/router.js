@@ -80,7 +80,7 @@ export default new Router({
       beforeEnter: ifNotAuthenticated,
     },
     {
-      path: '/responsables',
+      path: '/users',
       name: 'responsables',
       component: Responsables,
       beforeEnter: ifAuthenticated,
