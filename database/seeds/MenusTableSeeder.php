@@ -31,11 +31,11 @@ class MenusTableSeeder extends Seeder
 
         Menu::create( [
             'id'=>2,
-            'order'=>10,
+            'order'=>90,
             'icon'=>'school',
             'text'=>'Cicles',
             'path'=>'/ciclos',
-            'rol'=>30,
+            'rol'=>210,
             'parent'=>NULL,
             'model'=>0,
             'active'=>1,
@@ -54,7 +54,7 @@ class MenusTableSeeder extends Seeder
             'rol'=>6,
             'parent'=>NULL,
             'model'=>1,
-            'active'=>1,
+            'active'=>0,
             'comments'=>NULL,
             'icon_alt'=>'keyboard_arrow_up'
         ] );
@@ -70,7 +70,7 @@ class MenusTableSeeder extends Seeder
             'rol'=>2,
             'parent'=>3,
             'model'=>0,
-            'active'=>0,
+            'active'=>1,
             'comments'=>NULL,
             'icon_alt'=>NULL
         ] );
@@ -111,7 +111,7 @@ class MenusTableSeeder extends Seeder
 
         Menu::create( [
             'id'=>8,
-            'order'=>30,
+            'order'=>10,
             'icon'=>'event_note',
             'text'=>'Ofertes',
             'path'=>'/ofertas',
@@ -127,11 +127,11 @@ class MenusTableSeeder extends Seeder
 
         Menu::create( [
             'id'=>9,
-            'order'=>99,
+            'order'=>97,
             'icon'=>'power_settings_new',
-            'text'=>'Eixir',
-            'path'=>'/logout',
-            'rol'=>210,
+            'text'=>'Loguejar-te',
+            'path'=>'/login',
+            'rol'=>9999,
             'parent'=>NULL,
             'model'=>0,
             'active'=>1,
@@ -142,14 +142,30 @@ class MenusTableSeeder extends Seeder
 
 
         Menu::create( [
-            'id'=>10,
-            'order'=>67,
-            'icon'=>'how_to_reg',
-            'text'=>'Validar cicles alumnes',
-            'path'=>'/alumnos',
-            'rol'=>6,
+            'id'=>29,
+            'order'=>98,
+            'icon'=>'exit_to_app',
+            'text'=>'Registrar-te',
+            'path'=>'/register',
+            'rol'=>9999,
             'parent'=>NULL,
-            'model'=>NULL,
+            'model'=>0,
+            'active'=>1,
+            'comments'=>NULL,
+            'icon_alt'=>NULL
+        ] );
+
+
+
+        Menu::create( [
+            'id'=>30,
+            'order'=>99,
+            'icon'=>'power_settings_new',
+            'text'=>'Eixir',
+            'path'=>'/logout',
+            'rol'=>210,
+            'parent'=>NULL,
+            'model'=>0,
             'active'=>1,
             'comments'=>NULL,
             'icon_alt'=>NULL
@@ -174,28 +190,12 @@ class MenusTableSeeder extends Seeder
 
 
         Menu::create( [
-            'id'=>13,
-            'order'=>69,
-            'icon'=>'event_available',
-            'text'=>'Validar ofertes',
-            'path'=>'/ofertas',
-            'rol'=>6,
-            'parent'=>NULL,
-            'model'=>NULL,
-            'active'=>1,
-            'comments'=>NULL,
-            'icon_alt'=>NULL
-        ] );
-
-
-
-        Menu::create( [
             'id'=>14,
             'order'=>75,
             'icon'=>'security',
-            'text'=>'Responsables',
-            'path'=>'/responsables',
-            'rol'=>2,
+            'text'=>'Usuaris',
+            'path'=>'/users',
+            'rol'=>6,
             'parent'=>NULL,
             'model'=>NULL,
             'active'=>1,

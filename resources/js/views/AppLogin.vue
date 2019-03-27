@@ -49,6 +49,7 @@ export default {
       },
       methods: {
           submit() {
+            console.error('login')
             API.getUser(this.item)
             .then(resp => {
               if (resp.data.access_token) {
@@ -57,27 +58,21 @@ export default {
                 sessionStorage.user_rol=resp.data.rol;
                 sessionStorage.user_id=resp.data.id;
                 sessionStorage.token_type=resp.data.token_type;
+                this.$emit('setRol', {
+                  rol: Number(resp.data.rol),
+                  name: resp.data.name
+                });
                 this.$router.push('/ofertas');
               } else {
                 this.msgErr('ERROR, no s\'ha pogut loguejar: '+resp.data);
               }
             }) // store the token in localstorage
             .catch(err => {
-              // sessionStorage.removeItem('access_token');
-              // sessionStorage.removeItem('expires_at');
-              // sessionStorage.removeItem('user_rol');
-              // sessionStorage.removeItem('user_id');
-              // sessionStorage.removeItem('token_type');
-              let msg='';
-              console.log(err)
-              switch (err.response.status) {
-                case 401:
-                  msg='El email o la contraseña no son correctos'
-                  break;
-                default:
-                  msg='ERROR: '+err;
+              if (err.response && err.response.status==401) {
+                this.msgErr('Error 401: El email o la contraseña no son correctos');
+              } else {
+                this.msgErr(err);
               }
-              this.msgErr(msg);
             }); // if the request fails, remove any possible user token if possible
           },
           registerUser() {

@@ -32,7 +32,10 @@
           justify-center
           align-center
         >
-          <router-view @setTitle="setTitle"></router-view>
+          <router-view 
+            @setTitle="setTitle"
+            @setRol="setRol">
+          </router-view>
 
         </v-layout>
       </v-container>
@@ -40,6 +43,8 @@
 
     <v-footer color="indigo" app>
       <span class="white--text">&copy; CIP FP Batoi 2018</span>
+      <v-spacer></v-spacer>
+      <span class="white--text"><h2>Hola {{ myName }}</h2></span>
     </v-footer>
   </v-app>
 </template>
@@ -50,22 +55,22 @@
 
   export default {
     data: () => ({
-      drawer: null,
+      drawer: false,
       items: [],
       title: 'Borsa de treball',
-      myRol: 0,
+      myRol: 9999,
+      myName: '',
     }),
     components: {
       MenuItem,
     },
     created() {
-      this.myRol=Number(sessionStorage.user_rol);
+      this.myRol=sessionStorage.user_rol || 9999;
       this.loadData();
     },
     computed: {
       itemsForRol() {
-//        return this.items.filter(item=>!(item.rol%this.myRol))
-        return this.items
+        return this.items.filter(item=>!(item.rol%this.myRol))
       }
     },
     methods: {
@@ -88,6 +93,10 @@
       },
       setTitle(title) {
         this.title=title;
+      },
+      setRol(datos) {
+        this.myRol=datos?datos.rol:9999;
+        this.myName=datos?datos.name:'';
       }
     }
   }

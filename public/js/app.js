@@ -1811,33 +1811,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      drawer: null,
+      drawer: false,
       items: [],
       title: 'Borsa de treball',
-      myRol: 0
+      myRol: 9999,
+      myName: ''
     };
   },
   components: {
     MenuItem: _components_base_MenuItem__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   created: function created() {
-    this.myRol = Number(sessionStorage.user_rol);
+    this.myRol = sessionStorage.user_rol || 9999;
     this.loadData();
   },
   computed: {
     itemsForRol: function itemsForRol() {
-      //        return this.items.filter(item=>!(item.rol%this.myRol))
-      return this.items;
+      var _this = this;
+
+      return this.items.filter(function (item) {
+        return !(item.rol % _this.myRol);
+      });
     }
   },
   methods: {
     loadData: function loadData() {
-      var _this = this;
+      var _this2 = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("menu").then(function (resp) {
         var menu = resp.data.data.filter(function (item) {
@@ -1855,7 +1864,7 @@ __webpack_require__.r(__webpack_exports__);
           });
           return item;
         });
-        _this.items = menu;
+        _this2.items = menu;
       }).catch(function (err) {
         return console.error(err.data ? err.data.message : err.message);
       });
@@ -1865,6 +1874,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     setTitle: function setTitle(title) {
       this.title = title;
+    },
+    setRol: function setRol(datos) {
+      this.myRol = datos ? datos.rol : 9999;
+      this.myName = datos ? datos.name : '';
     }
   }
 });
@@ -2968,9 +2981,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -3183,6 +3193,7 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
+      console.error('login');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getUser(this.item).then(function (resp) {
         if (resp.data.access_token) {
           sessionStorage.access_token = resp.data.access_token;
@@ -3191,30 +3202,22 @@ __webpack_require__.r(__webpack_exports__);
           sessionStorage.user_id = resp.data.id;
           sessionStorage.token_type = resp.data.token_type;
 
+          _this.$emit('setRol', {
+            rol: Number(resp.data.rol),
+            name: resp.data.name
+          });
+
           _this.$router.push('/ofertas');
         } else {
           _this.msgErr('ERROR, no s\'ha pogut loguejar: ' + resp.data);
         }
       }) // store the token in localstorage
       .catch(function (err) {
-        // sessionStorage.removeItem('access_token');
-        // sessionStorage.removeItem('expires_at');
-        // sessionStorage.removeItem('user_rol');
-        // sessionStorage.removeItem('user_id');
-        // sessionStorage.removeItem('token_type');
-        var msg = '';
-        console.log(err);
-
-        switch (err.response.status) {
-          case 401:
-            msg = 'El email o la contraseña no son correctos';
-            break;
-
-          default:
-            msg = 'ERROR: ' + err;
+        if (err.response && err.response.status == 401) {
+          _this.msgErr('Error 401: El email o la contraseña no son correctos');
+        } else {
+          _this.msgErr(err);
         }
-
-        _this.msgErr(msg);
       }); // if the request fails, remove any possible user token if possible
     },
     registerUser: function registerUser() {
@@ -3256,10 +3259,12 @@ __webpack_require__.r(__webpack_exports__);
         sessionStorage.removeItem('user_id');
         sessionStorage.removeItem('token_type');
 
+        _this.$emit('setRol');
+
         _this.$router.push('/');
       }) // store the token in localstorage
       .catch(function (err) {
-        _this.msgErr('ERROR: ' + err);
+        return _this.msgErr(err);
       }); // if the request fails, remove any possible user token if possible
     } else {
       this.$router.go(-1);
@@ -3427,31 +3432,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3459,8 +3439,9 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_mixins_formRules_js__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   data: function data() {
     return {
-      table: 'ciclos',
+      table: "ciclos",
       responsables: [],
+      departaments: [],
       headers: [{
         text: "Codi",
         value: "codigo"
@@ -3483,7 +3464,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.$emit('setTitle', 'Manteniment de Cicles');
+    this.$emit("setTitle", "Manteniment de Cicles");
     this.loadData();
   },
   computed: {
@@ -3499,7 +3480,11 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      this.loadItems();
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
+        _this.items = resp.data.data;
+      }).catch(function (err) {
+        return _this.msgErr(err);
+      });
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("users").then(function (resp) {
         return _this.responsables = resp.data.data.filter(function (resp) {
           return resp.rol == "3";
@@ -3512,12 +3497,39 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (err) {
         return _this.msgErr(err);
       });
+      this.departaments = [{
+        cod: 'Adm',
+        nombre: 'Administratiu'
+      }, {
+        cod: 'Hos',
+        nombre: 'Hosteleria i Turisme'
+      }, {
+        cod: 'Img',
+        nombre: 'Imatge Personal'
+      }, {
+        cod: 'Inf',
+        nombre: 'Informàtica'
+      }, {
+        cod: 'San',
+        nombre: 'Sanitària'
+      }, {
+        cod: 'Srv',
+        nombre: 'Serveis a la Comunitat'
+      }];
     },
     nomResponsable: function nomResponsable(id_resp) {
       var responsable = this.responsables.find(function (resp) {
         return resp.id == id_resp;
       });
-      return responsable ? responsable.name : '';
+      return responsable ? responsable.name : "";
+    },
+    preAddItem: function preAddItem() {
+      var _this2 = this;
+
+      this.editItem.vDept = this.departaments.find(function (dep) {
+        return dep.cod == _this2.editItem.Dept;
+      }).nombre;
+      this.addItem();
     }
   }
 });
@@ -3537,6 +3549,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_Headers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/Headers.js */ "./resources/js/lib/Headers.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
+//
 //
 //
 //
@@ -4204,6 +4217,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -5436,9 +5452,15 @@ __webpack_require__.r(__webpack_exports__);
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.item).then(function (resp) {
         sessionStorage.access_token = resp.data.access_token;
         sessionStorage.expires_at = resp.data.expires_at;
-        sessionStorage.user_rol = resp.data.rol;
+        sessionStorage.user_rol = Number(resp.data.rol);
         sessionStorage.user_id = resp.data.id;
         sessionStorage.token_type = resp.data.token_type;
+
+        _this2.$emit('setRol', {
+          rol: Number(resp.data.rol),
+          name: resp.data.name
+        });
+
         alert("El teu usuari s'ha creat correctament.\n                  Ara has d'omplir les teues dades");
 
         if (resp.data.rol == 5) {
@@ -5468,6 +5490,8 @@ __webpack_require__.r(__webpack_exports__);
         sessionStorage.removeItem('user_rol');
         sessionStorage.removeItem('user_id');
         sessionStorage.removeItem('token_type');
+
+        _this2.$emit('setRol');
 
         _this2.msgErr(err);
       }); // if the request fails, remove any possible user token if possible
@@ -42386,7 +42410,11 @@ var render = function() {
               _c(
                 "v-layout",
                 { attrs: { "justify-center": "", "align-center": "" } },
-                [_c("router-view", { on: { setTitle: _vm.setTitle } })],
+                [
+                  _c("router-view", {
+                    on: { setTitle: _vm.setTitle, setRol: _vm.setRol }
+                  })
+                ],
                 1
               )
             ],
@@ -42396,11 +42424,22 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-footer", { attrs: { color: "indigo", app: "" } }, [
-        _c("span", { staticClass: "white--text" }, [
-          _vm._v("© CIP FP Batoi 2018")
-        ])
-      ])
+      _c(
+        "v-footer",
+        { attrs: { color: "indigo", app: "" } },
+        [
+          _c("span", { staticClass: "white--text" }, [
+            _vm._v("© CIP FP Batoi 2018")
+          ]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c("span", { staticClass: "white--text" }, [
+            _c("h2", [_vm._v("Hola " + _vm._s(_vm.myName))])
+          ])
+        ],
+        1
+      )
     ],
     1
   )
@@ -43821,28 +43860,6 @@ var render = function() {
                               },
                               [_c("v-icon", [_vm._v("edit")])],
                               1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "mx-0",
-                                attrs: { icon: "" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteItem(
-                                      props.item,
-                                      "l'alumne '" +
-                                        props.item.nombre +
-                                        " " +
-                                        props.item.apellidos +
-                                        "'"
-                                    )
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("delete")])],
-                              1
                             )
                           ],
                           1
@@ -44574,7 +44591,7 @@ var render = function() {
                   expression: "error.show"
                 }
               },
-              [_vm._v("\n              " + _vm._s(error.msg) + "\n          ")]
+              [_vm._v(_vm._s(error.msg))]
             )
           ],
           1
@@ -44591,7 +44608,7 @@ var render = function() {
                 ? _c(
                     "v-btn",
                     {
-                      attrs: { top: "", right: "", color: "blue", dark: "" },
+                      attrs: { top: "", right: "", color: "indigo", dark: "" },
                       on: {
                         click: function($event) {
                           $event.stopPropagation()
@@ -44620,7 +44637,24 @@ var render = function() {
                   },
                   expression: "search"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { fab: "", dark: "", small: "", color: "indigo" },
+                  on: {
+                    click: function($event) {
+                      return _vm.showHelp(_vm.table)
+                    }
+                  }
+                },
+                [
+                  _c("span", { staticClass: "title font-weight-bold" }, [
+                    _vm._v("?")
+                  ])
+                ]
+              )
             ],
             1
           ),
@@ -44645,22 +44679,10 @@ var render = function() {
                         _c(
                           "span",
                           { attrs: { slot: "activator" }, slot: "activator" },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(props.header.text) +
-                                "\n              "
-                            )
-                          ]
+                          [_vm._v(_vm._s(props.header.text))]
                         ),
                         _vm._v(" "),
-                        _c("span", [
-                          _vm._v(
-                            "\n              " +
-                              _vm._s(props.header.text) +
-                              "\n              "
-                          )
-                        ])
+                        _c("span", [_vm._v(_vm._s(props.header.text))])
                       ])
                     ]
                   }
@@ -44731,13 +44753,12 @@ var render = function() {
                   fn: function(props) {
                     return [
                       _vm._v(
-                        "      \n      Registres del " +
+                        "Registres del " +
                           _vm._s(props.pageStart) +
                           " al " +
                           _vm._s(props.pageStop) +
                           " de " +
-                          _vm._s(props.itemsLength) +
-                          "\n      "
+                          _vm._s(props.itemsLength)
                       )
                     ]
                   }
@@ -44760,9 +44781,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    '\n      La cerca de "' +
+                    'La cerca de "' +
                       _vm._s(_vm.search) +
-                      '" no dona cap resultat\n    '
+                      '" no dona cap resultat'
                   )
                 ]
               )
@@ -44817,13 +44838,7 @@ var render = function() {
                   _c(
                     "v-card-title",
                     { staticClass: "grey lighten-4 py-4 title" },
-                    [
-                      _vm._v(
-                        "\n        " +
-                          _vm._s(_vm.isNew ? "Nou" : "Editar") +
-                          " cicle\n      "
-                      )
-                    ]
+                    [_vm._v(_vm._s(_vm.isNew ? "Nou" : "Editar") + " cicle")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -44930,13 +44945,14 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs2: "" } },
+                            { attrs: { xs4: "" } },
                             [
-                              _c("v-text-field", {
+                              _c("v-select", {
                                 attrs: {
-                                  label: "Dept",
-                                  placeholder: "Codi del departament",
-                                  mask: "##",
+                                  label: "Departament",
+                                  items: _vm.departaments,
+                                  "item-value": "cod",
+                                  "item-text": "nombre",
                                   required: ""
                                 },
                                 model: {
@@ -44945,30 +44961,6 @@ var render = function() {
                                     _vm.$set(_vm.editItem, "Dept", $$v)
                                   },
                                   expression: "editItem.Dept"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs4: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: "Nom Dept",
-                                  placeholder: "Nom del departament",
-                                  counter: "50",
-                                  rules: _vm.required50Rules,
-                                  required: ""
-                                },
-                                model: {
-                                  value: _vm.editItem.vDept,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.editItem, "vDept", $$v)
-                                  },
-                                  expression: "editItem.vDept"
                                 }
                               })
                             ],
@@ -45009,9 +45001,42 @@ var render = function() {
                   _c(
                     "v-card-actions",
                     [
-                      _c("v-btn", { attrs: { flat: "", color: "primary" } }, [
-                        _vm._v("More")
-                      ]),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            fab: "",
+                            dark: "",
+                            small: "",
+                            color: "indigo"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.showHelp(_vm.table + "/dialog")
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "title font-weight-bold" },
+                            [_vm._v("?")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { flat: "", color: "primary" },
+                          on: {
+                            click: function($event) {
+                              return _vm.showHelp(_vm.table + "/dialog")
+                            }
+                          }
+                        },
+                        [_vm._v("Ajuda")]
+                      ),
                       _vm._v(" "),
                       _c("v-spacer"),
                       _vm._v(" "),
@@ -45019,7 +45044,7 @@ var render = function() {
                         "v-btn",
                         {
                           attrs: { flat: "", color: "primary" },
-                          on: { click: _vm.addItem }
+                          on: { click: _vm.preAddItem }
                         },
                         [_vm._v("Guardar")]
                       ),
@@ -45104,6 +45129,20 @@ var render = function() {
           _c(
             "v-card-title",
             [
+              _c(
+                "v-btn",
+                { attrs: { fab: "", dark: "", small: "", color: "indigo" } },
+                [
+                  _c("span", { staticClass: "title font-weight-bold" }, [
+                    _vm._v("?")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("v-btn", { attrs: { flat: "", color: "primary" } }, [
+                _vm._v("AJUDA")
+              ]),
+              _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
@@ -45220,25 +45259,6 @@ var render = function() {
                                 }
                               },
                               [_c("v-icon", [_vm._v("edit")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "mx-0",
-                                attrs: { icon: "" },
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.deleteItem(
-                                      props.item,
-                                      "l'empresa '" + props.item.nombre + "'"
-                                    )
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("delete")])],
                               1
                             ),
                             _vm._v(" "),
@@ -46546,7 +46566,7 @@ var render = function() {
                 ? _c(
                     "v-btn",
                     {
-                      attrs: { top: "", right: "", color: "blue", dark: "" },
+                      attrs: { top: "", right: "", color: "indigo", dark: "" },
                       on: {
                         click: function($event) {
                           $event.stopPropagation()
@@ -46575,7 +46595,24 @@ var render = function() {
                   },
                   expression: "search"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { fab: "", dark: "", small: "", color: "indigo" },
+                  on: {
+                    click: function($event) {
+                      return _vm.showHelp("ofertas")
+                    }
+                  }
+                },
+                [
+                  _c("span", { staticClass: "title font-weight-bold" }, [
+                    _vm._v("?")
+                  ])
+                ]
+              )
             ],
             1
           ),
@@ -91211,7 +91248,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.dialog) this.dialog = false;
       console.error('msgError');
       var msg = '';
-      if (!err.response) msg = 'Error ' + err.response.status + ': ' + err.response.statusText;else {
+      if (!err.response) msg = err.message || err;else {
         msg = 'Error ' + err.response.status + ': ' + err.response.statusText;
 
         if (err.response.status == 401) {
@@ -91220,6 +91257,7 @@ __webpack_require__.r(__webpack_exports__);
           sessionStorage.removeItem('user_rol');
           sessionStorage.removeItem('user_id');
           sessionStorage.removeItem('token_type');
+          this.$emit('setRol');
           msg += ' - Debes volverte a loguear';
         } else if (err.response.status == 500 && this.imResponsable) {
           msg += ' - ' + err.response.data.message + ' in file ' + err.response.data.file;
@@ -91270,6 +91308,9 @@ __webpack_require__.r(__webpack_exports__);
         _this4.editItem = {};
         _this4.editIndex = -1;
       }, 300); //            this.editItem = {};
+    },
+    showHelp: function showHelp(page) {
+      window.open('https://cipfpbatoi.github.io/borsaBatoi/' + page, '_ajudaBorsa');
     }
   }
 });
@@ -91381,7 +91422,7 @@ var ifAuthenticated = function ifAuthenticated(to, from, next) {
     component: _views_Register__WEBPACK_IMPORTED_MODULE_6__["default"],
     beforeEnter: ifNotAuthenticated
   }, {
-    path: '/responsables',
+    path: '/users',
     name: 'responsables',
     component: _views_Responsables__WEBPACK_IMPORTED_MODULE_8__["default"],
     beforeEnter: ifAuthenticated

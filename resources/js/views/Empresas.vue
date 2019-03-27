@@ -8,6 +8,10 @@
 
   <v-card>
     <v-card-title>
+      <v-btn fab dark small color="indigo">
+        <span class="title font-weight-bold">?</span>
+      </v-btn>
+      <v-btn flat color="primary">AJUDA</v-btn>
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -50,9 +54,6 @@
           </v-btn>
           <v-btn icon class="mx-0" @click.stop="openDialog(props.item)">
             <v-icon>edit</v-icon>
-          </v-btn>
-          <v-btn icon class="mx-0" @click.stop="deleteItem(props.item, `l'empresa '${props.item.nombre}'`)">
-            <v-icon>delete</v-icon>
           </v-btn>
           <v-btn icon class="mx-0" @click.stop="showItem(props.item.id)" title="Vore ofertes">
             <v-icon>event_note</v-icon>

@@ -133,15 +133,16 @@ export default {
             if (this.dialog) this.dialog = false;
 console.error('msgError')
             let msg='';
-            if (!err.response) msg='Error '+err.response.status+': '+err.response.statusText;
+            if (!err.response) msg=err.message || err;
             else {
-                msg='Error '+err.response.status+': '+err.response.statusText 
+                msg='Error '+err.response.status+': '+err.response.statusText;
                 if (err.response.status==401) {
                     sessionStorage.removeItem('access_token');
                     sessionStorage.removeItem('expires_at');
                     sessionStorage.removeItem('user_rol');
                     sessionStorage.removeItem('user_id');
                     sessionStorage.removeItem('token_type');
+                    this.$emit('setRol');
                     msg+=' - Debes volverte a loguear';
                 } else if (err.response.status==500 && this.imResponsable) {
                     msg+=' - '+err.response.data.message
@@ -201,5 +202,8 @@ console.error('msgError')
 
 //            this.editItem = {};
         },
+        showHelp(page) {
+            window.open('https://cipfpbatoi.github.io/borsaBatoi/'+page, '_ajudaBorsa');
+        }
     } 
 }
