@@ -18,6 +18,7 @@ export default {
                 sessionStorage.removeItem('user_rol');
                 sessionStorage.removeItem('user_id');
                 sessionStorage.removeItem('token_type');
+                this.$emit('setRol');
                 this.$router.push('/');
             }) // store the token in localstorage
             .catch(err => this.msgErr(err)); // if the request fails, remove any possible user token if possible

@@ -58,7 +58,10 @@ export default {
                 sessionStorage.user_rol=resp.data.rol;
                 sessionStorage.user_id=resp.data.id;
                 sessionStorage.token_type=resp.data.token_type;
-                this.$emit('setRol', Number(resp.data.rol));
+                this.$emit('setRol', {
+                  rol: Number(resp.data.rol),
+                  name: resp.data.name
+                });
                 this.$router.push('/ofertas');
               } else {
                 this.msgErr('ERROR, no s\'ha pogut loguejar: '+resp.data);

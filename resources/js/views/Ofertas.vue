@@ -11,7 +11,7 @@
     <v-btn v-if="imEmpresa || imResponsable"
       top
       right
-      color="blue"
+      color="indigo"
       dark
       @click.stop="dialogNewOferta"
     >
@@ -26,6 +26,9 @@
         single-line
         hide-details
       ></v-text-field>
+      <v-btn fab dark small color="indigo">
+        <span class="title font-weight-bold">?</span>
+      </v-btn>
     </v-card-title>
     <v-data-table
         :items="items"

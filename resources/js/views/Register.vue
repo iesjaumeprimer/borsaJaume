@@ -131,7 +131,10 @@ export default {
               sessionStorage.user_rol=Number(resp.data.rol);
               sessionStorage.user_id=resp.data.id;
               sessionStorage.token_type=resp.data.token_type;
-              this.$emit('setRol', Number(resp.data.rol));
+              this.$emit('setRol', {
+                rol: Number(resp.data.rol),
+                name: resp.data.name
+              });
                
               alert(`El teu usuari s'ha creat correctament.
                   Ara has d'omplir les teues dades`);

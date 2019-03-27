@@ -8,6 +8,10 @@
 
   <v-card>
     <v-card-title>
+      <v-btn fab dark small color="indigo">
+        <span class="title font-weight-bold">?</span>
+      </v-btn>
+      <v-btn flat color="primary">AJUDA</v-btn>
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"

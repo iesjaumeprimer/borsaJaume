@@ -1814,6 +1814,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1822,7 +1824,8 @@ __webpack_require__.r(__webpack_exports__);
       drawer: false,
       items: [],
       title: 'Borsa de treball',
-      myRol: 9999
+      myRol: 9999,
+      myName: ''
     };
   },
   components: {
@@ -1872,8 +1875,9 @@ __webpack_require__.r(__webpack_exports__);
     setTitle: function setTitle(title) {
       this.title = title;
     },
-    setRol: function setRol(rol) {
-      this.myRol = rol ? rol : 9999;
+    setRol: function setRol(datos) {
+      this.myRol = datos ? datos.rol : 9999;
+      this.myName = datos ? datos.name : '';
     }
   }
 });
@@ -3198,7 +3202,10 @@ __webpack_require__.r(__webpack_exports__);
           sessionStorage.user_id = resp.data.id;
           sessionStorage.token_type = resp.data.token_type;
 
-          _this.$emit('setRol', Number(resp.data.rol));
+          _this.$emit('setRol', {
+            rol: Number(resp.data.rol),
+            name: resp.data.name
+          });
 
           _this.$router.push('/ofertas');
         } else {
@@ -3251,6 +3258,8 @@ __webpack_require__.r(__webpack_exports__);
         sessionStorage.removeItem('user_rol');
         sessionStorage.removeItem('user_id');
         sessionStorage.removeItem('token_type');
+
+        _this.$emit('setRol');
 
         _this.$router.push('/');
       }) // store the token in localstorage
@@ -3421,33 +3430,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3455,8 +3437,9 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_mixins_formRules_js__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   data: function data() {
     return {
-      table: 'ciclos',
+      table: "ciclos",
       responsables: [],
+      departaments: [],
       headers: [{
         text: "Codi",
         value: "codigo"
@@ -3479,7 +3462,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.$emit('setTitle', 'Manteniment de Cicles');
+    this.$emit("setTitle", "Manteniment de Cicles");
     this.loadData();
   },
   computed: {
@@ -3495,7 +3478,11 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      this.loadItems();
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table).then(function (resp) {
+        _this.items = resp.data.data;
+      }).catch(function (err) {
+        return _this.msgErr(err);
+      });
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("users").then(function (resp) {
         return _this.responsables = resp.data.data.filter(function (resp) {
           return resp.rol == "3";
@@ -3508,12 +3495,39 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (err) {
         return _this.msgErr(err);
       });
+      this.departaments = [{
+        cod: 'Adm',
+        nombre: 'Administratiu'
+      }, {
+        cod: 'Hos',
+        nombre: 'Hosteleria i Turisme'
+      }, {
+        cod: 'Img',
+        nombre: 'Imatge Personal'
+      }, {
+        cod: 'Inf',
+        nombre: 'Informàtica'
+      }, {
+        cod: 'San',
+        nombre: 'Sanitària'
+      }, {
+        cod: 'Srv',
+        nombre: 'Serveis a la Comunitat'
+      }];
     },
     nomResponsable: function nomResponsable(id_resp) {
       var responsable = this.responsables.find(function (resp) {
         return resp.id == id_resp;
       });
-      return responsable ? responsable.name : '';
+      return responsable ? responsable.name : "";
+    },
+    preAddItem: function preAddItem() {
+      var _this2 = this;
+
+      this.editItem.vDept = this.departaments.find(function (dep) {
+        return dep.cod == _this2.editItem.Dept;
+      }).nombre;
+      this.addItem();
     }
   }
 });
@@ -3533,6 +3547,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_Headers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/Headers.js */ "./resources/js/lib/Headers.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
+//
+//
+//
+//
 //
 //
 //
@@ -4197,6 +4215,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -5433,7 +5454,10 @@ __webpack_require__.r(__webpack_exports__);
         sessionStorage.user_id = resp.data.id;
         sessionStorage.token_type = resp.data.token_type;
 
-        _this2.$emit('setRol', Number(resp.data.rol));
+        _this2.$emit('setRol', {
+          rol: Number(resp.data.rol),
+          name: resp.data.name
+        });
 
         alert("El teu usuari s'ha creat correctament.\n                  Ara has d'omplir les teues dades");
 
@@ -42398,11 +42422,22 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-footer", { attrs: { color: "indigo", app: "" } }, [
-        _c("span", { staticClass: "white--text" }, [
-          _vm._v("© CIP FP Batoi 2018")
-        ])
-      ])
+      _c(
+        "v-footer",
+        { attrs: { color: "indigo", app: "" } },
+        [
+          _c("span", { staticClass: "white--text" }, [
+            _vm._v("© CIP FP Batoi 2018")
+          ]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c("span", { staticClass: "white--text" }, [
+            _c("h2", [_vm._v("Hola " + _vm._s(_vm.myName))])
+          ])
+        ],
+        1
+      )
     ],
     1
   )
@@ -44554,7 +44589,7 @@ var render = function() {
                   expression: "error.show"
                 }
               },
-              [_vm._v("\n              " + _vm._s(error.msg) + "\n          ")]
+              [_vm._v(_vm._s(error.msg))]
             )
           ],
           1
@@ -44567,6 +44602,18 @@ var render = function() {
           _c(
             "v-card-title",
             [
+              _c(
+                "v-btn",
+                { attrs: { fab: "", dark: "", small: "", color: "indigo" } },
+                [
+                  _c("span", { staticClass: "title font-weight-bold" }, [
+                    _vm._v("?")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
               _vm.imAdmin
                 ? _c(
                     "v-btn",
@@ -44625,22 +44672,10 @@ var render = function() {
                         _c(
                           "span",
                           { attrs: { slot: "activator" }, slot: "activator" },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(props.header.text) +
-                                "\n              "
-                            )
-                          ]
+                          [_vm._v(_vm._s(props.header.text))]
                         ),
                         _vm._v(" "),
-                        _c("span", [
-                          _vm._v(
-                            "\n              " +
-                              _vm._s(props.header.text) +
-                              "\n              "
-                          )
-                        ])
+                        _c("span", [_vm._v(_vm._s(props.header.text))])
                       ])
                     ]
                   }
@@ -44711,13 +44746,12 @@ var render = function() {
                   fn: function(props) {
                     return [
                       _vm._v(
-                        "      \n      Registres del " +
+                        "Registres del " +
                           _vm._s(props.pageStart) +
                           " al " +
                           _vm._s(props.pageStop) +
                           " de " +
-                          _vm._s(props.itemsLength) +
-                          "\n      "
+                          _vm._s(props.itemsLength)
                       )
                     ]
                   }
@@ -44740,9 +44774,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    '\n      La cerca de "' +
+                    'La cerca de "' +
                       _vm._s(_vm.search) +
-                      '" no dona cap resultat\n    '
+                      '" no dona cap resultat'
                   )
                 ]
               )
@@ -44797,13 +44831,7 @@ var render = function() {
                   _c(
                     "v-card-title",
                     { staticClass: "grey lighten-4 py-4 title" },
-                    [
-                      _vm._v(
-                        "\n        " +
-                          _vm._s(_vm.isNew ? "Nou" : "Editar") +
-                          " cicle\n      "
-                      )
-                    ]
+                    [_vm._v(_vm._s(_vm.isNew ? "Nou" : "Editar") + " cicle")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -44910,13 +44938,14 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs2: "" } },
+                            { attrs: { xs4: "" } },
                             [
-                              _c("v-text-field", {
+                              _c("v-select", {
                                 attrs: {
-                                  label: "Dept",
-                                  placeholder: "Codi del departament",
-                                  mask: "##",
+                                  label: "Departament",
+                                  items: _vm.departaments,
+                                  "item-value": "cod",
+                                  "item-text": "nombre",
                                   required: ""
                                 },
                                 model: {
@@ -44925,30 +44954,6 @@ var render = function() {
                                     _vm.$set(_vm.editItem, "Dept", $$v)
                                   },
                                   expression: "editItem.Dept"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs4: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: "Nom Dept",
-                                  placeholder: "Nom del departament",
-                                  counter: "50",
-                                  rules: _vm.required50Rules,
-                                  required: ""
-                                },
-                                model: {
-                                  value: _vm.editItem.vDept,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.editItem, "vDept", $$v)
-                                  },
-                                  expression: "editItem.vDept"
                                 }
                               })
                             ],
@@ -44999,7 +45004,7 @@ var render = function() {
                         "v-btn",
                         {
                           attrs: { flat: "", color: "primary" },
-                          on: { click: _vm.addItem }
+                          on: { click: _vm.preAddItem }
                         },
                         [_vm._v("Guardar")]
                       ),
@@ -45084,6 +45089,20 @@ var render = function() {
           _c(
             "v-card-title",
             [
+              _c(
+                "v-btn",
+                { attrs: { fab: "", dark: "", small: "", color: "indigo" } },
+                [
+                  _c("span", { staticClass: "title font-weight-bold" }, [
+                    _vm._v("?")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("v-btn", { attrs: { flat: "", color: "primary" } }, [
+                _vm._v("AJUDA")
+              ]),
+              _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
@@ -46507,7 +46526,7 @@ var render = function() {
                 ? _c(
                     "v-btn",
                     {
-                      attrs: { top: "", right: "", color: "blue", dark: "" },
+                      attrs: { top: "", right: "", color: "indigo", dark: "" },
                       on: {
                         click: function($event) {
                           $event.stopPropagation()
@@ -46536,7 +46555,17 @@ var render = function() {
                   },
                   expression: "search"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                { attrs: { fab: "", dark: "", small: "", color: "indigo" } },
+                [
+                  _c("span", { staticClass: "title font-weight-bold" }, [
+                    _vm._v("?")
+                  ])
+                ]
+              )
             ],
             1
           ),

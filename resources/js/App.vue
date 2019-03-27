@@ -43,6 +43,8 @@
 
     <v-footer color="indigo" app>
       <span class="white--text">&copy; CIP FP Batoi 2018</span>
+      <v-spacer></v-spacer>
+      <span class="white--text"><h2>Hola {{ myName }}</h2></span>
     </v-footer>
   </v-app>
 </template>
@@ -57,6 +59,7 @@
       items: [],
       title: 'Borsa de treball',
       myRol: 9999,
+      myName: '',
     }),
     components: {
       MenuItem,
@@ -91,8 +94,9 @@
       setTitle(title) {
         this.title=title;
       },
-      setRol(rol) {
-        this.myRol=rol?rol:9999;
+      setRol(datos) {
+        this.myRol=datos?datos.rol:9999;
+        this.myName=datos?datos.name:'';
       }
     }
   }
