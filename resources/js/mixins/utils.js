@@ -110,6 +110,30 @@ export default {
                 .catch(err => this.msgErr(err));
             }
         },      
+        deleteUser(item, msg) {
+            if (confirm("¿Segur que vols esborrar " + msg+ "?")) {
+                if (confirm("ATENCIÓ: S'esborraran DEFINITIVAMENT totes les seues dades així com el seu usuari. ¿Vols continar?")) {
+                    const index = this.items.indexOf(item);
+                    let itsMy=item.id==myId;
+                    API.delItem('users', item.id)
+                    .then(() => {
+                      this.items.splice(index, 1);
+                      this.msgOk('delete');
+                      if (itsMy) {
+                          // Me deslogueo
+                          sessionStorage.removeItem('access_token');
+                          sessionStorage.removeItem('expires_at');
+                          sessionStorage.removeItem('user_rol');
+                          sessionStorage.removeItem('user_id');
+                          sessionStorage.removeItem('token_type');
+                          this.$emit('setRol');
+                          this.$router.push('/');
+                      }
+                    })
+                    .catch(err => this.msgErr(err));    
+                }
+            }
+        },      
 
         msgOk(action, msg) {
             switch (action) {
@@ -144,7 +168,7 @@ console.error('msgError')
                     sessionStorage.removeItem('token_type');
                     this.$emit('setRol');
                     msg+=' - Debes volverte a loguear';
-                } else if (err.response.status==500 && this.imResponsable) {
+                } else if (err.response.status==500 && (this.imResponsable || true)) {
                     msg+=' - '+err.response.data.message
                         +' in file '+err.response.data.file;
                 } else if (err.response.data.errors)

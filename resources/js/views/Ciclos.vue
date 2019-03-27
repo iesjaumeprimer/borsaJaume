@@ -6,11 +6,7 @@
 
     <v-card>
       <v-card-title>
-        <v-btn v-if="imAdmin" top right color="indigo" dark @click.stop="openDialog(false)">
-          <v-icon>add</v-icon>
-        </v-btn>
-
-        <v-spacer></v-spacer>
+        <help-button v-if="helpPage" :page="helpPage"></help-button>
         <v-text-field
           v-model="search"
           append-icon="search"
@@ -18,8 +14,10 @@
           single-line
           hide-details
         ></v-text-field>
-        <v-btn fab dark small color="indigo" @click="showHelp(table)">
-          <span class="title font-weight-bold">?</span>
+
+        <v-spacer></v-spacer>
+        <v-btn v-if="imAdmin" top right color="indigo" dark @click.stop="openDialog(false)">
+          <v-icon>add</v-icon>
         </v-btn>
       </v-card-title>
       <v-data-table
@@ -59,7 +57,9 @@
           color="error"
           icon="warning"
         >La cerca de "{{ search }}" no dona cap resultat</v-alert>
-
+        <template  class="text-sm-left" slot="actions-prepend">
+          <help-button v-if="helpPage" :page="table"></help-button>
+        </template>
         <template
           slot="pageText"
           slot-scope="props"
@@ -130,10 +130,7 @@
             </v-layout>
           </v-container>
           <v-card-actions>
-            <v-btn fab dark small color="indigo" @click="showHelp(table+'/dialog')">
-              <span class="title font-weight-bold">?</span>
-            </v-btn>
-            <v-btn flat color="primary" @click="showHelp(table+'/dialog')">Ajuda</v-btn>
+            <help-button v-if="helpPage" :page="table+'/dialog'"></help-button>
             <v-spacer></v-spacer>
             <v-btn flat color="primary" @click="preAddItem">Guardar</v-btn>
             <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
@@ -148,11 +145,15 @@
 import API from "../lib/API";
 import formRulesMixin from "../mixins/formRules.js";
 import utilsMixin from "../mixins/utils.js";
+import HelpButton from '../components/base/HelpButton'
 
 export default {
+  name: "ciclos",
   mixins: [formRulesMixin, utilsMixin],
+  components: { HelpButton },
   data: () => ({
     table: "ciclos",
+    helpPage: "ciclos",
     responsables: [],
     departaments: [],
     headers: [

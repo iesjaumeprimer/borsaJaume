@@ -55,6 +55,9 @@
           <v-btn icon class="mx-0" @click.stop="openDialog(props.item)">
             <v-icon>edit</v-icon>
           </v-btn>
+            <v-btn icon class="mx-0" @click="deleteUser(props.item, 'la empresa \''+props.item.nombre+'\'')">
+              <v-icon>delete</v-icon>
+            </v-btn>
           <v-btn icon class="mx-0" @click.stop="showItem(props.item.id)" title="Vore ofertes">
             <v-icon>event_note</v-icon>
           </v-btn>

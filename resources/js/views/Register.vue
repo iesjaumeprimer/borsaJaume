@@ -15,45 +15,56 @@
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
-            <v-text-field
-                v-model="item.name" 
-                label="Nom d'usuari" 
-                title="Nom d'usuari" 
-                required
-                :rules="usernameRules"
-                @change="checkUser"
-            >
-            </v-text-field>
-            <v-text-field
-                v-model="item.password" 
-                label="Contrasenya" 
-                title="Contrasenya" 
-                required
-                min="4"
-                max="25"
-                counter="25"
-                :rules="required20Rules"
-            >
-            </v-text-field>
-            <v-text-field
-                v-model="item.password_confirmation" 
-                label="Repeteix la contrasenya" 
-                title="Repeteix la contrasenya" 
-                required
-                @change="checkPassword"
-            >
-            </v-text-field>
-            <v-text-field
-                v-model="item.email" 
-                label="E-mail" 
-                title="E-mail" 
-                required
-                :rules="emailRules"
-            >
-            </v-text-field>
+            <v-flex xs12 ms9>
+              <div>
+              <v-text-field xs12 ms4
+                  v-model="item.name" 
+                  label="Nom d'usuari" 
+                  title="Nom d'usuari" 
+                  placeholder="Introduix un nom per a dirigir-nos a tu"
+                  required
+                  :rules="usernameRules"
+              >
+              </v-text-field>
+              <v-text-field xs12 ms5
+                  v-model="item.email" 
+                  label="E-mail" 
+                  title="E-mail" 
+                  placeholder="Introduix el email amb el qual et loguejaràs"
+                  required
+                  :rules="emailRules"
+                  @change="checkUser"
+              >
+              </v-text-field>
+              <v-text-field xs12 ms4
+                  v-model="item.password" 
+                  label="Contrasenya" 
+                  title="Contrasenya" 
+                  required
+                  min="4"
+                  max="25"
+                  counter="25"
+                  :rules="required20Rules"
+              >
+              </v-text-field>
+              <v-text-field xs12 ms4
+                  v-model="item.password_confirmation" 
+                  label="Repeteix la contrasenya" 
+                  title="Repeteix la contrasenya" 
+                  required
+                  @change="checkPassword"
+              >
+              </v-text-field>
+
+              </div>
+
+            </v-flex>
+            <v-flex xs12 ms3>
+              <div>
             <v-radio-group 
                v-if="isNew"
-               v-model="item.rol" 
+               v-model="item.rol"
+               label="Quin tipus d'uauri ets:" 
               hint="Indica el teu rol en la Borsa:" 
               :persistent-hint="true" 
               required
@@ -72,6 +83,9 @@
       ></v-radio>
     </v-radio-group>
 
+              </div>
+            </v-flex>
+            <v-flex>
         <v-btn
           bottom
           right
@@ -81,6 +95,8 @@
           >
           <v-icon>add</v-icon>Continuar
         </v-btn>
+
+            </v-flex>
 
           </v-layout>
         </v-container>

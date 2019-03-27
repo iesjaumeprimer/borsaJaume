@@ -1884,6 +1884,32 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/base/HelpButton.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/base/HelpButton.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['page'],
+  methods: {
+    showHelp: function showHelp(page) {
+      window.open('https://cipfpbatoi.github.io/borsaBatoi/' + page, '_ajudaBorsa');
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/base/MenuItem.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/base/MenuItem.vue?vue&type=script&lang=js& ***!
@@ -3286,6 +3312,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_API__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/API */ "./resources/js/lib/API.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
+/* harmony import */ var _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/base/HelpButton */ "./resources/js/components/base/HelpButton.vue");
 //
 //
 //
@@ -3429,17 +3456,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ciclos",
   mixins: [_mixins_formRules_js__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  components: {
+    HelpButton: _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   data: function data() {
     return {
       table: "ciclos",
+      helpPage: "ciclos",
       responsables: [],
       departaments: [],
       headers: [{
@@ -3549,6 +3579,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_Headers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/Headers.js */ "./resources/js/lib/Headers.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
+//
+//
+//
 //
 //
 //
@@ -5320,6 +5353,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_API__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/API */ "./resources/js/lib/API.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -42451,6 +42500,42 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/base/HelpButton.vue?vue&type=template&id=36b10814&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/base/HelpButton.vue?vue&type=template&id=36b10814& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-btn",
+    {
+      attrs: { flat: "", icon: "", color: "indigo", title: "Ajuda" },
+      on: {
+        click: function($event) {
+          return _vm.showHelp(_vm.page)
+        }
+      }
+    },
+    [_c("v-icon", { attrs: { large: "" } }, [_vm._v("help_outline")])],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/base/MenuItem.vue?vue&type=template&id=924bcb16&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/base/MenuItem.vue?vue&type=template&id=924bcb16& ***!
@@ -44604,24 +44689,9 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _vm.imAdmin
-                ? _c(
-                    "v-btn",
-                    {
-                      attrs: { top: "", right: "", color: "indigo", dark: "" },
-                      on: {
-                        click: function($event) {
-                          $event.stopPropagation()
-                          return _vm.openDialog(false)
-                        }
-                      }
-                    },
-                    [_c("v-icon", [_vm._v("add")])],
-                    1
-                  )
+              _vm.helpPage
+                ? _c("help-button", { attrs: { page: _vm.helpPage } })
                 : _vm._e(),
-              _vm._v(" "),
-              _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
                 attrs: {
@@ -44639,22 +44709,24 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { fab: "", dark: "", small: "", color: "indigo" },
-                  on: {
-                    click: function($event) {
-                      return _vm.showHelp(_vm.table)
-                    }
-                  }
-                },
-                [
-                  _c("span", { staticClass: "title font-weight-bold" }, [
-                    _vm._v("?")
-                  ])
-                ]
-              )
+              _c("v-spacer"),
+              _vm._v(" "),
+              _vm.imAdmin
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: { top: "", right: "", color: "indigo", dark: "" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          return _vm.openDialog(false)
+                        }
+                      }
+                    },
+                    [_c("v-icon", [_vm._v("add")])],
+                    1
+                  )
+                : _vm._e()
             ],
             1
           ),
@@ -44786,9 +44858,20 @@ var render = function() {
                       '" no dona cap resultat'
                   )
                 ]
+              ),
+              _vm._v(" "),
+              _c(
+                "template",
+                { staticClass: "text-sm-left", slot: "actions-prepend" },
+                [
+                  _vm.helpPage
+                    ? _c("help-button", { attrs: { page: _vm.table } })
+                    : _vm._e()
+                ],
+                1
               )
             ],
-            1
+            2
           )
         ],
         1
@@ -45001,42 +45084,11 @@ var render = function() {
                   _c(
                     "v-card-actions",
                     [
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            fab: "",
-                            dark: "",
-                            small: "",
-                            color: "indigo"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.showHelp(_vm.table + "/dialog")
-                            }
-                          }
-                        },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "title font-weight-bold" },
-                            [_vm._v("?")]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: { flat: "", color: "primary" },
-                          on: {
-                            click: function($event) {
-                              return _vm.showHelp(_vm.table + "/dialog")
-                            }
-                          }
-                        },
-                        [_vm._v("Ajuda")]
-                      ),
+                      _vm.helpPage
+                        ? _c("help-button", {
+                            attrs: { page: _vm.table + "/dialog" }
+                          })
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("v-spacer"),
                       _vm._v(" "),
@@ -45259,6 +45311,24 @@ var render = function() {
                                 }
                               },
                               [_c("v-icon", [_vm._v("edit")])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { icon: "" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteUser(
+                                      props.item,
+                                      "la empresa '" + props.item.nombre + "'"
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("delete")])],
                               1
                             ),
                             _vm._v(" "),
@@ -48603,138 +48673,178 @@ var render = function() {
                     "v-layout",
                     { attrs: { row: "", wrap: "" } },
                     [
-                      _c("v-text-field", {
-                        attrs: {
-                          label: "Nom d'usuari",
-                          title: "Nom d'usuari",
-                          required: "",
-                          rules: _vm.usernameRules
-                        },
-                        on: { change: _vm.checkUser },
-                        model: {
-                          value: _vm.item.name,
-                          callback: function($$v) {
-                            _vm.$set(_vm.item, "name", $$v)
-                          },
-                          expression: "item.name"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          label: "Contrasenya",
-                          title: "Contrasenya",
-                          required: "",
-                          min: "4",
-                          max: "25",
-                          counter: "25",
-                          rules: _vm.required20Rules
-                        },
-                        model: {
-                          value: _vm.item.password,
-                          callback: function($$v) {
-                            _vm.$set(_vm.item, "password", $$v)
-                          },
-                          expression: "item.password"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          label: "Repeteix la contrasenya",
-                          title: "Repeteix la contrasenya",
-                          required: ""
-                        },
-                        on: { change: _vm.checkPassword },
-                        model: {
-                          value: _vm.item.password_confirmation,
-                          callback: function($$v) {
-                            _vm.$set(_vm.item, "password_confirmation", $$v)
-                          },
-                          expression: "item.password_confirmation"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          label: "E-mail",
-                          title: "E-mail",
-                          required: "",
-                          rules: _vm.emailRules
-                        },
-                        model: {
-                          value: _vm.item.email,
-                          callback: function($$v) {
-                            _vm.$set(_vm.item, "email", $$v)
-                          },
-                          expression: "item.email"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.isNew
-                        ? _c(
-                            "v-radio-group",
-                            {
+                      _c("v-flex", { attrs: { xs12: "", ms9: "" } }, [
+                        _c(
+                          "div",
+                          [
+                            _c("v-text-field", {
                               attrs: {
-                                hint: "Indica el teu rol en la Borsa:",
-                                "persistent-hint": true,
-                                required: ""
+                                xs12: "",
+                                ms4: "",
+                                label: "Nom d'usuari",
+                                title: "Nom d'usuari",
+                                placeholder:
+                                  "Introduix un nom per a dirigir-nos a tu",
+                                required: "",
+                                rules: _vm.usernameRules
                               },
                               model: {
-                                value: _vm.item.rol,
+                                value: _vm.item.name,
                                 callback: function($$v) {
-                                  _vm.$set(_vm.item, "rol", $$v)
+                                  _vm.$set(_vm.item, "name", $$v)
                                 },
-                                expression: "item.rol"
+                                expression: "item.name"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                xs12: "",
+                                ms5: "",
+                                label: "E-mail",
+                                title: "E-mail",
+                                placeholder:
+                                  "Introduix el email amb el qual et loguejaràs",
+                                required: "",
+                                rules: _vm.emailRules
+                              },
+                              on: { change: _vm.checkUser },
+                              model: {
+                                value: _vm.item.email,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.item, "email", $$v)
+                                },
+                                expression: "item.email"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                xs12: "",
+                                ms4: "",
+                                label: "Contrasenya",
+                                title: "Contrasenya",
+                                required: "",
+                                min: "4",
+                                max: "25",
+                                counter: "25",
+                                rules: _vm.required20Rules
+                              },
+                              model: {
+                                value: _vm.item.password,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.item, "password", $$v)
+                                },
+                                expression: "item.password"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                xs12: "",
+                                ms4: "",
+                                label: "Repeteix la contrasenya",
+                                title: "Repeteix la contrasenya",
+                                required: ""
+                              },
+                              on: { change: _vm.checkPassword },
+                              model: {
+                                value: _vm.item.password_confirmation,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.item,
+                                    "password_confirmation",
+                                    $$v
+                                  )
+                                },
+                                expression: "item.password_confirmation"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs12: "", ms3: "" } }, [
+                        _c(
+                          "div",
+                          [
+                            _vm.isNew
+                              ? _c(
+                                  "v-radio-group",
+                                  {
+                                    attrs: {
+                                      label: "Quin tipus d'uauri ets:",
+                                      hint: "Indica el teu rol en la Borsa:",
+                                      "persistent-hint": true,
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.item.rol,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.item, "rol", $$v)
+                                      },
+                                      expression: "item.rol"
+                                    }
+                                  },
+                                  [
+                                    _c("v-radio", {
+                                      attrs: {
+                                        label: "Empresa - Ofereix un treball",
+                                        value: 5
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-radio", {
+                                      attrs: {
+                                        label: "Alumne - Busque un treball",
+                                        value: 7
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm.imAdmin
+                                      ? _c("v-radio", {
+                                          attrs: {
+                                            label:
+                                              "Responsable - Gestiona la borsa",
+                                            value: 3
+                                          }
+                                        })
+                                      : _vm._e()
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                bottom: "",
+                                right: "",
+                                color: "blue",
+                                dark: ""
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.stopPropagation()
+                                  return _vm.saveUser()
+                                }
                               }
                             },
                             [
-                              _c("v-radio", {
-                                attrs: {
-                                  label: "Empresa - Ofereix un treball",
-                                  value: 5
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("v-radio", {
-                                attrs: {
-                                  label: "Alumne - Busque un treball",
-                                  value: 7
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm.imAdmin
-                                ? _c("v-radio", {
-                                    attrs: {
-                                      label: "Responsable - Gestiona la borsa",
-                                      value: 3
-                                    }
-                                  })
-                                : _vm._e()
+                              _c("v-icon", [_vm._v("add")]),
+                              _vm._v("Continuar\n    ")
                             ],
                             1
                           )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            bottom: "",
-                            right: "",
-                            color: "blue",
-                            dark: ""
-                          },
-                          on: {
-                            click: function($event) {
-                              $event.stopPropagation()
-                              return _vm.saveUser()
-                            }
-                          }
-                        },
-                        [
-                          _c("v-icon", [_vm._v("add")]),
-                          _vm._v("Continuar\n    ")
                         ],
                         1
                       )
@@ -90141,6 +90251,75 @@ if (token) {
 
 /***/ }),
 
+/***/ "./resources/js/components/base/HelpButton.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/base/HelpButton.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _HelpButton_vue_vue_type_template_id_36b10814___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HelpButton.vue?vue&type=template&id=36b10814& */ "./resources/js/components/base/HelpButton.vue?vue&type=template&id=36b10814&");
+/* harmony import */ var _HelpButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HelpButton.vue?vue&type=script&lang=js& */ "./resources/js/components/base/HelpButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HelpButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HelpButton_vue_vue_type_template_id_36b10814___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _HelpButton_vue_vue_type_template_id_36b10814___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/base/HelpButton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/base/HelpButton.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/base/HelpButton.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HelpButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HelpButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/base/HelpButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HelpButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/base/HelpButton.vue?vue&type=template&id=36b10814&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/base/HelpButton.vue?vue&type=template&id=36b10814& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HelpButton_vue_vue_type_template_id_36b10814___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./HelpButton.vue?vue&type=template&id=36b10814& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/base/HelpButton.vue?vue&type=template&id=36b10814&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HelpButton_vue_vue_type_template_id_36b10814___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HelpButton_vue_vue_type_template_id_36b10814___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/base/MenuItem.vue":
 /*!***************************************************!*\
   !*** ./resources/js/components/base/MenuItem.vue ***!
@@ -91225,6 +91404,36 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    deleteUser: function deleteUser(item, msg) {
+      var _this4 = this;
+
+      if (confirm("¿Segur que vols esborrar " + msg + "?")) {
+        if (confirm("ATENCIÓ: S'esborraran DEFINITIVAMENT totes les seues dades així com el seu usuari. ¿Vols continar?")) {
+          var index = this.items.indexOf(item);
+          var itsMy = item.id == myId;
+          _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].delItem('users', item.id).then(function () {
+            _this4.items.splice(index, 1);
+
+            _this4.msgOk('delete');
+
+            if (itsMy) {
+              // Me deslogueo
+              sessionStorage.removeItem('access_token');
+              sessionStorage.removeItem('expires_at');
+              sessionStorage.removeItem('user_rol');
+              sessionStorage.removeItem('user_id');
+              sessionStorage.removeItem('token_type');
+
+              _this4.$emit('setRol');
+
+              _this4.$router.push('/');
+            }
+          }).catch(function (err) {
+            return _this4.msgErr(err);
+          });
+        }
+      }
+    },
     msgOk: function msgOk(action, msg) {
       switch (action) {
         case 'delete':
@@ -91259,7 +91468,7 @@ __webpack_require__.r(__webpack_exports__);
           sessionStorage.removeItem('token_type');
           this.$emit('setRol');
           msg += ' - Debes volverte a loguear';
-        } else if (err.response.status == 500 && this.imResponsable) {
+        } else if (err.response.status == 500 && (this.imResponsable || true)) {
           msg += ' - ' + err.response.data.message + ' in file ' + err.response.data.file;
         } else if (err.response.data.errors) Array.from(err.response.data.errors).forEach(function (error) {
           return msg += '\n - ' + error.message;
@@ -91300,13 +91509,13 @@ __webpack_require__.r(__webpack_exports__);
                   } */
     },
     closeDialog: function closeDialog() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.dialog = false;
       setTimeout(function () {
         //                this.editItem = Object.assign({}, this.defaultItem)
-        _this4.editItem = {};
-        _this4.editIndex = -1;
+        _this5.editItem = {};
+        _this5.editIndex = -1;
       }, 300); //            this.editItem = {};
     },
     showHelp: function showHelp(page) {
