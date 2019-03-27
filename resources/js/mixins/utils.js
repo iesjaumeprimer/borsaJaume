@@ -203,7 +203,7 @@ console.error('msgError')
 //            this.editItem = {};
         },
         showHelp(page) {
-            window.open('https://cipfpbatoi.github.io/borsaBatoi/'+page, '_blank');
+            window.open('https://cipfpbatoi.github.io/borsaBatoi/'+page, '_ajudaBorsa');
         }
     } 
 }

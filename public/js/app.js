@@ -44608,7 +44608,7 @@ var render = function() {
                 ? _c(
                     "v-btn",
                     {
-                      attrs: { top: "", right: "", color: "blue", dark: "" },
+                      attrs: { top: "", right: "", color: "indigo", dark: "" },
                       on: {
                         click: function($event) {
                           $event.stopPropagation()
@@ -91310,7 +91310,7 @@ __webpack_require__.r(__webpack_exports__);
       }, 300); //            this.editItem = {};
     },
     showHelp: function showHelp(page) {
-      window.open('https://cipfpbatoi.github.io/borsaBatoi/' + page, '_blank');
+      window.open('https://cipfpbatoi.github.io/borsaBatoi/' + page, '_ajudaBorsa');
     }
   }
 });

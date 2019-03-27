@@ -6,7 +6,7 @@
 
     <v-card>
       <v-card-title>
-        <v-btn v-if="imAdmin" top right color="blue" dark @click.stop="openDialog(false)">
+        <v-btn v-if="imAdmin" top right color="indigo" dark @click.stop="openDialog(false)">
           <v-icon>add</v-icon>
         </v-btn>
 
