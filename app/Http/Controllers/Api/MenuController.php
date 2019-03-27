@@ -10,4 +10,8 @@ class MenuController extends ApiBaseController
         return 'Menu';
     }
 
+    public function index(){
+        return $this->resource::collection($this->entity::orderBy('order')->get());
+    }
+
 }
