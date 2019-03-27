@@ -26,7 +26,7 @@
         single-line
         hide-details
       ></v-text-field>
-      <v-btn fab dark small color="indigo">
+      <v-btn fab dark small color="indigo" @click="showHelp('ofertas')">
         <span class="title font-weight-bold">?</span>
       </v-btn>
     </v-card-title>

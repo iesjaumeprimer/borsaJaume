@@ -3430,6 +3430,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -44602,18 +44604,6 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _c(
-                "v-btn",
-                { attrs: { fab: "", dark: "", small: "", color: "indigo" } },
-                [
-                  _c("span", { staticClass: "title font-weight-bold" }, [
-                    _vm._v("?")
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
               _vm.imAdmin
                 ? _c(
                     "v-btn",
@@ -44647,7 +44637,24 @@ var render = function() {
                   },
                   expression: "search"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { fab: "", dark: "", small: "", color: "indigo" },
+                  on: {
+                    click: function($event) {
+                      return _vm.showHelp(_vm.table)
+                    }
+                  }
+                },
+                [
+                  _c("span", { staticClass: "title font-weight-bold" }, [
+                    _vm._v("?")
+                  ])
+                ]
+              )
             ],
             1
           ),
@@ -44994,9 +45001,42 @@ var render = function() {
                   _c(
                     "v-card-actions",
                     [
-                      _c("v-btn", { attrs: { flat: "", color: "primary" } }, [
-                        _vm._v("More")
-                      ]),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            fab: "",
+                            dark: "",
+                            small: "",
+                            color: "indigo"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.showHelp(_vm.table + "/dialog")
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "title font-weight-bold" },
+                            [_vm._v("?")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { flat: "", color: "primary" },
+                          on: {
+                            click: function($event) {
+                              return _vm.showHelp(_vm.table + "/dialog")
+                            }
+                          }
+                        },
+                        [_vm._v("Ajuda")]
+                      ),
                       _vm._v(" "),
                       _c("v-spacer"),
                       _vm._v(" "),
@@ -46559,7 +46599,14 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-btn",
-                { attrs: { fab: "", dark: "", small: "", color: "indigo" } },
+                {
+                  attrs: { fab: "", dark: "", small: "", color: "indigo" },
+                  on: {
+                    click: function($event) {
+                      return _vm.showHelp("ofertas")
+                    }
+                  }
+                },
                 [
                   _c("span", { staticClass: "title font-weight-bold" }, [
                     _vm._v("?")
@@ -91261,6 +91308,9 @@ __webpack_require__.r(__webpack_exports__);
         _this4.editItem = {};
         _this4.editIndex = -1;
       }, 300); //            this.editItem = {};
+    },
+    showHelp: function showHelp(page) {
+      window.open('https://cipfpbatoi.github.io/borsaBatoi/' + page, '_blank');
     }
   }
 });

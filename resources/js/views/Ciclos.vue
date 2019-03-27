@@ -6,10 +6,6 @@
 
     <v-card>
       <v-card-title>
-      <v-btn fab dark small color="indigo">
-        <span class="title font-weight-bold">?</span>
-      </v-btn>
-        <v-spacer></v-spacer>
         <v-btn v-if="imAdmin" top right color="blue" dark @click.stop="openDialog(false)">
           <v-icon>add</v-icon>
         </v-btn>
@@ -22,6 +18,9 @@
           single-line
           hide-details
         ></v-text-field>
+        <v-btn fab dark small color="indigo" @click="showHelp(table)">
+          <span class="title font-weight-bold">?</span>
+        </v-btn>
       </v-card-title>
       <v-data-table
         :items="items"
@@ -131,7 +130,10 @@
             </v-layout>
           </v-container>
           <v-card-actions>
-            <v-btn flat color="primary">More</v-btn>
+            <v-btn fab dark small color="indigo" @click="showHelp(table+'/dialog')">
+              <span class="title font-weight-bold">?</span>
+            </v-btn>
+            <v-btn flat color="primary" @click="showHelp(table+'/dialog')">Ajuda</v-btn>
             <v-spacer></v-spacer>
             <v-btn flat color="primary" @click="preAddItem">Guardar</v-btn>
             <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
