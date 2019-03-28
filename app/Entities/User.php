@@ -46,4 +46,7 @@ class User extends Authenticatable
     public function isResponsable(){
         return $this->rol == config('role.responsable');
     }
+    public static function rules(){
+        return self::rules;
+    }
 }
