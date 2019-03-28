@@ -8,6 +8,18 @@
 
   <v-card>
     <v-card-title>
+      <v-btn fab dark small color="indigo" @click="showHelp('ofertas')">
+        <span class="title font-weight-bold">?</span>
+      </v-btn>
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Filtrar taula"
+        single-line
+        hide-details
+      ></v-text-field>
+
+      <v-spacer></v-spacer>
     <v-btn v-if="imEmpresa || imResponsable"
       top
       right
@@ -17,18 +29,6 @@
     >
       <v-icon>add</v-icon>
     </v-btn>
-
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="search"
-        label="Filtrar taula"
-        single-line
-        hide-details
-      ></v-text-field>
-      <v-btn fab dark small color="indigo" @click="showHelp('ofertas')">
-        <span class="title font-weight-bold">?</span>
-      </v-btn>
     </v-card-title>
     <v-data-table
         :items="items"

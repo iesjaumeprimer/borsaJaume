@@ -21,7 +21,7 @@
         </template>
         <v-card>
           <v-card-title>
-            <span class="headline">{{ isNew?'Nou':'Editar' }} responsable</span>
+            <span class="headline">{{ isNew?'Nou':'Editar' }} usuari</span>
           </v-card-title>
 
           <v-card-text>
@@ -80,7 +80,7 @@
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td>{{ props.item.email }}</td>
-        <td class="text-xs-right">{{ props.item.rol }}</td>
+        <td>{{ rolDescrip(props.item.rol) }}</td>
         <td>
           <yes-no-icon :value="props.item.active"></yes-no-icon>
         </td>
@@ -131,11 +131,14 @@ export default {
   },
 
   created() {
-    this.$emit("setTitle", "Manteniment de Responsables");
+    this.$emit("setTitle", "Manteniment d'usuaris");
     this.loadItems();
   },
 
   methods: {
+      rolDescrip(rol) {
+          return this.roles.find(r=>r.id==rol).rol;
+      },
     addItem() {
       // OJO. SObreescrito de utils.js pq no hace POST sino SINGUP
       if (this.editIndex > -1) {

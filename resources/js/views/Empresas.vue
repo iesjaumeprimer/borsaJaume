@@ -184,7 +184,7 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn flat color="primary">More</v-btn>
+          <help-button v-if="helpPage" :page="helpPage"></help-button>
           <v-spacer></v-spacer>
           <v-btn flat color="primary" :disabled="!valid" @click="addItem">Guardar</v-btn>
           <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
@@ -200,11 +200,14 @@ import API from '../lib/API';
 import Headers from '../lib/Headers.js';
 import utilsMixin from '../mixins/utils.js';
 import formRulesMixin from '../mixins/formRules.js';
+import HelpButton from '../components/base/HelpButton';
 
 export default {
   mixins: [utilsMixin, formRulesMixin],
+  components: { HelpButton },
   data: () => ({
     table: 'empresas',
+    helpPage: 'empresas',
     headers: Headers.getTable('empresas'),
     // Para el dialogo
     dialogCiclos: false,

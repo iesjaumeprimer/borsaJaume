@@ -58,7 +58,7 @@
           icon="warning"
         >La cerca de "{{ search }}" no dona cap resultat</v-alert>
         <template  class="text-sm-left" slot="actions-prepend">
-          <help-button v-if="helpPage" :page="table"></help-button>
+          <help-button v-if="helpPage" :page="helpPage"></help-button>
         </template>
         <template
           slot="pageText"
@@ -130,7 +130,7 @@
             </v-layout>
           </v-container>
           <v-card-actions>
-            <help-button v-if="helpPage" :page="table+'/dialog'"></help-button>
+            <help-button v-if="helpPage" :page="helpPage+'/dialog'"></help-button>
             <v-spacer></v-spacer>
             <v-btn flat color="primary" @click="preAddItem">Guardar</v-btn>
             <v-btn flat @click="closeDialog">Cancel·lar</v-btn>

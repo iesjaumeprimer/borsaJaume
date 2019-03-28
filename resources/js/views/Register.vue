@@ -38,6 +38,10 @@
               </v-text-field>
               <v-text-field xs12 ms4
                   v-model="item.password" 
+                  :append-icon="show ? 'visibility' : 'visibility_off'"
+                  :type="show ? 'text' : 'password'"
+                  @click:append="show = !show"
+                  hint="Al menys 6 caràcters"
                   label="Contrasenya" 
                   title="Contrasenya" 
                   required
@@ -49,6 +53,10 @@
               </v-text-field>
               <v-text-field xs12 ms4
                   v-model="item.password_confirmation" 
+                  :append-icon="show ? 'visibility' : 'visibility_off'"
+                  :type="show ? 'text' : 'password'"
+                  @click:append="show = !show"
+                  hint="Al menys 6 caràcters"
                   label="Repeteix la contrasenya" 
                   title="Repeteix la contrasenya" 
                   required
@@ -86,6 +94,7 @@
               </div>
             </v-flex>
             <v-flex>
+            <help-button v-if="helpPage" :page="helpPage"></help-button>
         <v-btn
           bottom
           right
@@ -109,12 +118,15 @@
 import API from '../lib/API';
 import utilsMixin from '../mixins/utils.js';
 import formRulesMixin from '../mixins/formRules.js';
+import HelpButton from '../components/base/HelpButton';
 
 export default {
   mixins: [utilsMixin, formRulesMixin],
+  components: {HelpButton },
   props: ['username', 'password', 'rol'],
       data: () => ({
         item: {},
+        show: false,
     }),
     mounted() {
       this.$emit('setTitle', 'Registre de nou usuari');

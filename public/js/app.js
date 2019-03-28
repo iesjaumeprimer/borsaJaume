@@ -3007,6 +3007,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3169,6 +3172,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_API__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/API */ "./resources/js/lib/API.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
+/* harmony import */ var _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/base/HelpButton */ "./resources/js/components/base/HelpButton.vue");
 //
 //
 //
@@ -3203,17 +3207,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_utils_js__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  components: {
+    HelpButton: _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   data: function data() {
     return {
-      //            editItem: {},
+      helpPage: "login",
       item: {},
-      password2: ''
+      password2: '',
+      show: false
     };
+  },
+  mounted: function mounted() {
+    this.$emit('setTitle', 'Inicia sessió');
   },
   methods: {
     submit: function submit() {
@@ -3579,6 +3596,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_Headers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/Headers.js */ "./resources/js/lib/Headers.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
+/* harmony import */ var _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/base/HelpButton */ "./resources/js/components/base/HelpButton.vue");
 //
 //
 //
@@ -3776,15 +3794,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  components: {
+    HelpButton: _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_4__["default"]
+  },
   data: function data() {
     return {
       table: 'empresas',
+      helpPage: 'empresas',
       headers: _lib_Headers_js__WEBPACK_IMPORTED_MODULE_1__["default"].getTable('empresas'),
       // Para el dialogo
       dialogCiclos: false
@@ -5353,6 +5376,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_API__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/API */ "./resources/js/lib/API.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
+/* harmony import */ var _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/base/HelpButton */ "./resources/js/components/base/HelpButton.vue");
 //
 //
 //
@@ -5460,15 +5484,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_utils_js__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  components: {
+    HelpButton: _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   props: ['username', 'password', 'rol'],
   data: function data() {
     return {
-      item: {}
+      item: {},
+      show: false
     };
   },
   mounted: function mounted() {
@@ -5706,10 +5744,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   created: function created() {
-    this.$emit("setTitle", "Manteniment de Responsables");
+    this.$emit("setTitle", "Manteniment d'usuaris");
     this.loadItems();
   },
   methods: {
+    rolDescrip: function rolDescrip(rol) {
+      return this.roles.find(function (r) {
+        return r.id == rol;
+      }).rol;
+    },
     addItem: function addItem() {
       var _this = this;
 
@@ -43945,6 +43988,28 @@ var render = function() {
                               },
                               [_c("v-icon", [_vm._v("edit")])],
                               1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { icon: "" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteUser(
+                                      props.item,
+                                      "l'alumne '" +
+                                        props.item.nombre +
+                                        " " +
+                                        props.item.apellidos +
+                                        "'"
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("delete")])],
+                              1
                             )
                           ],
                           1
@@ -44567,10 +44632,18 @@ var render = function() {
           _vm._v(" "),
           _c("v-text-field", {
             attrs: {
+              "append-icon": _vm.show ? "visibility" : "visibility_off",
+              type: _vm.show ? "text" : "password",
+              hint: "Al menys 6 caràcters",
               label: "Contrasenya",
               title: "Contrasenya",
               required: "",
               rules: _vm.usernameRules
+            },
+            on: {
+              "click:append": function($event) {
+                _vm.show = !_vm.show
+              }
             },
             model: {
               value: _vm.item.password,
@@ -44586,6 +44659,10 @@ var render = function() {
               _vm._v("He oblidat la meua contrasenya")
             ])
           ]),
+          _vm._v(" "),
+          _vm.helpPage
+            ? _c("help-button", { attrs: { page: _vm.helpPage } })
+            : _vm._e(),
           _vm._v(" "),
           _c("v-btn", { attrs: { type: "submit", disabled: !_vm.valid } }, [
             _vm._v("Login")
@@ -44865,7 +44942,7 @@ var render = function() {
                 { staticClass: "text-sm-left", slot: "actions-prepend" },
                 [
                   _vm.helpPage
-                    ? _c("help-button", { attrs: { page: _vm.table } })
+                    ? _c("help-button", { attrs: { page: _vm.helpPage } })
                     : _vm._e()
                 ],
                 1
@@ -45086,7 +45163,7 @@ var render = function() {
                     [
                       _vm.helpPage
                         ? _c("help-button", {
-                            attrs: { page: _vm.table + "/dialog" }
+                            attrs: { page: _vm.helpPage + "/dialog" }
                           })
                         : _vm._e(),
                       _vm._v(" "),
@@ -45724,9 +45801,9 @@ var render = function() {
                   _c(
                     "v-card-actions",
                     [
-                      _c("v-btn", { attrs: { flat: "", color: "primary" } }, [
-                        _vm._v("More")
-                      ]),
+                      _vm.helpPage
+                        ? _c("help-button", { attrs: { page: _vm.helpPage } })
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("v-spacer"),
                       _vm._v(" "),
@@ -46632,24 +46709,22 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _vm.imEmpresa || _vm.imResponsable
-                ? _c(
-                    "v-btn",
-                    {
-                      attrs: { top: "", right: "", color: "indigo", dark: "" },
-                      on: {
-                        click: function($event) {
-                          $event.stopPropagation()
-                          return _vm.dialogNewOferta($event)
-                        }
-                      }
-                    },
-                    [_c("v-icon", [_vm._v("add")])],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("v-spacer"),
+              _c(
+                "v-btn",
+                {
+                  attrs: { fab: "", dark: "", small: "", color: "indigo" },
+                  on: {
+                    click: function($event) {
+                      return _vm.showHelp("ofertas")
+                    }
+                  }
+                },
+                [
+                  _c("span", { staticClass: "title font-weight-bold" }, [
+                    _vm._v("?")
+                  ])
+                ]
+              ),
               _vm._v(" "),
               _c("v-text-field", {
                 attrs: {
@@ -46667,22 +46742,24 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { fab: "", dark: "", small: "", color: "indigo" },
-                  on: {
-                    click: function($event) {
-                      return _vm.showHelp("ofertas")
-                    }
-                  }
-                },
-                [
-                  _c("span", { staticClass: "title font-weight-bold" }, [
-                    _vm._v("?")
-                  ])
-                ]
-              )
+              _c("v-spacer"),
+              _vm._v(" "),
+              _vm.imEmpresa || _vm.imResponsable
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: { top: "", right: "", color: "indigo", dark: "" },
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          return _vm.dialogNewOferta($event)
+                        }
+                      }
+                    },
+                    [_c("v-icon", [_vm._v("add")])],
+                    1
+                  )
+                : _vm._e()
             ],
             1
           ),
@@ -48722,6 +48799,11 @@ var render = function() {
                               attrs: {
                                 xs12: "",
                                 ms4: "",
+                                "append-icon": _vm.show
+                                  ? "visibility"
+                                  : "visibility_off",
+                                type: _vm.show ? "text" : "password",
+                                hint: "Al menys 6 caràcters",
                                 label: "Contrasenya",
                                 title: "Contrasenya",
                                 required: "",
@@ -48729,6 +48811,11 @@ var render = function() {
                                 max: "25",
                                 counter: "25",
                                 rules: _vm.required20Rules
+                              },
+                              on: {
+                                "click:append": function($event) {
+                                  _vm.show = !_vm.show
+                                }
                               },
                               model: {
                                 value: _vm.item.password,
@@ -48743,11 +48830,21 @@ var render = function() {
                               attrs: {
                                 xs12: "",
                                 ms4: "",
+                                "append-icon": _vm.show
+                                  ? "visibility"
+                                  : "visibility_off",
+                                type: _vm.show ? "text" : "password",
+                                hint: "Al menys 6 caràcters",
                                 label: "Repeteix la contrasenya",
                                 title: "Repeteix la contrasenya",
                                 required: ""
                               },
-                              on: { change: _vm.checkPassword },
+                              on: {
+                                "click:append": function($event) {
+                                  _vm.show = !_vm.show
+                                },
+                                change: _vm.checkPassword
+                              },
                               model: {
                                 value: _vm.item.password_confirmation,
                                 callback: function($$v) {
@@ -48823,6 +48920,12 @@ var render = function() {
                       _c(
                         "v-flex",
                         [
+                          _vm.helpPage
+                            ? _c("help-button", {
+                                attrs: { page: _vm.helpPage }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c(
                             "v-btn",
                             {
@@ -48990,9 +49093,7 @@ var render = function() {
                 [
                   _c("v-card-title", [
                     _c("span", { staticClass: "headline" }, [
-                      _vm._v(
-                        _vm._s(_vm.isNew ? "Nou" : "Editar") + " responsable"
-                      )
+                      _vm._v(_vm._s(_vm.isNew ? "Nou" : "Editar") + " usuari")
                     ])
                   ]),
                   _vm._v(" "),
@@ -49202,9 +49303,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(props.item.email))]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
-                  _vm._v(_vm._s(props.item.rol))
-                ]),
+                _c("td", [_vm._v(_vm._s(_vm.rolDescrip(props.item.rol)))]),
                 _vm._v(" "),
                 _c(
                   "td",
@@ -91410,7 +91509,7 @@ __webpack_require__.r(__webpack_exports__);
       if (confirm("¿Segur que vols esborrar " + msg + "?")) {
         if (confirm("ATENCIÓ: S'esborraran DEFINITIVAMENT totes les seues dades així com el seu usuari. ¿Vols continar?")) {
           var index = this.items.indexOf(item);
-          var itsMy = item.id == myId;
+          var itsMy = item.id == this.myId;
           _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].delItem('users', item.id).then(function () {
             _this4.items.splice(index, 1);
 

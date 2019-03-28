@@ -18,6 +18,10 @@
             </v-text-field>
             <v-text-field
                 v-model="item.password" 
+                :append-icon="show ? 'visibility' : 'visibility_off'"
+                :type="show ? 'text' : 'password'"
+                @click:append="show = !show"
+                hint="Al menys 6 caràcters"
                 label="Contrasenya" 
                 title="Contrasenya" 
                 required
@@ -25,6 +29,7 @@
             >
             </v-text-field>
             <p><a href="#">He oblidat la meua contrasenya</a></p>
+    <help-button v-if="helpPage" :page="helpPage"></help-button>
     <v-btn type="submit" :disabled="!valid">Login</v-btn>
     <v-btn @click.stop="registerUser">Registrar-se</v-btn>
   </v-form>
@@ -36,17 +41,22 @@
 import API from '../lib/API';
 import utilsMixin from '../mixins/utils.js';
 import formRulesMixin from '../mixins/formRules.js';
+import HelpButton from '../components/base/HelpButton';
 
 export default {
   mixins: [utilsMixin, formRulesMixin],
+  components: {HelpButton },
       data() { 
           return {
-//            editItem: {},
+            helpPage: "login",
             item: {},
             password2: '',
-
+            show: false,
             }
       },
+    mounted() {
+      this.$emit('setTitle', 'Inicia sessió');
+    },
       methods: {
           submit() {
             console.error('login')

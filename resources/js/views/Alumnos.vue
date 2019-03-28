@@ -75,6 +75,9 @@
               <v-btn icon class="mx-0" @click="preOpenDialog(props.item)">
                 <v-icon>edit</v-icon>
               </v-btn>
+            <v-btn icon class="mx-0" @click="deleteUser(props.item, 'l\'alumne \''+props.item.nombre+' '+props.item.apellidos+'\'')">
+              <v-icon>delete</v-icon>
+            </v-btn>
             </td>
           </tr>
         </template>

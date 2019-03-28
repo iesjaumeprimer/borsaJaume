@@ -114,7 +114,7 @@ export default {
             if (confirm("¿Segur que vols esborrar " + msg+ "?")) {
                 if (confirm("ATENCIÓ: S'esborraran DEFINITIVAMENT totes les seues dades així com el seu usuari. ¿Vols continar?")) {
                     const index = this.items.indexOf(item);
-                    let itsMy=item.id==myId;
+                    let itsMy=item.id==this.myId;
                     API.delItem('users', item.id)
                     .then(() => {
                       this.items.splice(index, 1);
