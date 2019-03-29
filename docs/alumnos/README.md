@@ -8,7 +8,6 @@ Aquesta pàgina només és accesible per als responsables de la borsa. Un alune 
 - **Cicles**: Cicles que ha estudiar l'alumne en el CIP FP Batoi de cada cicle podem veure:
 
 ![cicle](../img/ciclo.png)
-
     - **Any de finalització**: dins del cercle apareix l'any en que l'alumne va finalitzar aquest cicle
     - **Validat**: el color del cercle indica si aquest cicle ja s'ha validat pel responsable de la borsa (color verd) o encara no (color roig). Al deixar el cursor sobre el cercle apareix un missatge que ens diu si està o no validat
     - **Codi del cicle**: el codi del cicle estudiat. Començarà per CFM si es un cicle formatiu de **grau mitjà** o per CFS si és de **grau superior**
