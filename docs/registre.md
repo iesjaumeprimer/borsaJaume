@@ -6,7 +6,7 @@ Des d'ací ens registrem per a poder utilitzar la borsa de treball. Ens demanen:
 - **Contrasenya**: La contrasenya que utilitzaré (Junt al e-mail) per a loguejar-me. L'hem de repetir per a evitar equivocacions al escriure-la
 - **Tipus d'usuari**: Ací indique si sóc una empresa que vol publicar ofertes de treball o un antic alumne que vol formar parte de la borsa.
 
-Una vegada omplit li donem al botó de **`Continuar`** i ens apareix una nova finestre per a omplir la nostra informació que variarà en funció de si som [una empresa](./empresa) o un [antic alumne](./alumne). 
+Una vegada omplit li donem al botó de **`Continuar`** i ens apareix una nova finestre per a omplir la nostra informació que variarà en funció de si som [una empresa](#registre-duna-nova-empresa) o un [antic alumne](#registre-dun-nou-antic-alumne). 
 
 ## Registre d'una nova empresa
 Una vegada creat l'usuari es crea també una empresa amb el nom indicat i has d'omplir les seues dades:
