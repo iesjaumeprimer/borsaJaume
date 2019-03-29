@@ -20,9 +20,13 @@ Aquesta pàgina només és accesible per als responsables de la borsa. Un alune 
     - **Esborrar**: esborra l'alumne. Això vol dir que s'esborrarà l'alumne i totes les seues dades així com l'usuari que ha creat per a iniciar sessió. Aquesta acció **NO POT DESFER-SE**.
 
 ## Editar un alumne
+Des d'ací podem modificar les dades de l'alumne:
 
 ![Editar alumne](../img/alumnos-edit.png)
 
+Una vegada modificat, per a que es guarden els canvis hem de prèmer el botó de **GUARDAR**. Si volem descartar els canvis polsarem el botó de **CANCEL·LAR**. Per a obtindre ajuda pulsarem sobre la icona de l'interrogant.
+
+Si volem canviar els cicles polsem sobre la línia de cicles finalitzats i es desplegarà una llista amb tots els cicles disponibles. Marquem la casella dels que vulgam i punxem fora de la llista amb el ratolí per a veure els cicles seleccionats:
 
 ![Editar cicles](../img/alumnos-edit-ciclos.png)
 
