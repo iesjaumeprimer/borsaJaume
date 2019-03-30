@@ -1,10 +1,10 @@
 # Cicles formatius impartits en el CIP FP Batoi
 Ací teniu la llista de cicles impartits en el Centre. Cada cicle pertàny a una família professional. Les famílies que trobem en Batoi són:
-- [Administració i gestió](#administracio-i-gestio) (Adm)
+- [Administració i gestió](#administració-i-gestió) (Adm)
 - [Hostaleria i turisme](#hostaleria-i-turisme) (Hos)
 - [Imatge personal](#imatge-personal) (Img)
-- [Informàtica i comunicacions](#informatica-i-comunicacions) (Inf)
-- [Sanitària](#sanitaria) (San)
+- [Informàtica i comunicacions](#informàtica-i-comunicacions) (Inf)
+- [Sanitària](#sanitària) (San)
 - [Serveis socioculturals i a la comunitat](#serveis-socioculturals-i-a-la-comunitat) (Srv)
 
 ## Administració i gestió
