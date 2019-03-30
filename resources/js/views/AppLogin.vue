@@ -1,12 +1,16 @@
 <template>
         <div>
-            <h1>Inicia sessió</h1>
         <div v-for="(error,i) in errors" :key="i">
             <v-alert v-model="error.show" :type="error.type" dismissible>
                 {{ error.msg }}
             </v-alert>
         </div>
+              <v-card>
   <v-form @submit.prevent="submit" ref="form" v-model="valid" lazy-validation>
+            <v-card-title class="grey lighten-4 py-4 title">
+              Inicia sessió
+            </v-card-title>
+            <v-card-text>
             <v-text-field
                 autofocus
                 v-model="item.email" 
@@ -29,10 +33,16 @@
             >
             </v-text-field>
             <p><a href="#">He oblidat la meua contrasenya</a></p>
+            </v-card-text>
+            <v-card-actions>
     <help-button v-if="helpPage" :page="helpPage"></help-button>
+    <v-spacer></v-spacer>
     <v-btn type="submit" :disabled="!valid">Login</v-btn>
     <v-btn @click.stop="registerUser">Registrar-se</v-btn>
+
+            </v-card-actions>
   </v-form>
+              </v-card>
 
     </div>    
 </template>

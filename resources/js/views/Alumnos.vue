@@ -43,26 +43,20 @@
             <td>{{ props.item.nombre }}</td>
             <td>{{ props.item.apellidos }}</td>
             <td>
-              <v-chip 
+              <ciclo-chip 
                 v-for="ciclo in props.item.ciclos" 
-                :key="'cicl-'+ciclo.id_ciclo"
+                :key="ciclo.id_ciclo"
+                :ciclo="ciclo"
+                :nomCiclo="nomCiclo(ciclo.id_ciclo)"
+                :descCiclo="descCiclo(ciclo.id_ciclo)"
                 @dblclick="toogleValida(ciclo, props.item.nombre+' '+props.item.apellidos)"
-                :title="descCiclo(ciclo.id_ciclo)"
-                >
-                <v-avatar 
-                  :color="ciclo.validado?'teal':'red lighten-4'"
-                  :title="ciclo.validado?'Validado':'No validado?'"
-                ><strong>{{ ciclo.any }}</strong></v-avatar>
-
-                {{ nomCiclo(ciclo.id_ciclo) }}
-              </v-chip>
-
+              ></ciclo-chip>
             </td>
             <td><a 
                 v-if="props.item.cv_enlace" 
                 :href="props.item.cv_enlace" 
                 target="_blank">
-                    <v-icon>folder_shared</v-icon>
+                    <v-icon large>folder_shared</v-icon>
             </a></td>
             <td><yes-no-icon :value="props.item.info"></yes-no-icon></td>
             <td><yes-no-icon :value="props.item.bolsa"></yes-no-icon></td>
@@ -93,8 +87,12 @@
               <v-spacer></v-spacer><strong>E-mail:</strong> {{ props.item.email }}
             </v-card-text>
           </v-card>
+          <v-divider></v-divider>
         </template>
 
+        <template  class="text-sm-left" slot="actions-prepend">
+          <help-button v-if="helpPage" :page="helpPage"></help-button>
+        </template>
         <template slot="pageText" slot-scope="props">      
           Registres del {{ props.pageStart }} al {{ props.pageStop }} de {{ props.itemsLength }}
         </template>
@@ -192,7 +190,7 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn flat color="primary">More</v-btn>
+          <help-button v-if="helpPage" :page="helpPage+'#editar-un-alumne'"></help-button>
           <v-spacer></v-spacer>
           <v-btn flat color="primary" @click="addItem">Guardar</v-btn>
           <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
@@ -236,7 +234,7 @@
         </v-layout>
       </v-container>
       <v-card-actions>
-        <v-btn flat color="primary">More</v-btn>
+        <help-button v-if="helpPage" :page="helpPage+'#editar-un-alumne'"></help-button>
         <v-spacer></v-spacer>
         <v-btn flat color="primary" @click="validaCiclo">Guardar</v-btn>
         <v-btn flat @click="closeDialogCiclo()">Cancel·lar</v-btn>
@@ -252,14 +250,19 @@ import API from '../lib/API';
 import YesNoIcon from '../components/base/YesNoIcon'
 import formRulesMixin from '../mixins/formRules.js';
 import utilsMixin from '../mixins/utils.js';
+import CicloChip from '../components/base/CicloChip';
+import HelpButton from '../components/base/HelpButton';
 
 export default {
   mixins: [formRulesMixin, utilsMixin],
   components: {
-        YesNoIcon
+        YesNoIcon,
+        HelpButton,
+        CicloChip
   },
   data: () => ({
     table: 'alumnos',
+    helpPage: 'alumnos',
     headers: [
       { text: "Id", value: "id" },
       { text: "Nom", value: "nombre" },
@@ -352,3 +355,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  a {
+    text-decoration: none;
+  }
+</style>

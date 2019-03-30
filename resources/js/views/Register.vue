@@ -93,8 +93,12 @@
 
               </div>
             </v-flex>
-            <v-flex>
+          </v-layout>
+        </v-container>
+        </v-form>
+        <v-card-actions>
             <help-button v-if="helpPage" :page="helpPage"></help-button>
+            <v-spacer></v-spacer>
         <v-btn
           bottom
           right
@@ -105,11 +109,7 @@
           <v-icon>add</v-icon>Continuar
         </v-btn>
 
-            </v-flex>
-
-          </v-layout>
-        </v-container>
-        </v-form>
+        </v-card-actions>
       </v-card>
     </div>
 </template>
@@ -122,9 +122,10 @@ import HelpButton from '../components/base/HelpButton';
 
 export default {
   mixins: [utilsMixin, formRulesMixin],
-  components: {HelpButton },
+  components: { HelpButton },
   props: ['username', 'password', 'rol'],
       data: () => ({
+        helpPage: 'registre',
         item: {},
         show: false,
     }),

@@ -64,14 +64,13 @@
         <td>{{ props.item.puesto }}</td>
         <td>{{ props.item.tipo_contrato }}</td>
         <td>
-          <v-chip 
-            v-for="ciclo in props.item.ciclos" 
-            :key="'cicl-'+ciclo.id_ciclo"
-            :title="descCiclo(ciclo.id_ciclo)"
-          >
-            <v-avatar color="grey"><strong>{{ ciclo.any_fin }}</strong></v-avatar>
-            {{ nomCiclo(ciclo.id_ciclo) }}
-        </v-chip>
+              <ciclo-chip 
+                v-for="ciclo in props.item.ciclos" 
+                :key="ciclo.id_ciclo"
+                :ciclo="ciclo"
+                :nomCiclo="nomCiclo(ciclo.id_ciclo)"
+                :descCiclo="descCiclo(ciclo.id_ciclo)"
+              ></ciclo-chip>
         </td>
         <td class="justify-center layout px-0">
           <v-btn 
@@ -115,8 +114,12 @@
                {{ alum.telefono }}
              </div></v-card-text>
         </v-card>
+        <v-divider></v-divider>
       </template>
 
+        <template  class="text-sm-left" slot="actions-prepend">
+          <help-button v-if="helpPage" :page="helpPage"></help-button>
+        </template>
     <template slot="pageText" slot-scope="props">      
         Registres del {{ props.pageStart }} al {{ props.pageStop }} de {{ props.itemsLength }}
         </template>
@@ -261,7 +264,7 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn flat color="primary">Help</v-btn>
+          <help-button v-if="helpPage" :page="helpPage+(isNew?'#crear-una-nova-oferta':'#editar-una-oferta')"></help-button>
           <v-spacer></v-spacer>
           <v-btn flat color="primary" @click="addItem">Guardar</v-btn>
           <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
@@ -296,14 +299,19 @@ import API from '../lib/API';
 import formRulesMixin from '../mixins/formRules.js';
 import utilsMixin from '../mixins/utils.js';
 import YesNoIcon from '../components/base/YesNoIcon';
+import HelpButton from '../components/base/HelpButton';
+import CicloChip from '../components/base/CicloChip';
 
 export default {
   mixins: [formRulesMixin, utilsMixin],
   components: {
-    YesNoIcon
+    YesNoIcon,
+    HelpButton,
+    CicloChip,
   },
   data: () => ({
     table: "ofertas",
+    helpPage: 'ofertas',
     headers: [
       { text: "Activa", value: "activa" },
       { text: "Empresa", value: "id_empresa" },

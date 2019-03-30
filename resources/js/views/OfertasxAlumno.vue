@@ -113,6 +113,7 @@
         </v-card>
          </v-flex>
          </v-layout>
+                 <v-divider></v-divider>
       </template>
 
     <template slot="pageText" slot-scope="props">      

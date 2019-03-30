@@ -29,11 +29,23 @@
       registrar-te</a> i crear el teu compte. Si ja el tens només 
       t'has de <a @click.prevent="$router.push('/login')">loguejar</a>.
     </p>
+    <h2>Obtindre ajuda</h2>
+    <p>En la majoria de pantalles ens apareixerá a la part inferior esquerra
+       una icona amb un interrogant que ens obrirà una nova
+       finestra e el navegador amb l'ajuda per a eixa pantalla.
+    </p>
+    <help-button v-if="helpPage" :page="helpPage"></help-button>
   </div>
 </template>
 
 <script>
+  import HelpButton from '../components/base/HelpButton';
+
   export default {
+    components: { HelpButton },
+    data: () => ({
+      helpPage: '/',
+    }),
     mounted() {
       this.$emit('setTitle', 'Inici');
     },

@@ -78,6 +78,9 @@
         </v-card>
       </template>
 
+        <template  class="text-sm-left" slot="actions-prepend">
+          <help-button v-if="helpPage" :page="helpPage"></help-button>
+        </template>
     <template slot="pageText" slot-scope="props">
         Registres del {{ props.pageStart }} al {{ props.pageStop }} de {{ props.itemsLength }}
         </template>
@@ -184,7 +187,7 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <help-button v-if="helpPage" :page="helpPage"></help-button>
+          <help-button v-if="helpPage" :page="helpPage+'#editar-una-empresa'"></help-button>
           <v-spacer></v-spacer>
           <v-btn flat color="primary" :disabled="!valid" @click="addItem">Guardar</v-btn>
           <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
