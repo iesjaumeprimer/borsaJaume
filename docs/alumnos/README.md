@@ -16,7 +16,7 @@ Aquesta pàgina només és accesible per als responsables de la borsa. Un alumne
 - **Borsa**: Indica si l'alumne vol participar en la borsa de treball i rebre informació d'ofertes
 - **Accions**: Ací tenim icones per a:
     - **Més dades**: apareix a més el domicil·li, telèfon i e-mail de l'alumne
-    - ![Edit](https://github.com/google/material-design-icons/image/1x_web/ic_edit_black_18dp.png) **[Editar](#editar-un-alumne)**: ens permet modificar les dades de l'alumne
+    - **[Editar](#editar-un-alumne)**: ens permet modificar les dades de l'alumne
     - **Esborrar**: esborra l'alumne. Això vol dir que s'esborrarà l'alumne i totes les seues dades així com l'usuari que ha creat per a iniciar sessió. Aquesta acció **NO POT DESFER-SE**.
 
 ## Editar un alumne
