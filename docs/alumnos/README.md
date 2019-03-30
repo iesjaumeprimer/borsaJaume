@@ -1,5 +1,5 @@
 # Manteniment d'Alumnes
-Aquesta pàgina només és accesible per als responsables de la borsa. Un alune ací només pot veure les seues dades. La informació que trobem és:
+Aquesta pàgina només és accesible per als responsables de la borsa. Un alumne ací només pot veure les seues dades. La informació que trobem és:
 
 ![Alumnes](../img/alumnos.png)
 
