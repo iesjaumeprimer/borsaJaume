@@ -70,7 +70,7 @@ export default {
       methods: {
           submit() {
             console.error('login')
-            API.getUser(this.item)
+            API.loginUser(this.item)
             .then(resp => {
               if (resp.data.access_token) {
                 sessionStorage.access_token=resp.data.access_token;
