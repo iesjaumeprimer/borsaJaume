@@ -57,7 +57,26 @@ Hem d'indicar l'any de finalització i marcar la casella de **_'Validar'_**. Pod
 ## Registrar una nova empresa
 Si rebrem una oferta d'una empresa que no vol donar-se d'alta en la nostra borsa ho haurem de fer nosaltres per ella. Abans de crear una nova empresa s'ja de comprovar que no està ja creada (potser ha publicat alguna oferta d'altre cicle anteriorment). Desde el menú **_'Empreses_** podem veure totes les que hi ha i filtrar-les per nom, CIF, localitat, ...
 
-Si no està l'haurem de crear.Al crear-la es crearà un nou usuari (per a que es puga loguejar per a veure els nteressats en l'oferta) i una nova empresa.
+Si no està l'haurem de crear.Al crear-la es crearà un nou usuari (per a que es puga loguejar per a veure els nteressats en l'oferta) i una nova empresa. Ho farem des del menú **_'Usuaris'_** amb el botó de **_'Nou usuari'_** (botó blau amb + sobre la taula, en la part dreta).
+
+EL primer pas es crear l'usuari per a la qual cosa hem d'introduir:
+- Nom: el nom de l'empresa
+- Rol: serà _Empreador_ (no ho podem canviar)
+- E-mail: el e-mail de l'empresa per a contactar amb ells. És obligatori
+- Contrasenya: li posem una contrasenya, que pot ser el seu cif, 123456, o el que vulgam. L'empresa la podrà anviar quan ho dessitge
+
+![Nou usuari](../img/usuari-nou.png)
+
+Amb això hem creat l'usuari i l'empresa però les seues dades estan buides. Ara les hem de completar:
+- Cif: és convenient posar-ho per a asesgurar-nos de no tindre 2 vegades la mateixa empresa
+- Domicil·li, Localitat, Telèfon, Persona de contacte, Pàgina web
+- Descripció: és un camp opcional per si volem posar altra informació sobre l'empresa
+
+![Editar empresa](../img/empresa-edit.png)
+
+L'empresa rebrà un e-mail (en el e-mail indicat al crear l'usuari) informant-li de que se li ha donat d'alta en la borsa. Quan confirme aquest e-mail ja podrà accedir a l'aplicació amb el e-mail i contrasenya indicades per nosaltres.
 
 ## Crear una nova oferta
+Per a crear una nova oferta de treball hem d'assegurar-nos prèviament de qe la empresa ja existeix (i si no donar-la d'alta com hem vist abans).
+
 
