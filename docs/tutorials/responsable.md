@@ -12,7 +12,7 @@ Quan una empresa crea una nova oferta s'envia un e-mail al responsable del cicle
 
 Al entrar a l'aplicació i anar a **_'Ofertes'_** veurem totes les ofertes que hi ha actualment dels cicles dels quals som responsables:
 
-![Ofertas](../img/ofertas.png)
+![Ofertes](../img/ofertas.png)
 
 El primer camp (**_'Activa'_**) indica:
 - Validada: si la oferta ja està validada (color **verd**) o encara no (color **roig**)
@@ -27,9 +27,18 @@ Una vegada validada cada alumne que tinga un dels cicles sol·licitats rebrà un
 - X (roig): l'alumne NO està interessat en aquesta oferta
 - ? (roig): l'alumne no ha indicat si està o no interessat
 
+![Ofertes per alumne](../img/ofertas-alumno.png)
 
 Si la empresa ha marcat en l'oferta el camp de **_'Mostrar contacte'_**, els alumnes, junt a la informació de l'oferta tindran un botó (+) que els mostrarà com poder contactar amb aquesta empresa:
 
+![Ofertes per alumne](../img/ofertas-alumno-mas.png)
 
 Quan l'empresa entra a l'aplicació  a veure les seues ofertes, la primera icona que l'apareixerà serà la de veure els alumnes interessats:
+
+![Ofertes - interessats](../img/ofertas-interesados.png)
+
+## Validar cicles d'un alumne
+Els alumnes al registrar-se indiquen els cicles que han finalitzat en el nostre Centre. Nosaltres som els responsables de validar que realment han fet els cicles indicats i en quin any l'han acabat.
+
+Al entrar a l'aplicació i anar al menú **_'Alumnes'_** ens apareixen tots els alumnes amb cicles dels quals som responsables:
 
