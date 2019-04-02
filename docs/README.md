@@ -6,9 +6,13 @@ Si ets una empresa pots publicar ofertes de treball que els antics alumnes regis
 
 La primera vegada que vulgues utilitzar aquesta borsa t'has de registrar indicant un nom d'usuari, un email i una contrasenya. Una vegada registrat hauràs d'introduir la informació de la teua empresa (nom, adreça, persona de contacte, etc) i ja pots començar a treballar amb la borsa i ha publicar ofertes.
 
+Per a saber cón utilitzar la nostra borsa de treball pots veure el [Manual per a l'empresa](./tutorials/empresa.md) de la borsa.
+
 ## Soc un antic alumne
 Si has estudiat algun cicle formatiu en el CIP FP Batoi es pots apuntar a la borsa per a rebre ofertes de treball que demanen algun dels cicles que has estudiat. La primera vegada que vulgues utilitzar aquesta borsa t'has de registrar indicant un nom d'usuari, un email i una contrasenya. Una vegada registrat hauràs d'introduir la teua informació de contacte (nom, adreça, telèfon, email, etc) i els cicles que has estudiat en Batoi. És molt recomanable introduir també la pàgina web on tingues el teu C.V. (com Linkedin o similar) per a que les empreses que publiquen una oferta el puguen veure. També has de indicar si vols partcipar en la borsa de treball i/o si vols rebre informació del Centre. Una vegada fet ja pots començar a treballar amb la borsa i ha publicar ofertes.
 
 Una vegada el responsable del teu cicle verifique que realment has finalitzat els cicles que has indicat rebras un email cada vegada que es publique una oferta que demane un dels teus cicles. A més pots loguejar-te i veure totes les ofertes disponibles per a tú.
+
+Per a saber cón utilitzar la nostra borsa de treball pots veure el [Manual per a l'alumne](./tutorials/alumne.md) de la borsa.
 
 ![Home](./img/home.png)
