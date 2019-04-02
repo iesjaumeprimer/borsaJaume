@@ -34,7 +34,7 @@ Una vegada creat l'usuari es crea també un alumne amb el nom indicat i has d'om
 - Borsa treball: només formarem part de la borsa si marquem aquesta casella
 - Cicles finalitzats: és un desplegable on marquem TOTS els cicles que hem estudiat al CIP FP Batoi. Quan una empresa publica una oferta indica el cicle que han de tindre els aspirants i només ens apareixerà la oferta si nosaltres tenim algun dels cicles sol·licitats
 
-En la part inferior tenim com semple els botons de:
+En la part inferior tenim com sempre els botons de:
 - Ajuda: ens envia a aquesta pàgina
 - Guardar: es guarden les dades introduïdes
 - Cancel·lar: es tanca aquesta finestra sense guardar res
