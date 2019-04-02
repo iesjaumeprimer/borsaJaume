@@ -96,8 +96,8 @@ Ara estem en la pantalla de **_'Ofertes'_** i per a crear una nova clickem en el
 
 Ara hem de validar l'oferta. Per a això fem doble click sobre la icona de **_'Activa/Validada'_** que ara estarà en roig (perquè està sense validar):
 
-![Valdtar oferta](../img/oferta-validar.png)
+![Valdar oferta](../img/oferta-validar.png)
 
 Una vegada validada una oferta activa tots els alumnes de la borsa que complisquen els criteris indicats rebran un email amb aquesta oferta. Els que estiguen interessats ho indicaran i a partir d'eixe moment ens apareixeran en la taula ofertes al polsar sobre el botó d'**alumnes interessats**.
 
-![Interessats en oferta](../img/oferta-interesados.png)
+![Interessats en oferta](../img/ofertas-interesados.png)
