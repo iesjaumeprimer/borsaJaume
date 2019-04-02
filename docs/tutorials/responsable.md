@@ -79,18 +79,25 @@ L'empresa rebrà un e-mail (en el e-mail indicat al crear l'usuari) informant-li
 ## Crear una nova oferta
 El primer que farem és anar al menú **_'Empreses'_** per a assegurar-nos de que la empresa ja existeix (i si no donar-la d'alta com hem vist abans). Quan la trobem clickem en botó de **_'Veure ofertes'_** (l'últim) i ens apareixen les ofertes d'eixa empresa.
 
+![Ofertes](../img/ofertas.png)
+
 Ara estem en la pantalla de **_'Ofertes'_** i per a crear una nova clickem en el botó de **_'Nova oferta'_** (botó blau amb **+** sobre la taula, en la part dreta). Els camps que hem d'omplir són:
-- Activa: si volem que l'oferta siga visible per als alumnes. Per defecte sí
-- Empresa: desplegable on seleccionem l'empresa de l'oferta. Si ho hem fet com s'indica ja ens apareix l'empresa seleccionada. Si no l'hem de seleccionar nosaltres
-- Telèfon, email i persona de contacte: per defecte es posen els de l'empresa seleccionada (i si camviem l'empresa es canviaran). Poden posar els que vulgam
-- Mostrar contacte: si marquem aquesta casella els alumnes podran veure la informació anterior (telèfon, email i persona de contacte) junt a l'oferta. Si no no veuren més que el nom de l'empresa i serà l'empresa la encarregada de posar-se en contacte amb ells. Per defecte està marcada
-- Lloc de treball: el lloc de treball oferit
-- Descripció: una descripció més detallada del mateix
-- Tipus de contracte: informació sobre el contracte oferit (temps parcial, indefinit, ...)
-- Cicles demanats: ací marquem els cicles que demanem als aspirants. Si podem més d'un cicle busquem persones que tinguen qualsevol dels cicles marcats
-- Any màxim d'acabar: per defecte està buit però si posem un any només acceptem aspirants que hagen acabat el cicle l'any indicat o posterior
+- **Activa**: si volem que l'oferta siga visible per als alumnes que només poden veure les ofertes actives i validades. Per defecte sí
+- **Empresa**: desplegable on seleccionem l'empresa de l'oferta. Si ho hem fet com s'indica ja ens apareix l'empresa seleccionada. Si no l'hem de seleccionar nosaltres
+- **Telèfon**, **email** i **persona de contacte**: per defecte es posen els de l'empresa seleccionada (i si camviem l'empresa es canviaran). Poden posar els que vulgam
+- **Mostrar contacte**: si marquem aquesta casella els alumnes podran veure la informació anterior (telèfon, email i persona de contacte) junt a l'oferta. Si no no veuren més que el nom de l'empresa i serà l'empresa la encarregada de posar-se en contacte amb ells. Per defecte està marcada
+- **Lloc de treball**: el lloc de treball oferit
+- **Descripció**: una descripció més detallada del mateix
+- **Tipus de contracte**: informació sobre el contracte oferit (temps parcial, indefinit, ...)
+- **Cicles demanats**: llista desplegable on seleccionem el cicle que ha de tindre un alumne per a poder veure aquesta oferta. Si seleccionem més d'un cicle la oferta els apareixerà a tots els alumnes que tinguen algun dels cicles seleccionats. Pots consultar la llista de [cicles formatius](../ciclos/lista.md) impartits al Centre.
+- **Any màxim d'acabar**: aquest camp és opcional. Si posem un any l'oferta només es mostrarà als alumnes que hagen acabat els seus estudis amb posterioritat a l'any indicat. Si ho deixem en blanc se li mostrarà a tots els alumnes que tinguen el cicle.
 
 ![Editar oferta](../img/oferta-edit.png)
 
+Ara hem de validar l'oferta. Per a això fem doble click sobre la icona de **_'Activa/Validada'_** que ara estarà en roig (perquè està sense validar):
 
-Quan l t
+![Valdtar oferta](../img/oferta-validar.png)
+
+Una vegada validada una oferta activa tots els alumnes de la borsa que complisquen els criteris indicats rebran un email amb aquesta oferta. Els que estiguen interessats ho indicaran i a partir d'eixe moment ens apareixeran en la taula ofertes al polsar sobre el botó d'**alumnes interessats**.
+
+![Interessats en oferta](../img/oferta-interesados.png)
