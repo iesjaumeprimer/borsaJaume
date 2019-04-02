@@ -46,7 +46,7 @@ Al entrar a l'aplicació i anar al menú **_'Alumnes'_** ens apareixen tots els 
 
 Cada cicle te un cercle en que es mostra l'anyo en que l'alumne el va finalitzar, que serà de color **verd** si està **validat** i **roig** si no ho està. Si deixem el ratolí sobre el codi del cicle ens apareix el seu nom sencer:
 
-![Cicles](../img/ciclos.png)
+![Cicles](../img/ciclo.png)
 
 Per a validar un cicle hem de fer doble click sobre el mateix:
 
@@ -57,9 +57,13 @@ Hem d'indicar l'any de finalització i marcar la casella de **_'Validar'_**. Pod
 ## Registrar una nova empresa
 Si rebrem una oferta d'una empresa que no vol donar-se d'alta en la nostra borsa ho haurem de fer nosaltres per ella. Abans de crear una nova empresa s'ja de comprovar que no està ja creada (potser ha publicat alguna oferta d'altre cicle anteriorment). Desde el menú **_'Empreses_** podem veure totes les que hi ha i filtrar-les per nom, CIF, localitat, ...
 
+![Empreses](../img/empresas.png)
+
 Si no està l'haurem de crear. Al crear-la es crearà un nou usuari (per a que es puga loguejar per a veure els nteressats en l'oferta) i una nova empresa. Ho farem des del menú **_'Usuaris'_** amb el botó de **_'Nou usuari'_** (botó blau amb **+** sobre la taula, en la part dreta).
 
-EL primer pas es crear l'usuari per a la qual cosa hem d'introduir:
+![Usuaris](../img/usuarios.png)
+
+El primer pas es crear l'usuari per a la qual cosa hem d'introduir:
 - Nom: el nom de l'empresa
 - Rol: serà _Empleador_ (no ho podem canviar)
 - E-mail: el e-mail de l'empresa per a contactar amb ells. És obligatori
