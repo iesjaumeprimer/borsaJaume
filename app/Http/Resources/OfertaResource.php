@@ -26,6 +26,7 @@ class OfertaResource extends JsonResource
              'contacto' => $this->contacto,
              'telefono' => $this->telefono,
              'email' => $this->email,
+             'mostrar_contacto' => $this->mostrar_contacto,
              'validada' => $this->validada,
              'any' => $this->any,
              'archivada' => $this->archivada,

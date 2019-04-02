@@ -20,12 +20,18 @@
             >
             </v-text-field>
             <v-text-field
-                autofocus
                 v-model="item.email" 
                 label="e-Mail" 
                 title="e-Mail" 
                 required
                 :rules="emailRules"
+            >
+            </v-text-field>
+            <v-text-field
+                v-model="rol" 
+                label="Rol" 
+                title="Rol" 
+                disabled
             >
             </v-text-field>
         <v-btn @click="chgPassword">Canviar la contrasenya</v-btn>
@@ -47,19 +53,20 @@ import API from '../lib/API';
 import utilsMixin from '../mixins/utils.js';
 import formRulesMixin from '../mixins/formRules.js';
 import HelpButton from '../components/base/HelpButton';
+import { ROLES } from '../app.constants';
 
 export default {
   mixins: [utilsMixin, formRulesMixin],
   components: {HelpButton },
       data() { 
           return {
-            helpPage: "login",
+            helpPage: "perfil",
             item: {
               name: '',
               email: ''
             },
-            password2: '',
-            show: false,
+            roles: ROLES,
+            rol: '',
             }
       },
     mounted() {
@@ -72,6 +79,7 @@ export default {
             .then(resp=>{
               this.item.name=resp.data.data.name;
               this.item.email=resp.data.data.email;
+              this.rol=this.roles.find(rol=>rol.id==resp.data.data.rol).rol;
             })
             .catch(err=>msgErr(err));
         },

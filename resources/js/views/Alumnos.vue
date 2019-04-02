@@ -54,6 +54,7 @@
             </td>
             <td><a 
                 v-if="props.item.cv_enlace" 
+                :title="props.item.cv_enlace" 
                 :href="props.item.cv_enlace" 
                 target="_blank">
                     <v-icon large>folder_shared</v-icon>
@@ -71,6 +72,9 @@
               </v-btn>
             <v-btn icon class="mx-0" @click="deleteUser(props.item, 'l\'alumne \''+props.item.nombre+' '+props.item.apellidos+'\'')">
               <v-icon>delete</v-icon>
+            </v-btn>
+            <v-btn icon class="mx-0" @click.stop="showItem(props.item.id)" title="Veure ofertes">
+              <v-icon>event_note</v-icon>
             </v-btn>
             </td>
           </tr>
@@ -234,7 +238,6 @@
         </v-layout>
       </v-container>
       <v-card-actions>
-        <help-button v-if="helpPage" :page="helpPage+'#editar-un-alumne'"></help-button>
         <v-spacer></v-spacer>
         <v-btn flat color="primary" @click="validaCiclo">Guardar</v-btn>
         <v-btn flat @click="closeDialogCiclo()">Cancel·lar</v-btn>
@@ -351,6 +354,9 @@ export default {
             this.msgOk('updateCiclo', 'Ciclo '+(resp.data.validado?'validado':'desvalidado')+' correctamente');
           })
           .catch(err => this.msgErr('3'+err));      
+    },
+    showItem(id) {
+      this.$router.push({ path: '/ofertas-alum', query: { id_alumno: id }})
     }
   }
 };

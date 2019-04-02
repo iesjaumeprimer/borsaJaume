@@ -69,7 +69,8 @@
         </td>
         <td>{{ props.item.any }}</td>
         <td class="justify-center layout px-0">
-          <v-btn icon class="mx-0" @click="props.expanded = !props.expanded" title="Més dades">
+          <v-btn v-if="props.item.mostrar_contacto" icon class="mx-0" title="Més dades"
+            @click="props.expanded = !props.expanded">
             <v-icon>{{ props.expanded?'remove':'add' }}</v-icon>
           </v-btn>
         </td>
@@ -127,15 +128,15 @@
   <v-layout row justify-center>
     <v-dialog v-model="dialogValidar" persistent max-width="290">
       <v-card>
-        <v-card-title class="headline">{{ ofertaValidar.interesado==1?'Desapuntar-te':'Apuntar-te'}} a l'Oferta</v-card-title>
+        <v-card-title class="headline">{{ ofertaInteressat.interesado==1?'Desapuntar-te':'Apuntar-te'}} a l'Oferta</v-card-title>
         <v-card-text>
-          Vas a {{ ofertaValidar.interesado==1?'Desapuntar-te':'Apuntar-te'}} a l'oferta '
-            <strong>{{ ofertaValidar.puesto }}</strong>
+          Vas a {{ ofertaInteressat.interesado==1?'Desapuntar-te':'Apuntar-te'}} a l'oferta '
+            <strong>{{ ofertaInteressat.puesto }}</strong>
             '. ¿Deseas continuar?
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat @click.native="validaOferta">Aceptar</v-btn>
+          <v-btn color="green darken-1" flat @click.native="apuntaOferta">Aceptar</v-btn>
           <v-btn color="green darken-1" flat @click.native="dialogValidar = false">Cancel·lar</v-btn>
         </v-card-actions>
       </v-card>
@@ -172,7 +173,7 @@ export default {
     ciclos: [],
     // Dialog validar
     dialogValidar: false,
-    ofertaValidar: {},
+    ofertaInteressat: {},
   }),
   mounted() {
     this.$emit("setTitle", "Ofertes actives");
@@ -233,12 +234,12 @@ export default {
     },
     openDialogValidar(oferta) {
         this.dialogValidar = true;
-        this.ofertaValidar = oferta;
+        this.ofertaInteressat = oferta;
     },
-    validaOferta() {
-      console.error(this.ofertaValidar.interesado==1?false:true);
-      API.updateInteresado(this.ofertaValidar.id, this.ofertaValidar.interesado==1?false:true)
-      .then(res=>this.ofertaValidar.interesado=res.data.interesado)
+    apuntaOferta() {
+      console.error(this.ofertaInteressat.interesado==1?false:true);
+      API.updateInteresado(this.ofertaInteressat.id, this.ofertaInteressat.interesado==1?false:true)
+      .then(res=>this.ofertaInteressat.interesado=res.data.interesado)
       .catch(err => this.msgErr(err));
       this.dialogValidar = false;
     },

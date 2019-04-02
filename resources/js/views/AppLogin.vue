@@ -82,7 +82,8 @@ export default {
                   rol: Number(resp.data.rol),
                   name: resp.data.name
                 });
-                this.$router.push('/ofertas');
+                if (resp.data.rol==7) this.$router.push('/ofertas-alum')
+                else this.$router.push('/ofertas')
               } else {
                 this.msgErr('ERROR, no s\'ha pogut loguejar: '+resp.data);
               }

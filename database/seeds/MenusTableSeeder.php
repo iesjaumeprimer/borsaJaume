@@ -115,7 +115,7 @@ class MenusTableSeeder extends Seeder
             'icon'=>'event_note',
             'text'=>'Ofertes',
             'path'=>'/ofertas',
-            'rol'=>210,
+            'rol'=>30,
             'parent'=>NULL,
             'model'=>0,
             'active'=>1,
@@ -202,5 +202,21 @@ class MenusTableSeeder extends Seeder
             'comments'=>NULL,
             'icon_alt'=>NULL
         ] );
+
+        Menu::create( [
+            'id'=>15,
+            'order'=>10,
+            'icon'=>'event_note',
+            'text'=>'Ofertes',
+            'path'=>'/ofertas-alum',
+            'rol'=>7,
+            'parent'=>NULL,
+            'model'=>0,
+            'active'=>1,
+            'comments'=>NULL,
+            'icon_alt'=>NULL
+        ] );
+
+
     }
 }

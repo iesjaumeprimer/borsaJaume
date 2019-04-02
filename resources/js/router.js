@@ -100,7 +100,13 @@ export default new Router({
     {
       path: '/ofertas',
       name: 'ofertas',
-      component: (sessionStorage.user_rol==7?OfertasxAlumno:Ofertas),
+      component: Ofertas,
+      beforeEnter: ifAuthenticated,
+    },
+    {
+      path: '/ofertas-alum',
+      name: 'ofertas-alum',
+      component: OfertasxAlumno,
       beforeEnter: ifAuthenticated,
     },
     // {
