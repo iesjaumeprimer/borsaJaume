@@ -5,7 +5,7 @@ Els responsables de la borsa poden veure les ofertes de totes les empreses. Resp
 
 La informació que trobem ací és:
 
-![Ofertas](../img/alumnos.png)
+![Ofertes](../img/ofertas.png)
 
 - **Activa**: Indica si l'oferta està actualment **activa** (V) o no (X). La empresa és que pot desactivar una oferta. Si la desactiva la oferta deixarà d'aparèixer-li als alumnes. A més el color indica si aquesta oferta ha estat ja **validada** pel responsable de la borsa (color verd) o encara no (color roig). Només els apareixen als alumnes les ofertes actives i validades
 - **Empresa**: Nom de l'empresa que publica aquesta oferta
@@ -19,13 +19,14 @@ La informació que trobem ací és:
 
 ## Crear una nova oferta
 Per a crear una nova oferta pulsem en el botó d'afegir (+ blau) que trobem sobre la taula a la part dreta. La informació que hem d'omplir és:
-- **Activa**: si ja està activa aquesta oferta. Només les ofertes actives i validades els apareixeran als alumnes. Quan vulguem publicar l'oferta marcarem la casella d'activa.
+- **Activa**: si està activa aquesta oferta. Només les ofertes actives i validades els apareixeran als alumnes. Quan vulguem publicar l'oferta marcarem la casella d'activa.
 - **Validada**: aquesta casella només la pot marcar el responsable de la borsa una vegada revisada l'oferta. Només les ofertes actives i validades els apareixeran als alumnes
 - **Empresa** que publica l'oferta. Ja apareix seleccionada la meua empresa
-- **Telèfon**, **e-mail** i **persona de contacte**: les dades de contacte per a aquesta oferta. Per defecte apareixen les dades de la nostra empresa però les poden canviar. Aquesta informacií la veuran els alumnes per a contactar amb nosaltres
+- **Telèfon**, **e-mail** i **persona de contacte**: les dades de contacte per a aquesta oferta. Per defecte apareixen les dades de la nostra empresa però les poden canviar. Aquesta informació la veuran els alumnes per a contactar amb nosaltres si marquem la casella de _'Mostrar contacte'_
+- **Mostrar contacte**: si marquem aquesta casella els alumnes podran veure la informació anterior (telèfon, email i persona de contacte) junt a l'oferta. Si no, no veuran més que el nom de l'empresa i serà l'empresa la encarregada de posar-se en contacte amb ells. Per defecte està marcada
 - **Lloc de treball**: informació del lloc de trebal oferit
 - **Descripció**: una descripció mes llarga del treball oferit
-- **Tipus de contracte**
+- **Tipus de contracte**: informació sobre el contracte oferit (temps parcial, indefinit, ...)
 - **Cicles demanats**: llista desplegable on seleccionem el cicle que ha de tindre un alumne per a poder veure aquesta oferta. Si seleccionem més d'un cicle la oferta els apareixerà a tots els alumnes que tinguen algun dels cicles seleccionats. Pots consultar la llista de [cicles formatius](../ciclos/lista.md) impartits al Centre.
 - **Any màxim d'acabar el cicle**: aquest camp és opcional. Si posem un any l'oferta només es mostrarà als alumnes que hagen acabat els seus estudis amb posterioritat a l'any indicat. Si ho deixem en blanc se li mostrarà a tots els alumnes que tinguen el cicle.
 
