@@ -1,4 +1,4 @@
-# Tutorial dels Responsables de la borsa de treball
+# Manual dels Responsables de la borsa de treball
 Els responsables de la borsa tenen 2 funcions principals:
 - [Validar les ofertes](#validar-oferta) de treball publicades per les empreses que demanen un cicle del qual és responsable
 - [Validar els cicles dels alumnes](#validar-cicles-dun-alumne) dels qual és reaponsable
@@ -57,13 +57,13 @@ Hem d'indicar l'any de finalització i marcar la casella de **_'Validar'_**. Pod
 ## Registrar una nova empresa
 Si rebrem una oferta d'una empresa que no vol donar-se d'alta en la nostra borsa ho haurem de fer nosaltres per ella. Abans de crear una nova empresa s'ja de comprovar que no està ja creada (potser ha publicat alguna oferta d'altre cicle anteriorment). Desde el menú **_'Empreses_** podem veure totes les que hi ha i filtrar-les per nom, CIF, localitat, ...
 
-Si no està l'haurem de crear.Al crear-la es crearà un nou usuari (per a que es puga loguejar per a veure els nteressats en l'oferta) i una nova empresa. Ho farem des del menú **_'Usuaris'_** amb el botó de **_'Nou usuari'_** (botó blau amb + sobre la taula, en la part dreta).
+Si no està l'haurem de crear. Al crear-la es crearà un nou usuari (per a que es puga loguejar per a veure els nteressats en l'oferta) i una nova empresa. Ho farem des del menú **_'Usuaris'_** amb el botó de **_'Nou usuari'_** (botó blau amb **+** sobre la taula, en la part dreta).
 
 EL primer pas es crear l'usuari per a la qual cosa hem d'introduir:
 - Nom: el nom de l'empresa
-- Rol: serà _Empreador_ (no ho podem canviar)
+- Rol: serà _Empleador_ (no ho podem canviar)
 - E-mail: el e-mail de l'empresa per a contactar amb ells. És obligatori
-- Contrasenya: li posem una contrasenya, que pot ser el seu cif, 123456, o el que vulgam. L'empresa la podrà anviar quan ho dessitge
+- Contrasenya: li posem una contrasenya, que pot ser el seu cif, 123456, o el que vulgam. L'empresa la podrà canviar quan ho dessitge
 
 ![Nou usuari](../img/usuari-nou.png)
 
@@ -77,6 +77,20 @@ Amb això hem creat l'usuari i l'empresa però les seues dades estan buides. Ara
 L'empresa rebrà un e-mail (en el e-mail indicat al crear l'usuari) informant-li de que se li ha donat d'alta en la borsa. Quan confirme aquest e-mail ja podrà accedir a l'aplicació amb el e-mail i contrasenya indicades per nosaltres.
 
 ## Crear una nova oferta
-Per a crear una nova oferta de treball hem d'assegurar-nos prèviament de qe la empresa ja existeix (i si no donar-la d'alta com hem vist abans).
+El primer que farem és anar al menú **_'Empreses'_** per a assegurar-nos de que la empresa ja existeix (i si no donar-la d'alta com hem vist abans). Quan la trobem clickem en botó de **_'Veure ofertes'_** (l'últim) i ens apareixen les ofertes d'eixa empresa.
+
+Ara estem en la pantalla de **_'Ofertes'_** i per a crear una nova clickem en el botó de **_'Nova oferta'_** (botó blau amb **+** sobre la taula, en la part dreta). Els camps que hem d'omplir són:
+- Activa: si volem que l'oferta siga visible per als alumnes. Per defecte sí
+- Empresa: desplegable on seleccionem l'empresa de l'oferta. Si ho hem fet com s'indica ja ens apareix l'empresa seleccionada. Si no l'hem de seleccionar nosaltres
+- Telèfon, email i persona de contacte: per defecte es posen els de l'empresa seleccionada (i si camviem l'empresa es canviaran). Poden posar els que vulgam
+- Mostrar contacte: si marquem aquesta casella els alumnes podran veure la informació anterior (telèfon, email i persona de contacte) junt a l'oferta. Si no no veuren més que el nom de l'empresa i serà l'empresa la encarregada de posar-se en contacte amb ells. Per defecte està marcada
+- Lloc de treball: el lloc de treball oferit
+- Descripció: una descripció més detallada del mateix
+- Tipus de contracte: informació sobre el contracte oferit (temps parcial, indefinit, ...)
+- Cicles demanats: ací marquem els cicles que demanem als aspirants. Si podem més d'un cicle busquem persones que tinguen qualsevol dels cicles marcats
+- Any màxim d'acabar: per defecte està buit però si posem un any només acceptem aspirants que hagen acabat el cicle l'any indicat o posterior
+
+![Editar oferta](../img/oferta-edit.png)
 
 
+Quan l t
