@@ -43,7 +43,7 @@ abstract class ApiBaseController extends Controller
     {
         if ($errors = $this->validate($request, $this->entity::rules())) return $this->response($errors);
 
-        return $this->resource($this->entity::create($request->all()));
+        return $this->manageResponse($this->entity::create($request->all()),$request);
     }
 
     public function update(Request $request, $id)
@@ -54,11 +54,14 @@ abstract class ApiBaseController extends Controller
         $registro = $this->entity::find($id);
         $registro->update($request->all());
 
-        return $this->resource($registro);
+        return $this->manageResponse($registro,$request);
 
     }
 
+    protected function manageResponse($registro, Request $request){
 
+        return new $this->resource($registro);
+    }
 
 
     public function validate(Request $request, array $rules, array $messages = Array(), array $customAttributes = Array()){

@@ -22,7 +22,7 @@ class AlumnoController extends ApiBaseController
     {
         $alumno = Alumno::find($idAlumno);
         $alumno->Ciclos()->updateExistingPivot($idCiclo, ['any' => $request->any,'validado'=>$request->validado]);
-        $this->resource($alumno);
+        return parent::manageResponse($alumno, $request);
     }
 }
 
