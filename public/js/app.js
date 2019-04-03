@@ -3036,24 +3036,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3069,8 +3051,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      table: 'alumnos',
-      helpPage: 'alumnos',
+      table: "alumnos",
+      helpPage: "alumnos",
       headers: [{
         text: "Id",
         value: "id"
@@ -3105,14 +3087,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   mounted: function mounted() {
-    this.$emit('setTitle', 'Manteniment d\'Alumnes');
+    this.$emit("setTitle", "Manteniment d'Alumnes");
     this.loadData();
   },
   methods: {
     loadData: function loadData() {
       var _this = this;
 
-      console.log('carga alumnos');
+      console.log("carga alumnos");
 
       if (this.imAlumno) {
         // Es un alumno y sólo puede verse a sí mismo
@@ -3158,7 +3140,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           };
         });
       }).catch(function (err) {
-        return _this.msgErr('2' + err);
+        return _this.msgErr("2" + err);
       });
     },
     preOpenDialog: function preOpenDialog(item) {
@@ -3176,16 +3158,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     nomCiclo: function nomCiclo(id) {
       return id && this.ciclos.length ? this.ciclos.find(function (ciclo) {
         return ciclo.id == id;
-      }).ciclo : '';
+      }).ciclo : "";
     },
     descCiclo: function descCiclo(id) {
       return id && this.ciclos.length ? this.ciclos.find(function (ciclo) {
         return ciclo.id == id;
-      }).descrip : '';
+      }).descrip : "";
     },
     toogleValida: function toogleValida(ciclo, alumno) {
       if (this.imResponsable) {
-        this.ciclo = ciclo;
+        console.error('abro ciclo' + this.ciclo);
+        this.ciclo = _objectSpread({}, ciclo);
         this.ciclo.nombre = alumno;
         this.dialogCiclo = true;
       }
@@ -3193,20 +3176,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     validaCiclo: function validaCiclo() {
       var _this2 = this;
 
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem('alumnos_ciclos', this.ciclo.id, this.ciclo).then(function (resp) {
-        _this2.ciclos[_this2.ciclos.indexOf(resp.data)] = resp.data;
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateCicloAlum(this.ciclo).then(function (resp) {
+        console.error('recibo ' + resp.data);
+
+        _this2.ciclos.splice(_this2.ciclos.indexOf(_this2.ciclo), 1, _this2.ciclo);
 
         _this2.closeDialogCiclo(); // No es el diálogo estándar
 
 
-        _this2.msgOk('updateCiclo', 'Ciclo ' + (resp.data.validado ? 'validado' : 'desvalidado') + ' correctamente');
+        _this2.msgOk("updateCiclo", "Ciclo " + (resp.data.validado ? "validado" : "desvalidado") + " correctamente");
       }).catch(function (err) {
-        return _this2.msgErr('3' + err);
+        _this2.msgErr(err);
+
+        _this2.closeDialogCiclo();
       });
     },
     showItem: function showItem(id) {
       this.$router.push({
-        path: '/ofertas-alum',
+        path: "/ofertas-alum",
         query: {
           id_alumno: id
         }
@@ -43774,7 +43761,7 @@ var render = function() {
                   expression: "error.show"
                 }
               },
-              [_vm._v("\n      " + _vm._s(error.msg) + "\n    ")]
+              [_vm._v(_vm._s(error.msg))]
             )
           ],
           1
@@ -43828,22 +43815,10 @@ var render = function() {
                         _c(
                           "span",
                           { attrs: { slot: "activator" }, slot: "activator" },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.header.text) +
-                                "\n          "
-                            )
-                          ]
+                          [_vm._v(_vm._s(props.header.text))]
                         ),
                         _vm._v(" "),
-                        _c("span", [
-                          _vm._v(
-                            "\n            " +
-                              _vm._s(props.header.text) +
-                              "\n          "
-                          )
-                        ])
+                        _c("span", [_vm._v(_vm._s(props.header.text))])
                       ])
                     ]
                   }
@@ -44024,21 +43999,25 @@ var render = function() {
                             [
                               _c("strong", [_vm._v("Domicil·li:")]),
                               _vm._v(
-                                " " +
+                                "\n            " +
                                   _vm._s(props.item.domicilio) +
                                   "\n            "
                               ),
                               _c("v-spacer"),
+                              _vm._v(" "),
                               _c("strong", [_vm._v("Telèfon:")]),
                               _vm._v(
-                                " " +
+                                "\n            " +
                                   _vm._s(props.item.telefono) +
                                   "\n            "
                               ),
                               _c("v-spacer"),
+                              _vm._v(" "),
                               _c("strong", [_vm._v("E-mail:")]),
                               _vm._v(
-                                " " + _vm._s(props.item.email) + "\n          "
+                                "\n            " +
+                                  _vm._s(props.item.email) +
+                                  "\n          "
                               )
                             ],
                             1
@@ -44056,13 +44035,12 @@ var render = function() {
                   fn: function(props) {
                     return [
                       _vm._v(
-                        "      \n        Registres del " +
+                        "Registres del " +
                           _vm._s(props.pageStart) +
                           " al " +
                           _vm._s(props.pageStop) +
                           " de " +
-                          _vm._s(props.itemsLength) +
-                          "\n      "
+                          _vm._s(props.itemsLength)
                       )
                     ]
                   }
@@ -44085,9 +44063,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    '\n        La cerca de "' +
+                    'La cerca de "' +
                       _vm._s(_vm.search) +
-                      '" no dona cap resultat\n      '
+                      '" no dona cap resultat'
                   )
                 ]
               ),
@@ -44154,13 +44132,7 @@ var render = function() {
                   _c(
                     "v-card-title",
                     { staticClass: "grey lighten-4 py-4 title" },
-                    [
-                      _vm._v(
-                        "\n        " +
-                          _vm._s(_vm.isNew ? "Nou" : "Editar") +
-                          " alumne\n      "
-                      )
-                    ]
+                    [_vm._v(_vm._s(_vm.isNew ? "Nou" : "Editar") + " alumne")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -44435,7 +44407,7 @@ var render = function() {
             "v-card",
             [
               _c("v-card-title", { staticClass: "grey lighten-4 py-4 title" }, [
-                _vm._v("\n      " + _vm._s(_vm.ciclo.nombre) + "\n    ")
+                _vm._v(_vm._s(_vm.ciclo.nombre))
               ]),
               _vm._v(" "),
               _c(
@@ -47120,7 +47092,7 @@ var render = function() {
                         "v-card",
                         { attrs: { flat: "" } },
                         [
-                          _c("v-card-title", [_vm._v("ALUMNES INTERESSATS")]),
+                          _c("v-card-title", [_vm._v("CANDIDATS INTERESSATS")]),
                           _vm._v(" "),
                           _c(
                             "v-card-text",
@@ -90543,6 +90515,9 @@ function json2urlencoded(json) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + 'ofertas/' + idOferta + '/alumno', {
       interesado: interesado
     }, this.getConfig('json', true));
+  },
+  updateCicloAlum: function updateCicloAlum(item) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + 'alumno/' + item.id_alumno + '/ciclo/' + item.id_ciclo, item, this.getConfig('json', true));
   },
   getUser: function getUser(item) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig('urlencoded'));

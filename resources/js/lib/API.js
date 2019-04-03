@@ -61,6 +61,9 @@ export default {
     updateInteresado(idOferta, interesado) {
         return axios.put(API_URL + 'ofertas/' + idOferta + '/alumno', {interesado: interesado}, this.getConfig('json', true));
     },
+    updateCicloAlum(item) {
+        return axios.put(API_URL + 'alumno/' + item.id_alumno + '/ciclo/' + item.id_ciclo, item, this.getConfig('json', true));
+    },
     getUser(item) {
         return axios.post(API_URL + 'auth/login', json2urlencoded(item), this.getConfig('urlencoded'));
     },

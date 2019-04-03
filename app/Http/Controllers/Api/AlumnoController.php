@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Entities\Alumno;
 
 
@@ -22,8 +23,8 @@ class AlumnoController extends ApiBaseController
         $alumno = Alumno::find($idAlumno);
         $any = $request->any;
         $validado = $request->validado;
-        $alumno->Ciclos()->updateExistingPivot($idAlumno, ['any' => $any,'validado'=>$validado]);
-        return parent::manageResponse($alumno->ciclos->where('id',$idCiclo)->get()->pivot, $request);
+        $alumno->Ciclos()->updateExistingPivot($idCiclo, ['any' => $any,'validado'=>$validado]);
+        return parent::manageResponse($alumno, $request);
     }
 }
 
