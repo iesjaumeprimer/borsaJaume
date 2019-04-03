@@ -76,9 +76,6 @@
               >
                 <v-icon>delete</v-icon>
               </v-btn>
-              <v-btn icon class="mx-0" @click.stop="showItem(props.item.id)" title="Veure ofertes">
-                <v-icon>event_note</v-icon>
-              </v-btn>
             </td>
           </tr>
         </template>
@@ -344,12 +341,14 @@ export default {
       API.updateCicloAlum(this.ciclo)
         .then(resp => {
           console.error('recibo '+resp.data)
-          this.ciclos.splice(this.ciclos.indexOf(this.ciclo),1,this.ciclo);
+          let alumIndex=this.items.findIndex(alum=>alum.id==resp.data.data.id);
+          let validado=this.ciclo.validado;
+          this.items.splice(alumIndex,1,resp.data.data);
           this.closeDialogCiclo(); // No es el diálogo estándar
           this.msgOk(
             "updateCiclo",
             "Ciclo " +
-              (resp.data.validado ? "validado" : "desvalidado") +
+              (validado ? "validado" : "desvalidado") +
               " correctamente"
           );
         })
@@ -358,9 +357,6 @@ export default {
           this.closeDialogCiclo();
         });
     },
-    showItem(id) {
-      this.$router.push({ path: "/ofertas-alum", query: { id_alumno: id } });
-    }
   }
 };
 </script>

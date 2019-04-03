@@ -3033,9 +3033,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -3179,24 +3176,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateCicloAlum(this.ciclo).then(function (resp) {
         console.error('recibo ' + resp.data);
 
-        _this2.ciclos.splice(_this2.ciclos.indexOf(_this2.ciclo), 1, _this2.ciclo);
+        var alumIndex = _this2.items.findIndex(function (alum) {
+          return alum.id == resp.data.data.id;
+        });
+
+        var validado = _this2.ciclo.validado;
+
+        _this2.items.splice(alumIndex, 1, resp.data.data);
 
         _this2.closeDialogCiclo(); // No es el diálogo estándar
 
 
-        _this2.msgOk("updateCiclo", "Ciclo " + (resp.data.validado ? "validado" : "desvalidado") + " correctamente");
+        _this2.msgOk("updateCiclo", "Ciclo " + (validado ? "validado" : "desvalidado") + " correctamente");
       }).catch(function (err) {
         _this2.msgErr(err);
 
         _this2.closeDialogCiclo();
-      });
-    },
-    showItem: function showItem(id) {
-      this.$router.push({
-        path: "/ofertas-alum",
-        query: {
-          id_alumno: id
-        }
       });
     }
   }
@@ -43961,22 +43956,6 @@ var render = function() {
                                 }
                               },
                               [_c("v-icon", [_vm._v("delete")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "mx-0",
-                                attrs: { icon: "", title: "Veure ofertes" },
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.showItem(props.item.id)
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("event_note")])],
                               1
                             )
                           ],
