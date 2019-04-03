@@ -44,4 +44,15 @@ Route::group(['middleware' => 'auth:api'], function() {
             'ciclos' => 'Api\CicloController',
         ]);
     Route::put('ofertas/{id}/alumno', 'Api\OfertaController@AlumnoInterested');
+    Route::put('alumno/{alumno}/ciclos/{id}','Api\AlumnoController@ValidaCiclo');
+});
+
+Route::group([
+    'namespace' => 'Auth',
+    'middleware' => 'api',
+    'prefix' => 'password'
+], function () {
+    Route::post('create', 'PasswordResetController@create');
+    Route::get('find/{token}', 'PasswordResetController@find');
+    Route::post('reset', 'PasswordResetController@reset');
 });

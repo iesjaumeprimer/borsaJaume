@@ -25,7 +25,8 @@ class OfertaController extends ApiBaseController
         if (AuthUser()->isEmpresa())
             return OfertaResource::collection(Oferta::BelongsToEnterprise(AuthUser()->id)->get());
         if (AuthUser()->isAlumno())
-            return OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true)));
+            return OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true))
+                ->where('validada',true)->where('activa',true));
         if (AuthUser()->isResponsable())
             return OfertaResource::collection(Oferta::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->get()));
 
