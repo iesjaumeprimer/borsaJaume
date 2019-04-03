@@ -11,11 +11,11 @@ use Illuminate\Http\Request;
 
 trait traitRelation
 {
-    protected function manageResponse($registro, Request $request)
+    protected function manageRelation($registro, Request $request)
     {
         $relation = $this->relationShip();
         $registro->$relation()->sync($request->$relation);
-        return parent::manageResponse($registro, $request);
+        $this->resource($registro);
     }
 
     abstract protected function relationShip();

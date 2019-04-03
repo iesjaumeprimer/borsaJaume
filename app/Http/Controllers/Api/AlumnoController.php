@@ -21,10 +21,8 @@ class AlumnoController extends ApiBaseController
     protected function validaCiclo(Request $request,$idAlumno,$idCiclo)
     {
         $alumno = Alumno::find($idAlumno);
-        $any = $request->any;
-        $validado = $request->validado;
-        $alumno->Ciclos()->updateExistingPivot($idCiclo, ['any' => $any,'validado'=>$validado]);
-        return parent::manageResponse($alumno, $request);
+        $alumno->Ciclos()->updateExistingPivot($idCiclo, ['any' => $request->any,'validado'=>$request->validado]);
+        $this->resource($alumno);
     }
 }
 
