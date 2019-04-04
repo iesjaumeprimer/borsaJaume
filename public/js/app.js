@@ -1816,6 +1816,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1825,7 +1826,8 @@ __webpack_require__.r(__webpack_exports__);
       items: [],
       title: 'Borsa de treball',
       myRol: 9999,
-      myName: ''
+      myName: '',
+      logoBatoi: __webpack_require__(/*! ./assets/static/images/logo.png */ "./resources/js/assets/static/images/logo.png")
     };
   },
   components: {
@@ -4057,6 +4059,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/base/HelpButton */ "./resources/js/components/base/HelpButton.vue");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -42409,7 +42417,9 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v("CIP FP Batoi - Borsa de Treball")]),
+          _c("v-toolbar-title", [
+            _vm._v("\n      CIP FP Batoi - Borsa de Treball")
+          ]),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
@@ -46082,6 +46092,8 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
       _vm.helpPage
         ? _c("help-button", { attrs: { page: _vm.helpPage } })
         : _vm._e()
@@ -46089,7 +46101,47 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v(
+        "També pots trobar un manual on s'explique tot el necessari segons el teu cas:\n      "
+      ),
+      _c("ul", [
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: {
+                target: "_ajudaBorsa",
+                href:
+                  "https://cipfpbatoi.github.io/borsaBatoi/tutorials/empresa.html"
+              }
+            },
+            [_vm._v("Manual per a l'empresa")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: {
+                target: "_ajudaBorsa",
+                href:
+                  "https://cipfpbatoi.github.io/borsaBatoi/tutorials/alumne.html"
+              }
+            },
+            [_vm._v("Manual per a l'alumne")]
+          )
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -89821,6 +89873,17 @@ var app = new Vue({
   el: '#app',
   router: _router__WEBPACK_IMPORTED_MODULE_0__["default"]
 });
+
+/***/ }),
+
+/***/ "./resources/js/assets/static/images/logo.png":
+/*!****************************************************!*\
+  !*** ./resources/js/assets/static/images/logo.png ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/logo.png?6564301d6ea3e1aca94a493455006cc5";
 
 /***/ }),
 

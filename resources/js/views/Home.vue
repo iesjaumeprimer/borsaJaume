@@ -34,6 +34,12 @@
        una icona amb un interrogant que ens obrirà una nova
        finestra e el navegador amb l'ajuda per a eixa pantalla.
     </p>
+      <p>També pots trobar un manual on s'explique tot el necessari segons el teu cas:
+        <ul>
+          <li><a target="_ajudaBorsa" href="https://cipfpbatoi.github.io/borsaBatoi/tutorials/empresa.html">Manual per a l'empresa</a></li>
+          <li><a target="_ajudaBorsa" href="https://cipfpbatoi.github.io/borsaBatoi/tutorials/alumne.html">Manual per a l'alumne</a></li>
+        </ul>
+      </p>
     <help-button v-if="helpPage" :page="helpPage"></help-button>
   </div>
 </template>

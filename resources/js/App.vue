@@ -18,7 +18,8 @@
     </v-navigation-drawer>
     <v-toolbar color="indigo" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>CIP FP Batoi - Borsa de Treball</v-toolbar-title>
+      <v-toolbar-title>
+        CIP FP Batoi - Borsa de Treball</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-title class="ml-0 pl-3">
         <h2>{{ title }}</h2>
@@ -60,6 +61,7 @@
       title: 'Borsa de treball',
       myRol: 9999,
       myName: '',
+      logoBatoi: require('./assets/static/images/logo.png')
     }),
     components: {
       MenuItem,
