@@ -61,7 +61,7 @@
       title: 'Borsa de treball',
       myRol: 9999,
       myName: '',
-      logoBatoi: require('./assets/static/images/logo.png')
+//      logoBatoi: require('./assets/static/images/logo.png')
     }),
     components: {
       MenuItem,

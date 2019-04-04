@@ -1,4 +1,4 @@
-const API_URL = 'http://borsaTreball.my/api/';
+const API_URL = 'https://borsaTreball.my/api/';
 
 import axios from 'axios'
 
