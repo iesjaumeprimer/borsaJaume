@@ -27,21 +27,21 @@ export default {
                 v => !!v || 'El camp és obligatori',
                 v => (v && v.length <= 10) || 'La mida ha de ser menor de 10 caracters'
             ],
-            required20Rules: [
+            required25Rules: [
                 v => !!v || 'El camp és obligatori-'+val,
-                v => (v && v.length <= 20) || 'La mida ha de ser menor de 20 caracters'
+                v => (v && v.length <= 25) || 'La mida ha de ser menor de 25 caracters'
             ],
             required50Rules: [
                 v => !!v || 'El camp és obligatori',
                 v => (v && v.length <= 50) || 'La mida ha de ser menor de 50 caracters'
             ],
+            required80Rules: [
+                v => !!v || 'El camp és obligatori',
+                v => (v && v.length <= 50) || 'La mida ha de ser menor de 80 caracters'
+            ],
             required100Rules: [
                 v => !!v || 'El camp és obligatori',
                 v => (v && v.length <= 100) || 'La mida ha de ser menor de 100 caracters'
-            ],
-            required150Rules: [
-                v => !!v || 'El camp és obligatori',
-                v => (v && v.length <= 150) || 'La mida ha de ser menor de 150 caracters'
             ],
         }
     },

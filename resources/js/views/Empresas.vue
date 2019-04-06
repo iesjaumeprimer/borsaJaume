@@ -117,8 +117,8 @@
                 label="Nom"
                 placeholder="Nom"
                 v-model="editItem.nombre"
-                counter="50"
-                :rules="required50Rules"
+                counter="25"
+                :rules="required25Rules"
                 required
               ></v-text-field>
             </v-flex>
@@ -127,8 +127,8 @@
                 label="Domicil·li"
                 placeholder="Domicil·li"
                 v-model="editItem.domicilio"
-                counter="150"
-                :rules="required150Rules"
+                counter="80"
+                :rules="required80Rules"
                 required
               ></v-textarea>
             </v-flex>
@@ -137,8 +137,8 @@
                 label="Localitat"
                 placeholder="Localitat"
                 v-model="editItem.localidad"
-                counter="50"
-                :rules="required50Rules"
+                counter="25"
+                :rules="required25Rules"
                 required
               ></v-text-field>
             </v-flex>
@@ -147,8 +147,8 @@
                   label="Telèfon"
                   placeholder="Telèfon"
                   v-model="editItem.telefono"
-                  counter="20"
-                  :rules="required20Rules"
+                  counter="25"
+                  :rules="required25Rules"
                   required
                 ></v-text-field>
               </v-flex>
@@ -176,8 +176,8 @@
                 label="Descripció"
                 placeholder="Descripció"
                 v-model="editItem.descripcion"
-                counter="400"
-                rows="3"
+                counter="200"
+                rows="2"
               ></v-textarea>
             </v-flex>
           </v-layout>
@@ -217,7 +217,6 @@ export default {
   },
   methods: {
     loadData() {
-console.error('newempresa')
       if (this.imEmpresa) {
         // Es una empresa y sólo puede verse a sí misma
         API.getItem(this.table, this.myId)

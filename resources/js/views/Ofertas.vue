@@ -164,8 +164,8 @@
                 label="Telèfon"
                 placeholder="Telèfon"
                 v-model="editItem.telefono"
-                counter="20"
-                :rules="required20Rules"
+                counter="25"
+                :rules="required25Rules"
                 required
               ></v-text-field>
             </v-flex>
@@ -174,8 +174,8 @@
                 label="E-mail"
                 placeholder="E-mail"
                 v-model="editItem.email"
-                counter="20"
-                :rules="required20Rules"
+                counter="50"
+                :rules="required50Rules"
                 required
               ></v-text-field>
             </v-flex>
@@ -210,6 +210,7 @@
               <v-textarea
                 label="Descripció"
                 placeholder="Descripció"
+                counter="200"
                 v-model="editItem.descripcion"
                 required
               ></v-textarea>
@@ -219,6 +220,7 @@
                 label="Tipus de contracte"
                 placeholder="Tipus de contracte"
                 v-model="editItem.tipo_contrato"
+                counter="50"
                 :rules="required50Rules"
                 required
               ></v-text-field>
@@ -379,10 +381,6 @@ export default {
       return id && this.ciclos.length
         ? this.ciclos.find(ciclo => ciclo.id == id).descrip
         : "";
-    },
-    canviaAny(ciclo) {
-      // dialog con nombre ciclo y cuándo se acaba
-      console.log(ciclo);
     },
     rellenaContacto() {
       let newEmpresa = this.empresas.find(empresa => empresa.id == this.editItem.id_empresa);

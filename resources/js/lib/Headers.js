@@ -91,9 +91,9 @@ const models = {
         value: 'domicilio', 
         form: {
           type: 'text',
-          counter: 150,
+          counter: 80,
           required: false,
-          rules: 'required150Rules',
+          rules: 'required80Rules',
         }
       }, { 
         text: 'Localidad', 
@@ -101,9 +101,9 @@ const models = {
         value: 'localidad', 
         form: {
           type: 'text',
-          counter: 50,
+          counter: 25,
           required: true,
-          rules: 'required50Rules',
+          rules: 'required25Rules',
         }
       }, { 
         text: 'Teléfono', 
@@ -111,9 +111,9 @@ const models = {
         value: 'telefono', 
         form: {
           type: 'text',
-          counter: 20,
+          counter: 25,
           required: true,
-          rules: 'required20Rules',
+          rules: 'required25Rules',
         }
       }, { 
         text: 'Web', 
@@ -141,7 +141,7 @@ const models = {
         value: 'descripcion', 
         form: {
           type: 'text',
-          counter: 400,
+          counter: 200,
         }
       }
     ],
@@ -188,9 +188,9 @@ const models = {
         value: 'domicilio', 
         form: {
           type: 'text',
-          counter: 150,
+          counter: 80,
           required: false,
-          rules: 'required150Rules',
+          rules: 'required80Rules',
         }
       }, { 
         text: 'Teléfono', 
@@ -198,9 +198,9 @@ const models = {
         value: 'telefono', 
         form: {
           type: 'text',
-          counter: 20,
+          counter: 25,
           required: true,
-          rules: 'required20Rules',
+          rules: 'required25Rules',
         }
       }, { 
         text: 'Info',

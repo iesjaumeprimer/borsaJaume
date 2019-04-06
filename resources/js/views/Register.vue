@@ -48,7 +48,7 @@
                   min="4"
                   max="25"
                   counter="25"
-                  :rules="required20Rules"
+                  :rules="required25Rules"
               >
               </v-text-field>
               <v-text-field xs12 ms4

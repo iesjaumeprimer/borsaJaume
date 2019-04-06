@@ -213,10 +213,6 @@ export default {
         ? this.ciclos.find(ciclo => ciclo.id == id).descrip
         : "";
     },
-    canviaAny(ciclo) {
-      // dialog con nombre ciclo y cuándo se acaba
-      console.log(ciclo);
-    },
     rellenaContacto() {
       let newEmpresa = this.empresas.find(
         empresa => empresa.id == this.editItem.id_empresa
@@ -237,7 +233,6 @@ export default {
         this.ofertaInteressat = oferta;
     },
     apuntaOferta() {
-      console.error(this.ofertaInteressat.interesado==1?false:true);
       API.updateInteresado(this.ofertaInteressat.id, this.ofertaInteressat.interesado==1?false:true)
       .then(res=>this.ofertaInteressat.interesado=res.data.interesado)
       .catch(err => this.msgErr(err));

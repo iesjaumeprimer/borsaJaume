@@ -101,8 +101,8 @@
                   label="Nom"
                   placeholder="Nom"
                   v-model="editItem.vCiclo"
-                  counter="100"
-                  :rules="required100Rules"
+                  counter="80"
+                  :rules="required80Rules"
                   required
                 ></v-text-field>
               </v-flex>

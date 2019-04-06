@@ -10,7 +10,6 @@ export default {
     mixins: [utilsMixin],
     created() {
         if (confirm('¿Vols tancar la sessió?')) {
-            console.log('logout')
             API.logoutUser()
             .then(resp => {
                 sessionStorage.removeItem('access_token');

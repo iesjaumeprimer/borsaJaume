@@ -30,10 +30,6 @@ export default {
         myId() {
             return Number(sessionStorage.user_id);
         },
-        // myRol() {
-        //     console.error('calculo myrol')
-        //     return Number(sessionStorage.user_rol);
-        // },
     },
     methods: {
         // Métodos de DataTable
@@ -59,13 +55,11 @@ export default {
         addItem() {
             // OJO. SObreescrito en: MenuView.vue
             // TB en Responsables.vue pq no hace saveItem sino saveUser
-            console.error('additem')
             if (this.editIndex > -1) {
                 API.updateItem(this.table, this.editItem.id, this.editItem)
                 .then(resp => {
                     let index = this.items.findIndex(item => item.id==resp.data.data.id);
                     this.items.splice(index,1,resp.data.data);
-//                    Object.assign(this.items[this.editIndex], resp.data)
                     this.msgOk('update');
                 })
                 .catch(err => this.msgErr(err));
@@ -155,7 +149,6 @@ export default {
   
         msgErr(err) {
             if (this.dialog) this.dialog = false;
-console.error('msgError')
             let msg='';
             if (!err.response) msg=err.message || err;
             else {

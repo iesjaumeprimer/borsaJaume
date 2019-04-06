@@ -34,9 +34,7 @@ export default {
         return config;
     },
     getTable(table, query) {
-        console.log('pido datos');
         if (!checkAuth() && table!='menu') {
-            console.error('pido datos');
 //            this.$router.push('/login');
             return new Promise((resolve,reject)=>{
                 reject(new Error('No estás validado'))

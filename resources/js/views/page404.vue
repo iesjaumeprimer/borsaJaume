@@ -25,7 +25,6 @@
 export default {
     methods: {
         back() {
-            console.log('Atras')
             this.$router.go(-1);
         }
     }

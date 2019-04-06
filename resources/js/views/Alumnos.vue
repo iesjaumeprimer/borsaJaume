@@ -122,14 +122,20 @@
                 <v-text-field label="Id" placeholder="Id" v-model="editItem.id" readonly></v-text-field>
               </v-flex>
               <v-flex xs3>
-                <v-text-field label="Nom" placeholder="Nom" v-model="editItem.nombre" required></v-text-field>
+                <v-text-field 
+                  label="Nom" 
+                  placeholder="Nom" 
+                  v-model="editItem.nombre" 
+                  :rules="required25Rules"
+                >
+                </v-text-field>
               </v-flex>
               <v-flex xs8>
                 <v-text-field
                   label="Cognoms"
                   placeholder="Cognoms"
                   v-model="editItem.apellidos"
-                  required
+                  :rules="required50Rules"
                 ></v-text-field>
               </v-flex>
               <v-flex xs7>
@@ -137,10 +143,9 @@
                   label="Domicil·li"
                   placeholder="Domicil·li"
                   v-model="editItem.domicilio"
-                  counter="150"
-                  :rules="required150Rules"
+                  counter="80"
+                  :rules="required80Rules"
                   rows="3"
-                  required
                 ></v-textarea>
               </v-flex>
               <v-flex xs3>
@@ -266,7 +271,6 @@ export default {
   },
   methods: {
     loadData() {
-      console.log("carga alumnos");
       if (this.imAlumno) {
         // Es un alumno y sólo puede verse a sí mismo
         API.getItem(this.table, this.myId)
@@ -331,7 +335,6 @@ export default {
     },
     toogleValida(ciclo, alumno) {
       if (this.imResponsable) {
-        console.error('abro ciclo'+this.ciclo)
         this.ciclo = {...ciclo};
         this.ciclo.nombre = alumno;
         this.dialogCiclo = true;
@@ -340,7 +343,6 @@ export default {
     validaCiclo() {
       API.updateCicloAlum(this.ciclo)
         .then(resp => {
-          console.error('recibo '+resp.data)
           let alumIndex=this.items.findIndex(alum=>alum.id==resp.data.data.id);
           let validado=this.ciclo.validado;
           this.items.splice(alumIndex,1,resp.data.data);

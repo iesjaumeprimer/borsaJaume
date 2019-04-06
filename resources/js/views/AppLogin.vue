@@ -69,7 +69,6 @@ export default {
     },
       methods: {
           submit() {
-            console.error('login')
             API.loginUser(this.item)
             .then(resp => {
               if (resp.data.access_token) {
