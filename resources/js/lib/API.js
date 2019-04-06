@@ -1,4 +1,5 @@
-const API_URL = 'https://borsaTreball.cipfpbatoi.es/api/';
+const API_URL = '/api/';
+//const API_URL = 'https://borsaTreball.cipfpbatoi.es/api/';
 //const API_URL = 'http://borsaTreball.my/api/';
 
 import axios from 'axios'
