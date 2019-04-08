@@ -11,4 +11,5 @@
 |
 */
 
-Route::get('/{any}', 'AppController@index')->where('any', '.*');
+//Route::get('/{any}', 'AppController@index')->where('any', '.*');
+Route::get('/{any}', 'AppController@index')->where('any', '^(?!api).*$');

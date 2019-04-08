@@ -3481,10 +3481,13 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     chgPassword: function chgPassword() {
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].changePassword().then(function (resp) {
+      var _this3 = this;
+
+      console.error('chgpass');
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].changePassword(this.item).then(function (resp) {
         return console.error(resp);
       }).catch(function (err) {
-        return console.error(err);
+        return _this3.msgErr(err);
       });
     },
     registerUser: function registerUser() {
@@ -90547,8 +90550,8 @@ function json2urlencoded(json) {
   saveUser: function saveUser(item) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', json2urlencoded(item), this.getConfig('urlencoded'));
   },
-  changePassword: function changePassword() {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/create', json2urlencoded(item), this.getConfig('urlencoded'));
+  changePassword: function changePassword(item) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'password/create', item.email, this.getConfig('json', true));
   },
   logoutUser: function logoutUser() {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'auth/logout', this.getConfig('urlencoded', true));
@@ -91213,7 +91216,7 @@ __webpack_require__.r(__webpack_exports__);
           sessionStorage.removeItem('token_type');
           this.$emit('setRol');
           msg += ' - Debes volverte a loguear';
-        } else if (err.response.status == 500 && (this.imResponsable || true)) {
+        } else if (this.imResponsable || true) {
           msg += ' - ' + err.response.data.message + ' in file ' + err.response.data.file;
         } else if (err.response.data.errors) Array.from(err.response.data.errors).forEach(function (error) {
           return msg += '\n - ' + error.message;

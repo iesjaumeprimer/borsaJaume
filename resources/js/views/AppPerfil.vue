@@ -92,9 +92,10 @@ export default {
                 .catch(err => this.msgErr(err));
           },
           chgPassword() {
-            API.changePassword()
+console.error('chgpass')
+            API.changePassword(this.item)
             .then(resp=>console.error(resp))
-            .catch(err=>console.error(err))
+            .catch(err=>this.msgErr(err))
           },
           registerUser() {
             this.$router.push('/register');

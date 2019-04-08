@@ -161,7 +161,7 @@ export default {
                     sessionStorage.removeItem('token_type');
                     this.$emit('setRol');
                     msg+=' - Debes volverte a loguear';
-                } else if (err.response.status==500 && (this.imResponsable || true)) {
+                } else if (this.imResponsable || true) {
                     msg+=' - '+err.response.data.message
                         +' in file '+err.response.data.file;
                 } else if (err.response.data.errors)
