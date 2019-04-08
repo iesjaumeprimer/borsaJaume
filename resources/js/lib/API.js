@@ -74,7 +74,7 @@ export default {
         return axios.post(API_URL + 'auth/signup', json2urlencoded(item), this.getConfig('urlencoded'));
     },
     changePassword(item) {
-        return axios.post(API_URL + 'password/create', item.email, this.getConfig('json', true));
+        return axios.post(API_URL + 'password/create', { email: item.email}, this.getConfig('json', true));
     },
     logoutUser() {
         return axios.get(API_URL + 'auth/logout', this.getConfig('urlencoded', true));

@@ -38,7 +38,7 @@ class AuthController extends Controller
             if ($user->isAlumno()) Alumno::create(['nombre' => $user->name, 'id' => $user->id]);
             if ($user->isEmpresa()) Empresa::create(['nombre' => $user->name, 'id' => $user->id]);
         });
-        //$user->notify(new SignupActivate($user));
+        $user->notify(new SignupActivate($user));
         return response()->json($this->getToken($user), 201);
     }
 

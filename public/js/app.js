@@ -90551,7 +90551,9 @@ function json2urlencoded(json) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'auth/signup', json2urlencoded(item), this.getConfig('urlencoded'));
   },
   changePassword: function changePassword(item) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'password/create', item.email, this.getConfig('json', true));
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(API_URL + 'password/create', {
+      email: item.email
+    }, this.getConfig('json', true));
   },
   logoutUser: function logoutUser() {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'auth/logout', this.getConfig('urlencoded', true));
