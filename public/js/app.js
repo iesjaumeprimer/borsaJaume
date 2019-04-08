@@ -3280,8 +3280,9 @@ __webpack_require__.r(__webpack_exports__);
       show: false
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     this.$emit('setTitle', 'Inicia sessió');
+    alert('Borsa en PROVES. Tota la informació és fictícia');
   },
   methods: {
     submit: function submit() {
@@ -4111,8 +4112,9 @@ __webpack_require__.r(__webpack_exports__);
       helpPage: '/'
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     this.$emit('setTitle', 'Inici');
+    alert('Borsa en PROVES. Tota la informació és fictícia');
   }
 });
 
@@ -5252,7 +5254,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
 /* harmony import */ var _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/base/HelpButton */ "./resources/js/components/base/HelpButton.vue");
-//
 //
 //
 //
@@ -48366,7 +48367,6 @@ var render = function() {
                                 required: "",
                                 rules: _vm.emailRules
                               },
-                              on: { change: _vm.checkUser },
                               model: {
                                 value: _vm.item.email,
                                 callback: function($$v) {

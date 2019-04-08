@@ -33,7 +33,6 @@
                   placeholder="Introduix el email amb el qual et loguejaràs"
                   required
                   :rules="emailRules"
-                  @change="checkUser"
               >
               </v-text-field>
               <v-text-field xs12 ms4

@@ -52,8 +52,9 @@
     data: () => ({
       helpPage: '/',
     }),
-    mounted() {
+    created() {
       this.$emit('setTitle', 'Inici');
+      alert('Borsa en PROVES. Tota la informació és fictícia')
     },
   }
 </script>
