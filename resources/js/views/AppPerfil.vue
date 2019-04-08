@@ -94,7 +94,7 @@ export default {
           chgPassword() {
 console.error('chgpass')
             API.changePassword(this.item)
-            .then(resp=>console.error(resp))
+            .then(resp=>msgOk('T\'hem enviat un mail amb l\'enllaç per a canviar la teua contrasenya'))
             .catch(err=>this.msgErr(err))
           },
           registerUser() {

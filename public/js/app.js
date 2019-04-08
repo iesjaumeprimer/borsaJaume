@@ -3485,7 +3485,7 @@ __webpack_require__.r(__webpack_exports__);
 
       console.error('chgpass');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].changePassword(this.item).then(function (resp) {
-        return console.error(resp);
+        return msgOk('T\'hem enviat un mail amb l\'enllaç per a canviar la teua contrasenya');
       }).catch(function (err) {
         return _this3.msgErr(err);
       });
