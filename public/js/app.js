@@ -3262,7 +3262,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -44602,8 +44601,7 @@ var render = function() {
                       hint: "Al menys 6 caràcters",
                       label: "Contrasenya",
                       title: "Contrasenya",
-                      required: "",
-                      rules: _vm.usernameRules
+                      required: ""
                     },
                     on: {
                       "click:append": function($event) {

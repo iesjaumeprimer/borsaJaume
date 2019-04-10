@@ -29,7 +29,6 @@
                 label="Contrasenya" 
                 title="Contrasenya" 
                 required
-                :rules="usernameRules"
             >
             </v-text-field>
             <p><a href="#">He oblidat la meua contrasenya</a></p>
