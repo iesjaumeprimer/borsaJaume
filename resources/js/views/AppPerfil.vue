@@ -81,7 +81,7 @@ export default {
               this.item.email=resp.data.data.email;
               this.rol=this.roles.find(rol=>rol.id==resp.data.data.rol).rol;
             })
-            .catch(err=>msgErr(err));
+            .catch(err=>this.msgErr(err));
         },
           submit() {
             console.error('login')
@@ -94,7 +94,7 @@ export default {
           chgPassword() {
 console.error('chgpass')
             API.changePassword(this.item)
-            .then(resp=>msgOk('T\'hem enviat un mail amb l\'enllaç per a canviar la teua contrasenya'))
+            .then(resp=>this.msgOk('T\'hem enviat un mail amb l\'enllaç per a canviar la teua contrasenya'))
             .catch(err=>this.msgErr(err))
           },
           registerUser() {
