@@ -3289,16 +3289,7 @@ __webpack_require__.r(__webpack_exports__);
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].loginUser(this.item).then(function (resp) {
         if (resp.data.access_token) {
-          sessionStorage.access_token = resp.data.access_token;
-          sessionStorage.expires_at = resp.data.expires_at;
-          sessionStorage.user_rol = resp.data.rol;
-          sessionStorage.user_id = resp.data.id;
-          sessionStorage.token_type = resp.data.token_type;
-
-          _this.$emit('setRol', {
-            rol: Number(resp.data.rol),
-            name: resp.data.name
-          });
+          _this.setToken(resp.data);
 
           if (resp.data.rol == 7) _this.$router.push('/ofertas-alum');else _this.$router.push('/ofertas');
         } else {
@@ -3345,13 +3336,7 @@ __webpack_require__.r(__webpack_exports__);
 
     if (confirm('¿Vols tancar la sessió?')) {
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].logoutUser().then(function (resp) {
-        sessionStorage.removeItem('access_token');
-        sessionStorage.removeItem('expires_at');
-        sessionStorage.removeItem('user_rol');
-        sessionStorage.removeItem('user_id');
-        sessionStorage.removeItem('token_type');
-
-        _this.$emit('setRol');
+        _this.clearToken();
 
         _this.$router.push('/');
       }) // store the token in localstorage
@@ -3968,11 +3953,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -3985,15 +3965,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      table: 'empresas',
-      helpPage: 'empresas',
-      headers: _lib_Headers_js__WEBPACK_IMPORTED_MODULE_1__["default"].getTable('empresas'),
+      table: "empresas",
+      helpPage: "empresas",
+      headers: _lib_Headers_js__WEBPACK_IMPORTED_MODULE_1__["default"].getTable("empresas"),
       // Para el dialogo
       dialogCiclos: false
     };
   },
   mounted: function mounted() {
-    this.$emit('setTitle', 'Manteniment d\'Empreses');
+    this.$emit("setTitle", "Manteniment d'Empreses");
     this.loadData();
   },
   methods: {
@@ -4037,7 +4017,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     showItem: function showItem(id) {
       this.$router.push({
-        path: '/ofertas',
+        path: "/ofertas",
         query: {
           id_empresa: id
         }
@@ -5416,16 +5396,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.item).then(function (resp) {
-        sessionStorage.access_token = resp.data.access_token;
-        sessionStorage.expires_at = resp.data.expires_at;
-        sessionStorage.user_rol = Number(resp.data.rol);
-        sessionStorage.user_id = resp.data.id;
-        sessionStorage.token_type = resp.data.token_type;
-
-        _this2.$emit('setRol', {
-          rol: Number(resp.data.rol),
-          name: resp.data.name
-        });
+        _this2.setToken(resp.data);
 
         alert("El teu usuari s'ha creat correctament.\n                  Ara has d'omplir les teues dades");
 
@@ -5451,13 +5422,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       }).catch(function (err) {
-        sessionStorage.removeItem('access_token');
-        sessionStorage.removeItem('expires_at');
-        sessionStorage.removeItem('user_rol');
-        sessionStorage.removeItem('user_id');
-        sessionStorage.removeItem('token_type');
-
-        _this2.$emit('setRol');
+        _this2.clearToken();
 
         _this2.msgErr(err);
       }); // if the request fails, remove any possible user token if possible
@@ -45382,11 +45347,7 @@ var render = function() {
                   expression: "error.show"
                 }
               },
-              [
-                _vm._v(
-                  "\n                " + _vm._s(error.msg) + "\n            "
-                )
-              ]
+              [_vm._v(_vm._s(error.msg))]
             )
           ],
           1
@@ -45440,22 +45401,10 @@ var render = function() {
                         _c(
                           "span",
                           { attrs: { slot: "activator" }, slot: "activator" },
-                          [
-                            _vm._v(
-                              "\n                " +
-                                _vm._s(props.header.text) +
-                                "\n                "
-                            )
-                          ]
+                          [_vm._v(_vm._s(props.header.text))]
                         ),
                         _vm._v(" "),
-                        _c("span", [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(props.header.text) +
-                              "\n                "
-                          )
-                        ])
+                        _c("span", [_vm._v(_vm._s(props.header.text))])
                       ])
                     ]
                   }
@@ -45569,30 +45518,35 @@ var render = function() {
                           _c("v-card-text", [
                             _c("strong", [_vm._v("Domicil·li:")]),
                             _vm._v(
-                              " " +
+                              "\n            " +
                                 _vm._s(props.item.domicilio) +
-                                "\n              "
+                                "\n            "
                             ),
                             _c("br"),
+                            _vm._v(" "),
                             _c("strong", [_vm._v("Web:")]),
                             _vm._v(
-                              " " + _vm._s(props.item.web) + "\n              "
+                              "\n            " +
+                                _vm._s(props.item.web) +
+                                "\n            "
                             ),
                             _c("br"),
+                            _vm._v(" "),
                             _c("strong", [
                               _vm._v("Persona de Contacte amb Batoi:")
                             ]),
                             _vm._v(
-                              " " +
+                              "\n            " +
                                 _vm._s(props.item.contacto) +
-                                "\n              "
+                                "\n            "
                             ),
                             _c("br"),
+                            _vm._v(" "),
                             _c("strong", [_vm._v("Descripció:")]),
                             _vm._v(
-                              " " +
+                              "\n            " +
                                 _vm._s(props.item.descripcion) +
-                                "\n            "
+                                "\n          "
                             )
                           ])
                         ],
@@ -45606,13 +45560,12 @@ var render = function() {
                   fn: function(props) {
                     return [
                       _vm._v(
-                        "\n        Registres del " +
+                        "Registres del " +
                           _vm._s(props.pageStart) +
                           " al " +
                           _vm._s(props.pageStop) +
                           " de " +
-                          _vm._s(props.itemsLength) +
-                          "\n        "
+                          _vm._s(props.itemsLength)
                       )
                     ]
                   }
@@ -45635,9 +45588,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    '\n        La cerca de "' +
+                    'La cerca de "' +
                       _vm._s(_vm.search) +
-                      '" no dona cap resultat\n      '
+                      '" no dona cap resultat'
                   )
                 ]
               ),
@@ -45663,7 +45616,10 @@ var render = function() {
       _c(
         "v-dialog",
         {
-          attrs: { width: "800px" },
+          attrs: {
+            width: "800px",
+            fullscreen: _vm.$vuetify.breakpoint.smAndDown
+          },
           on: {
             keydown: function($event) {
               if (
@@ -45704,13 +45660,7 @@ var render = function() {
                   _c(
                     "v-card-title",
                     { staticClass: "grey lighten-4 py-4 title" },
-                    [
-                      _vm._v(
-                        "\n          " +
-                          _vm._s(_vm.isNew ? "Nou" : "Editar") +
-                          " empresa\n        "
-                      )
-                    ]
+                    [_vm._v(_vm._s(_vm.isNew ? "Nou" : "Editar") + " empresa")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -45723,13 +45673,13 @@ var render = function() {
                         [
                           _c(
                             "v-flex",
-                            { attrs: { xs2: "" } },
+                            { attrs: { xs4: "", sm2: "" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
                                   label: "Id",
                                   placeholder: "Id",
-                                  readonly: ""
+                                  disabled: ""
                                 },
                                 model: {
                                   value: _vm.editItem.id,
@@ -45745,7 +45695,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs3: "" } },
+                            { attrs: { xs6: "", sm3: "" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
@@ -45768,7 +45718,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs7: "" } },
+                            { attrs: { xs12: "", sm7: "" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
@@ -45792,7 +45742,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs8: "" } },
+                            { attrs: { xs12: "", sm8: "" } },
                             [
                               _c("v-textarea", {
                                 attrs: {
@@ -45816,7 +45766,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs4: "" } },
+                            { attrs: { xs8: "", sm4: "" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
@@ -45833,14 +45783,8 @@ var render = function() {
                                   },
                                   expression: "editItem.localidad"
                                 }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            [
+                              }),
+                              _vm._v(" "),
                               _c("v-text-field", {
                                 attrs: {
                                   label: "Telèfon",
@@ -45863,7 +45807,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs6: "" } },
+                            { attrs: { xs12: "", sm6: "" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
@@ -45887,7 +45831,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs6: "" } },
+                            { attrs: { xs12: "", sm6: "" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
@@ -91153,6 +91097,25 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    setToken: function setToken(data) {
+      sessionStorage.access_token = data.access_token;
+      sessionStorage.expires_at = data.expires_at;
+      sessionStorage.user_rol = Number(data.rol);
+      sessionStorage.user_id = data.id;
+      sessionStorage.token_type = data.token_type;
+      this.$emit('setRol', {
+        rol: Number(data.rol),
+        name: data.name
+      });
+    },
+    clearToken: function clearToken() {
+      sessionStorage.removeItem('access_token');
+      sessionStorage.removeItem('expires_at');
+      sessionStorage.removeItem('user_rol');
+      sessionStorage.removeItem('user_id');
+      sessionStorage.removeItem('token_type');
+      this.$emit('setRol');
+    },
     deleteUser: function deleteUser(item, msg) {
       var _this4 = this;
 
@@ -91167,13 +91130,7 @@ __webpack_require__.r(__webpack_exports__);
 
             if (itsMy) {
               // Me deslogueo
-              sessionStorage.removeItem('access_token');
-              sessionStorage.removeItem('expires_at');
-              sessionStorage.removeItem('user_rol');
-              sessionStorage.removeItem('user_id');
-              sessionStorage.removeItem('token_type');
-
-              _this4.$emit('setRol');
+              _this4.clearToken();
 
               _this4.$router.push('/');
             }
@@ -91209,12 +91166,7 @@ __webpack_require__.r(__webpack_exports__);
         msg = 'Error ' + err.response.status + ': ' + err.response.statusText;
 
         if (err.response.status == 401) {
-          sessionStorage.removeItem('access_token');
-          sessionStorage.removeItem('expires_at');
-          sessionStorage.removeItem('user_rol');
-          sessionStorage.removeItem('user_id');
-          sessionStorage.removeItem('token_type');
-          this.$emit('setRol');
+          this.clearToken();
           msg += ' - Debes volverte a loguear';
         } else if (this.imResponsable || true) {
           msg += ' - ' + err.response.data.message + ' in file ' + err.response.data.file;

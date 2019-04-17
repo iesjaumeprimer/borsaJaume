@@ -42,10 +42,11 @@ class SignupActivate extends Notification
     {
         $url = url('/api/auth/signup/activate/'.$notifiable->activation_token);
         return (new MailMessage)
-            ->subject('Confirma tu cuenta')
-            ->line('Gracias por suscribirte! Antes de continuar, debes configurar tu cuenta.')
-            ->action('Confirmar tu cuenta', url($url))
-            ->line('Muchas gracias por utilizar nuestra aplicación!');
+            ->subject('Confirma el teu compte')
+//            ->line('Gracias por suscribirte! Antes de continuar, debes configurar tu cuenta.')
+            ->line('Gràcies per subscriure\'t a la borsa de treball del CIP FP Batoi! Abans de continuar, has de activar el teu compte per poder iniciar sessió.')
+            ->action('Confirma el teu compte', url($url))
+            ->line('Moltes gràcies per utilitzar la nostra aplicació!');
     }
 
     /**

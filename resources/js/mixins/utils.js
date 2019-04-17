@@ -104,6 +104,25 @@ export default {
                 .catch(err => this.msgErr(err));
             }
         },      
+        setToken(data) {
+            sessionStorage.access_token=data.access_token;
+            sessionStorage.expires_at=data.expires_at;
+            sessionStorage.user_rol=Number(data.rol);
+            sessionStorage.user_id=data.id;
+            sessionStorage.token_type=data.token_type;
+            this.$emit('setRol', {
+              rol: Number(data.rol),
+              name: data.name
+            });
+        },
+        clearToken() {
+            sessionStorage.removeItem('access_token');
+            sessionStorage.removeItem('expires_at');
+            sessionStorage.removeItem('user_rol');
+            sessionStorage.removeItem('user_id');
+            sessionStorage.removeItem('token_type');
+            this.$emit('setRol');
+        },
         deleteUser(item, msg) {
             if (confirm("¿Segur que vols esborrar " + msg+ "?")) {
                 if (confirm("ATENCIÓ: S'esborraran DEFINITIVAMENT totes les seues dades així com el seu usuari. ¿Vols continar?")) {
@@ -115,12 +134,7 @@ export default {
                       this.msgOk('delete');
                       if (itsMy) {
                           // Me deslogueo
-                          sessionStorage.removeItem('access_token');
-                          sessionStorage.removeItem('expires_at');
-                          sessionStorage.removeItem('user_rol');
-                          sessionStorage.removeItem('user_id');
-                          sessionStorage.removeItem('token_type');
-                          this.$emit('setRol');
+                          this.clearToken();
                           this.$router.push('/');
                       }
                     })
@@ -154,12 +168,7 @@ export default {
             else {
                 msg='Error '+err.response.status+': '+err.response.statusText;
                 if (err.response.status==401) {
-                    sessionStorage.removeItem('access_token');
-                    sessionStorage.removeItem('expires_at');
-                    sessionStorage.removeItem('user_rol');
-                    sessionStorage.removeItem('user_id');
-                    sessionStorage.removeItem('token_type');
-                    this.$emit('setRol');
+                    this.clearToken();
                     msg+=' - Debes volverte a loguear';
                 } else if (this.imResponsable || true) {
                     msg+=' - '+err.response.data.message

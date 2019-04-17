@@ -72,15 +72,7 @@ export default {
             API.loginUser(this.item)
             .then(resp => {
               if (resp.data.access_token) {
-                sessionStorage.access_token=resp.data.access_token;
-                sessionStorage.expires_at=resp.data.expires_at;
-                sessionStorage.user_rol=resp.data.rol;
-                sessionStorage.user_id=resp.data.id;
-                sessionStorage.token_type=resp.data.token_type;
-                this.$emit('setRol', {
-                  rol: Number(resp.data.rol),
-                  name: resp.data.name
-                });
+                this.setToken(resp.data);
                 if (resp.data.rol==7) this.$router.push('/ofertas-alum')
                 else this.$router.push('/ofertas')
               } else {

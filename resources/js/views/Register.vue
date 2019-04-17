@@ -154,16 +154,7 @@ export default {
         saveUser() {
             API.saveUser(this.item)
             .then(resp => {
-              sessionStorage.access_token=resp.data.access_token;
-              sessionStorage.expires_at=resp.data.expires_at;
-              sessionStorage.user_rol=Number(resp.data.rol);
-              sessionStorage.user_id=resp.data.id;
-              sessionStorage.token_type=resp.data.token_type;
-              this.$emit('setRol', {
-                rol: Number(resp.data.rol),
-                name: resp.data.name
-              });
-               
+              this.setToken(resp.data);               
               alert(`El teu usuari s'ha creat correctament.
                   Ara has d'omplir les teues dades`);
               if (resp.data.rol==5) {
@@ -183,12 +174,7 @@ export default {
               }
             })
             .catch(err => {
-              sessionStorage.removeItem('access_token');
-              sessionStorage.removeItem('expires_at');
-              sessionStorage.removeItem('user_rol');
-              sessionStorage.removeItem('user_id');
-              sessionStorage.removeItem('token_type');
-              this.$emit('setRol');
+              this.clearToken();
               this.msgErr(err);
             }); // if the request fails, remove any possible user token if possible
         }

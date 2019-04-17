@@ -38,9 +38,9 @@ class PasswordResetRequest extends Notification implements ShouldQueue
     {
         $url = url('/api/password/find/'.$this->token);
         return (new MailMessage)
-            ->line('You are receiving this email because we received a password reset request for your account.')
+            ->line('Has rebut aquest email perquè hem rebut una sol·licitut per a resetejar la teua contrasenya.')
             ->action('Reset Password', url($url))
-            ->line('If you did not request a password reset, no further action is required.');
+            ->line('Si no has fet eixa sol·licitut no cal que facis res més.');
     }
 
     /**
