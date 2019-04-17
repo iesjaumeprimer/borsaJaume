@@ -25,8 +25,8 @@ npm install
 i copiem el fitxer **.env** que no es descarrega de git. Allí hem de configurar:
 - APP_NAME: Ponemos nuestro nombre (CIP FP Batoi)
 - l'accés a la BBDD (DB_DATABASE, DB_USERNAME, DB_PASSWORD)
-- el mail: MAIL_DRIVER (smtp), MAIL_HOST (localhost), MAIL_PORT (25), MAIL_USERNAME (usuario del sistema que envía los e-mails)
--
+- el mail: MAIL_DRIVER (sendmail), MAIL_HOST (localhost), MAIL_PORT (25), MAIL_USERNAME (usuario del sistema que envía los e-mails), MAIL_PASSWORD (su contrasenña), MAIL_ ENCRYPTION (null), MAIL_FROM_ADDRESS (borsatreball@cipfpbatoi.es), MAIL_FROM_NAME ("Borsa Treball Batoi")
+- 
 
 Creem la BBDD `borsatreball` i executem la migración:
 ```bash
