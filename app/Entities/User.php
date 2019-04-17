@@ -31,7 +31,7 @@ class User extends Authenticatable
         'password','activation_token',
     ];
 
-    protected $rules = [
+    protected static $rules = [
         'name'     => 'required|string',
         'email'    => 'required|string|email|unique:users',
         'password' => 'required|string|confirmed',
