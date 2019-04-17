@@ -22,7 +22,11 @@ Des de **dins de la màquina Homestead** instal·lem les llibreries necessàries
 composer update
 npm install
 ```
-i copiem el fitxer **.env** que no es descarrega de git.
+i copiem el fitxer **.env** que no es descarrega de git. Allí hem de configurar:
+- APP_NAME: Ponemos nuestro nombre (CIP FP Batoi)
+- l'accés a la BBDD (DB_DATABASE, DB_USERNAME, DB_PASSWORD)
+- el mail: MAIL_DRIVER (smtp), MAIL_HOST (localhost), MAIL_PORT (25), MAIL_USERNAME (usuario del sistema que envía los e-mails)
+-
 
 Creem la BBDD `borsatreball` i executem la migración:
 ```bash
