@@ -8,7 +8,7 @@ A més posiblement haurà de [registrar empreses](#registrar-una-nova-empresa) i
 Anem a veure còm fer aquestes tasques.
 
 ## Validar oferta
-Quan una empresa crea una nova oferta s'envia un e-mail al responsable del cicle o cicles sol·licitats en aquesta oferta per a que la validen. EN molts casos coneixerem a aquesta empresa de treballar amb ella en la FCT i so no podria ser un bon moment per a contactar amb ells i oferir-les la possibilitat de tindre alumnes en pràcticas de FCT/FP Dual.
+Quan una empresa crea una nova oferta s'envia un e-mail al responsable del cicle o cicles sol·licitats en aquesta oferta per a que la validen. En molts casos coneixerem a aquesta empresa de treballar amb ella en la FCT (si no podria ser un bon moment per a contactar amb ells i oferir-los la possibilitat de tindre alumnes en pràcticas de FCT o FP Dual). 
 
 Al entrar a l'aplicació i anar a **_'Ofertes'_** veurem totes les ofertes que hi ha actualment dels cicles dels quals som responsables:
 
@@ -22,14 +22,14 @@ Per a validar una oferta fem doble click sobre la seua icona d'activa/validada. 
 
 ![Validar Oferta](../img/oferta-validar.png)
 
-Una vegada validada cada alumne que tinga un dels cicles sol·licitats rebrà un e-mail amb la informació de l'oferta on pot indicar el seu interes en la mateixa. També li apareixerà en l'aplicació i pot indicar que està interessat fent doble click en la icona de **_'Interesat'_**. El significat dels símbols d'aquest camp és:
+Una vegada validada cada alumne que tinga un dels cicles sol·licitats rebrà un e-mail amb la informació de l'oferta on pot indicar el seu interes en la mateixa. També li apareixerà en l'aplicació i pot indicar que està interessat fent doble click en la icona de **_'Interessat'_**. El significat dels símbols del camp '_Interessat_' és:
 - **V** (verd): l'alumne està interessat en aquesta oferta
 - **X** (roig): l'alumne NO està interessat en aquesta oferta
 - **?** (roig): l'alumne no ha indicat si està o no interessat
 
 ![Ofertes per alumne](../img/ofertas-alumno.png)
 
-Si la empresa ha marcat en l'oferta el camp de **_'Mostrar contacte'_**, els alumnes, junt a la informació de l'oferta tindran un botó (+) que els mostrarà com poder contactar amb aquesta empresa:
+Si la empresa ha marcat en l'oferta el camp de **_'Mostrar contacte'_**, els alumnes, junt a la informació de l'oferta tindran un botó (+) que els mostrarà les dades de contacte de la empresa per a aquesta oferta:
 
 ![Ofertes per alumne](../img/ofertas-alumno-mas.png)
 
@@ -44,7 +44,7 @@ Al entrar a l'aplicació i anar al menú **_'Alumnes'_** ens apareixen tots els 
 
 ![Alumnes](../img/alumnos.png)
 
-Cada cicle te un cercle en que es mostra l'anyo en que l'alumne el va finalitzar, que serà de color **verd** si està **validat** i **roig** si no ho està. Si deixem el ratolí sobre el codi del cicle ens apareix el seu nom sencer:
+Cada cicle te un cercle en que es mostra l'any en que l'alumne el va finalitzar, i serà de color **verd** si està **validat** i **roig** si no ho està. Si deixem el ratolí sobre el codi del cicle ens apareix el seu nom sencer:
 
 ![Cicles](../img/ciclo.png)
 
@@ -54,8 +54,10 @@ Per a validar un cicle hem de fer doble click sobre el mateix:
 
 Hem d'indicar l'any de finalització i marcar la casella de **_'Validar'_**. Podem des-validar un cicle validat de la mateixa manera.
 
+Normalment haurem de validar els alumnes de la última promoció i per tant sabem qui són i l'any en que han acabat (l'any actual). Però si es registra algun alumne d'anys anteriors (això pasarà sobre tot ara al principi de funcionar la borsa) i no el coneixem o no sabem quin any va acabar contactarem en **Caporalia** per a que ens ho confirmen. No hem de validar un alumne del que no sabem amb seguretat que ha fet els cicles que indica. 
+
 ## Registrar una nova empresa
-Si rebrem una oferta d'una empresa que no vol donar-se d'alta en la nostra borsa ho haurem de fer nosaltres per ella. Abans de crear una nova empresa s'ja de comprovar que no està ja creada (potser ha publicat alguna oferta d'altre cicle anteriorment). Desde el menú **_'Empreses_** podem veure totes les que hi ha i filtrar-les per nom, CIF, localitat, ...
+Si rebrem una oferta d'una empresa que no vol donar-se d'alta en la nostra borsa ho haurem de fer nosaltres per ella. Abans de crear una nova empresa s'ha de comprovar que no està ja creada (potser ha publicat alguna oferta d'altre cicle anteriorment). Desde el menú **_'Empreses_'** podem veure totes les que hi ha i filtrar-les per nom, CIF, localitat, ...
 
 ![Empreses](../img/empresas.png)
 
@@ -67,29 +69,29 @@ El primer pas es crear l'usuari per a la qual cosa hem d'introduir:
 - Nom: el nom de l'empresa
 - Rol: serà _Empleador_ (no ho podem canviar)
 - E-mail: el e-mail de l'empresa per a contactar amb ells. És obligatori
-- Contrasenya: li posem una contrasenya, que pot ser el seu cif, 123456, o el que vulgam. L'empresa la podrà canviar quan ho dessitge
+- Contrasenya: li posem una contrasenya, que pot ser el seu cif, 123456, o el que vulgam. L'empresa la podrà canviar quan ho dessitge des del menú de _'Perfil'_. 
 
 ![Nou usuari](../img/usuari-nou.png)
 
 Amb això hem creat l'usuari i l'empresa però les seues dades estan buides. Ara les hem de completar:
 - Cif: és convenient posar-ho per a asesgurar-nos de no tindre 2 vegades la mateixa empresa
 - Domicil·li, Localitat, Telèfon, Persona de contacte, Pàgina web
-- Descripció: és un camp opcional per si volem posar altra informació sobre l'empresa
+- Descripció: és un camp opcional per si es vol posar altra informació sobre l'empresa
 
 ![Editar empresa](../img/empresa-edit.png)
 
 L'empresa rebrà un e-mail (en el e-mail indicat al crear l'usuari) informant-li de que se li ha donat d'alta en la borsa. Quan confirme aquest e-mail ja podrà accedir a l'aplicació amb el e-mail i contrasenya indicades per nosaltres.
 
 ## Crear una nova oferta
-El primer que farem és anar al menú **_'Empreses'_** per a assegurar-nos de que la empresa ja existeix (i si no donar-la d'alta com hem vist abans). Quan la trobem clickem en botó de **_'Veure ofertes'_** (l'últim) i ens apareixen les ofertes d'eixa empresa.
+El primer que farem és anar al menú **_'Empreses'_** per a assegurar-nos de que l'empresa ja existeix (i si no donar-la d'alta com hem vist abans). Quan la trobem clickem en el botó de **_'Veure ofertes'_** (l'últim) i ens apareixen les ofertes d'eixa empresa.
 
 ![Ofertes](../img/ofertas.png)
 
-Ara estem en la pantalla de **_'Ofertes'_** i per a crear una nova clickem en el botó de **_'Nova oferta'_** (botó blau amb **+** sobre la taula, en la part dreta). Els camps que hem d'omplir són:
+Ara estem en la pantalla de **_'Ofertes'_** i per a crear una nova clickem en el botó de **_'Nova oferta'_** (botó blau amb **+** sobre la taula, a la part dreta). Els camps que hem d'omplir són:
 - **Activa**: si volem que l'oferta siga visible per als alumnes que només poden veure les ofertes actives i validades. Per defecte sí
 - **Empresa**: desplegable on seleccionem l'empresa de l'oferta. Si ho hem fet com s'indica ja ens apareix l'empresa seleccionada. Si no l'hem de seleccionar nosaltres
-- **Telèfon**, **email** i **persona de contacte**: per defecte es posen els de l'empresa seleccionada (i si camviem l'empresa es canviaran). Poden posar els que vulgam
-- **Mostrar contacte**: si marquem aquesta casella els alumnes podran veure la informació anterior (telèfon, email i persona de contacte) junt a l'oferta. Si no no veuren més que el nom de l'empresa i serà l'empresa la encarregada de posar-se en contacte amb ells. Per defecte està marcada
+- **Telèfon**, **email** i **persona de contacte**: per defecte es posen els de l'empresa seleccionada (i si camviem l'empresa es canviaran). Podem posar els que vulgam per a aquesta oferta en concret
+- **Mostrar contacte**: si marquem aquesta casella els alumnes podran veure la informació anterior (telèfon, email i persona de contacte) junt a l'oferta. Si no, no veuran més que el nom de l'empresa i serà l'empresa l'encarregada de posar-se en contacte amb ells. Per defecte està marcada
 - **Lloc de treball**: el lloc de treball oferit
 - **Descripció**: una descripció més detallada del mateix
 - **Tipus de contracte**: informació sobre el contracte oferit (temps parcial, indefinit, ...)
@@ -102,6 +104,6 @@ Ara hem de validar l'oferta. Per a això fem doble click sobre la icona de **_'A
 
 ![Valdar oferta](../img/oferta-validar.png)
 
-Una vegada validada una oferta activa tots els alumnes de la borsa que complisquen els criteris indicats rebran un email amb aquesta oferta. Els que estiguen interessats ho indicaran i a partir d'eixe moment ens apareixeran en la taula ofertes al polsar sobre el botó d'**alumnes interessats**.
+Una vegada validada una oferta activa tots els alumnes de la borsa que complisquen els criteris indicats rebran un email amb aquesta oferta. Els que estiguen interessats ho indicaran i a partir d'eixe moment ens apareixeran en la taula **_'Ofertes'_** al polsar sobre el botó d'**alumnes interessats**.
 
 ![Interessats en oferta](../img/ofertas-interesados.png)
