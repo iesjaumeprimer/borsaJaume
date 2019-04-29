@@ -3451,7 +3451,7 @@ __webpack_require__.r(__webpack_exports__);
           return rol.id == resp.data.data.rol;
         }).rol;
       }).catch(function (err) {
-        return msgErr(err);
+        return _this.msgErr(err);
       });
     },
     submit: function submit() {
@@ -3469,7 +3469,7 @@ __webpack_require__.r(__webpack_exports__);
 
       console.error('chgpass');
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].changePassword(this.item).then(function (resp) {
-        return msgOk('T\'hem enviat un mail amb l\'enllaç per a canviar la teua contrasenya');
+        return _this3.msgOk('T\'hem enviat un mail amb l\'enllaç per a canviar la teua contrasenya');
       }).catch(function (err) {
         return _this3.msgErr(err);
       });

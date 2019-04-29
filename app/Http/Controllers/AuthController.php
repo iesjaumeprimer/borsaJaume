@@ -51,7 +51,8 @@ class AuthController extends Controller
         $user->active = true;
         $user->activation_token = '';
         $user->save();
-        return $user;
+//        return $user;
+        return redirect('/');
     }
 
     private function getToken($user){
