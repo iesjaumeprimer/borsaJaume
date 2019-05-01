@@ -63,5 +63,17 @@ class OfertaController extends ApiBaseController
         return response("No he pogut Esborrar $id",400);
     }
 
+
+
+    public function store(Request $request)
+    {
+        if ($errors = $this->validate($request, $this->entity::rules())) return $this->response($errors);
+
+        $oferta = $this->entity::create($request->all());
+        $response =  $this->manageResponse($oferta,$request);
+        $oferta->sendNotifications();
+
+        return $response;
+    }
 }
 

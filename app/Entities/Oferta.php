@@ -3,7 +3,7 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use App\Notifications\ValidateOffer;
 
 
 class Oferta extends Entity
@@ -37,6 +37,12 @@ class Oferta extends Entity
                 if (!$ofertas->contains($oferta)) $ofertas->add($oferta);
         }
         return $ofertas;
+    }
+    public function sendNotifications()
+    {
+        foreach ($this->Ciclos as $ciclo){
+            $ciclo->Responsable->notify(new ValidateOffer($this->id));
+        }
     }
 
 }

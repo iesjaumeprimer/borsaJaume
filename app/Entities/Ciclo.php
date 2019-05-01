@@ -15,4 +15,9 @@ class Ciclo extends Entity
     {
         return $this->belongsToMany(Oferta::class,'ofertas_ciclos', 'id_ciclo', 'id_oferta', 'id', 'id')->withPivot('any_fin');
     }
+
+    public function Responsable()
+    {
+        return $this->hasOne(User::class,'responsable');
+    }
 }
