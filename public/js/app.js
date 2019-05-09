@@ -5602,6 +5602,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       // OJO. SObreescrito de utils.js pq no hace POST sino SINGUP
       if (this.editIndex > -1) {
+        // Como el email debe ser único en USERS si no lo cambia da error
+        // al pasárselo así que hay que quitarlo
+        if (this.editItem.email == this.items.find(function (user) {
+          return user.id == _this.editItem.id;
+        }).email) {
+          console.error('iguales');
+          delete this.editItem.email;
+        }
+
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem(this.table, this.editItem.id, this.editItem).then(function (resp) {
           var index = _this.items.findIndex(function (item) {
             return item.id == resp.data.id;

@@ -142,6 +142,12 @@ export default {
     addItem() {
       // OJO. SObreescrito de utils.js pq no hace POST sino SINGUP
       if (this.editIndex > -1) {
+        // Como el email debe ser único en USERS si no lo cambia da error
+        // al pasárselo así que hay que quitarlo
+        if (this.editItem.email == this.items.find(user=>user.id==this.editItem.id).email) {
+          console.error('iguales')
+          delete this.editItem.email
+        }
         API.updateItem(this.table, this.editItem.id, this.editItem)
           .then(resp => {
             let index = this.items.findIndex(item => item.id == resp.data.id);
