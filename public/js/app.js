@@ -3699,7 +3699,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("users").then(function (resp) {
         return _this.responsables = resp.data.data.filter(function (resp) {
-          return resp.rol == "3";
+          return resp.rol <= "3";
         }).map(function (resp) {
           return {
             id: resp.id,

@@ -187,7 +187,7 @@ export default {
         .then(
           resp =>
             (this.responsables = resp.data.data
-              .filter(resp => resp.rol == "3")
+              .filter(resp => resp.rol <= "3")
               .map(resp => {
                 return {
                   id: resp.id,
