@@ -14,7 +14,7 @@
       ></v-text-field>
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px" @keydown.esc="closeDialog">
-        <template v-slot:activator="{ on }">
+        <template v-if="imAdmin" v-slot:activator="{ on }">
           <v-btn color="primary" dark class="mb-2" v-on="on">
             <v-icon>add</v-icon>
           </v-btn>
@@ -85,8 +85,8 @@
           <yes-no-icon :value="props.item.active"></yes-no-icon>
         </td>
         <td class="justify-center layout px-0">
-          <v-icon class="mr-2" @click="openDialog(props.item)">edit</v-icon>
-          <v-icon @click="deleteItem(props.item, 'el responsable '+props.item.name)">delete</v-icon>
+          <v-icon v-if="imAdmin" class="mr-2" @click="openDialog(props.item)">edit</v-icon>
+          <v-icon v-if="imAdmin" @click="deleteItem(props.item, 'el responsable '+props.item.name)">delete</v-icon>
         </td>
       </template>
       <template v-slot:no-data>
@@ -145,7 +145,6 @@ export default {
         // Como el email debe ser único en USERS si no lo cambia da error
         // al pasárselo así que hay que quitarlo
         if (this.editItem.email == this.items.find(user=>user.id==this.editItem.id).email) {
-          console.error('iguales')
           delete this.editItem.email
         }
         API.updateItem(this.table, this.editItem.id, this.editItem)

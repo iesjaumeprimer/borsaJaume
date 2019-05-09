@@ -17,7 +17,7 @@ class CreateAlumnosCiclosTable extends Migration {
             $table->increments('id');
 			$table->integer('id_alumno')->unsigned()->index('id_alumno');
 			$table->integer('id_ciclo')->unsigned()->index('id_ciclo');
-			$table->integer('any');
+			$table->integer('any')->nullable();
 			$table->boolean('validado')->default(false);
 		});
 	}

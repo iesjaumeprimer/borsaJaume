@@ -5607,7 +5607,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (this.editItem.email == this.items.find(function (user) {
           return user.id == _this.editItem.id;
         }).email) {
-          console.error('iguales');
           delete this.editItem.email;
         }
 
@@ -48583,28 +48582,34 @@ var render = function() {
                   return _vm.closeDialog($event)
                 }
               },
-              scopedSlots: _vm._u([
-                {
-                  key: "activator",
-                  fn: function(ref) {
-                    var on = ref.on
-                    return [
-                      _c(
-                        "v-btn",
-                        _vm._g(
-                          {
-                            staticClass: "mb-2",
-                            attrs: { color: "primary", dark: "" }
-                          },
-                          on
-                        ),
-                        [_c("v-icon", [_vm._v("add")])],
-                        1
-                      )
-                    ]
-                  }
-                }
-              ]),
+              scopedSlots: _vm._u(
+                [
+                  _vm.imAdmin
+                    ? {
+                        key: "activator",
+                        fn: function(ref) {
+                          var on = ref.on
+                          return [
+                            _c(
+                              "v-btn",
+                              _vm._g(
+                                {
+                                  staticClass: "mb-2",
+                                  attrs: { color: "primary", dark: "" }
+                                },
+                                on
+                              ),
+                              [_c("v-icon", [_vm._v("add")])],
+                              1
+                            )
+                          ]
+                        }
+                      }
+                    : null
+                ],
+                null,
+                true
+              ),
               model: {
                 value: _vm.dialog,
                 callback: function($$v) {
@@ -48842,33 +48847,37 @@ var render = function() {
                   "td",
                   { staticClass: "justify-center layout px-0" },
                   [
-                    _c(
-                      "v-icon",
-                      {
-                        staticClass: "mr-2",
-                        on: {
-                          click: function($event) {
-                            return _vm.openDialog(props.item)
-                          }
-                        }
-                      },
-                      [_vm._v("edit")]
-                    ),
+                    _vm.imAdmin
+                      ? _c(
+                          "v-icon",
+                          {
+                            staticClass: "mr-2",
+                            on: {
+                              click: function($event) {
+                                return _vm.openDialog(props.item)
+                              }
+                            }
+                          },
+                          [_vm._v("edit")]
+                        )
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c(
-                      "v-icon",
-                      {
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteItem(
-                              props.item,
-                              "el responsable " + props.item.name
-                            )
-                          }
-                        }
-                      },
-                      [_vm._v("delete")]
-                    )
+                    _vm.imAdmin
+                      ? _c(
+                          "v-icon",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteItem(
+                                  props.item,
+                                  "el responsable " + props.item.name
+                                )
+                              }
+                            }
+                          },
+                          [_vm._v("delete")]
+                        )
+                      : _vm._e()
                   ],
                   1
                 )
