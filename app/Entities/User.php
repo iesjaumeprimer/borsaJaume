@@ -32,10 +32,10 @@ class User extends Authenticatable
     ];
 
     protected static $rules = [
-        'name'     => 'required|string',
-        'email'    => 'required|string|email|unique:users',
-        'password' => 'required|string|confirmed',
-        'rol'      => 'required'
+        'name'     => 'sometimes|required|string',
+        'email'    => 'sometimes|required|string|email|unique:users',
+        'password' => 'sometimes|required|string|confirmed',
+        'rol'      => 'sometimes|required'
     ];
     public function isAlumno(){
        return $this->rol == config('role.alumno');
