@@ -83,7 +83,7 @@ class MenusTableSeeder extends Seeder
             'icon'=>'account_box',
             'text'=>'Perfil',
             'path'=>'/perfil',
-            'rol'=>35,
+            'rol'=>210,
             'parent'=>NULL,
             'model'=>0,
             'active'=>1,

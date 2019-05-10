@@ -3432,6 +3432,7 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         email: ''
       },
+      oldMail: '',
       roles: _app_constants__WEBPACK_IMPORTED_MODULE_4__["ROLES"],
       rol: ''
     };
@@ -3447,6 +3448,7 @@ __webpack_require__.r(__webpack_exports__);
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getItem('users', this.myId).then(function (resp) {
         _this.item.name = resp.data.data.name;
         _this.item.email = resp.data.data.email;
+        _this.oldMail = resp.data.data.email;
         _this.rol = _this.roles.find(function (rol) {
           return rol.id == resp.data.data.rol;
         }).rol;
@@ -3457,8 +3459,17 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this2 = this;
 
-      console.error('login');
-      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem('users', this.myId, this.item).then(function (resp) {
+      // Como el email debe ser único en USERS si no lo cambia da error
+      // al pasárselo así que hay que quitarlo
+      var myUser = {
+        name: this.item.name
+      };
+
+      if (this.item.email != this.oldMail) {
+        myUser.email = this.item.email;
+      }
+
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem('users', this.myId, this.myUser).then(function (resp) {
         _this2.msgOk('update');
       }).catch(function (err) {
         return _this2.msgErr(err);

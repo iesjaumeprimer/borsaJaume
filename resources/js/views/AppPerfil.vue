@@ -65,6 +65,7 @@ export default {
               name: '',
               email: ''
             },
+            oldMail: '',
             roles: ROLES,
             rol: '',
             }
@@ -79,13 +80,19 @@ export default {
             .then(resp=>{
               this.item.name=resp.data.data.name;
               this.item.email=resp.data.data.email;
+              this.oldMail=resp.data.data.email;
               this.rol=this.roles.find(rol=>rol.id==resp.data.data.rol).rol;
             })
             .catch(err=>this.msgErr(err));
         },
           submit() {
-            console.error('login')
-                API.updateItem('users', this.myId, this.item)
+            // Como el email debe ser único en USERS si no lo cambia da error
+            // al pasárselo así que hay que quitarlo
+            let myUser={ name: this.item.name };
+            if (this.item.email != this.oldMail) {
+              myUser.email=this.item.email;
+            }
+            API.updateItem('users', this.myId, this.myUser)
                 .then(resp => {
                     this.msgOk('update');
                 })
