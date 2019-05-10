@@ -271,7 +271,7 @@
 
     <!-- Dialog validar -->
     <v-layout row justify-center>
-      <v-dialog v-model="dialogValidar" persistent max-width="290">
+      <v-dialog v-model="dialogValidar" persistent max-width="290" @keydown.esc="dialogValidar = false">
         <v-card>
           <v-card-title class="headline">{{ ofertaValidar.validada?'Invalidar':'Validar'}} Oferta</v-card-title>
           <v-card-text>

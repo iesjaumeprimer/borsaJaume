@@ -9,6 +9,10 @@ export default {
             requiredCheckRules: [
                 v => !!v || 'Has de marcar la casella',
             ],
+            cifRules: [
+                v => !!v || 'El CIF és obligatori',
+                v => /^([A-Z]|[0-9])[0-9]{7}([A-Z]|[0-9])$/i.test(v) || 'Has de posar un CIF vàlid'
+            ],
             emailRules: [
                 v => !!v || 'El e-mail és obligatori',
                 v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(v) || 'Has de posar un e-mail vàlid'
@@ -28,7 +32,7 @@ export default {
                 v => (v && v.length <= 10) || 'La mida ha de ser menor de 10 caracters'
             ],
             required25Rules: [
-                v => !!v || 'El camp és obligatori-'+val,
+                v => !!v || 'El camp és obligatori',
                 v => (v && v.length <= 25) || 'La mida ha de ser menor de 25 caracters'
             ],
             required50Rules: [

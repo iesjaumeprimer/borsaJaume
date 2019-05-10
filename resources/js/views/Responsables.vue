@@ -31,31 +31,33 @@
                   <v-text-field v-model="editItem.name" label="Nom"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm4>
-                    <v-select
-                        :items="roles"
-                        v-model="editItem.rol"
-                        item-text="rol"
-                        item-value="id"
-                        label="Rol"
-                    >
-                    </v-select>
+                  <v-select
+                    :items="roles"
+                    v-model="editItem.rol"
+                    item-text="rol"
+                    item-value="id"
+                    label="Rol"
+                  ></v-select>
                 </v-flex>
                 <v-flex xs12 sm9>
                   <v-text-field v-model="editItem.email" label="e-mail"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm3>
-                    <v-checkbox
-                        v-model="editItem.active"
-                        label="Actiu"
-                        placeholder="Actiu"
-                        :disabled="editItem.rol>3"
-                    ></v-checkbox>
+                  <v-checkbox
+                    v-model="editItem.active"
+                    label="Actiu"
+                    placeholder="Actiu"
+                    :disabled="editItem.rol>3"
+                  ></v-checkbox>
                 </v-flex>
                 <v-flex xs12 sm6 v-if="isNew">
                   <v-text-field v-model="editItem.password" label="Contrasenya"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 v-if="isNew">
-                  <v-text-field v-model="editItem.password_confirmation" label="Repeteix la contrasenya"></v-text-field>
+                  <v-text-field
+                    v-model="editItem.password_confirmation"
+                    label="Repeteix la contrasenya"
+                  ></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -86,7 +88,10 @@
         </td>
         <td class="justify-center layout px-0">
           <v-icon v-if="imAdmin" class="mr-2" @click="openDialog(props.item)">edit</v-icon>
-          <v-icon v-if="imAdmin" @click="deleteItem(props.item, 'el responsable '+props.item.name)">delete</v-icon>
+          <v-icon
+            v-if="imAdmin"
+            @click="deleteItem(props.item, 'el responsable '+props.item.name)"
+          >delete</v-icon>
         </td>
       </template>
       <template v-slot:no-data>
@@ -101,7 +106,7 @@ import API from "../lib/API";
 import YesNoIcon from "../components/base/YesNoIcon";
 import formRulesMixin from "../mixins/formRules.js";
 import utilsMixin from "../mixins/utils.js";
-import { ROLES } from '../app.constants';
+import { ROLES } from "../app.constants";
 
 export default {
   mixins: [formRulesMixin, utilsMixin],
@@ -121,7 +126,7 @@ export default {
       { text: "Actiu", value: "active" },
       { text: "Accions", sortable: false }
     ],
-    roles: ROLES,
+    roles: ROLES
   }),
 
   watch: {
@@ -136,16 +141,30 @@ export default {
   },
 
   methods: {
-      rolDescrip(rol) {
-          return this.roles.find(r=>r.id==rol).rol;
-      },
+    loadItems() {
+      API.getTable(this.table, this.$route.query)
+        .then(resp => {
+          this.items = resp.data.data;
+          // Si estoy creando un nuevo usuario lo edito
+          if (this.$route.params.new) {
+            this.openDialog({ rol: this.$route.params.rol});
+          }
+        })
+        .catch(err => this.msgErr(err));
+    },
+    rolDescrip(rol) {
+      return this.roles.find(r => r.id == rol).rol;
+    },
     addItem() {
       // OJO. SObreescrito de utils.js pq no hace POST sino SINGUP
       if (this.editIndex > -1) {
         // Como el email debe ser único en USERS si no lo cambia da error
         // al pasárselo así que hay que quitarlo
-        if (this.editItem.email == this.items.find(user=>user.id==this.editItem.id).email) {
-          delete this.editItem.email
+        if (
+          this.editItem.email ==
+          this.items.find(user => user.id == this.editItem.id).email
+        ) {
+          delete this.editItem.email;
         }
         API.updateItem(this.table, this.editItem.id, this.editItem)
           .then(resp => {
@@ -155,34 +174,40 @@ export default {
           })
           .catch(err => this.msgErr(err));
       } else {
-          let itemSaved={...this.editItem};
+        let itemSaved = { ...this.editItem };
         API.saveUser(this.editItem)
           .then(resp => {
             this.items.push({
-                id: resp.data.id,
-                name: itemSaved.name,
-                rol: itemSaved.rol,
-                email: itemSaved.email,
-                active: itemSaved.active
+              id: resp.data.id,
+              name: itemSaved.name,
+              rol: itemSaved.rol,
+              email: itemSaved.email,
+              active: itemSaved.active
             });
             this.msgOk("save");
             if (resp.data.rol == 5) {
               // Es una empresa
-                this.$router.push({name: 'empresas', params: {
+              this.$router.push({
+                name: "empresas",
+                params: {
                   new: true,
                   id: resp.data.id,
                   name: resp.data.name
-                }})
+                }
+              });
               alert(
                 "S'ha creat l'usuari. Ara has de crear l'empresa i omplir les seues dades"
               );
             } else if (resp.data.rol == 7) {
               // Es un alumno
-                this.$router.push({name: 'alumnos', params: {
+              this.$router.push({
+                name: "alumnos",
+                params: {
                   new: true,
                   id: resp.data.id,
                   name: resp.data.name
-                }})
+                }
+              });
               alert(
                 "S'ha creat l'usuari. Ara has de crear l'alumne i omplir les seues dades"
               );

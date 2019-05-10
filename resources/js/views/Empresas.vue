@@ -6,7 +6,6 @@
 
     <v-card>
       <v-card-title>
-        <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
           append-icon="search"
@@ -14,6 +13,11 @@
           single-line
           hide-details
         ></v-text-field>
+
+        <v-spacer></v-spacer>
+        <v-btn v-if="imResponsable" top right color="indigo" dark @click="newEmpresa">
+          <v-icon>add</v-icon>
+        </v-btn>
       </v-card-title>
       <v-data-table
         :items="items"
@@ -91,7 +95,12 @@
       </v-data-table>
     </v-card>
 
-    <v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog" :fullscreen="$vuetify.breakpoint.smAndDown">
+    <v-dialog
+      v-model="dialog"
+      width="800px"
+      @keydown.esc="closeDialog"
+      :fullscreen="$vuetify.breakpoint.smAndDown"
+    >
       <v-card>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-card-title class="grey lighten-4 py-4 title">{{ isNew?'Nou':'Editar' }} empresa</v-card-title>
@@ -107,6 +116,7 @@
                   v-model="editItem.cif"
                   mask="N#######N"
                   counter="9"
+                  :rules="cifRules"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12 sm7>
@@ -163,7 +173,6 @@
                   placeholder="Pàgina web"
                   v-model="editItem.web"
                   counter="50"
-                  :rules="required50Rules"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -245,6 +254,15 @@ export default {
     },
     showItem(id) {
       this.$router.push({ path: "/ofertas", query: { id_empresa: id } });
+    },
+    newEmpresa() {
+      this.$router.push({
+        name: "responsables",
+        params: {
+          new: true,
+          rol: 5,
+        }
+      });
     }
   }
 };

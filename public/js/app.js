@@ -3964,6 +3964,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4031,6 +4040,15 @@ __webpack_require__.r(__webpack_exports__);
         path: "/ofertas",
         query: {
           id_empresa: id
+        }
+      });
+    },
+    newEmpresa: function newEmpresa() {
+      this.$router.push({
+        name: "responsables",
+        params: {
+          new: true,
+          rol: 5
         }
       });
     }
@@ -5559,6 +5577,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -5603,40 +5626,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.loadItems();
   },
   methods: {
+    loadItems: function loadItems() {
+      var _this = this;
+
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table, this.$route.query).then(function (resp) {
+        _this.items = resp.data.data; // Si estoy creando un nuevo usuario lo edito
+
+        if (_this.$route.params.new) {
+          _this.openDialog({
+            rol: _this.$route.params.rol
+          });
+        }
+      }).catch(function (err) {
+        return _this.msgErr(err);
+      });
+    },
     rolDescrip: function rolDescrip(rol) {
       return this.roles.find(function (r) {
         return r.id == rol;
       }).rol;
     },
     addItem: function addItem() {
-      var _this = this;
+      var _this2 = this;
 
       // OJO. SObreescrito de utils.js pq no hace POST sino SINGUP
       if (this.editIndex > -1) {
         // Como el email debe ser único en USERS si no lo cambia da error
         // al pasárselo así que hay que quitarlo
         if (this.editItem.email == this.items.find(function (user) {
-          return user.id == _this.editItem.id;
+          return user.id == _this2.editItem.id;
         }).email) {
           delete this.editItem.email;
         }
 
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem(this.table, this.editItem.id, this.editItem).then(function (resp) {
-          var index = _this.items.findIndex(function (item) {
+          var index = _this2.items.findIndex(function (item) {
             return item.id == resp.data.id;
           });
 
-          _this.items.splice(index, 1, resp.data);
+          _this2.items.splice(index, 1, resp.data);
 
-          _this.msgOk("update");
+          _this2.msgOk("update");
         }).catch(function (err) {
-          return _this.msgErr(err);
+          return _this2.msgErr(err);
         });
       } else {
         var itemSaved = _objectSpread({}, this.editItem);
 
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].saveUser(this.editItem).then(function (resp) {
-          _this.items.push({
+          _this2.items.push({
             id: resp.data.id,
             name: itemSaved.name,
             rol: itemSaved.rol,
@@ -5644,12 +5682,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             active: itemSaved.active
           });
 
-          _this.msgOk("save");
+          _this2.msgOk("save");
 
           if (resp.data.rol == 5) {
             // Es una empresa
-            _this.$router.push({
-              name: 'empresas',
+            _this2.$router.push({
+              name: "empresas",
               params: {
                 new: true,
                 id: resp.data.id,
@@ -5660,8 +5698,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             alert("S'ha creat l'usuari. Ara has de crear l'empresa i omplir les seues dades");
           } else if (resp.data.rol == 7) {
             // Es un alumno
-            _this.$router.push({
-              name: 'alumnos',
+            _this2.$router.push({
+              name: "alumnos",
               params: {
                 new: true,
                 id: resp.data.id,
@@ -5672,7 +5710,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             alert("S'ha creat l'usuari. Ara has de crear l'alumne i omplir les seues dades");
           }
         }).catch(function (err) {
-          return _this.msgErr(err);
+          return _this2.msgErr(err);
         });
         this.closeDialog();
       }
@@ -45379,8 +45417,6 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _c("v-spacer"),
-              _vm._v(" "),
               _c("v-text-field", {
                 attrs: {
                   "append-icon": "search",
@@ -45395,7 +45431,21 @@ var render = function() {
                   },
                   expression: "search"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _vm.imResponsable
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: { top: "", right: "", color: "indigo", dark: "" },
+                      on: { click: _vm.newEmpresa }
+                    },
+                    [_c("v-icon", [_vm._v("add")])],
+                    1
+                  )
+                : _vm._e()
             ],
             1
           ),
@@ -45721,7 +45771,8 @@ var render = function() {
                                   label: "Cif",
                                   placeholder: "Cif",
                                   mask: "N#######N",
-                                  counter: "9"
+                                  counter: "9",
+                                  rules: _vm.cifRules
                                 },
                                 model: {
                                   value: _vm.editItem.cif,
@@ -45856,8 +45907,7 @@ var render = function() {
                                 attrs: {
                                   label: "Pàgina web",
                                   placeholder: "Pàgina web",
-                                  counter: "50",
-                                  rules: _vm.required50Rules
+                                  counter: "50"
                                 },
                                 model: {
                                   value: _vm.editItem.web,
@@ -47612,6 +47662,20 @@ var render = function() {
             "v-dialog",
             {
               attrs: { persistent: "", "max-width": "290" },
+              on: {
+                keydown: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "esc", 27, $event.key, [
+                      "Esc",
+                      "Escape"
+                    ])
+                  ) {
+                    return null
+                  }
+                  _vm.dialogValidar = false
+                }
+              },
               model: {
                 value: _vm.dialogValidar,
                 callback: function($$v) {
@@ -90951,6 +91015,11 @@ __webpack_require__.r(__webpack_exports__);
       requiredCheckRules: [function (v) {
         return !!v || 'Has de marcar la casella';
       }],
+      cifRules: [function (v) {
+        return !!v || 'El CIF és obligatori';
+      }, function (v) {
+        return /^([A-Z]|[0-9])[0-9]{7}([A-Z]|[0-9])$/i.test(v) || 'Has de posar un CIF vàlid';
+      }],
       emailRules: [function (v) {
         return !!v || 'El e-mail és obligatori';
       }, function (v) {
@@ -90976,7 +91045,7 @@ __webpack_require__.r(__webpack_exports__);
         return v && v.length <= 10 || 'La mida ha de ser menor de 10 caracters';
       }],
       required25Rules: [function (v) {
-        return !!v || 'El camp és obligatori-' + val;
+        return !!v || 'El camp és obligatori';
       }, function (v) {
         return v && v.length <= 25 || 'La mida ha de ser menor de 25 caracters';
       }],
