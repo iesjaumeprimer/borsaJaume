@@ -58,7 +58,7 @@ Si volem canviar els cicles polsem sobre la línia de cicles demanats i es despl
 ## Veure els candidats
 Des de la taula d'**Ofertes** podem veure els candidats que s'han interessat per la nostra oferta pulsant el primer botó d'accions de la oferta:
 
-![Interessats oferta](../img/oferta-interesados.png)
+![Interessats oferta](../img/ofertas-interesados.png)
 
 De cada candidat podem veure el seu nom (que conté un enllaç al se _Curriculum Vitae_ si ho te), e-mail i teléfon per si volem posar-nos en contacte amb ells. Si en la oferta vam desmarcar la casella de _Mostrar contacte_ els candidats no podran posar-se en contacte amb nosaltres i som nosaltres els que haurem de contactar en ells.
 
