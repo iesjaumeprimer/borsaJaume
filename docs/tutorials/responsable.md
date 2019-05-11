@@ -38,7 +38,7 @@ Quan l'empresa entra a l'aplicació  a veure les seues ofertes, la primera icona
 ![Ofertes - interessats](../img/ofertas-interesados.png)
 
 ## Validar cicles d'un alumne
-Els alumnes al registrar-se indiquen els cicles que han finalitzat en el nostre Centre. Nosaltres som els responsables de validar que realment han fet els cicles indicats i en quin any l'han acabat.
+Els alumnes al registrar-se indiquen els cicles que han finalitzat en el nostre Centre o estan estudiant ara. Nosaltres som els responsables de validar que realment han fet els cicles indicats (o estan ara matriculats) i en quin any l'han acabat.
 
 Al entrar a l'aplicació i anar al menú **_'Alumnes'_** ens apareixen tots els alumnes amb cicles dels quals som responsables:
 
@@ -52,29 +52,29 @@ Per a validar un cicle hem de fer doble click sobre el mateix:
 
 ![Validar cicle](../img/alumno-ciclo-validar.png)
 
-Hem d'indicar l'any de finalització i marcar la casella de **_'Validar'_**. Podem des-validar un cicle validat de la mateixa manera.
+Hem d'indicar l'any de finalització i marcar la casella de **_'Validar'_**. Podem des-validar un cicle validat de la mateixa manera. En el cas que l'alumne encara estiga matriculat en el cicle perquè no l'ha finalitzat **deixarem en blanc** l'any de finalització al validar-lo (per tant és molt important posar aquest any en els alumnes que han finalitzat el cicle perquè si no es considera que encara estan matriculats en el mateix).
 
 Normalment haurem de validar els alumnes de la última promoció i per tant sabem qui són i l'any en que han acabat (l'any actual). Però si es registra algun alumne d'anys anteriors (això pasarà sobre tot ara al principi de funcionar la borsa) i no el coneixem o no sabem quin any va acabar contactarem en **Caporalia** per a que ens ho confirmen. No hem de validar un alumne del que no sabem amb seguretat que ha fet els cicles que indica. 
+
+També és posible que vulgam que es puguen registrar els alumnes que encara estan estudiant (especialmen els de segon curs). En aquest cas deixarem en blanc l'any de finalització al validar-los i quan finalitzen els posarem aquest any. Si algun alumne es dona de baixa o no torna a matricular-se el següent any sense haber finalitzat el cicle li ho haurem de des-validar.
 
 ## Registrar una nova empresa
 Si rebrem una oferta d'una empresa que no vol donar-se d'alta en la nostra borsa ho haurem de fer nosaltres per ella. Abans de crear una nova empresa s'ha de comprovar que no està ja creada (potser ha publicat alguna oferta d'altre cicle anteriorment). Desde el menú **_'Empreses_'** podem veure totes les que hi ha i filtrar-les per nom, CIF, localitat, ...
 
 ![Empreses](../img/empresas.png)
 
-Si no està l'haurem de crear. Al crear-la es crearà un nou usuari (per a que es puga loguejar per a veure els nteressats en l'oferta) i una nova empresa. Ho farem des del menú **_'Usuaris'_** amb el botó de **_'Nou usuari'_** (botó blau amb **+** sobre la taula, en la part dreta).
-
-![Usuaris](../img/usuarios.png)
+Si no està l'haurem de crear. Al crear-la es crearà un nou usuari (per a que es puga loguejar per a veure els nteressats en l'oferta) i una nova empresa. Ho farem amb el botó de **_'Nova empresa'_** (botó blau amb **+** sobre la taula, en la part dreta).
 
 El primer pas es crear l'usuari per a la qual cosa hem d'introduir:
 - Nom: el nom de l'empresa
-- Rol: serà _Empleador_ (no ho podem canviar)
+- Rol: serà _Empleador_
 - E-mail: el e-mail de l'empresa per a contactar amb ells. És obligatori
 - Contrasenya: li posem una contrasenya, que pot ser el seu cif, 123456, o el que vulgam. L'empresa la podrà canviar quan ho dessitge des del menú de _'Perfil'_. 
 
 ![Nou usuari](../img/usuari-nou.png)
 
 Amb això hem creat l'usuari i l'empresa però les seues dades estan buides. Ara les hem de completar:
-- Cif: és convenient posar-ho per a asesgurar-nos de no tindre 2 vegades la mateixa empresa
+- Cif: és obligatori posar-ho per a asesgurar-nos de no tindre 2 vegades la mateixa empresa
 - Domicil·li, Localitat, Telèfon, Persona de contacte, Pàgina web
 - Descripció: és un camp opcional per si es vol posar altra informació sobre l'empresa
 
@@ -96,6 +96,7 @@ Ara estem en la pantalla de **_'Ofertes'_** i per a crear una nova clickem en el
 - **Descripció**: una descripció més detallada del mateix
 - **Tipus de contracte**: informació sobre el contracte oferit (temps parcial, indefinit, ...)
 - **Cicles demanats**: llista desplegable on seleccionem el cicle que ha de tindre un alumne per a poder veure aquesta oferta. Si seleccionem més d'un cicle la oferta els apareixerà a tots els alumnes que tinguen algun dels cicles seleccionats. Pots consultar la llista de [cicles formatius](../ciclos/lista.md) impartits al Centre.
+- **Inclou estudiants**: si marquem aquesta casella l'oferta serà també visible per als alumnes registrats que encara no hagen finalitzat el cicle (que estiguen estudiant-lo ara)
 - **Any màxim d'acabar**: aquest camp és opcional. Si posem un any l'oferta només es mostrarà als alumnes que hagen acabat els seus estudis amb posterioritat a l'any indicat. Si ho deixem en blanc se li mostrarà a tots els alumnes que tinguen el cicle.
 
 ![Editar oferta](../img/oferta-edit.png)
