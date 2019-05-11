@@ -26,7 +26,12 @@ De cada oferta podem veure:
 - **Any**: si conté un any significa que l'empresa vol que els candidats hagen finalitzat el cicle amb posterioritat a eixe any
 - botó **Més dades**: si el polsem podem veure la resta de dades de l'oferta i les dades de contacte de l'empresa. Si no apareix aquest botó és que l'empresa no vol mostrar les seues dades i són ells qui es posaran en contacte amb els aspirants
 
-Si estem interessats en una oferta només hem de fer doble click sobre la icona de **Interessat** i confirmar que està
+Si estem interessats en una oferta només hem de fer doble click sobre la icona de **Interessat** i confirmar que estem insteressats:
+
+![Interessat](../img/alumneinteressat.png)
+
+En qualsevol moment podem deixar d'estar insteressats tornant a fer doble click.
+
 ## Registrar-se
 
 ![Registre](../img/registreAlumno.png)
