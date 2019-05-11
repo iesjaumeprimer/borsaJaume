@@ -6,7 +6,7 @@ Per a formar part de la borsa ha d'haver-se [registrat](#registrar-se) per a pod
 Cada vegada que es publique una oferta que requereix tindre algun dels cicles que ha finalitzat l'alumne, aquest rebrà un e-mail amb la informació de la oferta i de l'empresa que la publica. Si està interessat en la mateixa només necessita [loguejar-se](#loguejar-se) en l'aplicació i marcar que està [interessat](#apuntar-se-a-una-oferta). 
 
 ## Loguejar-se
-Només hem d'introduir el nostre email en el qual ens vam registrar i la contrasenya i, si és correcte, se'ns reenviarà automàticament a la pàgina de [Ofertes](./ofertas).
+Només hem d'introduir el nostre email en el qual ens vam registrar i la contrasenya i, si és correcte, se'ns reenviarà automàticament a la pàgina de **Ofertes**.
 
 ![Login](../img/login.png)
 
@@ -28,7 +28,7 @@ De cada oferta podem veure:
 
 Si estem interessats en una oferta només hem de fer doble click sobre la icona de **Interessat** i confirmar que estem insteressats:
 
-![Interessat](../img/alumneinteressat.png)
+![Interessat](../img/alumeinteressat.png)
 
 En qualsevol moment podem deixar d'estar insteressats tornant a fer doble click.
 
