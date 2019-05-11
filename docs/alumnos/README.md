@@ -5,8 +5,8 @@ Aquesta pàgina només és accesible per als responsables de la borsa i els alum
 
 - **Nom**: Nom de l'alumne
 - **Cognoms**: Cognoms de l'alumne
-- **Cicles**: Cicles que ha estudiar l'alumne en el CIP FP Batoi de cada cicle podem veure:
-    - **Any de finalització**: dins del cercle apareix l'any en que l'alumne va finalitzar aquest cicle
+- **Cicles**: Cicles que ha estudiar l'alumne en el CIP FP Batoi o que està estudiant ara. De cada cicle podem veure:
+    - **Any de finalització**: dins del cercle apareix l'any en que l'alumne va finalitzar aquest cicle (si encara està estudiant-lo l'any estarà en blanc)
     - **Validat**: el color del cercle indica si aquest cicle ja s'ha validat pel responsable de la borsa (color verd) o encara no (color roig). Al deixar el cursor sobre el cercle apareix un missatge que ens diu si està o no validat
     - **Codi del cicle**: el codi del cicle estudiat. Començarà per CFM si es un cicle formatiu de **grau mitjà** o per CFS si és de **grau superior**
     - **Nom del cicle**: al deixar el cursor sobre el codi apareix el nom sencer del cicle cursat
@@ -32,6 +32,6 @@ Si volem canviar els cicles polsem sobre la línia de cicles finalitzats i es de
 
 ![Editar cicles](../img/alumnos-edit-ciclos.png)
 
-
-
+## Validar els cicles de l'alumne
+Des d'aquesta pantalla els responsables poden [validar o des-validar](../tutorials/responsable.md#validar-cicles-dun-alumne) qualsevol dels cicles d'un alumne fent doble click en el cercle del cicle.
 
