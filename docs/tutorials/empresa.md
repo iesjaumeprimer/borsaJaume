@@ -39,6 +39,7 @@ Per a crear una nova oferta pulsem en el botó d'afegir (**+** blau) que trobem 
 - **Descripció**: una descripció mes llarga del treball oferit
 - **Tipus de contracte**: informació sobre el contracte oferit (temps parcial, indefinit, ...)
 - **Cicles demanats**: llista desplegable on seleccionem el cicle que ha de tindre un alumne per a poder veure aquesta oferta. Si seleccionem més d'un cicle la oferta els apareixerà a tots els alumnes que tinguen algun dels cicles seleccionats. Pots consultar la llista de [cicles formatius](../ciclos/lista.md) impartits al Centre.
+- **Inclou estudiants**: si marquem aquesta casella indiquem que també pode optar a aquesta oferta els alumnes que ara estan estudiant el cicle (i encara no l'han acabat)
 - **Any màxim d'acabar el cicle**: aquest camp és opcional. Si posem un any l'oferta només es mostrarà als candidats que hagen acabat els seus estudis amb posterioritat a l'any indicat. Si ho deixem en blanc se li mostrarà a tots els candidats que tinguen el cicle.
 
 Quan afegim una nova oferta el responsable dels cicles sol·licitats rebrà un missatge per a **validar-la**. Una vegada validada una oferta activa tots els candidats de la borsa que complisquen els criteris indicats rebran un email amb aquesta oferta. Els que estiguen interessats ho indicaran i a partir d'eixe moment ens apareixeran en la taula ofertes al polsar sobre el botó d'**alumnes interessats**.
