@@ -1,7 +1,7 @@
 # Ofertes de treball
-Ací les empreses podem gestionar les seues ofertes de treball. EN el següent apartat s'indica [cóm crear una nova oferta de treball](#crear-una-nova-oferta).
+Ací les empreses podem gestionar les seues ofertes de treball. En el següent apartat s'indica [cóm crear una nova oferta de treball](#crear-una-nova-oferta).
 
-Els responsables de la borsa poden veure les ofertes de totes les empreses. Respecte als alumnes, només tenen accés a les ofertes que demanen algú dels cicles que tenen i la informació que veuen és la que apareix en la pàgina de [ofertes per a l'alumne](./ofertas-alumnos.md). 
+Els responsables de la borsa poden veure les ofertes de totes les empreses. Respecte als alumnes, només tenen accés a les ofertes que demanen algú dels cicles que tenen i la informació que veuen és la que apareix en la pàgina de [ofertes per a l'alumne](./ofertasxalumno.md). 
 
 La informació que trobem ací és:
 
