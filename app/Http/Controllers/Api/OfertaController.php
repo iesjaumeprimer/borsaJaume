@@ -24,9 +24,14 @@ class OfertaController extends ApiBaseController
     {
         if (AuthUser()->isEmpresa())
             return OfertaResource::collection(Oferta::BelongsToEnterprise(AuthUser()->id)->get());
-        if (AuthUser()->isAlumno())
-            return OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true))
-                ->where('validada',true)->where('activa',true));
+        if (AuthUser()->isAlumno()){
+            $ofertasFinalitzat = OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true)->where('pivot.any', '!=', null))
+            ->where('validada',true)->where('activa',true)->where('estudiando',false));
+            $ofertas = $ofertasFinalitzat->concat(OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true))
+            ->where('validada',true)->where('activa',true)->where('estudiando',true)));
+
+            return collect($ofertas->values());// values devuelve un array en vez de un objeto
+        }
         if (AuthUser()->isResponsable())
             return OfertaResource::collection(Oferta::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->get()));
 

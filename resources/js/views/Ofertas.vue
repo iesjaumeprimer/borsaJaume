@@ -240,8 +240,15 @@
               ></v-select>
             </v-flex>
             <v-flex xs3>
+              <v-checkbox
+                v-model="editItem.estudiando"
+                label="Inclou estudiants"
+                title="Inclou també als alumnes que encara estan estudiant algun d'aquests cicles"
+                persistent-hint
+              ></v-checkbox>
               <v-text-field
                 label="Any màxim"
+                title="Només alumnes que hagen acabat els estudis amb posterioritat a aquest any"
                 placeholder="d'acabar el cicle"
                 v-model="editItem.any"
                 mask="####"
@@ -311,7 +318,7 @@ export default {
     headers: [
       { text: "Activa", value: "activa" },
       { text: "Empresa", value: "id_empresa" },
-      { text: "Lloc de traball", value: "puesto" },
+      { text: "Lloc de treball", value: "puesto" },
       { text: "Contracte", value: "tipo_contrato" },
       { text: "Cicles", value: "cicles" },
       { text: "Accions", value: "id_empresa" }

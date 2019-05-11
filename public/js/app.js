@@ -4776,6 +4776,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4800,7 +4807,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         text: "Empresa",
         value: "id_empresa"
       }, {
-        text: "Lloc de traball",
+        text: "Lloc de treball",
         value: "puesto"
       }, {
         text: "Contracte",
@@ -4965,6 +4972,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
 /* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
 /* harmony import */ var _components_base_YesNoIcon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/base/YesNoIcon */ "./resources/js/components/base/YesNoIcon.vue");
+/* harmony import */ var _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/base/HelpButton */ "./resources/js/components/base/HelpButton.vue");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -5117,6 +5125,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -5124,23 +5158,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_formRules_js__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
+    HelpButton: _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_4__["default"],
     YesNoIcon: _components_base_YesNoIcon__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
       //    table: "ofertas-alum",
       table: "ofertas",
+      helpPage: "ofertas/ofertasxalumno",
       headers: [{
         text: "Activa",
         value: "activa"
       }, {
-        text: "interesado",
+        text: "Interessat",
         value: "interesado"
       }, {
         text: "Empresa",
         value: "id_empresa"
       }, {
-        text: "Lloc de traball",
+        text: "Lloc de treball",
         value: "puesto"
       }, {
         text: "Contracte",
@@ -5168,7 +5204,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loadData: function loadData() {
       var _this = this;
 
-      this.loadItems();
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table, this.$route.query).then(function (resp) {
+        _this.items = resp.data;
+      }).catch(function (err) {
+        return _this.msgErr(err);
+      });
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable("ciclos").then(function (resp) {
         return _this.ciclos = resp.data.data.map(function (ciclo) {
           return {
@@ -47562,9 +47602,27 @@ var render = function() {
                         "v-flex",
                         { attrs: { xs3: "" } },
                         [
+                          _c("v-checkbox", {
+                            attrs: {
+                              label: "Inclou estudiants",
+                              title:
+                                "Inclou també als alumnes que encara estan estudiant algun d'aquests cicles",
+                              "persistent-hint": ""
+                            },
+                            model: {
+                              value: _vm.editItem.estudiando,
+                              callback: function($$v) {
+                                _vm.$set(_vm.editItem, "estudiando", $$v)
+                              },
+                              expression: "editItem.estudiando"
+                            }
+                          }),
+                          _vm._v(" "),
                           _c("v-text-field", {
                             attrs: {
                               label: "Any màxim",
+                              title:
+                                "Només alumnes que hagen acabat els estudis amb posterioritat a aquest any",
                               placeholder: "d'acabar el cicle",
                               mask: "####",
                               disabled:
@@ -47794,7 +47852,7 @@ var render = function() {
                   expression: "error.show"
                 }
               },
-              [_vm._v("\n              " + _vm._s(error.msg) + "\n          ")]
+              [_vm._v(_vm._s(error.msg))]
             )
           ],
           1
@@ -47848,22 +47906,10 @@ var render = function() {
                         _c(
                           "span",
                           { attrs: { slot: "activator" }, slot: "activator" },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(props.header.text) +
-                                "\n              "
-                            )
-                          ]
+                          [_vm._v(_vm._s(props.header.text))]
                         ),
                         _vm._v(" "),
-                        _c("span", [
-                          _vm._v(
-                            "\n              " +
-                              _vm._s(props.header.text) +
-                              "\n              "
-                          )
-                        ])
+                        _c("span", [_vm._v(_vm._s(props.header.text))])
                       ])
                     ]
                   }
@@ -47951,9 +47997,9 @@ var render = function() {
                                   _c("strong", [_vm._v(_vm._s(ciclo.any_fin))])
                                 ]),
                                 _vm._v(
-                                  "\n          " +
+                                  "\n              " +
                                     _vm._s(_vm.nomCiclo(ciclo.id_ciclo)) +
-                                    "\n      "
+                                    "\n            "
                                 )
                               ],
                               1
@@ -48020,18 +48066,19 @@ var render = function() {
                                     [
                                       _c("strong", [_vm._v("Descripció:")]),
                                       _vm._v(
-                                        " " +
+                                        "\n                " +
                                           _vm._s(props.item.descripcion) +
-                                          "\n            "
+                                          "\n                "
                                       ),
                                       props.item.contacto
                                         ? [
                                             _c("br"),
+                                            _vm._v(" "),
                                             _c("strong", [_vm._v("Contacte:")]),
                                             _vm._v(
-                                              " " +
+                                              "\n                  " +
                                                 _vm._s(props.item.contacto) +
-                                                "\n            "
+                                                "\n                "
                                             )
                                           ]
                                         : _vm._e(),
@@ -48039,11 +48086,12 @@ var render = function() {
                                       props.item.email
                                         ? [
                                             _c("br"),
+                                            _vm._v(" "),
                                             _c("strong", [_vm._v("E-mail:")]),
                                             _vm._v(
-                                              " " +
+                                              "\n                  " +
                                                 _vm._s(props.item.email) +
-                                                "\n            "
+                                                "\n                "
                                             )
                                           ]
                                         : _vm._e(),
@@ -48051,11 +48099,12 @@ var render = function() {
                                       props.item.telefono
                                         ? [
                                             _c("br"),
+                                            _vm._v(" "),
                                             _c("strong", [_vm._v("Telèfon:")]),
                                             _vm._v(
-                                              " " +
+                                              "\n                  " +
                                                 _vm._s(props.item.telefono) +
-                                                "\n            "
+                                                "\n                "
                                             )
                                           ]
                                         : _vm._e(),
@@ -48063,11 +48112,12 @@ var render = function() {
                                       props.item.resultat
                                         ? [
                                             _c("br"),
+                                            _vm._v(" "),
                                             _c("strong", [_vm._v("Resultat:")]),
                                             _vm._v(
-                                              " " +
+                                              "\n                  " +
                                                 _vm._s(props.item.resultat) +
-                                                "\n            "
+                                                "\n                "
                                             )
                                           ]
                                         : _vm._e()
@@ -48096,19 +48146,29 @@ var render = function() {
                                         _c("strong", [_vm._v("DADES EMPRESA")]),
                                         _vm._v(" "),
                                         _c("br"),
-                                        _c("strong", [_vm._v("Domicil·li: ")]),
+                                        _vm._v(" "),
+                                        _c("strong", [_vm._v("Domicil·li:")]),
                                         _vm._v(
-                                          _vm._s(props.item.empresa.domicilio) +
-                                            "\n              "
+                                          "\n                  " +
+                                            _vm._s(
+                                              props.item.empresa.domicilio
+                                            ) +
+                                            "\n                  "
                                         ),
                                         _c("br"),
-                                        _c("strong", [_vm._v("Localitat: ")]),
+                                        _vm._v(" "),
+                                        _c("strong", [_vm._v("Localitat:")]),
                                         _vm._v(
-                                          _vm._s(props.item.empresa.localidad) +
-                                            "\n              "
+                                          "\n                  " +
+                                            _vm._s(
+                                              props.item.empresa.localidad
+                                            ) +
+                                            "\n                  "
                                         ),
                                         _c("br"),
-                                        _c("strong", [_vm._v("Pàgina web: ")]),
+                                        _vm._v(" "),
+                                        _c("strong", [_vm._v("Pàgina web:")]),
+                                        _vm._v(" "),
                                         _c(
                                           "a",
                                           {
@@ -48146,13 +48206,12 @@ var render = function() {
                   fn: function(props) {
                     return [
                       _vm._v(
-                        "      \n      Registres del " +
+                        "Registres del " +
                           _vm._s(props.pageStart) +
                           " al " +
                           _vm._s(props.pageStop) +
                           " de " +
-                          _vm._s(props.itemsLength) +
-                          "\n      "
+                          _vm._s(props.itemsLength)
                       )
                     ]
                   }
@@ -48175,14 +48234,26 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    '\n      La cerca de "' +
+                    'La cerca de "' +
                       _vm._s(_vm.search) +
-                      '" no dona cap resultat\n    '
+                      '" no dona cap resultat'
                   )
                 ]
+              ),
+              _vm._v(" "),
+              _vm._v(" "),
+              _c(
+                "template",
+                { staticClass: "text-sm-left", slot: "actions-prepend" },
+                [
+                  _vm.helpPage
+                    ? _c("help-button", { attrs: { page: _vm.helpPage } })
+                    : _vm._e()
+                ],
+                1
               )
             ],
-            1
+            2
           )
         ],
         1
@@ -48220,7 +48291,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("v-card-text", [
                     _vm._v(
-                      "\n        Vas a " +
+                      "\n          Vas a " +
                         _vm._s(
                           _vm.ofertaInteressat.interesado == 1
                             ? "Desapuntar-te"
@@ -48229,7 +48300,7 @@ var render = function() {
                         " a l'oferta '\n          "
                     ),
                     _c("strong", [_vm._v(_vm._s(_vm.ofertaInteressat.puesto))]),
-                    _vm._v("\n          '. ¿Deseas continuar?\n      ")
+                    _vm._v("\n          '. ¿Deseas continuar?\n        ")
                   ]),
                   _vm._v(" "),
                   _c(

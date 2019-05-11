@@ -29,6 +29,7 @@ class OfertaResource extends JsonResource
              'mostrar_contacto' => $this->mostrar_contacto,
              'validada' => $this->validada,
              'any' => $this->any,
+             'estudiando' => $this->estudiando,
              'archivada' => $this->archivada,
              'ciclos' => hazArray($this->ciclos,'id','pivot'),
              'empresa' => $this->empresa,
