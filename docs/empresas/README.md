@@ -18,3 +18,8 @@ Des d'ací podem modificar les dades de l'empresa:
 ![Editar empresa](../img/empresa-edit.png)
 
 Una vegada modificada, per a que es guarden els canvis hem de prèmer el botó de **GUARDAR**. Si volem descartar els canvis polsarem el botó de **CANCEL·LAR**. Per a obtindre ajuda pulsarem sobre la icona de l'interrogant.
+
+## Afegir una nova empresa
+Si som un responsable podem afegir noves empreses a la borsa tal i com s'explica en el [Manual del responsable](../tutorials/responsable.md).
+
+Si som una empresa que volem publicar una oferta podem [registrar-nos](../registre.md) en la borsa.
