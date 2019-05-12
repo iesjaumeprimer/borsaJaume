@@ -5512,9 +5512,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_API__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/API */ "./resources/js/lib/API.js");
 /* harmony import */ var _components_base_YesNoIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/base/YesNoIcon */ "./resources/js/components/base/YesNoIcon.vue");
-/* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
-/* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
-/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../app.constants */ "./resources/js/app.constants.js");
+/* harmony import */ var _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/base/HelpButton */ "./resources/js/components/base/HelpButton.vue");
+/* harmony import */ var _mixins_formRules_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/formRules.js */ "./resources/js/mixins/formRules.js");
+/* harmony import */ var _mixins_utils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../mixins/utils.js */ "./resources/js/mixins/utils.js");
+/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../app.constants */ "./resources/js/app.constants.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -5622,19 +5623,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_mixins_formRules_js__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_utils_js__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  mixins: [_mixins_formRules_js__WEBPACK_IMPORTED_MODULE_3__["default"], _mixins_utils_js__WEBPACK_IMPORTED_MODULE_4__["default"]],
   components: {
-    YesNoIcon: _components_base_YesNoIcon__WEBPACK_IMPORTED_MODULE_1__["default"]
+    YesNoIcon: _components_base_YesNoIcon__WEBPACK_IMPORTED_MODULE_1__["default"],
+    HelpButton: _components_base_HelpButton__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
       table: "users",
+      helpPage: "usuarios",
       headers: [{
         text: "Nom",
         align: "left",
@@ -5653,7 +5660,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         text: "Accions",
         sortable: false
       }],
-      roles: _app_constants__WEBPACK_IMPORTED_MODULE_4__["ROLES"]
+      roles: _app_constants__WEBPACK_IMPORTED_MODULE_5__["ROLES"]
     };
   },
   watch: {
@@ -48963,95 +48970,115 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-data-table", {
-        staticClass: "elevation-1",
-        attrs: {
-          headers: _vm.headers,
-          items: _vm.items,
-          search: _vm.search,
-          "no-data-text": "No hi ha dades disponibles",
-          "rows-per-page-text": "Registres per pàgina"
-        },
-        scopedSlots: _vm._u([
-          {
-            key: "items",
-            fn: function(props) {
-              return [
-                _c("td", [_vm._v(_vm._s(props.item.name))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(props.item.email))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.rolDescrip(props.item.rol)))]),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  [_c("yes-no-icon", { attrs: { value: props.item.active } })],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  { staticClass: "justify-center layout px-0" },
-                  [
-                    _vm.imAdmin
-                      ? _c(
-                          "v-icon",
-                          {
-                            staticClass: "mr-2",
-                            on: {
-                              click: function($event) {
-                                return _vm.openDialog(props.item)
-                              }
-                            }
-                          },
-                          [_vm._v("edit")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.imAdmin
-                      ? _c(
-                          "v-icon",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem(
-                                  props.item,
-                                  "el responsable " + props.item.name
-                                )
-                              }
-                            }
-                          },
-                          [_vm._v("delete")]
-                        )
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ]
-            }
+      _c(
+        "v-data-table",
+        {
+          staticClass: "elevation-1",
+          attrs: {
+            headers: _vm.headers,
+            items: _vm.items,
+            search: _vm.search,
+            "no-data-text": "No hi ha dades disponibles",
+            "rows-per-page-text": "Registres per pàgina"
           },
-          {
-            key: "no-data",
-            fn: function() {
-              return [
-                _c(
-                  "v-btn",
-                  {
-                    attrs: { color: "primary" },
-                    on: {
-                      click: function($event) {
-                        return _vm.alert("clicked")
-                      }
-                    }
-                  },
-                  [_vm._v("Reset")]
-                )
-              ]
+          scopedSlots: _vm._u([
+            {
+              key: "items",
+              fn: function(props) {
+                return [
+                  _c("td", [_vm._v(_vm._s(props.item.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(props.item.email))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.rolDescrip(props.item.rol)))]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    [
+                      _c("yes-no-icon", { attrs: { value: props.item.active } })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    { staticClass: "justify-center layout px-0" },
+                    [
+                      _vm.imAdmin
+                        ? _c(
+                            "v-icon",
+                            {
+                              staticClass: "mr-2",
+                              on: {
+                                click: function($event) {
+                                  return _vm.openDialog(props.item)
+                                }
+                              }
+                            },
+                            [_vm._v("edit")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.imAdmin
+                        ? _c(
+                            "v-icon",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteItem(
+                                    props.item,
+                                    "el responsable " + props.item.name
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("delete")]
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ]
+              }
             },
-            proxy: true
-          }
-        ])
-      })
+            {
+              key: "no-data",
+              fn: function() {
+                return [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "primary" },
+                      on: {
+                        click: function($event) {
+                          return _vm.alert("clicked")
+                        }
+                      }
+                    },
+                    [_vm._v("Reset")]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ])
+        },
+        [
+          _vm._v(" "),
+          _vm._v(" "),
+          _c(
+            "template",
+            { staticClass: "text-sm-left", slot: "actions-prepend" },
+            [
+              _vm.helpPage
+                ? _c("help-button", { attrs: { page: _vm.helpPage } })
+                : _vm._e()
+            ],
+            1
+          )
+        ],
+        2
+      )
     ],
     2
   )

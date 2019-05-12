@@ -97,6 +97,9 @@
       <template v-slot:no-data>
         <v-btn color="primary" @click="alert('clicked')">Reset</v-btn>
       </template>
+        <template class="text-sm-left" slot="actions-prepend">
+          <help-button v-if="helpPage" :page="helpPage"></help-button>
+        </template>
     </v-data-table>
   </div>
 </template>
@@ -104,6 +107,7 @@
 <script>
 import API from "../lib/API";
 import YesNoIcon from "../components/base/YesNoIcon";
+import HelpButton from "../components/base/HelpButton";
 import formRulesMixin from "../mixins/formRules.js";
 import utilsMixin from "../mixins/utils.js";
 import { ROLES } from "../app.constants";
@@ -111,10 +115,12 @@ import { ROLES } from "../app.constants";
 export default {
   mixins: [formRulesMixin, utilsMixin],
   components: {
-    YesNoIcon
+    YesNoIcon,
+    HelpButton
   },
   data: () => ({
     table: "users",
+    helpPage: "usuarios",
     headers: [
       {
         text: "Nom",
