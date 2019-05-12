@@ -11,4 +11,4 @@ La informació que trobem ací és:
 - **CodDep**: codi del departament al que pertàny el cicle
 - **Família**: nom de la família formativa a que pertàny el cicle
 
-Podem veure en [aquesta pàgina](./cicles.md) la llista de tots els cicles per família.
+Podem veure en [aquesta pàgina](./lista.md) la llista de tots els cicles per família.
