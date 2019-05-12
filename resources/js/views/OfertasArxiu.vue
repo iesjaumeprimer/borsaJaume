@@ -16,7 +16,7 @@
 
         <v-spacer></v-spacer>
         <v-btn
-          v-if="imEmpresa || imResponsable && !isArxiu"
+          v-if="imEmpresa || imResponsable"
           top
           right
           color="indigo"
@@ -76,9 +76,9 @@
               </v-btn>
               <div v-if="imEmpresa || imResponsable">
                 <v-btn icon class="mx-0" @click="preOpenDialog(props.item)">
-                  <v-icon>{{ isArxiu?'remove_red_eye':'edit' }}</v-icon>
+                  <v-icon>edit</v-icon>
                 </v-btn>
-                <v-btn v-if="!isArxiu" icon class="mx-0" @click="deleteItem(props.item)">
+                <v-btn icon class="mx-0" @click="deleteItem(props.item)">
                   <v-icon>delete</v-icon>
                 </v-btn>
               </div>
@@ -135,12 +135,7 @@
               <v-text-field label="Id" placeholder="Id" v-model="editItem.id" readonly></v-text-field>
             </v-flex>
             <v-flex xs2>
-              <v-checkbox 
-                v-model="editItem.activa" 
-                label="Activa" 
-                placeholder="Activa"
-                :disabled="isArxiu"
-              ></v-checkbox>
+              <v-checkbox v-model="editItem.activa" label="Activa" placeholder="Activa"></v-checkbox>
             </v-flex>
             <v-flex xs3>
               <v-checkbox
@@ -152,7 +147,6 @@
             </v-flex>
             <v-flex xs6>
               <v-select
-                :disabled="isArxiu"
                 :readonly="!imResponsable"
                 label="Descripció"
                 placeholder="Empresa"
@@ -167,7 +161,6 @@
             </v-flex>
             <v-flex xs2>
               <v-text-field
-                :disabled="isArxiu"
                 label="Telèfon"
                 placeholder="Telèfon"
                 v-model="editItem.telefono"
@@ -178,7 +171,6 @@
             </v-flex>
             <v-flex xs4>
               <v-text-field
-                :disabled="isArxiu"
                 label="E-mail"
                 placeholder="E-mail"
                 v-model="editItem.email"
@@ -189,7 +181,6 @@
             </v-flex>
             <v-flex xs3>
               <v-text-field
-                :disabled="isArxiu"
                 label="Persona de contacte"
                 placeholder="Persona de contacte"
                 v-model="editItem.contacto"
@@ -199,7 +190,6 @@
             </v-flex>
             <v-flex xs3>
               <v-checkbox
-                :disabled="isArxiu"
                 v-model="editItem.mostrar_contacto"
                 label="Mostrar contacte"
                 :hint="'Els interessats '+(editItem.mostrar_contacto?'':'NO ')+'podran veure el mail, tfn. i persona de contacte'"
@@ -209,7 +199,6 @@
             <v-flex xs8></v-flex>
             <v-flex xs12>
               <v-text-field
-                :disabled="isArxiu"
                 label="Lloc de treball"
                 placeholder="Lloc de treball"
                 v-model="editItem.puesto"
@@ -219,7 +208,6 @@
             </v-flex>
             <v-flex xs12>
               <v-textarea
-                :disabled="isArxiu"
                 label="Descripció"
                 placeholder="Descripció"
                 counter="200"
@@ -229,7 +217,6 @@
             </v-flex>
             <v-flex xs12>
               <v-text-field
-                :disabled="isArxiu"
                 label="Tipus de contracte"
                 placeholder="Tipus de contracte"
                 v-model="editItem.tipo_contrato"
@@ -241,7 +228,6 @@
             <!-- Ciclos -->
             <v-flex xs9>
               <v-select
-                :disabled="isArxiu"
                 :items="ciclos"
                 v-model="editItem.ciclos"
                 item-text="ciclo"
@@ -255,7 +241,6 @@
             </v-flex>
             <v-flex xs3>
               <v-checkbox
-                :disabled="isArxiu"
                 v-model="editItem.estudiando"
                 label="Inclou estudiants"
                 title="Inclou també als alumnes que encara estan estudiant algun d'aquests cicles"
@@ -267,12 +252,11 @@
                 placeholder="d'acabar el cicle"
                 v-model="editItem.any"
                 mask="####"
-                :disabled="!editItem.ciclos || editItem.ciclos.length==0 || isArxiu"
+                :disabled="!editItem.ciclos || editItem.ciclos.length==0"
               ></v-text-field>
             </v-flex>
             <v-flex v-if="editItem.validada" xs12>
               <v-textarea
-                :disabled="isArxiu"
                 label="Resultat"
                 placeholder="Per favor, quan finalitze el procés indica ací el resultat de l'oferta (si s'ha cobert o no i per què)"
                 v-model="editItem.resultat"
@@ -286,8 +270,8 @@
             :page="helpPage+(isNew?'#crear-una-nova-oferta':'#editar-una-oferta')"
           ></help-button>
           <v-spacer></v-spacer>
-          <v-btn v-if="!isArxiu" flat color="primary" @click="addItem">Guardar</v-btn>
-          <v-btn flat @click="closeDialog">{{ isArxiu?'Tancar':'Cancel·lar' }}</v-btn>
+          <v-btn flat color="primary" @click="addItem">Guardar</v-btn>
+          <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -329,6 +313,7 @@ export default {
     CicloChip
   },
   data: () => ({
+    table: "ofertas",
     helpPage: "ofertas",
     headers: [
       { text: "Activa", value: "activa" },
@@ -345,17 +330,9 @@ export default {
     ofertaValidar: {}
   }),
   mounted() {
-    this.$emit("setTitle", this.isArxiu?"Ofertes arxivades":"Manteniment d'Ofertes");
+    this.$emit("setTitle", "Ofertes Arxivades");
     this.loadData();
     this.editItem.ciclos = [];
-  },
-  computed: {
-        isArxiu () {
-            return this.$route.path === '/ofertas-arxiu';
-        },
-        table() {
-          return this.isArxiu?'ofertas-arxiu':'ofertas';
-        }
   },
   methods: {
     loadData() {

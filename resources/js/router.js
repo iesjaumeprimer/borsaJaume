@@ -109,11 +109,11 @@ export default new Router({
       component: OfertasxAlumno,
       beforeEnter: ifAuthenticated,
     },
-    // {
-    //   path: '/ofertas-arxiu',
-    //   name: 'ofertas-arxiu',
-    //   component: OfertasArxiu
-    // },
+    {
+      path: '/ofertas-arxiu',
+      name: 'ofertas-arxiu',
+      component: Ofertas
+    },
     {
       path: '/menu',
       name: 'menu',

@@ -6,7 +6,6 @@
 
     <v-card>
       <v-card-title>
-        <help-button v-if="helpPage" :page="helpPage"></help-button>
         <v-text-field
           v-model="search"
           append-icon="search"
