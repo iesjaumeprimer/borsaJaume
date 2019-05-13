@@ -53,7 +53,15 @@ class OfertaController extends ApiBaseController
         return response($this->show($id),200);
     }
 
+    public function destroy($id)
+    {
+        $oferta = Oferta::find($id);
+        $oferta->archivada = 1;
 
+        if ($oferta->save()) return response(1,200);
+
+        return response("No he pogut Esborrar $id",400);
+    }
 
 }
 
