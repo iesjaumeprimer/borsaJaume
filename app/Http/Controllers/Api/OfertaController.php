@@ -44,7 +44,7 @@ class OfertaController extends ApiBaseController
         if (AuthUser()->isResponsable())
             return OfertaResource::collection(Oferta::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->get())->where('archivada',$archivada));
 
-        return OfertaResource::collection(Oferta::all())->where('archivada',$archivada);
+        return OfertaResource::collection(Oferta::all()->where('archivada',$archivada));
     }
 
     public function alumnoInterested(Request $request,$id)
