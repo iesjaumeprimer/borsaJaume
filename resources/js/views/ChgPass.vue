@@ -3,19 +3,37 @@
     <div v-for="(error,i) in errors" :key="i">
       <v-alert v-model="error.show" :type="error.type" dismissible>{{ error.msg }}</v-alert>
     </div>
-    <v-form v-model="valid">
-      <v-text-field label="Contrasenya" v-model="user.password" required></v-text-field>
+              <v-card>
+  <v-form @submit.prevent="submit" ref="form" v-model="valid" lazy-validation>
+            <v-card-title class="grey lighten-4 py-4 title">
+              Canviar contrasenya
+            </v-card-title>
+            <v-card-text>
+            <v-text-field
+                autofocus
+                v-model="user.password" 
+                label="Contrasenya" 
+                title="Contrasenya" 
+                required
+            >
+            </v-text-field>
+            <v-text-field
+                v-model="Contrasenya" 
+                label="Confirma contrasenya" 
+                title="Confirma contrasenya" 
+                required
+            >
+            </v-text-field>
+            </v-card-text>
+            <v-card-actions>
+    <help-button v-if="helpPage" :page="helpPage"></help-button>
+    <v-spacer></v-spacer>
+    <v-btn color="primary" type="submit" :disabled="!valid || !user.token">Canviar</v-btn>
+    <v-btn type="reset">Reset</v-btn>
 
-      <v-text-field
-        label="Confirma contrasenya"
-        v-model="user.password_confirmation"
-        :error-messages="emailMatchError()"
-        required
-      ></v-text-field>
-
-      <v-btn :disabled="!valid" color="primary" @click="chgPass">Canviar</v-btn>
-      <v-btn>Reset</v-btn>
-    </v-form>
+            </v-card-actions>
+  </v-form>
+              </v-card>
   </div>
 </template>
 
