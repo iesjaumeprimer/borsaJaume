@@ -127,7 +127,7 @@ export default {
         align: "left",
         value: "nombre"
       },
-      { text: "e-mail", sortable: false, value: "email" },
+      { text: "e-mail", value: "email" },
       { text: "Rol", value: "rol" },
       { text: "Actiu", value: "active" },
       { text: "Accions", sortable: false }

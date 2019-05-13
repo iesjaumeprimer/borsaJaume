@@ -76,6 +76,12 @@ export default {
     changePassword(item) {
         return axios.post(API_URL + 'password/create', { email: item.email}, this.getConfig('json', true));
     },
+    findToken(token) {
+        return axios.get(API_URL + 'password/find/'+token);
+    },
+    sendPassword(user) {
+        return axios.post(API_URL + 'password/reset', user, this.getConfig('json', false));
+    },
     logoutUser() {
         return axios.get(API_URL + 'auth/logout', this.getConfig('urlencoded', true));
     },

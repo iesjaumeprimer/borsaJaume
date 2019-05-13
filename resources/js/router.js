@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Alumnos from './views/Alumnos'
 import Perfil from './views/AppPerfil'
+import ChgPass from './views/ChgPass'
 import Register from './views/Register'
 import Ciclos from './views/Ciclos'
 import Responsables from './views/Responsables'
@@ -16,11 +17,6 @@ import OfertasxAlumno from './views/OfertasxAlumno'
 import AppLogout from './views/AppLogout'
 import AppLogin from './views/AppLogin'
 import PageNotFound from './views/page404'
-// Passport ???
-import Pass1 from './components/passport/AuthorizedClients'
-import Pass2 from './components/passport/Clients'
-import Pass3 from './components/passport/PersonalAccessTokens'
-
 
 Vue.use(Router)
 
@@ -121,22 +117,10 @@ export default new Router({
       beforeEnter: ifAuthenticated,
     },
     {
-      path: '/pass1',
-      name: 'pass1',
-      component: Pass1,
-      beforeEnter: ifAuthenticated,
-    },
-    {
-      path: '/pass2',
-      name: 'pass2',
-      component: Pass2,
-      beforeEnter: ifAuthenticated,
-    },
-    {
-      path: '/pass3',
-      name: 'pass3',
-      component: Pass3,
-      beforeEnter: ifAuthenticated,
+      path: '/resetPassword/:token',
+      name: 'resetPassword',
+      component: ChgPass,
+//      beforeEnter: ifAuthenticated,
     },
     // {
     //   path: '/menu-edit/:id',
