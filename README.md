@@ -34,9 +34,24 @@ php artisan migrate
 php artisan db:seed
 ```
 
-Instalar [laravel/passport](https://laravel.com/docs/5.8/passport) (Next, you should run the passport:install command. This command will create the encryption keys needed to generate secure access tokens. In addition, the command will create "personal access" and "password grant" clients which will be used to generate access tokens):
+Hem de donar permisos d'escriptura a l'usuari www-data sobre la carpeta storage i el seu contingut.
+
+Per a l'autenticació hdem d'instal·lar [laravel/passport](https://laravel.com/docs/5.8/passport) (Next, you should run the passport:install command. This command will create the encryption keys needed to generate secure access tokens. In addition, the command will create "personal access" and "password grant" clients which will be used to generate access tokens):
 ```bash
 php artisan passport:install
+```
+
+## Configurar el mail
+Nosaltres hem instal·lat **`postmail`** i hem creat en el sistema l'usuari `usrmail` per a enviar els correus. EN el **`.env`** configurem:
+```bash
+MAIL_DRIVER=sendmail
+MAIL_HOST=localhost
+MAIL_PORT=25
+MAIL_USERNAME=usrmail
+MAIL_PASSWORD=P@ssW0rd
+MAIL_ENCRYPTION=null
+MAIL_FROM_NAME="Borsa Treball Batoi"
+MAIL_FROM_ADDRESS=borsa@nosaltres.com
 ```
 
 Permisos de www-data a storage. Configurar mail en .env
