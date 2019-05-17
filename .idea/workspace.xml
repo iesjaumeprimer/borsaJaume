@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="190ddcd8-6afe-4328-91b0-eccca9f8e95c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Entities/Ciclo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Entities/Ciclo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Entities/Oferta.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Entities/Oferta.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/OfertaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/OfertaController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/OfertaController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="844">
-              <caret line="75" column="25" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
+            <state relative-caret-position="165">
+              <caret line="34" column="127" selection-start-line="34" selection-start-column="127" selection-end-line="34" selection-end-column="127" />
               <folding>
                 <element signature="e#44#68#0#PHP" expanded="true" />
               </folding>
@@ -93,7 +91,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/ApiBaseController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="615">
@@ -514,7 +512,7 @@
       <workItem from="1554283810161" duration="2211000" />
       <workItem from="1554459793999" duration="666000" />
       <workItem from="1554648968463" duration="7073000" />
-      <workItem from="1556296091938" duration="12048000" />
+      <workItem from="1556296091938" duration="12398000" />
     </task>
     <task id="LOCAL-00001" summary="oferta">
       <created>1551958204574</created>
@@ -828,11 +826,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155670000" />
+    <option name="totallyTimeSpent" value="156020000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.43919885" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -1160,22 +1157,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/OfertaController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="844">
-          <caret line="75" column="25" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
-          <folding>
-            <element signature="e#44#68#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/ApiBaseController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="615">
           <caret line="46" column="5" lean-forward="true" selection-start-line="41" selection-start-column="4" selection-end-line="46" selection-end-column="5" />
           <folding>
             <element signature="e#129#157#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/OfertaController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="34" column="127" selection-start-line="34" selection-start-column="127" selection-end-line="34" selection-end-column="127" />
+          <folding>
+            <element signature="e#44#68#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
