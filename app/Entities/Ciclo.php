@@ -18,6 +18,6 @@ class Ciclo extends Entity
 
     public function Responsable()
     {
-        return $this->hasOne(User::class,'responsable');
+        return $this->hasOne(User::class,'id','responsable');
     }
 }
