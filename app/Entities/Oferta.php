@@ -57,13 +57,21 @@ class Oferta extends Entity
     private function lookStudents(){
         $ciclos = hazArray($this->Ciclos,'id','id');
         $any = $this->any_fin?$oferta->any_fin:9999;
-        $candidatos = DB::table('alumnos_ciclos')
+        if (!$this->estudiando)
+            return DB::table('alumnos_ciclos')
+                ->select('idAlumno')
+                ->distinct()
+                ->whereIn('id_ciclo',$ciclos)
+                ->where('validado',1)
+                ->where('any','>=',$any)
+                ->get();
+
+        return DB::table('alumnos_ciclos')
             ->select('idAlumno')
             ->distinct()
-            ->whereIn('id_ciclo',$ciclos)->where('validado','1')
-            ->where('any','<=',$any)
+            ->whereIn('id_ciclo',$ciclos)
+            ->where('validado',1)
             ->get();
-        return $candidatos;
     }
 
 }
