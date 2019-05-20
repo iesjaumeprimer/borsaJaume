@@ -18,7 +18,7 @@
             >
             </v-text-field>
             <v-text-field
-                v-model="Contrasenya" 
+                v-model="user.password_confirmation" 
                 label="Confirma contrasenya" 
                 title="Confirma contrasenya" 
                 required
@@ -46,6 +46,7 @@ export default {
   data: () => ({
     password: "",
     password_confirmation: "",
+    helpPage: '',
     valid: false,
     user: {}
   }),
@@ -67,7 +68,6 @@ export default {
         .catch(err => this.msgErr(err));
     },
     chgPass() {
-      console.error("kk");
       API.sendPassword(this.user)
         .then(resp =>
           this.msgOk(

@@ -44,8 +44,9 @@ class SignupActivate extends Notification
         return (new MailMessage)
             ->subject('Confirma el teu compte')
 //            ->line('Gracias por suscribirte! Antes de continuar, debes configurar tu cuenta.')
-            ->line('Gràcies per subscriure\'t a la borsa de treball del CIP FP Batoi! Abans de continuar, has de activar el teu compte per poder iniciar sessió.')
-            ->action('Confirma el teu compte', url($url))
+            ->line('Benvingut a la Borsa de treball del CIP FP Batoi!')
+            ->line('Abans de continuar, has d\'activar el teu compte per poder iniciar sessió.')
+            ->action('Activa el teu compte', url($url))
             ->line('Moltes gràcies per utilitzar la nostra aplicació!');
     }
 
