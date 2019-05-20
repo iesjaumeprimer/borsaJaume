@@ -12,7 +12,7 @@ class Oferta extends Entity
     protected $table = 'ofertas';
     protected $fillable = [
             'id', 'id_empresa','descripcion','puesto','tipo_contrato', 'activa','contacto',
-            'telefono','email','validada', 'any','estudiando','archivada'
+            'telefono','email', 'any','estudiando','archivada'
         ];
 
     public function Ciclos()

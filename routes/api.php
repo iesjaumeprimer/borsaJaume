@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth:api'], function() {
             'ofertas' => 'Api\OfertaController',
             'ciclos' => 'Api\CicloController',
         ]);
+    Route::put('ofertas/{id}/validar','Api\OfertaController@Valida');
     Route::put('ofertas/{id}/alumno', 'Api\OfertaController@AlumnoInterested');
     Route::put('alumno/{alumno}/ciclo/{id}','Api\AlumnoController@ValidaCiclo');
     Route::get('ofertas-arxiu', 'Api\OfertaController@indexArxiu');

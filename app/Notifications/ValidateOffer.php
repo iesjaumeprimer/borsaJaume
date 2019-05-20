@@ -43,17 +43,17 @@ class ValidateOffer extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = '/ofertas';
+        $url = "/login";
         $oferta = Oferta::find($this->offer);
         return (new MailMessage)
-                    ->line("Ha arribat una oferta de treball de l'empresa ".$oferta->Empresa->nombre.":")
-                    ->line($oferta->descripcion)
-                    ->line($oferta->puesto)
-                    ->line($oferta->tipo_contrato)
-                    ->line($oferta->contacto)
-                    ->line($oferta->telefono)
-                    ->line($oferta->email)
-                    ->action('Validar Oferta', url('/ofertas'))
+                    ->line("Ha arribat una oferta de treball de l'empresa ".$oferta->Empresa->nombre." que cal validar.")
+                    ->line("Descripció de l'oferta: ".$oferta->descripcion)
+                    ->line(     "Lloc demandat: ".$oferta->puesto)
+                    ->line("Tipus de contracte: ".$oferta->tipo_contrato)
+                    ->line("Contacte: ".$oferta->contacto)
+                    ->line("Telèfon: ".$oferta->telefono)
+                    ->line("Email: ".$oferta->email)
+                    ->action("Valida l'oferta", url($url))
                     ->line('!Adeu!');
     }
 
