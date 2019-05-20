@@ -4263,8 +4263,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     openDialogValidar: function openDialogValidar(oferta) {
-      console.error('asdasd');
-
       if (this.imResponsable) {
         if (oferta.activa || oferta.validada) {
           // Si la oferta está activa puede validarse o invalidarse
@@ -4282,9 +4280,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return elem.id == _this3.editItem.id;
       }); // La cambiamos la validación
 
-      this.editItem.validada = !this.editItem.validada; // Y guardamos la modificación
-
-      this.addItem();
+      _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateOfertaValida(this.editItem.id, !this.editItem.validada).then(function (resp) {
+        return _this3.items[_this3.editIndex].validada = resp.data.data.validada;
+      })["catch"](function (err) {
+        return _this3.msgErr(err);
+      });
       this.dialogValidar = false;
     },
     deleteItem: function deleteItem(oferta) {
@@ -88942,6 +88942,11 @@ function json2urlencoded(json) {
   },
   updateItem: function updateItem(table, id, item) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + table + '/' + id, item, this.getConfig('json', true));
+  },
+  updateOfertaValida: function updateOfertaValida(idOferta, validada) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + 'ofertas/' + idOferta + '/validar', {
+      validada: validada
+    }, this.getConfig('json', true));
   },
   updateInteresado: function updateInteresado(idOferta, interesado) {
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(API_URL + 'ofertas/' + idOferta + '/alumno', {

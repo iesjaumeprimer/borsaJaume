@@ -437,7 +437,6 @@ export default {
       }
     },
     openDialogValidar(oferta) {
-      console.error('asdasd')
       if (this.imResponsable) {
         if (oferta.activa || oferta.validada) {
           // Si la oferta está activa puede validarse o invalidarse
@@ -453,9 +452,9 @@ export default {
         elem => elem.id == this.editItem.id
       );
       // La cambiamos la validación
-      this.editItem.validada = !this.editItem.validada;
-      // Y guardamos la modificación
-      this.addItem();
+      API.updateOfertaValida(this.editItem.id, !this.editItem.validada)
+      .then(resp=>this.items[this.editIndex].validada=resp.data.data.validada)
+      .catch(err=>this.msgErr(err))
       this.dialogValidar = false;
     },
     deleteItem(oferta) {
