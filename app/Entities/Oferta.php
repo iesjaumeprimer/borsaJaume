@@ -4,6 +4,7 @@ namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Collection;
 use App\Notifications\ValidateOffer;
+use Illuminate\Support\Facades\DB;
 
 
 class Oferta extends Entity
