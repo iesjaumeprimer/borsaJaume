@@ -310,6 +310,8 @@
         </v-card>
       </v-dialog>
     </v-layout>
+    <!-- <ofertas-validar-dialog :dialogValidar.sync="dialogValidar" :ofertaValidar="ofertaValidar">
+    </ofertas-validar-dialog> -->
   </div>
 </template>
 
@@ -320,13 +322,15 @@ import utilsMixin from "../mixins/utils.js";
 import YesNoIcon from "../components/base/YesNoIcon";
 import HelpButton from "../components/base/HelpButton";
 import CicloChip from "../components/base/CicloChip";
+// import OfertasValidarDialog from './OfertasValidarDialog';
 
 export default {
   mixins: [formRulesMixin, utilsMixin],
   components: {
     YesNoIcon,
     HelpButton,
-    CicloChip
+    CicloChip,
+    // OfertasValidarDialog
   },
   data: () => ({
     helpPage: "ofertas",
@@ -437,8 +441,8 @@ export default {
         if (oferta.activa || oferta.validada) {
           // Si la oferta está activa puede validarse o invalidarse
           // Si no está activa sólo puede invalidarse
-          this.dialogValidar = true;
           this.ofertaValidar = { ...oferta };
+          this.dialogValidar = true;
         }
       }
     },
@@ -448,9 +452,9 @@ export default {
         elem => elem.id == this.editItem.id
       );
       // La cambiamos la validación
-      this.editItem.validada = !this.editItem.validada;
-      // Y guardamos la modificación
-      this.addItem();
+      API.updateOfertaValida(this.editItem.id, !this.editItem.validada)
+      .then(resp=>this.items[this.editIndex].validada=resp.data.data.validada)
+      .catch(err=>this.msgErr(err))
       this.dialogValidar = false;
     },
     deleteItem(oferta) {

@@ -58,6 +58,9 @@ export default {
     updateItem(table, id, item) {
         return axios.put(API_URL + table + '/' + id, item, this.getConfig('json', true));
     },
+    updateOfertaValida(idOferta, validada) {
+        return axios.put(API_URL + 'ofertas/' + idOferta + '/validar', {validada: validada}, this.getConfig('json', true));
+    },
     updateInteresado(idOferta, interesado) {
         return axios.put(API_URL + 'ofertas/' + idOferta + '/alumno', {interesado: interesado}, this.getConfig('json', true));
     },

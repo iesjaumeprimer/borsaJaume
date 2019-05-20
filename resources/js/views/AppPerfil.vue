@@ -99,7 +99,6 @@ export default {
                 .catch(err => this.msgErr(err));
           },
           chgPassword() {
-console.error('chgpass')
             API.changePassword(this.item)
             .then(resp=>this.msgOk('chgpwd','T\'hem enviat un mail amb l\'enllaç per a canviar la teua contrasenya'))
             .catch(err=>this.msgErr(err))
