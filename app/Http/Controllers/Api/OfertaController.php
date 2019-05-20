@@ -71,7 +71,7 @@ class OfertaController extends ApiBaseController
 
         $oferta = $this->entity::create($request->all());
         $response =  $this->manageResponse($oferta,$request);
-        $oferta->sendNotifications();
+        $oferta->adviseResponsibles();
 
         return $response;
     }
@@ -81,8 +81,11 @@ class OfertaController extends ApiBaseController
         $oferta = Oferta::find($id);
         $oferta->validada = $request->validada;
         $oferta->save();
+        $oferta->adviseStudents();
 
         return new $this->resource($oferta);
     }
+
+
 }
 

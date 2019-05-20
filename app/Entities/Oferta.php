@@ -30,6 +30,7 @@ class Oferta extends Entity
     public function scopeBelongsToEnterprise($query,$idEmpresa){
         return $query->where('id_empresa', $idEmpresa);
     }
+
     public static function BelongsToCicles($ciclos){
         $ofertas = new Collection();
         foreach ($ciclos as $ciclo){
@@ -38,11 +39,31 @@ class Oferta extends Entity
         }
         return $ofertas;
     }
-    public function sendNotifications()
+
+    public function adviseResponsibles()
     {
         foreach ($this->Ciclos as $ciclo){
             $ciclo->Responsable->notify(new ValidateOffer($this->id));
         }
+    }
+
+    public function adviseStudents()
+    {
+        foreach ($this->lookStudents() as $alumno){
+            User::find($alumno)->notify(new ValidateOffer($this->id));
+        }
+    }
+
+    private function lookStudents(){
+        $ciclos = hazArray($this->Ciclos,'id','id');
+        $any = $this->any_fin?$oferta->any_fin:9999;
+        $candidatos = DB::table('alumnos_ciclos')
+            ->select('idAlumno')
+            ->distinct()
+            ->whereIn('id_ciclo',$ciclos)->where('validado','1')
+            ->where('any','<=',$any)
+            ->get();
+        return $candidatos;
     }
 
 }
