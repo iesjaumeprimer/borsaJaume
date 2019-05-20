@@ -60,7 +60,7 @@ class Oferta extends Entity
         $any = $this->any_fin?$oferta->any_fin:9999;
         if (!$this->estudiando)
             return DB::table('alumnos_ciclos')
-                ->select('idAlumno')
+                ->select('id_alumno')
                 ->distinct()
                 ->whereIn('id_ciclo',$ciclos)
                 ->where('validado',1)
@@ -68,7 +68,7 @@ class Oferta extends Entity
                 ->get();
 
         return DB::table('alumnos_ciclos')
-            ->select('idAlumno')
+            ->select('id_alumno')
             ->distinct()
             ->whereIn('id_ciclo',$ciclos)
             ->where('validado',1)
