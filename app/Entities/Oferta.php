@@ -57,8 +57,9 @@ class Oferta extends Entity
 
     private function lookStudents(){
         $ciclos = hazArray($this->Ciclos,'id','id');
-        $any = $this->any_fin?$oferta->any_fin:9999;
-        if (!$this->estudiando)
+
+        if (!$this->estudiando){
+            $any = $this->any_fin?$this->any_fin:9999;
             return DB::table('alumnos_ciclos')
                 ->select('id_alumno')
                 ->distinct()
@@ -66,7 +67,7 @@ class Oferta extends Entity
                 ->where('validado',1)
                 ->where('any','>=',$any)
                 ->get();
-
+        }
         return DB::table('alumnos_ciclos')
             ->select('id_alumno')
             ->distinct()
