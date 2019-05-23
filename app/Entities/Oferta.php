@@ -50,34 +50,6 @@ class Oferta extends Entity
     }
     */
 
-    public function adviseStudents()
-    {
-        foreach ($this->lookStudents() as $alumno){
 
-            User::find($alumno->id_alumno)->notify(new ValidateOffer($this->id));
-        }
-    }
-
-    private function lookStudents(){
-        $ciclos = hazArray($this->Ciclos,'id','id');
-
-        if (!$this->estudiando){
-            $any = $this->any_fin?$this->any_fin:0;
-
-            return DB::table('alumnos_ciclos')
-                ->select('id_alumno')
-                ->distinct()
-                ->whereIn('id_ciclo',$ciclos)
-                ->where('validado',1)
-                ->where('any','>=',$any)
-                ->get();
-        }
-        return DB::table('alumnos_ciclos')
-            ->select('id_alumno')
-            ->distinct()
-            ->whereIn('id_ciclo',$ciclos)
-            ->where('validado',1)
-            ->get();
-    }
 
 }
