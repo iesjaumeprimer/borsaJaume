@@ -20,4 +20,10 @@ class Ciclo extends Entity
     {
         return $this->hasOne(User::class,'id','responsable');
     }
+
+    public function Ciclos()
+    {
+        return $this->belongsToMany(Alumno::class,'alumnos_ciclos', 'id_ciclo',
+            'id_alumno', 'id', 'id')->withPivot(['any','validado']);
+    }
 }
