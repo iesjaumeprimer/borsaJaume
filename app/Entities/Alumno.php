@@ -24,6 +24,14 @@ class Alumno extends Entity
             ->withPivot('any');
     }
 
+    public function CiclosNoValidos()
+    {
+        return $this->belongsToMany(Ciclo::class,'alumnos_ciclos', 'id_alumno',
+            'id_ciclo', 'id', 'id')
+            ->wherePivot('validado',0)
+            ->withPivot('any');
+    }
+
 
     public function User()
     {
@@ -32,6 +40,10 @@ class Alumno extends Entity
 
     public static function rules(){
         return ['nombre'=> 'required'];
+    }
+
+    public function getFullNameAttribute(){
+        return $this->nombre.' '.$this->apellidos;
     }
 
 }

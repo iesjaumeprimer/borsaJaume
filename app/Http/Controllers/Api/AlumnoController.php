@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Entities\Ciclo;
 use Illuminate\Http\Request;
 use App\Entities\Alumno;
+use App\Notifications\ValidateStudent;
 
 
 class AlumnoController extends ApiBaseController
@@ -24,6 +26,13 @@ class AlumnoController extends ApiBaseController
         $alumno->Ciclos()->updateExistingPivot($idCiclo, ['any' => $request->any,'validado'=>$request->validado]);
         return parent::manageResponse($alumno, $request);
     }
+
+    protected function adviseSomeOne($registro){
+        foreach ($registro->ciclosNoValidos as $ciclo){
+            $ciclo->Responsable->notify(new ValidateStudent($ciclo));
+        }
+    }
+
 }
 
 

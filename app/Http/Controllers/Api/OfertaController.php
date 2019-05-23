@@ -65,6 +65,7 @@ class OfertaController extends ApiBaseController
 
 
 
+    /*
     public function store(Request $request)
     {
         if ($errors = $this->validate($request, $this->entity::rules())) return $this->response($errors);
@@ -75,6 +76,7 @@ class OfertaController extends ApiBaseController
 
         return $response;
     }
+    */
 
     public function valida(Request $request,$id)
     {
@@ -84,6 +86,13 @@ class OfertaController extends ApiBaseController
         $oferta->adviseStudents();
 
         return new $this->resource($oferta);
+    }
+
+    protected function adviseSomeOne($registro)
+    {
+        foreach ($registro->Ciclos as $ciclo){
+            $ciclo->Responsable->notify(new ValidateOffer($registro->id));
+        }
     }
 
 

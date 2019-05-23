@@ -15,9 +15,12 @@ trait traitRelation
     {
         $relation = $this->relationShip();
         $registro->$relation()->sync($request->$relation);
+        return $this->adviseSomeOne($registro);
+
         return parent::manageResponse($registro, $request);
     }
 
     abstract protected function relationShip();
+    abstract protected function adviseSomeOne($registro);
 
 }
