@@ -7,6 +7,7 @@ use App\Http\Resources\OfertaResource;
 use Illuminate\Http\Request;
 use App\Entities\Alumno;
 use App\Entities\Ciclo;
+use App\Entities\User;
 
 class OfertaController extends ApiBaseController
 {
@@ -65,6 +66,7 @@ class OfertaController extends ApiBaseController
 
 
 
+    /*
     public function store(Request $request)
     {
         if ($errors = $this->validate($request, $this->entity::rules())) return $this->response($errors);
@@ -75,17 +77,48 @@ class OfertaController extends ApiBaseController
 
         return $response;
     }
+    */
+
+    protected function adviseSomeOne($oferta)
+    {
+        foreach ($oferta->Ciclos as $ciclo){
+            $ciclo->Responsable->notify(new ValidateOffer($oferta->id));
+        }
+    }
 
     public function valida(Request $request,$id)
     {
         $oferta = Oferta::find($id);
         $oferta->validada = $request->validada;
         $oferta->save();
-        $oferta->adviseStudents();
+        foreach ($this->lookStudents($oferta) as $alumno){
+            User::find($alumno->id_alumno)->notify(new ValidateOffer($oferta->id));
+        }
 
         return new $this->resource($oferta);
     }
 
+    private function lookStudents($oferta){
+        $ciclos = hazArray($oferta->Ciclos,'id','id');
+
+        if (!$oferta->estudiando){
+            $any = $this->any_fin?$this->any_fin:0;
+
+            return DB::table('alumnos_ciclos')
+                ->select('id_alumno')
+                ->distinct()
+                ->whereIn('id_ciclo',$ciclos)
+                ->where('validado',1)
+                ->where('any','>=',$any)
+                ->get();
+        }
+        return DB::table('alumnos_ciclos')
+            ->select('id_alumno')
+            ->distinct()
+            ->whereIn('id_ciclo',$ciclos)
+            ->where('validado',1)
+            ->get();
+    }
 
 }
 
