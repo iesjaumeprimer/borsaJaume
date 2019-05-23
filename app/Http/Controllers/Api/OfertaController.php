@@ -81,7 +81,7 @@ class OfertaController extends ApiBaseController
         $oferta = Oferta::find($id);
         $oferta->validada = $request->validada;
         $oferta->save();
-        $oferta->adviseStudents();
+        return $oferta->adviseStudents();
 
         return new $this->resource($oferta);
     }
