@@ -15,7 +15,7 @@ trait traitRelation
     {
         $relation = $this->relationShip();
         $registro->$relation()->sync($request->$relation);
-        return $this->adviseSomeOne($registro);
+        $this->adviseSomeOne($registro);
 
         return parent::manageResponse($registro, $request);
     }
