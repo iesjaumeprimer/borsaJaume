@@ -46,9 +46,9 @@ class ValidateOffer extends Notification
         $url = "/login";
         $oferta = Oferta::find($this->offer);
         return (new MailMessage)
-                    ->subject('Nova oferta')
+//                    ->subject('Nova oferta')
                     ->greeting('Hola')
-                    ->line("Ha arribat una oferta de treball de l'empresa ".$oferta->Empresa->nombre.". Les seues dades són:")
+//                    ->line("Ha arribat una oferta de treball de l'empresa ".$oferta->Empresa->nombre.". Les seues dades són:")
                     ->line(" - Descripció de l'oferta: ".$oferta->descripcion)
                     ->line(" - Lloc demandat: ".$oferta->puesto)
                     ->line(" - Tipus de contracte: ".$oferta->tipo_contrato)

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Entities\Alumno;
 use App\Entities\Ciclo;
 use App\Entities\User;
+use App\Notifications\ValidateOffer;
 
 class OfertaController extends ApiBaseController
 {
