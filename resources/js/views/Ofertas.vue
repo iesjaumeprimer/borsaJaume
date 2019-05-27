@@ -361,6 +361,12 @@ export default {
           return this.isArxiu?'ofertas-arxiu':'ofertas';
         }
   },
+  beforeRouteUpdate (to, from, next) {
+    this.$emit("setTitle", this.isArxiu?"Ofertes arxivades":"Manteniment d'Ofertes");
+    this.loadData();
+    this.editItem.ciclos = [];
+    next();
+  },
   methods: {
     loadData() {
       //      this.loadItems();
@@ -474,7 +480,7 @@ export default {
         this.editItem.archivada = true;
         // Y guardamos la modificación
         this.addItem();
-        //          this.items = this.items.filter(elem => elem.id != oferta.id);
+        this.items = this.items.filter(elem => elem.id != oferta.id);
       }
     }
   }

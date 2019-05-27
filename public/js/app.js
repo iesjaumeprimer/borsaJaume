@@ -4174,6 +4174,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.isArxiu ? 'ofertas-arxiu' : 'ofertas';
     }
   },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    this.$emit("setTitle", this.isArxiu ? "Ofertes arxivades" : "Manteniment d'Ofertes");
+    this.loadData();
+    this.editItem.ciclos = [];
+    next();
+  },
   methods: {
     loadData: function loadData() {
       var _this = this;
@@ -4295,7 +4301,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.editItem = _objectSpread({}, oferta);
         this.editItem.archivada = true; // Y guardamos la modificación
 
-        this.addItem(); //          this.items = this.items.filter(elem => elem.id != oferta.id);
+        this.addItem();
+        this.items = this.items.filter(function (elem) {
+          return elem.id != oferta.id;
+        });
       }
     }
   }
