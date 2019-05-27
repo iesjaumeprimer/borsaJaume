@@ -45,6 +45,7 @@ class ValidateStudent extends Notification
     {
         $url = "/login";
         return (new MailMessage)
+                    ->subject('Validar estudiant')
                     ->greeting('Hola')
                     ->line("L'alumne ".Alumno::find($this->ciclo->pivot->id_alumno)->fullName)
                     ->line("vol que el valides el cicle ".$this->ciclo->vCiclo)
