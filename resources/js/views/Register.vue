@@ -92,6 +92,20 @@
 
               </div>
             </v-flex>
+
+            <v-flex xs12 ms9>
+              <div>
+                <v-checkbox xs12
+                  v-model="accepted"
+                  label="Acepte la Política de privacitat de la Borsa de Treball"
+                  :rules="requiredCheckRules"
+                ></v-checkbox>
+                <div xs6 class="font-weight-bold">Al registrar-se enviant aquest formulari està acceptant la <a href="/privacitat">Política de privacitat</a>
+                i donant la seua <br>conformitat al tractament de les seues dades personals en els teminis
+                i condicions allí indicades.</div>
+              </div>
+              </v-flex>
+
           </v-layout>
         </v-container>
         </v-form>
@@ -103,7 +117,7 @@
           right
           color="blue"
           dark
-          @click.stop="saveUser()"
+          @click.stop="guardar()"
           >
           <v-icon>add</v-icon>Continuar
         </v-btn>
@@ -127,6 +141,7 @@ export default {
         helpPage: 'registre',
         item: {},
         show: false,
+        accepted: false,
     }),
     mounted() {
       this.$emit('setTitle', 'Registre de nou usuari');
@@ -150,6 +165,15 @@ export default {
                 })
                 .catch(err => this.msgErr(err));
 
+        },
+        guardar() {
+          if (this.$refs.form.validate())
+            if (this.rol) 
+              this.saveUser()
+            else
+              alert('Has de indicar si ets empresa o alumne')
+          else
+            alert('Hi ha errors en les dades')
         },
         saveUser() {
             API.saveUser(this.item)

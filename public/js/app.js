@@ -4772,6 +4772,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4786,7 +4800,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       helpPage: 'registre',
       item: {},
-      show: false
+      show: false,
+      accepted: false
     };
   },
   mounted: function mounted() {
@@ -4812,6 +4827,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return _this.msgErr(err);
       });
+    },
+    guardar: function guardar() {
+      if (this.$refs.form.validate()) {
+        if (this.rol) this.saveUser();else alert('Has de indicar si ets empresa o alumne');
+      } else alert('Hi ha errors en les dades');
     },
     saveUser: function saveUser() {
       var _this2 = this;
@@ -42785,7 +42805,11 @@ var render = function() {
                       _c(
                         "v-btn",
                         {
-                          attrs: { flat: "", color: "primary" },
+                          attrs: {
+                            flat: "",
+                            color: "primary",
+                            disabled: !_vm.valid
+                          },
                           on: { click: _vm.addItem }
                         },
                         [_vm._v("Guardar")]
@@ -42939,6 +42963,103 @@ var render = function() {
   )
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AppLegal.vue?vue&type=template&id=2e00dd37&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/AppLegal.vue?vue&type=template&id=2e00dd37& ***!
+  \******************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("h3", [_vm._v("CONFORMITAT")]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "De Conformitat amb el que estableix el Reglament (UE) 2016/679 del Parlament \n        Europeu i del Consell, que va entrar en vigor el 25 de maig de 2018, relatiu \n        a la Protecció de Dades de Caràcter Personal, se li informa del següent:\n    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("ol", [
+        _c("li", [
+          _vm._v(
+            "\n            El registre i la introducció de les seues dades en els formularis de la Borsa \n            de Treball implica la conformitat amb la política de privacitat ací reflectida\n            i l'autorització al CIP de FP Batoi per a tractar aquestes dades en els terminis\n            i condicions ací indicades.\n        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "Les dades personals introduïdes en els formularis de la Borsa de Treball\n            arreplegades per mitjà d’aquesta sol·licitud seran tractades de forma \n            confidencial i utilitzades només per a la finalitat indicada.\n        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "\n            El tractament de les dades es fa en compliment dels requeriments disposats\n             en la Resolució de 28 de juny de 2018, de la Sotssecretaria de la \n             Conselleria d’Educació, Investigació, Cultura i Esport, per la qual \n             es dicten instruccions per al compliment de la normativa de protecció de \n             dades en els centres educatius públics de titularitat de la Generalitat\n        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "\n            La finalitat de les dades arreplegades és posar en contacte a empresas que ofereixen\n            treball i a alumnes i antics alumnes del Centre interessats. Les empreses \n            tindran accés a les dades dels alumnes interessats en la seua oferta i els\n            alumnes tndran accés a les dades de les empreses que ofereixen un treball\n            per al qual cumpleix els requisits demandats.\n        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "\n            Es poden exercir els drets d'accés, rectificació, cancel·lació i oposició \n            d'acord amb el que disposa l'avís legal de la pàgina web de la Conselleria \n            d'Educació, Investigació, Cultura i Esport.\n        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "\n            La responsabilitat del tractament de la informació és del CIP de FP Batoi.\n            En qualsevol moment l'usuari podrà exercir els seus drets d'accés, \n            rectificació, cancel·lació i oposició mitjançant escrit que \n            acredite suficientment la identitat i dirigit a la direcció del centre:\n            "
+          ),
+          _c("pre", [
+            _vm._v(
+              "            CIP FP Batoi\n            Carrer Societat Unió Musical, 8\n            03802 Alcoi - Alacant"
+            )
+          ]),
+          _vm._v(
+            "\n            o per correu-e a capdestudis@cipfpbatoi.es\n        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "\n            Correspon a l'usuari l'actualització de les seues pròpies dades. El CIP FP\n            Batoi no serà responsable de la seua inexactitut si l'Usuari no comunica\n            els canvis (per exemple, canvio de direcció de correu electrònic).\n        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "\n            La suspensió del consentiment no tindrà caràcter retroactiu a actuacions \n            explicitament consentides i realitzades amb anterioritat a la data de la \n            recepció de la retirada del consentiment.\n        "
+          )
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -47149,6 +47270,51 @@ var render = function() {
                           ],
                           1
                         )
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs12: "", ms9: "" } }, [
+                        _c(
+                          "div",
+                          [
+                            _c("v-checkbox", {
+                              attrs: {
+                                xs12: "",
+                                label:
+                                  "Acepte la Política de privacitat de la Borsa de Treball",
+                                rules: _vm.requiredCheckRules
+                              },
+                              model: {
+                                value: _vm.accepted,
+                                callback: function($$v) {
+                                  _vm.accepted = $$v
+                                },
+                                expression: "accepted"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "font-weight-bold",
+                                attrs: { xs6: "" }
+                              },
+                              [
+                                _vm._v(
+                                  "Al registrar-se enviant aquest formulari està acceptant la "
+                                ),
+                                _c("a", { attrs: { href: "/privacitat" } }, [
+                                  _vm._v("Política de privacitat")
+                                ]),
+                                _vm._v("\n            i donant la seua "),
+                                _c("br"),
+                                _vm._v(
+                                  "conformitat al tractament de les seues dades personals en els teminis\n            i condicions allí indicades."
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
                       ])
                     ],
                     1
@@ -47176,7 +47342,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.stopPropagation()
-                      return _vm.saveUser()
+                      return _vm.guardar()
                     }
                   }
                 },
@@ -89745,7 +89911,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_OfertasxAlumno__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./views/OfertasxAlumno */ "./resources/js/views/OfertasxAlumno.vue");
 /* harmony import */ var _views_AppLogout__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./views/AppLogout */ "./resources/js/views/AppLogout.vue");
 /* harmony import */ var _views_AppLogin__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./views/AppLogin */ "./resources/js/views/AppLogin.vue");
-/* harmony import */ var _views_page404__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./views/page404 */ "./resources/js/views/page404.vue");
+/* harmony import */ var _views_AppLegal__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./views/AppLegal */ "./resources/js/views/AppLegal.vue");
+/* harmony import */ var _views_page404__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./views/page404 */ "./resources/js/views/page404.vue");
 
 
 
@@ -89761,6 +89928,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  //import OfertasArxiu from './views/OfertasArxiu'
+
 
 
 
@@ -89864,13 +90032,17 @@ var ifAuthenticated = function ifAuthenticated(to, from, next) {
   //   props: true
   // },
   {
+    path: '/privacitat',
+    name: 'privacitat',
+    component: _views_AppLegal__WEBPACK_IMPORTED_MODULE_16__["default"]
+  }, {
     path: '/logout',
     name: 'logout',
     component: _views_AppLogout__WEBPACK_IMPORTED_MODULE_14__["default"],
     beforeEnter: ifAuthenticated
   }, {
     path: '*',
-    component: _views_page404__WEBPACK_IMPORTED_MODULE_16__["default"]
+    component: _views_page404__WEBPACK_IMPORTED_MODULE_17__["default"]
   }]
 }));
 
@@ -90011,6 +90183,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumnos_vue_vue_type_template_id_11bfd0a0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumnos_vue_vue_type_template_id_11bfd0a0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/AppLegal.vue":
+/*!*****************************************!*\
+  !*** ./resources/js/views/AppLegal.vue ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AppLegal_vue_vue_type_template_id_2e00dd37___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppLegal.vue?vue&type=template&id=2e00dd37& */ "./resources/js/views/AppLegal.vue?vue&type=template&id=2e00dd37&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _AppLegal_vue_vue_type_template_id_2e00dd37___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AppLegal_vue_vue_type_template_id_2e00dd37___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/AppLegal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/AppLegal.vue?vue&type=template&id=2e00dd37&":
+/*!************************************************************************!*\
+  !*** ./resources/js/views/AppLegal.vue?vue&type=template&id=2e00dd37& ***!
+  \************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppLegal_vue_vue_type_template_id_2e00dd37___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AppLegal.vue?vue&type=template&id=2e00dd37& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AppLegal.vue?vue&type=template&id=2e00dd37&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppLegal_vue_vue_type_template_id_2e00dd37___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppLegal_vue_vue_type_template_id_2e00dd37___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

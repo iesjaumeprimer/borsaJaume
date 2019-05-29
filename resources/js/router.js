@@ -16,6 +16,7 @@ import OfertasxAlumno from './views/OfertasxAlumno'
 //import OfertasArxiu from './views/OfertasArxiu'
 import AppLogout from './views/AppLogout'
 import AppLogin from './views/AppLogin'
+import AppLegal from './views/AppLegal'
 import PageNotFound from './views/page404'
 
 Vue.use(Router)
@@ -128,6 +129,11 @@ export default new Router({
     //   component: MenuEdit,
     //   props: true
     // },
+    {
+      path: '/privacitat',
+      name: 'privacitat',
+      component: AppLegal,
+    },
     {
       path: '/logout',
       name: 'logout',

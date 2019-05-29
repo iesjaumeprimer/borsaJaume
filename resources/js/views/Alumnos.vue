@@ -189,7 +189,7 @@
           <v-card-actions>
             <help-button v-if="helpPage" :page="helpPage+'#editar-un-alumne'"></help-button>
             <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="addItem">Guardar</v-btn>
+            <v-btn flat color="primary" @click="addItem" :disabled="!valid">Guardar</v-btn>
             <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
           </v-card-actions>
         </v-card>
