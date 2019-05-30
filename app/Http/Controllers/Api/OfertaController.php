@@ -9,6 +9,7 @@ use App\Entities\Alumno;
 use App\Entities\Ciclo;
 use App\Entities\User;
 use App\Notifications\ValidateOffer;
+use Illuminate\Support\Facades\DB;
 
 class OfertaController extends ApiBaseController
 {
@@ -103,7 +104,7 @@ class OfertaController extends ApiBaseController
         $ciclos = hazArray($oferta->Ciclos,'id','id');
 
         if (!$oferta->estudiando){
-            $any = $this->any_fin?$this->any_fin:0;
+            $any = $this->any?$this->any:0;
 
             return DB::table('alumnos_ciclos')
                 ->select('id_alumno')
