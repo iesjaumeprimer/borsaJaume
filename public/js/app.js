@@ -3429,6 +3429,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3800,6 +3805,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -44769,6 +44779,27 @@ var render = function() {
         _vm._v(".\n  ")
       ]),
       _vm._v(" "),
+      _c("h2", [_vm._v("Privacitat")]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Si participes en aquesta borsa dones la teua conformitat per al tractament de les\n    dades personals que introduisques en els terminis i condicions indicades en la\n    "
+        ),
+        _c(
+          "a",
+          {
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.$router.push("/privacitat")
+              }
+            }
+          },
+          [_vm._v("política de privacitat")]
+        ),
+        _vm._v(".\n  ")
+      ]),
+      _vm._v(" "),
       _c("h2", [_vm._v("Obtindre ajuda")]),
       _vm._v(" "),
       _c("p", [
@@ -46365,7 +46396,11 @@ var render = function() {
                     ? _c(
                         "v-btn",
                         {
-                          attrs: { flat: "", color: "primary" },
+                          attrs: {
+                            disabled: !_vm.valid,
+                            flat: "",
+                            color: "primary"
+                          },
                           on: { click: _vm.addItem }
                         },
                         [_vm._v("Guardar")]
@@ -89702,6 +89737,13 @@ __webpack_require__.r(__webpack_exports__);
 
       // OJO. SObreescrito en: MenuView.vue
       // TB en Responsables.vue pq no hace saveItem sino saveUser
+      console.error('additem');
+
+      if (!this.valid) {
+        alert('El formulari conté errors');
+        return false;
+      }
+
       if (this.editIndex > -1) {
         _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].updateItem(this.table, this.editItem.id, this.editItem).then(function (resp) {
           var index = _this2.items.findIndex(function (item) {

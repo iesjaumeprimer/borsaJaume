@@ -55,6 +55,11 @@ export default {
         addItem() {
             // OJO. SObreescrito en: MenuView.vue
             // TB en Responsables.vue pq no hace saveItem sino saveUser
+            console.error('additem')
+            if (!this.valid) {
+                alert('El formulari conté errors');
+                return false;
+            }
             if (this.editIndex > -1) {
                 API.updateItem(this.table, this.editItem.id, this.editItem)
                 .then(resp => {

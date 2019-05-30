@@ -286,7 +286,12 @@
             :page="helpPage+(isNew?'#crear-una-nova-oferta':'#editar-una-oferta')"
           ></help-button>
           <v-spacer></v-spacer>
-          <v-btn v-if="!isArxiu" flat color="primary" @click="addItem">Guardar</v-btn>
+          <v-btn 
+            v-if="!isArxiu" 
+            :disabled="!valid"
+            flat color="primary" 
+            @click="addItem"
+          >Guardar</v-btn>
           <v-btn flat @click="closeDialog">{{ isArxiu?'Tancar':'Cancel·lar' }}</v-btn>
         </v-card-actions>
       </v-card>
