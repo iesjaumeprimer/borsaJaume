@@ -104,7 +104,7 @@ class OfertaController extends ApiBaseController
         $ciclos = hazArray($oferta->Ciclos,'id','id');
 
         if (!$oferta->estudiando){
-            $any = $this->any?$this->any:0;
+            $any = $oferta->any?$oferta->any:0;
 
             return DB::table('alumnos_ciclos')
                 ->select('id_alumno')
