@@ -36,8 +36,12 @@ class PasswordResetSuccess extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->subject('Contrasenya canviada')
+            ->greeting('Hola')
             ->line('Has canviat correctament la teua contrasenya.')
-            ->line('Si això no ho has fet tú, protegeix el teu compte !!!');
+            ->line('Si això no ho has fet tú, protegeix el teu compte !!!')
+            ->salutation('!Adeu!');
+
     }
     /**
      * Get the array representation of the notification.
