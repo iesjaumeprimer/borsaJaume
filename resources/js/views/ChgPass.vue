@@ -86,7 +86,7 @@ export default {
         })
         .catch(err => this.msgErr(err));
     },
-    chgPass() {
+    submit() {
       API.sendPassword(this.user)
         .then(resp =>
           this.msgOk(
