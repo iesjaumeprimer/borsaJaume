@@ -174,7 +174,7 @@ export default {
                 if (err.response.status==401) {
                     this.clearToken();
                     msg+=' - Debes volverte a loguear';
-                } else if (this.imResponsable) {
+                } else if (this.imResponsable||true) {
                     msg+=' - '+err.response.data.message
                         +' in file '+err.response.data.file;
                 } else if (err.response.data.errors)
