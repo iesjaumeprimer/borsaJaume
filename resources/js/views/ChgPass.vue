@@ -33,7 +33,7 @@
                   :type="show ? 'text' : 'password'"
                   @click:append="show = !show"
                   hint="Al menys 6 caràcters"
-                  @change="emailMatchError"
+                  @change="checkPassword"
                 required
             >
             </v-text-field>
@@ -58,8 +58,6 @@ export default {
   mixins: [utilsMixin],
   data: () => ({
     show: false,
-    password: "",
-    password_confirmation: "",
     helpPage: '',
     valid: false,
     user: {}
@@ -69,12 +67,12 @@ export default {
   },
   methods: {
         checkPassword() {
-            if (this.password_confirmation !== this.password) {
-                alert('Les contrasenyes no coincideixen');
+            if (this.emailMatchError()) {
+                alert(this.emailMatchError());
             }
         },
     emailMatchError() {
-      return this.password === this.password_confirmation
+      return (this.user.password && this.user.password === this.user.password_confirmation)
         ? ""
         : "Les contrasenyes no coincideixen";
     },

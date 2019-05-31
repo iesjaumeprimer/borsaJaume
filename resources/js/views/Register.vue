@@ -154,7 +154,6 @@ export default {
             }
         },
         checkUser() {
-          alert('checkeado');
           return;
               API.ckeckUsername(this.item.username)
                 .then(resp => {
@@ -168,7 +167,7 @@ export default {
         },
         guardar() {
           if (this.$refs.form.validate())
-            if (this.rol) 
+            if (this.item.rol) 
               this.saveUser()
             else
               alert('Has de indicar si ets empresa o alumne')
