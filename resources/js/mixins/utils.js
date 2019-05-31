@@ -55,7 +55,6 @@ export default {
         addItem() {
             // OJO. SObreescrito en: MenuView.vue
             // TB en Responsables.vue pq no hace saveItem sino saveUser
-            console.error('additem')
             if (!this.valid) {
                 alert('El formulari conté errors');
                 return false;
@@ -175,7 +174,7 @@ export default {
                 if (err.response.status==401) {
                     this.clearToken();
                     msg+=' - Debes volverte a loguear';
-                } else if (this.imResponsable || true) {
+                } else if (this.imResponsable) {
                     msg+=' - '+err.response.data.message
                         +' in file '+err.response.data.file;
                 } else if (err.response.data.errors)

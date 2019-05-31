@@ -65,7 +65,6 @@ export default {
       },
     created() {
       this.$emit('setTitle', 'Inicia sessió');
-      alert('Borsa en PROVES. Tota la informació és fictícia')
     },
       methods: {
           submit() {
