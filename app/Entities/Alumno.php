@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entities;
+use Illuminate\Database\Eloquent\Collection;
 
 class Alumno extends Entity
 {
