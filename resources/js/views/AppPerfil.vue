@@ -34,7 +34,7 @@
                 disabled
             >
             </v-text-field>
-        <v-btn @click="chgPassword">Canviar la contrasenya</v-btn>
+        <v-btn @click="chgPassword" :disabled="mailSended">Canviar la contrasenya</v-btn>
             </v-card-text>
             <v-card-actions>
     <help-button v-if="helpPage" :page="helpPage"></help-button>
@@ -68,6 +68,7 @@ export default {
             oldMail: '',
             roles: ROLES,
             rol: '',
+            mailSended: false,
             }
       },
     mounted() {
@@ -100,7 +101,10 @@ export default {
           },
           chgPassword() {
             API.changePassword(this.item)
-            .then(resp=>this.msgOk('chgpwd','T\'hem enviat un mail amb l\'enllaç per a canviar la teua contrasenya'))
+            .then(resp=>{
+              this.msgOk('chgpwd','T\'hem enviat un mail amb l\'enllaç per a canviar la teua contrasenya');
+              this.mailSended=true;
+            })
             .catch(err=>this.msgErr(err))
           },
           registerUser() {

@@ -12,15 +12,28 @@
             <v-text-field
                 autofocus
                 v-model="user.password" 
-                label="Contrasenya" 
-                title="Contrasenya" 
+                label="Nova contrasenya" 
+                title="Nova contrasenya" 
+                  :append-icon="show ? 'visibility' : 'visibility_off'"
+                  :type="show ? 'text' : 'password'"
+                  @click:append="show = !show"
+                  hint="Al menys 6 caràcters"
+                  min="6"
+                  max="25"
+                  counter="25"
+                  :rules="required25Rules"
                 required
             >
             </v-text-field>
             <v-text-field
                 v-model="user.password_confirmation" 
-                label="Confirma contrasenya" 
-                title="Confirma contrasenya" 
+                label="Confirma la contrasenya" 
+                title="Confirma la contrasenya" 
+                  :append-icon="show ? 'visibility' : 'visibility_off'"
+                  :type="show ? 'text' : 'password'"
+                  @click:append="show = !show"
+                  hint="Al menys 6 caràcters"
+                  @change="checkPassword"
                 required
             >
             </v-text-field>
@@ -44,8 +57,7 @@ import utilsMixin from "../mixins/utils.js";
 export default {
   mixins: [utilsMixin],
   data: () => ({
-    password: "",
-    password_confirmation: "",
+    show: false,
     helpPage: '',
     valid: false,
     user: {}
@@ -54,10 +66,15 @@ export default {
     this.findToken();
   },
   methods: {
+        checkPassword() {
+            if (this.emailMatchError()) {
+                alert(this.emailMatchError());
+            }
+        },
     emailMatchError() {
-      return this.password === this.password_confirmation
+      return (this.user.password && this.user.password === this.user.password_confirmation)
         ? ""
-        : "Email must match";
+        : "Les contrasenyes no coincideixen";
     },
     findToken() {
       API.findToken(this.$route.params.token)
@@ -67,7 +84,7 @@ export default {
         })
         .catch(err => this.msgErr(err));
     },
-    chgPass() {
+    submit() {
       API.sendPassword(this.user)
         .then(resp =>
           this.msgOk(

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\HtmlString;  // Para poder incluir HTML en los e-mails
 
 class SignupActivate extends Notification
 {
@@ -43,11 +44,13 @@ class SignupActivate extends Notification
         $url = url('/api/auth/signup/activate/'.$notifiable->activation_token);
         return (new MailMessage)
             ->subject('Confirma el teu compte')
-//            ->line('Gracias por suscribirte! Antes de continuar, debes configurar tu cuenta.')
+            ->greeting('Hola')
             ->line('Benvingut a la Borsa de treball del CIP FP Batoi!')
             ->line('Abans de continuar, has d\'activar el teu compte per poder iniciar sessió.')
             ->action('Activa el teu compte', url($url))
-            ->line('Moltes gràcies per utilitzar la nostra aplicació!');
+            ->line(new HtmlString('ATENCIÓ: al activar el teu compte estas aceptant la <a href="https://borsatreball.cipfpbatoi.es/privacitat">Política de privacitat</a> de la Borsa de treball i donant la teua conformitat a que el CIP FP Batoi realitze el tractament de les teues dades personals segons els terminis i condicions allí indicades.'))
+            ->line('Moltes gràcies per utilitzar la nostra aplicació!')
+            ->salutation('!Adeu!');
     }
 
     /**

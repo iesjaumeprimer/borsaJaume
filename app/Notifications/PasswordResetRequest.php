@@ -38,10 +38,14 @@ class PasswordResetRequest extends Notification implements ShouldQueue
     {
         $url = url('/resetPassword/'.$this->token);
         return (new MailMessage)
+            ->subject('Canvi de contrasenya')
+            ->greeting('Hola')
             ->line('Has rebut aquest email perquè hem rebut una sol·licitut per a resetejar la teua contrasenya.')
+            ->line('Si has fet eixa sol·licitut polsa el botó de baix i introdueix en la pantalla que apareixerà la nova contrasenya')
             ->action('Reset Password', url($url))
-            ->line('Si no has fet eixa sol·licitut no cal que facis res més.');
-    }
+            ->line('Si no has fet eixa sol·licitut no cal que facis res més.')
+            ->salutation('!Adeu!');
+        }
 
     /**
      * Get the array representation of the notification.
