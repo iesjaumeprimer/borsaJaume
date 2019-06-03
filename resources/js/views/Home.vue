@@ -31,7 +31,7 @@
     </p>
     <h2>Privacitat</h2>
     <p>Si participes en aquesta borsa dones la teua conformitat per al tractament de les
-      dades personals que introduisques en els terminis i condicions indicades en la
+      dades personals que introduïsques en els terminis i condicions indicades en la
       <a @click.prevent="$router.push('/privacitat')">política de privacitat</a>.
     </p>
     <h2>Obtindre ajuda</h2>
