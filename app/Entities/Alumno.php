@@ -46,4 +46,13 @@ class Alumno extends Entity
         return $this->nombre.' '.$this->apellidos;
     }
 
+    public static function BelongsToCicles($ciclos){
+        $alumnos = new Collection();
+        foreach ($ciclos as $ciclo){
+            foreach ($ciclo->alumnos as $alumno)
+                 $alumnos->add($alumno);
+        }
+        return $alumnos;
+    }
+
 }

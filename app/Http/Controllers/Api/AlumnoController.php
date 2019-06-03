@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Entities\Ciclo;
+use App\Http\Resources\AlumnoResource;
 use Illuminate\Http\Request;
 use App\Entities\Alumno;
 use App\Notifications\ValidateStudent;
@@ -32,6 +33,16 @@ class AlumnoController extends ApiBaseController
             $ciclo->Responsable->notify(new ValidateStudent($ciclo));
         }
     }
+
+    public function index()
+    {
+        if (AuthUser()->isResponsable())
+            return AlumnoResource::collection(Alumno::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->get()));
+
+        return parent::index();
+    }
+
+
 
 }
 
