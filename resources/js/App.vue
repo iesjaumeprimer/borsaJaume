@@ -45,7 +45,7 @@
     <v-footer color="indigo" app>
       <span class="white--text">&copy; CIP FP Batoi 2018</span>
       <v-spacer></v-spacer>
-      <span class="white--text"><h2>Hola {{ myName }}</h2></span>
+      <span class="white--text"><h2>{{ myName?'Hola '+myName:'' }}</h2></span>
     </v-footer>
   </v-app>
 </template>
