@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h3>CONFORMITAT</h3>
+    <h3>Política de privacitat i protecció de dades de caràcter personal</h3>
     <p>De Conformitat amb el que estableix el Reglament (UE) 2016/679 del Parlament 
         Europeu i del Consell, que va entrar en vigor el 25 de maig de 2018, relatiu 
         a la Protecció de Dades de Caràcter Personal, se li informa del següent:
@@ -24,13 +24,15 @@
              dades en els centres educatius públics de titularitat de la Generalitat
         </li>
         <li>
-            La finalitat de les dades arreplegades és posar en contacte a empresas que ofereixen
-            treball i a alumnes i antics alumnes del Centre interessats. Les empreses 
-            tindran accés a les dades dels alumnes interessats en la seua oferta i els
-            alumnes tndran accés a les dades de les empreses que ofereixen un treball
-            per al qual cumpleix els requisits demandats.
+            Aquesta autorització no està sotmesa a cap termini temporal ni està restringida 
+            a l'àmbit nacional de cap país, i s'entén feta amb caràcter gratuït.
         </li>
         <li>
+            La finalitat de les dades arreplegades és posar en contacte a empreses que ofereixen
+            treball i a alumnes i antics alumnes del Centre interessats. Les empreses 
+            tindran accés a les dades dels alumnes interessats en la seua oferta i els
+            alumnes tindran accés a les dades de les empreses que ofereixen un treball
+            per al qual compleix els requisits demandats.<br>
             Es poden exercir els drets d'accés, rectificació, cancel·lació i oposició 
             d'acord amb el que disposa l'avís legal de la pàgina web de la Conselleria 
             d'Educació, Investigació, Cultura i Esport.
