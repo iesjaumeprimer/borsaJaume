@@ -4371,12 +4371,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.openDialog(itemCiclos);
     },
     nomEmpresa: function nomEmpresa(id) {
-      var empresa;
-      if (!id || !this.empresas.length) return "";
-      empresa = this.empresas.find(function (empresa) {
+      return id && this.empresas.length ? this.empresas.find(function (empresa) {
         return empresa.id == id;
-      });
-      return empresa ? empresa.nombre : "";
+      }).nombre : '';
     },
     nomCiclo: function nomCiclo(id) {
       return id && this.ciclos.length ? this.ciclos.find(function (ciclo) {
@@ -45879,7 +45876,9 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(props.item.empresa.nombre))]),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm.nomEmpresa(props.item.id_empresa)))
+                        ]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(props.item.puesto))]),
                         _vm._v(" "),

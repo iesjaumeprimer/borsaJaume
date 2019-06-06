@@ -53,7 +53,7 @@
                 <yes-no-icon :value="props.item.activa"></yes-no-icon>
               </v-chip>
             </td>
-            <td>{{ props.item.empresa.nombre }}</td>
+            <td>{{ nomEmpresa(props.item.id_empresa) }}</td>
             <td>{{ props.item.puesto }}</td>
             <td>{{ props.item.tipo_contrato }}</td>
             <td>
@@ -413,11 +413,9 @@ export default {
       this.openDialog(itemCiclos);
     },
     nomEmpresa(id) {
-      let empresa;
-      if (!id || !this.empresas.length)
-        return "";
-      empresa=this.empresas.find(empresa => empresa.id == id);
-      return (empresa?empresa.nombre: "");
+      return (id && this.empresas.length)?
+        this.empresas.find(empresa => empresa.id == id).nombre
+        :'';
     },
     nomCiclo(id) {
       return id && this.ciclos.length
