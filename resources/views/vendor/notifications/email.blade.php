@@ -42,14 +42,14 @@
 {{-- Salutation --}}
 @if (! empty($salutation))
 {{ $salutation }}
-@else
-@lang('Regards'),<br>{{ config('app.name') }}
 @endif
 
 {{-- Subcopy --}}
 @isset($actionText)
 @slot('subcopy')
 @lang(
+    "Atenció: NO conteste a aquest email: és un email automàtic generat per l'aplicació.\n".
+    "Per a qualsevol dubte pot posar-se en contacte amb el responsable del cicle.\n".
     "Si estas tenint problemes al clickar el botó \":actionText\" , copia i pasta l'enllaç següent\n".
     'en el teu navegador: [:actionURL](:actionURL)',
     [

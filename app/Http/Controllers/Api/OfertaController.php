@@ -66,7 +66,8 @@ class OfertaController extends ApiBaseController
     protected function adviseSomeOne($oferta)
     {
         foreach ($oferta->Ciclos as $ciclo){
-            $ciclo->Responsable->notify(new ValidateOffer($oferta->id));
+            if (! $oferta->archivada)
+                $ciclo->Responsable->notify(new ValidateOffer($oferta->id));
         }
     }
 
