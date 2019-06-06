@@ -45,7 +45,7 @@
     <v-footer color="indigo" app>
       <span class="white--text">&copy; CIP FP Batoi 2018</span>
       <v-spacer></v-spacer>
-      <span class="white--text"><h2>Hola {{ myName }}</h2></span>
+      <span class="white--text"><h2>{{ myName?'Hola '+myName:'' }}</h2></span>
     </v-footer>
   </v-app>
 </template>
@@ -97,8 +97,23 @@
         this.title=title;
       },
       setRol(datos) {
+        let rolDescrip='';
         this.myRol=datos?datos.rol:9999;
-        this.myName=datos?datos.name:'';
+        switch (this.myRol) {
+          case 2: 
+            rolDescrip='Administrador';
+            break;
+          case 3: 
+            rolDescrip='Responsable';
+            break;
+          case 5: 
+            rolDescrip='Empresa';
+            break;
+          case 7: 
+            rolDescrip='Alumne';
+            break;
+        }
+        this.myName=datos?rolDescrip+': '+datos.name:'';
       }
     }
   }

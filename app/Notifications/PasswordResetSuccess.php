@@ -40,7 +40,7 @@ class PasswordResetSuccess extends Notification implements ShouldQueue
             ->greeting('Hola')
             ->line('Has canviat correctament la teua contrasenya.')
             ->line('Si això no ho has fet tú, protegeix el teu compte !!!')
-            ->salutation('!Adeu!');
+            ->salutation('Atenció: NO conteste a aquest email: és un email automàtic generat per l\'aplicació. Per a qualsevol dubte pot posar-se en contacte amb el responsable del cicle.');
 
     }
     /**

@@ -413,9 +413,11 @@ export default {
       this.openDialog(itemCiclos);
     },
     nomEmpresa(id) {
-      return id && this.empresas.length
-        ? this.empresas.find(empresa => empresa.id == id).nombre
-        : "";
+      let empresa;
+      if (!id || !this.empresas.length)
+        return "";
+      empresa=this.empresas.find(empresa => empresa.id == id);
+      return (empresa?empresa.nombre: "");
     },
     nomCiclo(id) {
       return id && this.ciclos.length
