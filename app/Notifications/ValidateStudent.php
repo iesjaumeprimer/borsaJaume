@@ -51,7 +51,7 @@ class ValidateStudent extends Notification
                     ->line("vol que el valides el cicle ".$this->ciclo->vCiclo)
                     ->line(     "Cursat l'any: ".$this->ciclo->pivot->any)
                     ->action("Valida el cicle de l'alumne", url($url))
-                    ->salutation('!Adeu!');
+                    ->salutation('Atenció: NO conteste a aquest email: és un email automàtic generat per l\'aplicació. Per a qualsevol dubte pot posar-se en contacte amb el responsable del cicle.');
     }
 
     /**

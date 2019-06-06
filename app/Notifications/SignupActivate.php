@@ -49,7 +49,8 @@ class SignupActivate extends Notification
             ->line('Abans de continuar, has d\'activar el teu compte per poder iniciar sessió.')
             ->action('Activa el teu compte', url($url))
             ->line(new HtmlString('ATENCIÓ: en activar el teu compte estas acceptant la <a href="https://borsatreball.cipfpbatoi.es/privacitat">Política de privacitat</a> de la Borsa de treball i donant la teua conformitat a que el CIP FP Batoi realitze el tractament de les teues dades personals segons els terminis i condicions allí indicades.'))
-            ->salutation('Moltes gràcies per utilitzar la nostra aplicació!');
+            ->line('Moltes gràcies per utilitzar la nostra aplicació!')
+            ->salutation('Atenció: NO conteste a aquest email: és un email automàtic generat per l\'aplicació. Per a qualsevol dubte pot posar-se en contacte amb el responsable del cicle.');
     }
 
     /**

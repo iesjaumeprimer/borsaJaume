@@ -44,7 +44,7 @@ class PasswordResetRequest extends Notification implements ShouldQueue
             ->line('Si has fet eixa sol·licitut polsa el botó de baix i introdueix en la pantalla que apareixerà la nova contrasenya')
             ->action('Reset Password', url($url))
             ->line('Si no has fet eixa sol·licitut no cal que facis res més.')
-            ->salutation('!Adeu!');
+            ->salutation('Atenció: NO conteste a aquest email: és un email automàtic generat per l\'aplicació. Per a qualsevol dubte pot posar-se en contacte amb el responsable del cicle.');
         }
 
     /**

@@ -56,7 +56,7 @@ class ValidateOffer extends Notification
 //                    ->line("Telèfon: ".$oferta->telefono)
 //                    ->line("Email: ".$oferta->email)
                     ->action("Veure l'oferta", url($url))
-                    ->salutation('!Adeu!');
+                    ->salutation('Atenció: NO conteste a aquest email: és un email automàtic generat per l\'aplicació. Per a qualsevol dubte pot posar-se en contacte amb el responsable del cicle.');
     }
 
     /**

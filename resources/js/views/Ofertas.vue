@@ -355,6 +355,7 @@ export default {
   }),
   mounted() {
     this.$emit("setTitle", this.isArxiu?"Ofertes arxivades":"Manteniment d'Ofertes");
+console.error('kjjk')
     this.loadData();
     this.editItem.ciclos = [];
   },
