@@ -34,18 +34,15 @@ class OfertaController extends ApiBaseController
     }
 
     private function filterIndex($archivada){
-        if (AuthUser()->isEmpresa())
-            return OfertaResource::collection(Oferta::BelongsToEnterprise(AuthUser()->id)->where('archivada',$archivada)->get());
+        if (AuthUser()->isEmpresa()) return OfertaResource::collection(Oferta::BelongsToEnterprise(AuthUser()->id)->where('archivada',$archivada)->get());
         if (AuthUser()->isAlumno()){
             $ofertasFinalitzat = OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true)->where('pivot.any', '!=', null))
                 ->where('validada',true)->where('activa',true)->where('estudiando',false)->where('archivada',false));
             $ofertas = $ofertasFinalitzat->concat(OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true))
                 ->where('validada',true)->where('activa',true)->where('estudiando',true)->where('archivada',false)));
-
             return $ofertas->values();// values devuelve un array en vez de un objeto
         }
-        if (AuthUser()->isResponsable())
-            return OfertaResource::collection(Oferta::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->get())->where('archivada',$archivada));
+        if (AuthUser()->isResponsable()) return OfertaResource::collection(Oferta::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->get())->where('archivada',$archivada));
 
         return OfertaResource::collection(Oferta::where('archivada',$archivada)->get());
     }
@@ -65,21 +62,6 @@ class OfertaController extends ApiBaseController
 
         return response("No he pogut Esborrar $id",400);
     }
-
-
-
-    /*
-    public function store(Request $request)
-    {
-        if ($errors = $this->validate($request, $this->entity::rules())) return $this->response($errors);
-
-        $oferta = $this->entity::create($request->all());
-        $response =  $this->manageResponse($oferta,$request);
-        $oferta->adviseResponsibles();
-
-        return $response;
-    }
-    */
 
     protected function adviseSomeOne($oferta)
     {
