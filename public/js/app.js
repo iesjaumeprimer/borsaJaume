@@ -4308,7 +4308,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mounted: function mounted() {
     this.$emit("setTitle", this.isArxiu ? "Ofertes arxivades" : "Manteniment d'Ofertes");
-    console.error('kjjk');
     this.loadData();
     this.editItem.ciclos = [];
   },
@@ -4372,9 +4371,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.openDialog(itemCiclos);
     },
     nomEmpresa: function nomEmpresa(id) {
-      return id && this.empresas.length ? this.empresas.find(function (empresa) {
+      var empresa;
+      if (!id || !this.empresas.length) return "";
+      empresa = this.empresas.find(function (empresa) {
         return empresa.id == id;
-      }).nombre : "";
+      });
+      return empresa ? empresa.nombre : "";
     },
     nomCiclo: function nomCiclo(id) {
       return id && this.ciclos.length ? this.ciclos.find(function (ciclo) {
