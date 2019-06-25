@@ -37,7 +37,7 @@ class AlumnoController extends ApiBaseController
     public function index()
     {
         if (AuthUser()->isResponsable())
-            return AlumnoResource::collection(Alumno::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->distinct()->get()));
+            return AlumnoResource::collection(Alumno::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->get()));
 
         return parent::index();
     }

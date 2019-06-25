@@ -51,6 +51,7 @@ class Alumno extends Entity
         $alumnos = new Collection();
         foreach ($ciclos as $ciclo){
             foreach ($ciclo->alumnos as $alumno)
+                if (!$alumnos->contains($alumno))
                  $alumnos->add($alumno);
         }
         return $alumnos;
