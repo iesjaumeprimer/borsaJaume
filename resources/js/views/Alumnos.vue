@@ -56,10 +56,10 @@
               </a>
             </td>
             <td>
-              <yes-no-icon :value="props.item.info"></yes-no-icon>
+              <yes-no-icon :value="props.item.bolsa"></yes-no-icon>
             </td>
             <td>
-              <yes-no-icon :value="props.item.bolsa"></yes-no-icon>
+              <yes-no-icon :value="props.item.info"></yes-no-icon>
             </td>
 
             <td class="justify-center layout px-0">
@@ -151,21 +151,32 @@
               <v-flex xs3>
                 <v-text-field label="Telèfon" placeholder="Telèfon" v-model="editItem.telefono"></v-text-field>
               </v-flex>
-              <v-flex xs6>
+              <v-flex xs7>
                 <v-text-field
                   label="C.V."
                   placeholder="Enllaç al CV en Linkedin, ..."
                   v-model="editItem.cv_enlace"
                 ></v-text-field>
               </v-flex>
+              <v-flex xs3>
+                <v-checkbox
+                  v-model="editItem.bolsa"
+                  label="Borsa treball"
+                  title="Ha d'estar marcada per a formar parte de la borsa de treball"
+                  placeholder="Si vols participar en la borsa de treball"
+                  hint="Vuig rebre ofertes de la borsa"
+                  persistent-hint
+                ></v-checkbox>
+              </v-flex>
               <v-flex xs2>
                 <v-checkbox
                   v-model="editItem.info"
                   label="Rebre info."
+                  title="Per a rebre informacions com data de matriculacions, jornades, ..."
                   placeholder="Si vols rebre informació del Centre"
                 ></v-checkbox>
               </v-flex>
-              <v-flex xs9>
+              <v-flex xs12>
                 <v-select
                   :items="ciclos"
                   v-model="editItem.ciclos"
@@ -177,19 +188,12 @@
                   persistent-hint
                 ></v-select>
               </v-flex>
-              <v-flex xs2>
-                <v-checkbox
-                  v-model="editItem.bolsa"
-                  label="Borsa treball"
-                  placeholder="Si vols participar en la borsa de treball"
-                ></v-checkbox>
-              </v-flex>
             </v-layout>
           </v-container>
           <v-card-actions>
             <help-button v-if="helpPage" :page="helpPage+'#editar-un-alumne'"></help-button>
             <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="addItem" :disabled="!valid">Guardar</v-btn>
+            <v-btn flat color="primary" @click="preAddItem" :disabled="!valid">Guardar</v-btn>
             <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
           </v-card-actions>
         </v-card>
@@ -256,8 +260,8 @@ export default {
       { text: "Cognoms", value: "apellidos" },
       { text: "Cicles", value: "cicles", sortable: false },
       { text: "CV", value: "cv_enlace", sortable: false },
-      { text: "Info", value: "info" },
       { text: "Borsa", value: "bolsa" },
+      { text: "Info", value: "info" },
       { text: "Accions", value: "" }
     ],
     ciclos: [],
@@ -313,6 +317,13 @@ export default {
             }))
         )
         .catch(err => this.msgErr("2" + err));
+    },
+    preAddItem() {
+      if (!this.editItem.bolsa) {
+        if (!confirm('No has marcat la casella de \'Borsa treball\' i per tant no rebras ofertes. Si vols marcar-la cancel·la aquesta finestra, en altre cas continua'))
+          return false;
+      }
+      this.addItem();
     },
     preOpenDialog(item) {
       let itemCiclos = { ...item };
