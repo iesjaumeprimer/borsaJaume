@@ -34,7 +34,7 @@ class OfertaResource extends JsonResource
              'ciclos' => hazArray($this->ciclos,'id','pivot'),
              'empresa' => $this->empresa,
              'interesado' => $this->when(AuthUser()->isAlumno() , $this->getInterested()),
-             'alumnos' => $this->when(!AuthUser()->isAlumno(), AlumnoResource::collection($this->alumnos))
+             'alumnos' => $this->when(!AuthUser()->isAlumno(), AlumnoResource::collection($this->alumnos)),
              'created_at' => $this->created_at,
              'updated_at' => $this->updated_at,
         ];
