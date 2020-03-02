@@ -24,7 +24,7 @@ class EmpresaResource extends JsonResource
             'web' => $this->web,
             'telefono' => $this->telefono,
             'email' => $this->User->email,
-            'descripcion' => $this->descripcion
+            'descripcion' => $this->descripcion,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
