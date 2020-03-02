@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class Alumno extends Entity
 {
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'id', 'nombre','apellidos','domicilio', 'telefono','info',
         'bolsa','cv_enlace'

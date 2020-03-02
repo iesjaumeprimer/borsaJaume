@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class Oferta extends Entity
 {
-    public $timestamps = false;
+    public $timestamps = true;
     protected $table = 'ofertas';
     protected $fillable = [
             'id', 'id_empresa','descripcion','puesto','tipo_contrato', 'activa','contacto',

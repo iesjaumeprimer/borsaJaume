@@ -27,6 +27,8 @@ class AlumnoResource extends JsonResource
             'telefono' => $this->telefono,
             'email' => $this->User->email,
             'ciclos' => hazArray($this->ciclos,'id', 'pivot')
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 

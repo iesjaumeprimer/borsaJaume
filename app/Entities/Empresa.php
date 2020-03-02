@@ -5,7 +5,7 @@ namespace App\Entities;
 
 class Empresa extends Entity
 {
-    public $timestamps = false;
+    public $timestamps = true;
     
     protected $fillable = ['id','cif','nombre','domicilio','localidad','contacto','telefono','web','descripcion'];
 
