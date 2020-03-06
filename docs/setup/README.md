@@ -35,7 +35,7 @@ php artisan db:seed
 
 Hem de donar permisos d'escriptura a l'usuari www-data sobre la carpeta storage i el seu contingut.
 
-Per a l'autenticació hdem d'instal·lar [laravel/passport](https://laravel.com/docs/5.8/passport) (Next, you should run the passport:install command. This command will create the encryption keys needed to generate secure access tokens. In addition, the command will create "personal access" and "password grant" clients which will be used to generate access tokens):
+Per a l'autenticació hdem d'instal·lar [laravel/passport](https://laravel.com/docs/5.8/passport). A continuació executem el comando `passport:install` que crea las claus d'encriptació que s'utilitzen per a generar els tokens. A més crea els clients "personal access" i "password grant" clients which will be used to generate access tokens):
 ```bash
 php artisan passport:install
 ```
