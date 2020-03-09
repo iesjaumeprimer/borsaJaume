@@ -41,7 +41,7 @@ export default {
             ],
             required80Rules: [
                 v => !!v || 'El camp és obligatori',
-                v => (v && v.length <= 50) || 'La mida ha de ser menor de 80 caracters'
+                v => (v && v.length <= 80) || 'La mida ha de ser menor de 80 caracters'
             ],
             required100Rules: [
                 v => !!v || 'El camp és obligatori',

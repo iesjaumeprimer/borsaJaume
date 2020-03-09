@@ -193,6 +193,7 @@
                 label="Persona de contacte"
                 placeholder="Persona de contacte"
                 v-model="editItem.contacto"
+                counter="50"
                 :rules="required50Rules"
                 required
               ></v-text-field>
@@ -213,6 +214,7 @@
                 label="Lloc de treball"
                 placeholder="Lloc de treball"
                 v-model="editItem.puesto"
+                counter="50"
                 :rules="required50Rules"
                 required
               ></v-text-field>
@@ -222,7 +224,7 @@
                 :disabled="isArxiu"
                 label="Descripció"
                 placeholder="Descripció"
-                counter="200"
+                counter="800"
                 v-model="editItem.descripcion"
                 required
               ></v-textarea>
