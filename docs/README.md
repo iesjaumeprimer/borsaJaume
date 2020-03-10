@@ -6,6 +6,8 @@ Ací pots trobar ajuda per a cada pantalla de l'aplicació així com manuals per
 - [Manual per a l'alumne](./tutorials/alumne.md)
 - [Manual per al responsable](./tutorials/responsable.md)
 
+Si el que vols és descarregar-te l'aplicació per a provar-la consulta la [documentació d'instal·lació](./setup/).
+
 ## Soc una empresa
 Si ets una empresa pots publicar ofertes de treball que els antics alumnes registrats en la borsa veuran inmediatament i podran inscriurer-se a elles. Quan publiques una oferta has d'indicar els estudis que han de tindre els aspirants (pots posar 1 o més cicles) i tots els usuaris que tinguen el títol (o estiguen encara estudiant-lo si així ho has indicat en l'oferta) que has sol·licitat rebran un e-mail amb les dades de la oferta. Si estan interessats en la mateixa ho indiquen i tú pots veure les seues dades per a que pugues contactar amb ells. Podras veure un enllaç al C.V. de l'alumne si el te en alguna plataforma com Linkedin, així com el seu e-mail i telèfon per a poder contactar amb els que te interessen.
 
