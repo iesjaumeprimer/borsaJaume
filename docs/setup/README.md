@@ -131,7 +131,7 @@ php artisan passport:install
 ```
 
 ## Configurar el mail
-Nosaltres hem instal·lat **`postmail`** i hem creat en el sistema l'usuari `usrmail` per a enviar els correus. EN el **`.env`** configurem:
+Nosaltres hem instal·lat **`postmail`** i hem creat en el sistema l'usuari `usrmail` per a enviar els correus. En el fitxer **`.env`** configurem:
 ```bash
 MAIL_DRIVER=sendmail
 MAIL_HOST=localhost
@@ -143,7 +143,5 @@ MAIL_FROM_NAME="Borsa Treball Batoi"
 MAIL_FROM_ADDRESS=borsa@nosaltres.com
 ```
 
-Permisos de www-data a storage. Configurar mail en .env
+Si has de tornar a crear la base de dades hauras d'executar `php artisan passport:client --personal` per a que es tornen a generar les taules que utilitza _passport_ per a autenticar als usuaris.
 
-## Cosas raras
-1. Cada vez que te cargas la bbd hay que ejecutar `php artisan passport:client --personal`
