@@ -20,7 +20,15 @@ git pull origin master
 ## Desplegament per a producció
 Si només volem tindre l'aplicació funcionant necessitem un servidor on instal·larem:
 * **apache2**
-* **mysql-server** o **mariadb-server** (recorda que després hem d'executar el comando **`mysql_secure_installation`** que configura l'usuari root). NOTA: ara la validació dels usuaris la fa el sistema (el _plugin_ 'auth_socket' o 'unix_socket'). Per a configurar un usuari amb privilegis consulta [StackOverflow](https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for-user-rootlocalhost) o qualsevol altra pàgina en internet. En resum, executem:
+* **mysql-server** o **mariadb-server**
+* **php**
+* **phpmyadmin**
+* **git**
+* **composer**
+
+Per a configurar el servidor de bases de dades hem d'executar el comando **`mysql_secure_installation`**. 
+
+NOTA: ara la validació dels usuaris la fa el sistema (el _plugin_ 'auth_socket' o 'unix_socket'). Per a configurar un usuari amb privilegis consulta [StackOverflow](https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for-user-rootlocalhost) o qualsevol altra pàgina en internet. En resum, el que hem de fer és:
 ```bash
 mysql_secure_installation
 sudo mysql -u root
@@ -38,14 +46,7 @@ mysql> exit;
 
 sudo systemctl restart mysql.service    # o mariadb.service
 ```
-Fuente correcta para mysql:[How To Install MySQL on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-18-04#step-2-%E2%80%94-configuring-mysql)
-
-Ara ja hauria de poder accedir a la BBDD a traves de Phpmyadmin. Continue instal·lant paquests:
-
-* **php**
-* **phpmyadmin**
-* **git**
-* **composer**
+Pots trobar més informació a '[How To Install MySQL on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-18-04#step-2-%E2%80%94-configuring-mysql)'.
 
 ### Configurar apache
 Creem els certificats (el _.key_ en /etc/ssl/private i els altres 2 en en /etc/ssl/certs):
