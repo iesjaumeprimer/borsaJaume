@@ -24,7 +24,7 @@ class OfertasTableSeeder extends Seeder
             'email'=>'empresa3@qw.es',
             'validada'=>0,
             'any'=>2012,
-            'archivada'=>NULL
+            'archivada'=>0
             ] );
             
             
@@ -58,7 +58,7 @@ class OfertasTableSeeder extends Seeder
             'email'=>'empresa3@qw.es',
             'validada'=>0,
             'any'=>2000,
-            'archivada'=>NULL
+            'archivada'=>0
             ] );
             
             
@@ -75,7 +75,7 @@ class OfertasTableSeeder extends Seeder
             'email'=>'empresa3@qw.es',
             'validada'=>1,
             'any'=>2012,
-            'archivada'=>NULL
+            'archivada'=>0
             ] );
             
             
@@ -92,7 +92,7 @@ class OfertasTableSeeder extends Seeder
             'email'=>'empresa2@qw.es',
             'validada'=>1,
             'any'=>NULL,
-            'archivada'=>NULL
+            'archivada'=>0
             ] );
     }
 }
