@@ -30,7 +30,7 @@ class Empresa extends Entity
 
     public static function OfertasCiclo($alumno){
         $empresas = new Collection();
-        foreach (Oferta::where('id_ciclo',AuthUser()->Ciclo->id)->get() as $oferta){
+        foreach (Oferta::where('id_ciclo',Alumno::find($alumno)->Ciclo->id)->get() as $oferta){
             $empresas->add($oferta->Empresa);
         }
         return $empresas;
