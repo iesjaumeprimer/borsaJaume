@@ -27,7 +27,7 @@ class EmpresaController extends ApiBaseController
         if (AuthUser()->isEmpresa())
             return EmpresaResource::collection(Empresa::where('id',AuthUser()->id)->get());
         if (AuthUser()->isAlumno())
-            return EmpresaResource::collection(Empresa::OfertasCiclo(AuthUser()->id));
+            return [];
         if (AuthUser()->isAdmin() || AuthUser()->isResponsable()) return parent::index();
         return response('No autenticado',405);
     }
