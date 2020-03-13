@@ -20,4 +20,14 @@ class EmpresaController extends ApiBaseController
 
         return response("No he pogut Esborrar $id",400);
     }
+
+    public function index()
+    {
+        if (AuthUser()->isEmpresa())
+            return EmpresaResource::collection(Empresa::where('id',AuthUser()->id)->get());
+        if (AuthUser()->isAlumno())
+            return EmpresaResource::collection(Empresa::OfertasCiclo(AuthUser()->id));
+        if (AuthUser()->isAdmin() || AuthUser()->isResponsable()) return parent::index();
+        return response('No autenticado',405);
+    }
 }

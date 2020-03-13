@@ -24,5 +24,16 @@ class Empresa extends Entity
         return ['cif' => 'required'];
     }
 
+    public static function OfertasCiclo($alumno){
+        return $empresa->Ofertas->where('pivot.interesado',1)->where('id_empresa',$empresa)->where('archivada',0)->get();
+    }
+
+    public static function OfertasCiclo($alumno){
+        $empresas = new Collection();
+        foreach (Oferta::where('id_ciclo',AuthUser()->Ciclo->id)->get() as $oferta){
+            $empresas->add($oferta->Empresa);
+        }
+        return $empresas;
+    }
 
 }

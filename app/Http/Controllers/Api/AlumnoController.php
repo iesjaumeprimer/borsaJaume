@@ -38,8 +38,12 @@ class AlumnoController extends ApiBaseController
     {
         if (AuthUser()->isResponsable())
             return AlumnoResource::collection(Alumno::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->get()));
-
-        return parent::index();
+        if (AuthUser()->isAlumno())
+            return AlumnoResource::collection(Alumno::where('id',AuthUser()->id)->get());
+        if (AuthUser()->isEmpresa())
+            return AlumnoResource::collection(Alumno::InterestedIn(AuthUser()->id));
+        if (AuthUser()->isAdmin()) return parent::index();
+        return response('No autenticado',405);
     }
 
 

@@ -32,6 +32,10 @@ class Alumno extends Entity
             ->wherePivot('validado',0)
             ->withPivot('any');
     }
+    public function Ofertas()
+    {
+        return $this->belongsToMany(Oferta::class,'ofertas_alumnos', 'id_alumno', 'id_oferta', 'id', 'id')->withPivot('interesado');
+    }
 
 
     public function User()
@@ -55,6 +59,9 @@ class Alumno extends Entity
                  $alumnos->add($alumno);
         }
         return $alumnos;
+    }
+    public static function InterestedIn($empresa){
+        return $alumnos->Ofertas->where('pivot.interesado',1)->where('id_empresa',$empresa)->where('archivada',0)->get();
     }
 
 }
