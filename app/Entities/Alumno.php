@@ -66,7 +66,7 @@ class Alumno extends Entity
         $ofertas = $empresa->Ofertas->where('archivada',0);
         $alumnos = new Collection();
         foreach ($ofertas as $oferta){
-            foreach ($oferta->Alumnos->where('pivot.interesado',1)->get() as $alumno){
+            foreach ($oferta->Alumnos->where('pivot.interesado',1) as $alumno){
                 if (!$alumnos->contains($alumno)) $alumnos->add($alumno);
             }
 
