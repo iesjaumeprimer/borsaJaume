@@ -61,7 +61,17 @@ class Alumno extends Entity
         return $alumnos;
     }
     public static function InterestedIn($empresa){
-        return $alumnos->Ofertas->where('pivot.interesado',1)->where('id_empresa',$empresa)->where('archivada',0)->get();
+        //Los alumnos que estan interesados en alguna oferta
+        $empresa = Empresa::find($empresa);
+        $ofertas = $empresa->Ofertas->where('archivada',0);
+        $alumnos = new Collection();
+        foreach ($ofertas as $oferta){
+            foreach ($oferta->Alumnos->where('pivot.interesado',1)->get() as $alumno){
+                if (!$alumnos->contains($alumno)) $alumnos->add($alumno);
+            }
+
+        }
+        return $alumnos;
     }
 
 }
