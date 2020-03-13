@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Entities\Empresa;
+use App\Http\Resources\EmpresaResource;
 
 class EmpresaController extends ApiBaseController
 {
