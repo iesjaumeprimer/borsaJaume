@@ -2,6 +2,8 @@
 
 namespace App\Entities;
 
+use Illuminate\Database\Eloquent\Collection;
+
 
 class Empresa extends Entity
 {
