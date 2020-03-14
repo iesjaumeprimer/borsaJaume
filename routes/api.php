@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 */
 
-Route::namespace('Api')->group(['middleware' => 'auth:api'], function () {
+Route::namespace('Api')->group(function () {
     Route::get('/menu', 'MenuController@index');
 });
 
