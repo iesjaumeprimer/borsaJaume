@@ -34,7 +34,7 @@ class OfertaController extends ApiBaseController
     }
 
     private function filterIndex($archivada){
-        if (AuthUser()->isEmpresa() && $archivada) return [];
+        if ($archivada && (AuthUser()->isEmpresa() || AuthUser()->isAlumno())) return [];
         if (AuthUser()->isEmpresa()) return OfertaResource::collection(Oferta::BelongsToEnterprise(AuthUser()->id)->where('archivada',$archivada)->get());
         if (AuthUser()->isAlumno()){
             $ofertasFinalitzat = OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true)->where('pivot.any', '!=', null))
