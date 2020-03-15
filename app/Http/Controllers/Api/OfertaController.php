@@ -38,14 +38,14 @@ class OfertaController extends ApiBaseController
         if (AuthUser()->isEmpresa()) return OfertaResource::collection(Oferta::BelongsToEnterprise(AuthUser()->id)->where('archivada',$archivada)->orderBy('updated_at','DESC')->get());
         if (AuthUser()->isAlumno()){
             $ofertasFinalitzat = OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true)->where('pivot.any', '!=', null))
-                ->where('validada',true)->where('activa',true)->where('estudiando',false)->where('archivada',false));
+                ->where('validada',true)->where('activa',true)->where('estudiando',false)->where('archivada',false))->orderBy('updated_at','DESC');
             $ofertas = $ofertasFinalitzat->concat(OfertaResource::collection(Oferta::BelongsToCicles(Alumno::find(AuthUser()->id)->ciclos->where('pivot.validado','=',true))
-                ->where('validada',true)->where('activa',true)->where('estudiando',true)->where('archivada',false)));
+                ->where('validada',true)->where('activa',true)->where('estudiando',true)->where('archivada',false)))->orderBy('updated_at','DESC');
             return $ofertas->values();// values devuelve un array en vez de un objeto
         }
-        if (AuthUser()->isResponsable()) return OfertaResource::collection(Oferta::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->get())->where('archivada',$archivada));
+        if (AuthUser()->isResponsable()) return OfertaResource::collection(Oferta::BelongsToCicles(Ciclo::where('responsable',AuthUser()->id)->get())->where('archivada',$archivada))->orderBy('updated_at','DESC');
 
-        return OfertaResource::collection(Oferta::where('archivada',$archivada)->get());
+        return OfertaResource::collection(Oferta::where('archivada',$archivada)->get())->orderBy('updated_at','DESC');
     }
 
     public function alumnoInterested(Request $request,$id)
