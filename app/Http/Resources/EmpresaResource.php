@@ -29,6 +29,9 @@ class EmpresaResource extends JsonResource
             $data['contacto'] = $this->contacto;
             $data['telefono'] = $this->telefono;
             $data['email'] = $this->User->email;
+            $data['prova']="provando";
+        } else {
+            $data['prova']="alumno";
         }
         return $data;
     }
