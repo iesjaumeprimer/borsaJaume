@@ -97,6 +97,8 @@ git remote add origin https://github.com/cipfpbatoi/borsaBatoi.git
 git pull origin master
 ```
 
+A continuació cal asegurar-se que l'usuari www-data pot escriure dins del directori **storage**.
+
 Per a finalitzar hem d'activar (si no ho estan ja) els mòduls **ssl** i **rewrite** i reiniciar apache:
 ```bash
 sudo a2enmod ssl
