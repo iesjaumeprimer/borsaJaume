@@ -47062,7 +47062,17 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(props.item.updated_at))]),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              props.item.updated_at
+                                ? new Date(
+                                    props.item.updated_at
+                                  ).toLocaleDateString()
+                                : "---"
+                            )
+                          )
+                        ]),
                         _vm._v(" "),
                         _c(
                           "td",
