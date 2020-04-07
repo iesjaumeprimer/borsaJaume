@@ -65,7 +65,7 @@
                 {{ nomCiclo(ciclo.id_ciclo) }}
               </v-chip>
             </td>
-            <td>{{ props.item.updated_at.toLocaleDateString() }}</td>
+            <td>{{ props.item.updated_at ? props.item.updated_at.toLocaleDateString():'---' }}</td>
             <td class="justify-center layout px-0">
               <v-btn
                 v-if="props.item.mostrar_contacto"
