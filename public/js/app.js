@@ -4771,6 +4771,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       _lib_API__WEBPACK_IMPORTED_MODULE_0__["default"].getTable(this.table, this.$route.query).then(function (resp) {
         _this.items = resp.data;
+        console.log(resp.data);
       })["catch"](function (err) {
         return _this.msgErr(err);
       });

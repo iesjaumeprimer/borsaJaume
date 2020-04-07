@@ -213,6 +213,7 @@ export default {
       API.getTable(this.table, this.$route.query)
         .then(resp => {
           this.items = resp.data;
+          console.log(resp.data);
         })
         .catch(err => this.msgErr(err));
       API.getTable("ciclos")
