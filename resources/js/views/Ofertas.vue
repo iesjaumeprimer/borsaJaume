@@ -359,6 +359,8 @@ export default {
     this.$emit("setTitle", this.isArxiu?"Ofertes arxivades":"Manteniment d'Ofertes");
     this.loadData();
     this.editItem.ciclos = [];
+    this.editItem.archivada = 0;
+    this.editItem.estudiando = 0;
   },
   computed: {
         isArxiu () {
@@ -372,6 +374,8 @@ export default {
     this.$emit("setTitle", this.isArxiu?"Ofertes arxivades":"Manteniment d'Ofertes");
     this.loadData();
     this.editItem.ciclos = [];
+    this.editItem.archivada = 0;
+    this.editItem.estudiando = 0;
     next();
   },
   methods: {
