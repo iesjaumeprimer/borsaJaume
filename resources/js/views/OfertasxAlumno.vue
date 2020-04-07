@@ -65,7 +65,7 @@
                 {{ nomCiclo(ciclo.id_ciclo) }}
               </v-chip>
             </td>
-            <td>{{ props.item.any }}</td>
+            <td>{{ props.item.updated_at.toLocaleDateString() }}</td>
             <td class="justify-center layout px-0">
               <v-btn
                 v-if="props.item.mostrar_contacto"
@@ -195,7 +195,7 @@ export default {
       { text: "Lloc de treball", value: "puesto" },
       { text: "Contracte", value: "tipo_contrato" },
       { text: "Cicles", value: "cicles" },
-      { text: "Any", value: "any" }
+      { text: "Publicada", value: "updated_at" }
     ],
     empresas: [],
     ciclos: [],
