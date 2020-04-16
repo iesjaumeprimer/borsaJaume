@@ -6,3 +6,4 @@ Podeu consultar la [documentació](./docs/) per a saber cóm utilitzar la nostra
 Si el que vols es provar l'aplicación consulta la [documentació d'instal·lació](./docs/setup/) de la mateixa.
 
 ## Branca development
+### Subbranca responsive
