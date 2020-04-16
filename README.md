@@ -7,3 +7,4 @@ Si el que vols es provar l'aplicación consulta la [documentació d'instal·laci
 
 ## Branca development
 ### Subbranca responsive
+Para subir los cambios que sólo afectan a cómo se muestran las vistas
