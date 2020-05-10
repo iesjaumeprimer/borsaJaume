@@ -46,6 +46,13 @@ class AlumnoController extends ApiBaseController
         return response('No autenticado',405);
     }
 
+    public function show($id)
+    {
+        if (AuthUser()->isAlumno()) $id = AuthUser()->id;
+        if (AuthUser()) return parent::show($id);
+        return response('No tens permisos',405);
+    }
+
 
 
 }
