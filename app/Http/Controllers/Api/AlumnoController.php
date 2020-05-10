@@ -53,6 +53,13 @@ class AlumnoController extends ApiBaseController
         return response('No tens permisos',405);
     }
 
+    public function update(Request $request, $id)
+    {
+        if (AuthUser()->isAlumno()) $id = AuthUser()->id;
+
+        return parent::update($request,$id);
+    }
+
 
 
 }
