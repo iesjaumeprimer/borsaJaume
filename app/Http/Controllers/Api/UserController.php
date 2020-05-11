@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-
+use Illuminate\Http\Request;
 
 class UserController extends ApiBaseController
 {
@@ -25,6 +25,13 @@ class UserController extends ApiBaseController
         if (AuthUser()) return parent::show(AuthUser()->id);
 
         return response('No autenticado', 405);
+    }
+
+    public function update(Request $request, $id)
+    {
+        if (AuthUser()->isAlumno()) $id = AuthUser()->id;
+
+        return parent::update($request,$id);
     }
 
 }
