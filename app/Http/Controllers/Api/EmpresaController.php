@@ -31,4 +31,11 @@ class EmpresaController extends ApiBaseController
         if (AuthUser()->isAdmin() || AuthUser()->isResponsable()) return parent::index();
         return response('No autenticado',405);
     }
+
+    public function show($id)
+    {
+        if (AuthUser()->isAlumno()) return [];
+        if (AuthUser()->isEmpresa()) $id = AuthUser()->id;
+        if (AuthUser()) return parent::store($id);
+    }
 }
