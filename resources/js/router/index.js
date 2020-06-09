@@ -1,47 +1,46 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
-import About from './views/About.vue'
-import Alumnos from './views/Alumnos'
-import Perfil from './views/AppPerfil'
-import ChgPass from './views/ChgPass'
-import Register from './views/Register'
-import Ciclos from './views/Ciclos'
-import Responsables from './views/Responsables'
-import Menu from './views/Menu'
-//import MenuEdit from './views/MenuComponent/Edit'
-import Empresas from './views/Empresas'
-import Ofertas from './views/Ofertas'
-import OfertasxAlumno from './views/OfertasxAlumno'
-//import OfertasArxiu from './views/OfertasArxiu'
-import AppLogout from './views/AppLogout'
-import AppLogin from './views/AppLogin'
-import AppLegal from './views/AppLegal'
-import PageNotFound from './views/page404'
+import VueRouter from 'vue-router'
+import Home from '../views/Home.vue'
+import About from '../views/About.vue'
+import Alumnos from '../views/Alumnos'
+import Perfil from '../views/AppPerfil'
+import ChgPass from '../views/ChgPass'
+import Register from '../views/Register'
+import Ciclos from '../views/Ciclos'
+import Responsables from '../views/Responsables'
+import Menu from '../views/Menu'
+//import MenuEdit from '../views/MenuComponent/Edit'
+import Empresas from '../views/Empresas'
+import Ofertas from '../views/Ofertas'
+import OfertasxAlumno from '../views/OfertasxAlumno'
+//import OfertasArxiu from '../views/OfertasArxiu'
+import AppLogout from '../views/AppLogout'
+import AppLogin from '../views/AppLogin'
+import AppLegal from '../views/AppLegal'
+import PageNotFound from '../views/page404'
+//import store from '@/store'
 
-Vue.use(Router)
 
-const USERAUTH = sessionStorage.getItem('access_token');
-var ifNotAuthenticated = (to, from, next) => {
-  if (!sessionStorage.getItem('access_token')) {
+Vue.use(VueRouter)
+
+const USERAUTH = localStorage.getItem('access_token');
+const ifNotAuthenticated = (to, from, next) => {
+  if (!USERAUTH) {
     next()
     return
   }
   alert('Debes desloguearte primero');
   next('/')
 }
-var ifAuthenticated = (to, from, next) => {
-  if (sessionStorage.getItem('access_token')) {
+const ifAuthenticated = (to, from, next) => {
+  if (USERAUTH) {
     next()
     return
   }
   next('/login')
 }
 
-export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
+const routes = [
     {
       path: '/',
       name: 'home',
@@ -62,6 +61,13 @@ export default new Router({
       path: '/alumnos',
       name: 'alumnos',
       component: Alumnos,
+      beforeEnter: ifAuthenticated,
+    },
+    {
+      path: '/alumnos/:id',
+      name: 'alumno',
+      component: Alumnos,
+      props: true,
       beforeEnter: ifAuthenticated,
     },
     {
@@ -95,6 +101,13 @@ export default new Router({
       beforeEnter: ifAuthenticated,
     },
     {
+      path: '/empresas/:id',
+      name: 'empresa',
+      component: Empresas,
+      props: true,
+      beforeEnter: ifAuthenticated,
+    },
+    {
       path: '/ofertas',
       name: 'ofertas',
       component: Ofertas,
@@ -109,7 +122,8 @@ export default new Router({
     {
       path: '/ofertas-arxiu',
       name: 'ofertas-arxiu',
-      component: Ofertas
+      component: Ofertas,
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/menu',
@@ -123,12 +137,6 @@ export default new Router({
       component: ChgPass,
 //      beforeEnter: ifAuthenticated,
     },
-    // {
-    //   path: '/menu-edit/:id',
-    //   name: 'menu-edit',
-    //   component: MenuEdit,
-    //   props: true
-    // },
     {
       path: '/privacitat',
       name: 'privacitat',
@@ -143,6 +151,13 @@ export default new Router({
     {
       path: '*',
       component: PageNotFound,
-    }
-  ]
+    },
+]
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
 })
+
+export default router

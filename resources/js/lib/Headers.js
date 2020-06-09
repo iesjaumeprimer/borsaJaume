@@ -107,7 +107,7 @@ const models = {
         }
       }, { 
         text: 'Teléfono', 
-        showTable: true,
+        showTable: false,
         value: 'telefono', 
         form: {
           type: 'text',
@@ -127,7 +127,7 @@ const models = {
         }
       }, { 
         text: 'E-mail', 
-        showTable: true,
+        showTable: false,
         value: 'email', 
         form: {
           type: 'text',
@@ -143,7 +143,9 @@ const models = {
           type: 'text',
           counter: 200,
         }
-      }
+      },
+        { text: "Modificat",         showTable: true,        value: "updated_at" },
+        { text: "Accions",         showTable: true,        value: "action" }    
     ],
     alumnos: [
       {
@@ -228,8 +230,10 @@ const models = {
           required: true,
         }
       },
+      { text: "Modificat", value: "updated_at" },
+      { text: "Accions",         showTable: true,        value: "action" }    
     ],
-    menu: [
+  menu: [
       {
         text: 'Id',
         showTable: true,
@@ -276,36 +280,6 @@ const models = {
           rules: 'requiredRules',
         }
       }, { 
-        text: 'Submenús', 
-        showTable: true,
-        value: 'children', 
-        comment: 'IDs de los ítems de su submenú',
-        form: {
-          type: 'text',
-          required: false,
-        }
-      }, { 
-        text: 'Desplegado', 
-        showTable: true,
-        value: 'model', 
-        form: {
-          text: 'Desplegado', 
-          type: 'checkbox',
-          comment: 'Si tiene hijos indica si aparece desplegado por defecto',
-          required: false,
-        }
-      }, { 
-        text: 'Icono-alt', 
-        showTable: true,
-        value: 'icon_alt',
-        sortable: false, 
-        icon: true,
-        form: {
-          type: 'text',
-          comment: 'El icono a mostrar cuando está desplegado su submenú' ,
-          required: false,
-        }
-      }, { 
         text: 'Rol', 
         showTable: true,
         value: 'rol', 
@@ -325,6 +299,7 @@ const models = {
           required: false,
         }
       },
+      { text: "Accions",         showTable: true,        value: "action" }    
     ],
   }
 

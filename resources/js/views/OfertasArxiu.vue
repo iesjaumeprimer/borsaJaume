@@ -29,7 +29,7 @@
       <v-data-table
         :items="items"
         no-data-text="No hi ha dades disponibles"
-        rows-per-page-text="Registres per pàgina"
+        footer-props.items-per-page-text="Registres per pàgina"
         :headers="headers"
         :search="search"
         class="elevation-1"
@@ -65,7 +65,7 @@
                 :descCiclo="descCiclo(ciclo.id_ciclo)"
               ></ciclo-chip>
             </td>
-            <td class="justify-center layout px-0">
+            <td justify="center" class="layout px-0">
               <v-btn
                 icon
                 class="mx-0"
@@ -129,23 +129,23 @@
     <v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog">
       <v-card>
         <v-card-title class="grey lighten-4 py-4 title">{{ isNew?'Nova':'Editar' }} oferta</v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs1>
+        <v-container  class="pa-4">
+          <v-row>
+            <v-col cols="1">
               <v-text-field label="Id" placeholder="Id" v-model="editItem.id" readonly></v-text-field>
-            </v-flex>
-            <v-flex xs2>
+            </v-col>
+            <v-col cols="2">
               <v-checkbox v-model="editItem.activa" label="Activa" placeholder="Activa"></v-checkbox>
-            </v-flex>
-            <v-flex xs3>
+            </v-col>
+            <v-col cols="3">
               <v-checkbox
                 v-model="editItem.validada"
                 label="Validada"
                 placeholder="Validada"
                 disabled
               ></v-checkbox>
-            </v-flex>
-            <v-flex xs6>
+            </v-col>
+            <v-col cols="6">
               <v-select
                 :readonly="!imResponsable"
                 label="Descripció"
@@ -158,8 +158,8 @@
                 single-line
                 @change="rellenaContacto"
               ></v-select>
-            </v-flex>
-            <v-flex xs2>
+            </v-col>
+            <v-col cols="2">
               <v-text-field
                 label="Telèfon"
                 placeholder="Telèfon"
@@ -168,8 +168,8 @@
                 :rules="required25Rules"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs4>
+            </v-col>
+            <v-col cols="4">
               <v-text-field
                 label="E-mail"
                 placeholder="E-mail"
@@ -178,8 +178,8 @@
                 :rules="required50Rules"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs3>
+            </v-col>
+            <v-col cols="3">
               <v-text-field
                 label="Persona de contacte"
                 placeholder="Persona de contacte"
@@ -187,17 +187,17 @@
                 :rules="required50Rules"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs3>
+            </v-col>
+            <v-col cols="3">
               <v-checkbox
                 v-model="editItem.mostrar_contacto"
                 label="Mostrar contacte"
                 :hint="'Els interessats '+(editItem.mostrar_contacto?'':'NO ')+'podran veure el mail, tfn. i persona de contacte'"
                 persistent-hint
               ></v-checkbox>
-            </v-flex>
-            <v-flex xs8></v-flex>
-            <v-flex xs12>
+            </v-col>
+            <v-col cols="8"></v-col>
+            <v-col cols="1">
               <v-text-field
                 label="Lloc de treball"
                 placeholder="Lloc de treball"
@@ -205,8 +205,8 @@
                 :rules="required50Rules"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs12>
+            </v-col>
+            <v-col cols="1">
               <v-textarea
                 label="Descripció"
                 placeholder="Descripció"
@@ -214,8 +214,8 @@
                 v-model="editItem.descripcion"
                 required
               ></v-textarea>
-            </v-flex>
-            <v-flex xs12>
+            </v-col>
+            <v-col cols="1">
               <v-text-field
                 label="Tipus de contracte"
                 placeholder="Tipus de contracte"
@@ -224,9 +224,9 @@
                 :rules="required50Rules"
                 required
               ></v-text-field>
-            </v-flex>
+            </v-col>
             <!-- Ciclos -->
-            <v-flex xs9>
+            <v-col cols="9">
               <v-select
                 :items="ciclos"
                 v-model="editItem.ciclos"
@@ -238,8 +238,8 @@
                 hint="Els aspirants han de tindre algú d'quests cicles"
                 persistent-hint
               ></v-select>
-            </v-flex>
-            <v-flex xs3>
+            </v-col>
+            <v-col cols="3">
               <v-checkbox
                 v-model="editItem.estudiando"
                 label="Inclou estudiants"
@@ -254,15 +254,15 @@
                 mask="####"
                 :disabled="!editItem.ciclos || editItem.ciclos.length==0"
               ></v-text-field>
-            </v-flex>
-            <v-flex v-if="editItem.validada" xs12>
+            </v-col>
+            <v-col v-if="editItem.validada" cols="1">
               <v-textarea
                 label="Resultat"
                 placeholder="Per favor, quan finalitze el procés indica ací el resultat de l'oferta (si s'ha cobert o no i per què)"
                 v-model="editItem.resultat"
               ></v-textarea>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
         <v-card-actions>
           <help-button
@@ -277,7 +277,7 @@
     </v-dialog>
 
     <!-- Dialog validar -->
-    <v-layout row justify-center>
+    <v-row justify="center">
       <v-dialog v-model="dialogValidar" persistent max-width="290" @keydown.esc="dialogValidar = false">
         <v-card>
           <v-card-title class="headline">{{ ofertaValidar.validada?'Invalidar':'Validar'}} Oferta</v-card-title>
@@ -293,7 +293,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </v-layout>
+    </v-row>
   </div>
 </template>
 

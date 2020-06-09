@@ -86,7 +86,7 @@ export default {
     },
     submit() {
       API.sendPassword(this.user)
-        .then(resp =>
+        .then(() =>
           this.msgOk(
             "chgpwd",
             "T'hem enviat un mail confirmant-te el canvi de la teua contrasenya"

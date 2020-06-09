@@ -5,152 +5,84 @@
     </div>
 
     <v-card>
-      <v-card-title>
+      <v-data-table
+      fluid
+        :items="items"
+        no-data-text="No hi ha dades disponibles"
+        :items-per-page="10"
+        footer-props.items-per-page-text="Registres per pàgina"
+        :headers="headers"
+        :search="search"
+        class="elevation-1"
+        single-expand
+        item-key="id"
+        show-expand
+        no-results-text="No hi ha dades amb el text indicat"
+            :footer-props="{
+      showFirstLastPage: true,
+      firstIcon: 'mdi-chevron-double-left',
+      lastIcon: 'mdi-chevron-double-right',
+      itemsPerPageText: 'Registres per pàgina'
+          }"
+      >
+    <template v-slot:footer.page-text="records">
+            {{ records.pageStart }} a {{ records.pageStop }} de {{ records.itemsLength }}
+    </template>
+
+    <template v-slot:body.append>
+          <help-button v-if="helpPage" :page="helpPage"></help-button>
+    </template>
+
+    <template v-slot:top>
+      <v-toolbar color="white">
         <v-text-field
           v-model="search"
-          append-icon="search"
+          append-icon="mdi-magnify"
           label="Filtrar taula"
           single-line
           hide-details
         ></v-text-field>
-
         <v-spacer></v-spacer>
-        <v-btn
-          v-if="imEmpresa || imResponsable && !isArxiu"
-          top
-          right
-          color="indigo"
-          dark
-          @click="dialogNewOferta"
-        >
-          <v-icon>add</v-icon>
-        </v-btn>
-      </v-card-title>
-      <v-data-table
-        :items="items"
-        no-data-text="No hi ha dades disponibles"
-        rows-per-page-text="Registres per pàgina"
-        :headers="headers"
-        :search="search"
-        class="elevation-1"
-      >
-        <template slot="headerCell" slot-scope="props">
-          <v-tooltip bottom>
-            <span slot="activator">{{ props.header.text }}</span>
-            <span>{{ props.header.text }}</span>
-          </v-tooltip>
-        </template>
-
-        <template slot="items" slot-scope="props">
-          <tr color="red">
-            <td>
-              <v-chip
-                :color="props.item.validada?'teal':'red'"
-                @dblclick.stop="openDialogValidar(props.item)"
-                :title="(props.item.activa?'Activa':'No activa')+' / '
-            +(props.item.validada?'Validada':'No validada')"
-              >
-                <yes-no-icon :value="props.item.activa"></yes-no-icon>
-              </v-chip>
-            </td>
-            <td>{{ nomEmpresa(props.item.id_empresa) }}</td>
-            <td>{{ props.item.puesto }}</td>
-            <td>{{ props.item.tipo_contrato }}</td>
-            <td>
-              <ciclo-chip
-                v-for="ciclo in props.item.ciclos"
-                :key="ciclo.id_ciclo"
-                :ciclo="ciclo"
-                :nomCiclo="nomCiclo(ciclo.id_ciclo)"
-                :descCiclo="descCiclo(ciclo.id_ciclo)"
-              ></ciclo-chip>
-            </td>
-            <td class="justify-center layout px-0">
-              <v-btn
-                icon
-                class="mx-0"
-                @click="props.expanded = !props.expanded"
-                title="Alumnes interessats"
-              >
-                <v-icon>{{ props.expanded?'remove':'people' }}</v-icon>
-              </v-btn>
-              <div v-if="imEmpresa || imResponsable">
-                <v-btn icon class="mx-0" @click="preOpenDialog(props.item)">
-                  <v-icon>{{ isArxiu?'remove_red_eye':'edit' }}</v-icon>
-                </v-btn>
-                <v-btn v-if="!isArxiu" icon class="mx-0" @click="deleteItem(props.item)">
-                  <v-icon>delete</v-icon>
-                </v-btn>
-              </div>
-            </td>
-          </tr>
-        </template>
-        <v-alert
-          slot="no-results"
-          :value="true"
-          color="error"
-          icon="warning"
-        >La cerca de "{{ search }}" no dona cap resultat</v-alert>
-
-        <template slot="expand" slot-scope="props">
-          <v-card flat>
-            <v-card-title>CANDIDATS INTERESSATS</v-card-title>
+        <v-divider
+          class="mx-4"
+          inset
+          vertical
+        ></v-divider>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="800px" @keydown.esc="closeDialog">
+          <template v-slot:activator="{ on }">
+            <v-btn           v-if="imEmpresa || imResponsable && !isArxiu"
+            color="indigo" dark class="mb-2" v-on="on">
+                        <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ isNew?'Nova':'Editar' }} oferta</span>
+            </v-card-title>
             <v-card-text>
-              <div v-for="alum in props.item.alumnos" :key="alum.id">
-                <strong>
-                  <a
-                    target="_blank"
-                    :href="alum.cv_enlace"
-                    :title="alum.cv_enlace"
-                  >{{ alum.nombre+' '+alum.apellidos }}</a>
-                </strong>
-                &mdash;
-                <strong>e-mail:</strong>
-                {{ alum.email }}
-                &mdash;
-                <strong>Tel.:</strong>
-                {{ alum.telefono }}
-              </div>
-            </v-card-text>
-          </v-card>
-          <v-divider></v-divider>
-        </template>
-
-        <template class="text-sm-left" slot="actions-prepend">
-          <help-button v-if="helpPage" :page="helpPage"></help-button>
-        </template>
-        <template
-          slot="pageText"
-          slot-scope="props"
-        >Registres del {{ props.pageStart }} al {{ props.pageStop }} de {{ props.itemsLength }}</template>
-      </v-data-table>
-    </v-card>
-
-    <v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog">
-      <v-card>
-        <v-card-title class="grey lighten-4 py-4 title">{{ isNew?'Nova':'Editar' }} oferta</v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs1>
-              <v-text-field label="Id" placeholder="Id" v-model="editItem.id" readonly></v-text-field>
-            </v-flex>
-            <v-flex xs2>
+              <v-container>
+                <v-row>
+              <v-col cols="4" sm="2">
+                <v-text-field label="Id" placeholder="Id" v-model="editItem.id" disabled></v-text-field>
+              </v-col>
+            <v-col cols="4" sm="2">
               <v-checkbox 
                 v-model="editItem.activa" 
                 label="Activa" 
                 placeholder="Activa"
                 :disabled="isArxiu"
               ></v-checkbox>
-            </v-flex>
-            <v-flex xs3>
+            </v-col>
+            <v-col cols="4" sm="2">
               <v-checkbox
                 v-model="editItem.validada"
                 label="Validada"
                 placeholder="Validada"
                 disabled
               ></v-checkbox>
-            </v-flex>
-            <v-flex xs6>
+            </v-col>
+            <v-col cols="12" sm="6">
               <v-select
                 :disabled="isArxiu"
                 :readonly="!imResponsable"
@@ -164,8 +96,8 @@
                 single-line
                 @change="rellenaContacto"
               ></v-select>
-            </v-flex>
-            <v-flex xs2>
+            </v-col>
+            <v-col cols="5" sm="3" md="2">
               <v-text-field
                 :disabled="isArxiu"
                 label="Telèfon"
@@ -175,8 +107,8 @@
                 :rules="required25Rules"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs4>
+            </v-col>
+            <v-col cols="7" sm="5" md="4">
               <v-text-field
                 :disabled="isArxiu"
                 label="E-mail"
@@ -186,8 +118,8 @@
                 :rules="required50Rules"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs3>
+            </v-col>
+            <v-col cols="7" sm="4" md="4">
               <v-text-field
                 :disabled="isArxiu"
                 label="Persona de contacte"
@@ -197,8 +129,8 @@
                 :rules="required50Rules"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs3>
+            </v-col>
+            <v-col cols="5" sm="4" md="2">
               <v-checkbox
                 :disabled="isArxiu"
                 v-model="editItem.mostrar_contacto"
@@ -206,9 +138,8 @@
                 :hint="'Els interessats '+(editItem.mostrar_contacto?'':'NO ')+'podran veure el mail, tfn. i persona de contacte'"
                 persistent-hint
               ></v-checkbox>
-            </v-flex>
-            <v-flex xs8></v-flex>
-            <v-flex xs12>
+            </v-col>
+            <v-col cols="12" sm="8" md="12">
               <v-text-field
                 :disabled="isArxiu"
                 label="Lloc de treball"
@@ -218,8 +149,8 @@
                 :rules="required50Rules"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs12>
+            </v-col>
+            <v-col cols="12">
               <v-textarea
                 :disabled="isArxiu"
                 label="Descripció"
@@ -228,8 +159,8 @@
                 v-model="editItem.descripcion"
                 required
               ></v-textarea>
-            </v-flex>
-            <v-flex xs12>
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 :disabled="isArxiu"
                 label="Tipus de contracte"
@@ -239,9 +170,9 @@
                 :rules="required50Rules"
                 required
               ></v-text-field>
-            </v-flex>
+            </v-col>
             <!-- Ciclos -->
-            <v-flex xs9>
+            <v-col cols="12" sm="9">
               <v-select
                 :disabled="isArxiu"
                 :items="ciclos"
@@ -254,8 +185,8 @@
                 hint="Els aspirants han de tindre algú d'quests cicles"
                 persistent-hint
               ></v-select>
-            </v-flex>
-            <v-flex xs3>
+            </v-col>
+            <v-col cols="12" sm="3">
               <v-checkbox
                 :disabled="isArxiu"
                 v-model="editItem.estudiando"
@@ -271,36 +202,140 @@
                 mask="####"
                 :disabled="!editItem.ciclos || editItem.ciclos.length==0 || isArxiu"
               ></v-text-field>
-            </v-flex>
-            <v-flex v-if="editItem.validada" xs12>
+            </v-col>
+            <v-col v-if="editItem.validada" cols="12">
               <v-textarea
                 :disabled="isArxiu"
+                rows="2"
                 label="Resultat"
                 placeholder="Per favor, quan finalitze el procés indica ací el resultat de l'oferta (si s'ha cobert o no i per què)"
                 v-model="editItem.resultat"
               ></v-textarea>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <help-button
-            v-if="helpPage"
-            :page="helpPage+(isNew?'#crear-una-nova-oferta':'#editar-una-oferta')"
-          ></help-button>
-          <v-spacer></v-spacer>
-          <v-btn 
-            v-if="!isArxiu" 
-            :disabled="!valid"
-            flat color="primary" 
-            @click="addItem"
-          >Guardar</v-btn>
-          <v-btn flat @click="closeDialog">{{ isArxiu?'Tancar':'Cancel·lar' }}</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+            </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+          <v-card-actions>
+            <help-button v-if="helpPage" :page="helpPage+'#editar-una-oferta'"></help-button>
+            <v-spacer></v-spacer>
+            <v-btn color="indigo" @click="addItem" :disabled="!valid">Guardar</v-btn>
+            <v-btn @click="closeDialog">Cancel·lar</v-btn>
+          </v-card-actions>
+
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+
+        <template v-slot:item.activa="{ item }">
+              <v-chip
+                :color="item.validada?'teal':'red'"
+                @dblclick.stop="openDialogValidar(item)"
+                :title="(item.activa?'Activa':'No activa')+' / '
+            +(item.validada?'Validada':'No validada')"
+              >
+                <yes-no-icon :value="item.activa"></yes-no-icon>
+              </v-chip>
+        </template>
+
+        <template v-slot:item.id_empresa="{ item }">
+          <a href="#" @click.prevent="goto('/empresas/'+item.id_empresa)">
+{{ nomEmpresa(item.id_empresa) }}</a>
+        </template>
+
+        <template v-slot:item.cicles="{ item }">
+          <ciclo-chip
+            v-for="ciclo in item.ciclos"
+            :key="ciclo.id_ciclo"
+            :ciclo="ciclo"
+          ></ciclo-chip>
+        </template>
+        <template v-slot:item.updated_at="{ item }">
+          {{ toFecha(item.updated_at )}}
+        </template>
+
+    <template v-slot:item.action="{ item }">
+      <v-icon  v-if="imEmpresa || imResponsable"
+        
+        class="mr-2"
+        @click="preOpenDialog(item)"
+      >
+        mdi-{{ isArxiu?'eye':'pencil' }}
+      </v-icon>
+      <v-icon v-if="!isArxiu"
+        
+        @click="deleteItem(item)"
+      >
+        mdi-delete
+      </v-icon>
+      <v-icon :disabled="!item.alumnos.length"
+         title="Veure candidats"
+        @click="goto({ name: 'alumnos', params: { ids: idAlumnos(item.alumnos) } } )"
+      >
+        mdi-account-multiple
+      </v-icon>
+
+    </template>
+        <template v-slot:expanded-item="{ headers, item }">
+          <td :colspan="headers.length">
+            <v-row>
+
+            <v-col cols="12" sm="7">
+            <v-card>
+              <v-card-text>
+                <h3>Altres dades de l'oferta</h3>
+              <strong>Tipus de contracte:</strong>
+              {{ item.tipo_contrato }}
+              <br>
+              <strong>Descripció:</strong>
+              {{ item.descrip }}
+              <template v-if="item.mostrar_contacto">
+              <br>
+              <strong>Persona de contacte:</strong>
+              {{ item.contacto }}
+              <br>
+              <strong>email:</strong>
+              {{ item.email }}
+              <br>
+              <strong>Telèfon:</strong>
+              {{ item.telefono }}
+
+              </template>
+                          </v-card-text>
+            </v-card>
+
+            </v-col>
+            <v-col cols="12" sm="5">
+            <v-card>
+            <v-card-title>Candidats interessats</v-card-title>
+            <v-card-text>
+              <ul>
+              <li v-for="alum in item.alumnos" :key="alum.id">
+                <strong>
+                  <a
+                    :href="'/alumnos/'+alum.id"
+                    title="Ver datos del candidato"
+                  >{{ alum.nombre+' '+alum.apellidos }}</a>
+                </strong>
+                &mdash;
+                <strong>e-mail:</strong>
+                {{ alum.email }}
+              </li>
+
+              </ul>
+            </v-card-text>
+            </v-card>
+
+            </v-col>
+            </v-row>
+          </td>
+        </template>
+
+      </v-data-table>
+    </v-card>
 
     <!-- Dialog validar -->
-    <v-layout row justify-center>
+    <v-row justify="center">
       <v-dialog v-model="dialogValidar" persistent max-width="290" @keydown.esc="dialogValidar = false">
         <v-card>
           <v-card-title class="headline">{{ ofertaValidar.validada?'Invalidar':'Validar'}} Oferta</v-card-title>
@@ -316,7 +351,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </v-layout>
+    </v-row>
     <!-- <ofertas-validar-dialog :dialogValidar.sync="dialogValidar" :ofertaValidar="ofertaValidar">
     </ofertas-validar-dialog> -->
   </div>
@@ -345,24 +380,24 @@ export default {
       { text: "Activa", value: "activa" },
       { text: "Empresa", value: "id_empresa" },
       { text: "Lloc de treball", value: "puesto" },
-      { text: "Contracte", value: "tipo_contrato" },
       { text: "Cicles", value: "cicles" },
-      { text: "Accions", value: "id_empresa" }
+      { text: "Modificat", value: "updated_at" },
+      { text: "Accions", value: "action" }
     ],
-    empresas: [],
-    ciclos: [],
     // Dialog validar
     dialogValidar: false,
     ofertaValidar: {}
   }),
-  mounted() {
-    this.$emit("setTitle", this.isArxiu?"Ofertes arxivades":"Manteniment d'Ofertes");
-    this.loadData();
-    this.editItem.ciclos = [];
-    this.editItem.archivada = 0;
-    this.editItem.estudiando = 0;
-  },
   computed: {
+    items() {
+      return this.$store.getters.getOfertas(this.isArxiu);
+    },
+    ciclos() {
+      return this.$store.state.ciclos;
+    },
+    empresas() {
+      return this.$store.state.empresas;
+    },
         isArxiu () {
             return this.$route.path === '/ofertas-arxiu';
         },
@@ -370,48 +405,16 @@ export default {
           return this.isArxiu?'ofertas-arxiu':'ofertas';
         }
   },
-  beforeRouteUpdate (to, from, next) {
-    this.$emit("setTitle", this.isArxiu?"Ofertes arxivades":"Manteniment d'Ofertes");
-    this.loadData();
+  mounted() {
+    this.$emit("setTitle", this.isArxiu?"Ofertes arxivades":"Ofertes");
+    this.$store.dispatch("loadData");
     this.editItem.ciclos = [];
     this.editItem.archivada = 0;
     this.editItem.estudiando = 0;
-    next();
-  },
+},
   methods: {
-    loadData() {
-      //      this.loadItems();
-      API.getTable(this.table, this.$route.query)
-        .then(resp => (this.items = resp.data.data))
-        .catch(err => this.msgErr(err));
-      API.getTable("empresas")
-        .then(
-          resp =>
-            (this.empresas = resp.data.data.map(empresa => {
-              return {
-                id: empresa.id,
-                nombre: empresa.nombre,
-                contacto: empresa.contacto,
-                telefono: empresa.telefono,
-                email: empresa.email
-              };
-            }))
-        )
-        .catch(err => this.msgErr(err));
-      API.getTable("ciclos")
-        .then(
-          resp =>
-            (this.ciclos = resp.data.data.map(ciclo => {
-              return {
-                id: ciclo.id,
-                ciclo: ciclo.ciclo,
-                descrip: ciclo.vCiclo,
-                dept: ciclo.Dept,
-                familia: ciclo.vDept
-              };
-            }))
-        )
-        .catch(err => this.msgErr(err));
+    idAlumnos(arrayAlumnos) {
+      return arrayAlumnos.map(item => item.id)
     },
     preOpenDialog(item) {
       let itemCiclos = { ...item };
@@ -419,22 +422,10 @@ export default {
       this.openDialog(itemCiclos);
     },
     nomEmpresa(id) {
-      return (id && this.empresas.length)?
-        this.empresas.find(empresa => empresa.id == id).nombre
-        :'';
-    },
-    nomCiclo(id) {
-      return id && this.ciclos.length
-        ? this.ciclos.find(ciclo => ciclo.id == id).ciclo
-        : "";
-    },
-    descCiclo(id) {
-      return id && this.ciclos.length
-        ? this.ciclos.find(ciclo => ciclo.id == id).descrip
-        : "";
+      return this.$store.getters.getEmpresaById(id).nombre;
     },
     rellenaContacto() {
-      let newEmpresa = this.empresas.find(empresa => empresa.id == this.editItem.id_empresa);
+      let newEmpresa = this.$store.getters.getEmpresaById(this.editItem.id_empresa);
       for (let campo of ["telefono", "email", "contacto"])
         this.editItem[campo] = newEmpresa[campo];
     },

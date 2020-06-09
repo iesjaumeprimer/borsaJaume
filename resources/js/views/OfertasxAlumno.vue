@@ -18,7 +18,7 @@
       <v-data-table
         :items="items"
         no-data-text="No hi ha dades disponibles"
-        rows-per-page-text="Registres per pàgina"
+        footer-props.items-per-page-text="Registres per pàgina"
         :headers="headers"
         :search="search"
         class="elevation-1"
@@ -65,8 +65,12 @@
                 {{ nomCiclo(ciclo.id_ciclo) }}
               </v-chip>
             </td>
-            <td>{{ props.item.updated_at ? new Date(props.item.updated_at).toLocaleDateString():'---' }}</td>
-            <td class="justify-center layout px-0">
+            <td>
+              {{ props.item.updated_at ? 
+                  new Date(props.item.updated_at).toLocaleDateString()
+                  :'---' }}
+            </td>
+            <td justify="center" class="layout px-0">
               <v-btn
                 v-if="props.item.mostrar_contacto"
                 icon
@@ -87,8 +91,8 @@
         >La cerca de "{{ search }}" no dona cap resultat</v-alert>
 
         <template slot="expand" slot-scope="props">
-          <v-layout row wrap>
-            <v-flex xs6>
+          <v-row>
+            <v-col cols="6">
               <v-card flat>
                 <v-card-text>
                   <strong>Descripció:</strong>
@@ -115,8 +119,8 @@
                   </template>
                 </v-card-text>
               </v-card>
-            </v-flex>
-            <v-flex xs6>
+            </v-col>
+            <v-col cols="6">
               <v-card flat>
                 <v-card-text>
                   <template>
@@ -133,8 +137,8 @@
                   </template>
                 </v-card-text>
               </v-card>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
           <v-divider></v-divider>
         </template>
 
@@ -149,7 +153,7 @@
     </v-card>
 
     <!-- Dialog interesado -->
-    <v-layout row justify-center>
+    <v-row justify="center">
       <v-dialog v-model="dialogValidar" persistent max-width="290">
         <v-card>
           <v-card-title
@@ -167,7 +171,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </v-layout>
+    </v-row>
   </div>
 </template>
 
@@ -207,13 +211,14 @@ export default {
     this.$emit("setTitle", "Ofertes actives");
     this.loadData();
     this.editItem.ciclos = [];
-  },
+    this.editItem.archivada = 0;
+    this.editItem.estudiando = 0;
+},
   methods: {
     loadData() {
       API.getTable(this.table, this.$route.query)
         .then(resp => {
           this.items = resp.data;
-          console.log(resp.data);
         })
         .catch(err => this.msgErr(err));
       API.getTable("ciclos")

@@ -22,7 +22,7 @@
             </v-text-field>
             <v-text-field
                 v-model="item.password" 
-                :append-icon="show ? 'visibility' : 'visibility_off'"
+                :append-icon="show ? 'mdi-eye' : 'mdi-eye_off'"
                 :type="show ? 'text' : 'password'"
                 @click:append="show = !show"
                 hint="Al menys 6 caràcters"
@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import API from '../lib/API';
 import utilsMixin from '../mixins/utils.js';
 import formRulesMixin from '../mixins/formRules.js';
 import HelpButton from '../components/base/HelpButton';
@@ -68,22 +67,18 @@ export default {
     },
       methods: {
           submit() {
-            API.loginUser(this.item)
-            .then(resp => {
-              if (resp.data.access_token) {
-                this.setToken(resp.data);
-                if (resp.data.rol==7) this.$router.push('/ofertas-alum')
+            this.$store.dispatch('login', this.item)
+              .then(resp => {
+                this.$store.dispatch('loadData');
+              this.$emit('setRol', {
+                rol: Number(resp.rol),
+                name: resp.name
+              });
+                if (this.imAlumno) this.$router.push('/ofertas-alum')
                 else this.$router.push('/ofertas')
-              } else {
-                this.msgErr('ERROR, no s\'ha pogut loguejar: '+resp.data);
-              }
             }) // store the token in localstorage
             .catch(err => {
-              if (err.response && err.response.status==401) {
-                this.msgErr('Error 401: El email o la contraseña no son correctos');
-              } else {
                 this.msgErr(err);
-              }
             }); // if the request fails, remove any possible user token if possible
           },
           registerUser() {

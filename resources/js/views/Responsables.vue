@@ -25,12 +25,12 @@
           </v-card-title>
 
           <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm8>
+            <v-container>
+              <v-row>
+                <v-col cols="1" sm="8">
                   <v-text-field v-model="editItem.name" label="Nom"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm4>
+                </v-col>
+                <v-col cols="1" sm="4">
                   <v-select
                     :items="roles"
                     v-model="editItem.rol"
@@ -38,28 +38,28 @@
                     item-value="id"
                     label="Rol"
                   ></v-select>
-                </v-flex>
-                <v-flex xs12 sm9>
+                </v-col>
+                <v-col cols="1" sm="9">
                   <v-text-field v-model="editItem.email" label="e-mail"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm3>
+                </v-col>
+                <v-col cols="1" sm="3">
                   <v-checkbox
                     v-model="editItem.active"
                     label="Actiu"
                     placeholder="Actiu"
                     :disabled="editItem.rol>3"
                   ></v-checkbox>
-                </v-flex>
-                <v-flex xs12 sm6 v-if="isNew">
+                </v-col>
+                <v-col cols="1" sm="6" v-if="isNew">
                   <v-text-field v-model="editItem.password" label="Contrasenya"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 v-if="isNew">
+                </v-col>
+                <v-col cols="1" sm="6" v-if="isNew">
                   <v-text-field
                     v-model="editItem.password_confirmation"
                     label="Repeteix la contrasenya"
                   ></v-text-field>
-                </v-flex>
-              </v-layout>
+                </v-col>
+              </v-row>
             </v-container>
           </v-card-text>
 
@@ -77,7 +77,7 @@
       :search="search"
       class="elevation-1"
       no-data-text="No hi ha dades disponibles"
-      rows-per-page-text="Registres per pàgina"
+      footer-props.items-per-page-text="Registres per pàgina"
     >
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
@@ -86,7 +86,7 @@
         <td>
           <yes-no-icon :value="props.item.active"></yes-no-icon>
         </td>
-        <td class="justify-center layout px-0">
+        <td justify="center" class="layout px-0">
           <v-icon v-if="imAdmin" class="mr-2" @click="openDialog(props.item)">edit</v-icon>
           <v-icon
             v-if="imAdmin"

@@ -10,6 +10,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import router from './router'
+import store from './store'
 import Vuetify from 'vuetify'
 Vue.use(Vuetify);
 
@@ -37,5 +38,6 @@ Vue.component('app', require('./App.vue').default);
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store
 });

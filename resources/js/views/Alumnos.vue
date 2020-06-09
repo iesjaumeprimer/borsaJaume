@@ -5,140 +5,78 @@
     </div>
 
     <v-card>
-      <v-card-title>
-        <v-spacer></v-spacer>
+      <v-data-table
+      fluid
+        :items="items"
+        no-data-text="No hi ha dades disponibles"
+        :items-per-page="10"
+        footer-props.items-per-page-text="Registres per pàgina"
+        :headers="headers"
+        :search="search"
+        class="elevation-1"
+        single-expand
+        item-key="id"
+        show-expand
+        no-results-text="No hi ha dades amb el text indicat"
+            :footer-props="{
+      showFirstLastPage: true,
+      firstIcon: 'mdi-chevron-double-left',
+      lastIcon: 'mdi-chevron-double-right',
+      itemsPerPageText: 'Registres per pàgina'
+          }"
+      >
+    <template v-slot:footer.page-text="records">
+            {{ records.pageStart }} a {{ records.pageStop }} de {{ records.itemsLength }}
+    </template>
+
+    <template v-slot:body.append>
+          <help-button v-if="helpPage" :page="helpPage"></help-button>
+    </template>
+
+    <template v-slot:top>
+      <v-toolbar color="white">
         <v-text-field
           v-model="search"
-          append-icon="search"
+          append-icon="mdi-magnify"
           label="Filtrar taula"
           single-line
           hide-details
         ></v-text-field>
-      </v-card-title>
-      <v-data-table
-        :items="items"
-        no-data-text="No hi ha dades disponibles"
-        rows-per-page-text="Registres per pàgina"
-        :headers="headers"
-        :search="search"
-        class="elevation-1"
-      >
-        <template slot="headerCell" slot-scope="props">
-          <v-tooltip bottom>
-            <span slot="activator">{{ props.header.text }}</span>
-            <span>{{ props.header.text }}</span>
-          </v-tooltip>
-        </template>
-
-        <template slot="items" slot-scope="props">
-          <tr>
-            <td class="text-xs-right">{{ props.item.id }}</td>
-            <td>{{ props.item.nombre }}</td>
-            <td>{{ props.item.apellidos }}</td>
-            <td>
-              <ciclo-chip
-                v-for="ciclo in props.item.ciclos"
-                :key="ciclo.id_ciclo"
-                :ciclo="ciclo"
-                :nomCiclo="nomCiclo(ciclo.id_ciclo)"
-                :descCiclo="descCiclo(ciclo.id_ciclo)"
-                @dblclick="toogleValida(ciclo, props.item.nombre+' '+props.item.apellidos)"
-              ></ciclo-chip>
-            </td>
-            <td>
-              <a
-                v-if="props.item.cv_enlace"
-                :title="props.item.cv_enlace"
-                :href="props.item.cv_enlace"
-                target="_blank"
-              >
-                <v-icon large>folder_shared</v-icon>
-              </a>
-            </td>
-            <td>
-              <yes-no-icon :value="props.item.bolsa"></yes-no-icon>
-            </td>
-            <td>
-              <yes-no-icon :value="props.item.info"></yes-no-icon>
-            </td>
-
-            <td class="justify-center layout px-0">
-              <v-btn icon class="mx-0" @click="props.expanded = !props.expanded" title="Més dades">
-                <v-icon>{{ props.expanded?'remove':'add' }}</v-icon>
-              </v-btn>
-              <v-btn icon class="mx-0" @click="preOpenDialog(props.item)">
-                <v-icon>edit</v-icon>
-              </v-btn>
-              <v-btn
-                icon
-                class="mx-0"
-                @click="deleteUser(props.item, 'l\'alumne \''+props.item.nombre+' '+props.item.apellidos+'\'')"
-              >
-                <v-icon>delete</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-        </template>
-        <v-alert
-          slot="no-results"
-          :value="true"
-          color="error"
-          icon="warning"
-        >La cerca de "{{ search }}" no dona cap resultat</v-alert>
-
-        <template slot="expand" slot-scope="props">
-          <v-card flat>
+        <v-spacer></v-spacer>
+        <v-divider
+          class="mx-4"
+          inset
+          vertical
+        ></v-divider>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="800px">
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ isNew?'Nou':'Editar' }} alumne</span>
+            </v-card-title>
             <v-card-text>
-              <strong>Domicil·li:</strong>
-              {{ props.item.domicilio }}
-              <v-spacer></v-spacer>
-              <strong>Telèfon:</strong>
-              {{ props.item.telefono }}
-              <v-spacer></v-spacer>
-              <strong>E-mail:</strong>
-              {{ props.item.email }}
-            </v-card-text>
-          </v-card>
-          <v-divider></v-divider>
-        </template>
-
-        <template class="text-sm-left" slot="actions-prepend">
-          <help-button v-if="helpPage" :page="helpPage"></help-button>
-        </template>
-        <template
-          slot="pageText"
-          slot-scope="props"
-        >Registres del {{ props.pageStart }} al {{ props.pageStop }} de {{ props.itemsLength }}</template>
-      </v-data-table>
-    </v-card>
-
-    <v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog">
-      <v-form ref="form" v-model="valid" lazy-validation>
-        <v-card>
-          <v-card-title class="grey lighten-4 py-4 title">{{ isNew?'Nou':'Editar' }} alumne</v-card-title>
-          <v-container grid-list-sm class="pa-4">
-            <v-layout row wrap>
-              <v-flex xs1>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="2" md="1">
                 <v-text-field label="Id" placeholder="Id" v-model="editItem.id" readonly></v-text-field>
-              </v-flex>
-              <v-flex xs3>
-                <v-text-field 
-                  label="Nom" 
-                  placeholder="Nom" 
-                  v-model="editItem.nombre" 
+              </v-col>
+                  <v-col cols="12" sm="5" md="3">
+                <v-text-field
+                  label="Nom"
+                  placeholder="Nom"
+                  v-model="editItem.nombre"
                   :rules="required25Rules"
-                >
-                </v-text-field>
-              </v-flex>
-              <v-flex xs8>
+                ></v-text-field>
+              </v-col>
+                  <v-col cols="12" sm="12" md="8">
                 <v-text-field
                   label="Cognoms"
                   placeholder="Cognoms"
                   v-model="editItem.apellidos"
                   :rules="required50Rules"
                 ></v-text-field>
-              </v-flex>
-              <v-flex xs7>
+              </v-col>
+                  <v-col cols="12" sm="12" md="9">
                 <v-textarea
                   label="Domicil·li"
                   placeholder="Domicil·li"
@@ -147,18 +85,18 @@
                   :rules="required80Rules"
                   rows="3"
                 ></v-textarea>
-              </v-flex>
-              <v-flex xs3>
+              </v-col>
+                  <v-col cols="12" sm="4" md="3">
                 <v-text-field label="Telèfon" placeholder="Telèfon" v-model="editItem.telefono"></v-text-field>
-              </v-flex>
-              <v-flex xs7>
+              </v-col>
+                  <v-col cols="12" sm="8" md="7">
                 <v-text-field
                   label="C.V."
                   placeholder="Enllaç al CV en Linkedin, ..."
                   v-model="editItem.cv_enlace"
                 ></v-text-field>
-              </v-flex>
-              <v-flex xs3>
+              </v-col>
+                  <v-col cols="12" sm="5" md="3">
                 <v-checkbox
                   v-model="editItem.bolsa"
                   label="Borsa treball"
@@ -167,16 +105,16 @@
                   hint="Vuig rebre ofertes de la borsa"
                   persistent-hint
                 ></v-checkbox>
-              </v-flex>
-              <v-flex xs2>
+              </v-col>
+                  <v-col cols="12" sm="3" md="2">
                 <v-checkbox
                   v-model="editItem.info"
                   label="Rebre info."
                   title="Per a rebre informacions com data de matriculacions, jornades, ..."
                   placeholder="Si vols rebre informació del Centre"
                 ></v-checkbox>
-              </v-flex>
-              <v-flex xs12>
+              </v-col>
+                  <v-col cols="12">
                 <v-select
                   :items="ciclos"
                   v-model="editItem.ciclos"
@@ -187,49 +125,124 @@
                   chips
                   persistent-hint
                 ></v-select>
-              </v-flex>
-            </v-layout>
-          </v-container>
+              </v-col>
+
+                </v-row>
+              </v-container>
+            </v-card-text>
           <v-card-actions>
             <help-button v-if="helpPage" :page="helpPage+'#editar-un-alumne'"></help-button>
             <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="preAddItem" :disabled="!valid">Guardar</v-btn>
-            <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
+            <v-btn color="primary" @click="preAddItem" :disabled="!valid">Guardar</v-btn>
+            <v-btn @click="closeDialog">Cancel·lar</v-btn>
           </v-card-actions>
-        </v-card>
-      </v-form>
-    </v-dialog>
+
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+
+        <template v-slot:item.nombre="{ item }">
+          {{ item.nombre }} {{ item.apellidos }}
+        </template>
+
+        <template v-slot:item.cicles="{ item }">
+          <ciclo-chip
+            v-for="ciclo in item.ciclos"
+            :key="ciclo.id_ciclo"
+            :ciclo="ciclo"
+            @dblclick="toogleValida(ciclo, item.nombre+' '+item.apellidos)"
+          ></ciclo-chip>
+        </template>
+
+        <template v-slot:item.cv_enlace="{ item }">
+          <a v-if="item.cv_enlace" :title="item.cv_enlace" :href="item.cv_enlace" target="_blank">
+      <v-icon
+        
+        class="mr-2"
+      >
+        class
+      </v-icon>
+          </a>
+        </template>
+
+        <template v-slot:item.bolsa="{ item }">
+          <yes-no-icon :value="item.bolsa"></yes-no-icon>
+        </template>
+        <template v-slot:item.info="{ item }">
+          <yes-no-icon :value="item.info"></yes-no-icon>
+        </template>
+        <template v-slot:item.updated_at="{ item }">
+          {{ toFecha(item.updated_at )}}
+        </template>
+
+    <template v-slot:item.action="{ item }" v-if="!imEmpresa">
+      <v-icon
+        
+        class="mr-2"
+        @click="preOpenDialog(item)"
+      >
+        mdi-pencil
+      </v-icon>
+      <v-icon
+        
+        @click="deleteUser(item, `l'alumne '${item.nombre} ${item.apellidos}'`)"
+      >
+        mdi-delete
+      </v-icon>
+    </template>
+        <template v-slot:expanded-item="{ headers, item }">
+          <td :colspan="headers.length">
+            <v-card>
+              <v-card-text>
+                <strong>Domicil·li:</strong>
+                {{ item.domicilio }}
+                <v-spacer></v-spacer>
+                <strong>Telèfon:</strong>
+                {{ item.telefono }}
+                <v-spacer></v-spacer>
+                <strong>E-mail:</strong>
+                {{ item.email }}
+              </v-card-text>
+            </v-card>
+          </td>
+        </template>
+
+      </v-data-table>
+    </v-card>
+
+
 
     <v-dialog v-model="dialogCiclo" width="400px">
       <v-card>
         <v-card-title class="grey lighten-4 py-4 title">{{ ciclo.nombre }}</v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs7>
+        <v-container class="pa-4">
+          <v-row>
+            <v-col cols="7">
               <v-text-field
                 label="Cicle"
                 placeholder="Cicle"
                 :value="nomCiclo(ciclo.id_ciclo)"
                 readonly
               ></v-text-field>
-            </v-flex>
-            <v-flex xs2>
+            </v-col>
+            <v-col cols="2">
               <v-text-field
                 label="Any"
                 placeholder="Any de finalització"
                 v-model="ciclo.any"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs3>
+            </v-col>
+            <v-col cols="3">
               <v-checkbox v-model="ciclo.validado" label="Validat" placeholder="Validat"></v-checkbox>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="validaCiclo">Guardar</v-btn>
-          <v-btn flat @click="closeDialogCiclo()">Cancel·lar</v-btn>
+          <v-btn color="indigo" @click="validaCiclo">Guardar</v-btn>
+          <v-btn @click="closeDialogCiclo()">Cancel·lar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -240,7 +253,7 @@
 import API from "../lib/API";
 import YesNoIcon from "../components/base/YesNoIcon";
 import formRulesMixin from "../mixins/formRules.js";
-import utilsMixin from "../mixins/utils.js";
+import utilsMixin from "../mixins/utils";
 import CicloChip from "../components/base/CicloChip";
 import HelpButton from "../components/base/HelpButton";
 
@@ -251,76 +264,44 @@ export default {
     HelpButton,
     CicloChip
   },
+  props: ['id'],
   data: () => ({
     table: "alumnos",
     helpPage: "alumnos",
     headers: [
       { text: "Id", value: "id" },
       { text: "Nom", value: "nombre" },
-      { text: "Cognoms", value: "apellidos" },
       { text: "Cicles", value: "cicles", sortable: false },
       { text: "CV", value: "cv_enlace", sortable: false },
       { text: "Borsa", value: "bolsa" },
       { text: "Info", value: "info" },
-      { text: "Accions", value: "" }
+      { text: "Modificat", value: "updated_at" },
+      { text: "Accions", value: "action" }
     ],
-    ciclos: [],
     // Para el dialogo de ciclos
     dialogCiclo: false,
     ciclo: {}
   }),
+  computed: {
+    items() {
+      return this.$store.getters.getAlumnos(this.$route.params.ids || this.id);
+    },
+    ciclos() {
+      return this.$store.state.ciclos;
+    }
+  },
   mounted() {
-    this.$emit("setTitle", "Manteniment d'Alumnes");
-    this.loadData();
+    this.$emit("setTitle", "Candidats");
+    this.$store.dispatch("loadData");
   },
   methods: {
-    loadData() {
-      if (this.imAlumno) {
-        // Es un alumno y sólo puede verse a sí mismo
-        API.getItem(this.table, this.myId)
-          .then(resp => {
-            this.items = [resp.data.data];
-            // Si estoy creando un nuevo usuario lo edito
-            if (this.$route.params.new) {
-              let newAlumno = this.items.find(
-                item => item.id == this.$route.params.id
-              );
-              newAlumno.nombre = this.$route.params.name;
-              this.openDialog(newAlumno);
-            }
-          })
-          .catch(err => this.msgErr(err));
-      } else {
-        API.getTable(this.table, this.$route.query)
-          .then(resp => {
-            this.items = resp.data.data;
-            // Si estoy creando un nuevo usuario lo edito
-            if (this.$route.params.new) {
-              let newAlumno = this.items.find(
-                item => item.id == this.$route.params.id
-              );
-              newAlumno.nombre = this.$route.params.name;
-              this.openDialog(newAlumno);
-            }
-          })
-          .catch(err => this.msgErr(err));
-      }
-      API.getTable("ciclos")
-        .then(
-          resp =>
-            (this.ciclos = resp.data.data.map(ciclo => {
-              return {
-                id: ciclo.id,
-                ciclo: ciclo.ciclo,
-                descrip: ciclo.vCiclo
-              };
-            }))
-        )
-        .catch(err => this.msgErr("2" + err));
-    },
     preAddItem() {
       if (!this.editItem.bolsa) {
-        if (!confirm('No has marcat la casella de \'Borsa treball\' i per tant no rebras ofertes. Si vols marcar-la cancel·la aquesta finestra, en altre cas continua'))
+        if (
+          !confirm(
+            "No has marcat la casella de 'Borsa treball' i per tant no rebras ofertes. Si vols marcar-la cancel·la aquesta finestra, en altre cas continua"
+          )
+        )
           return false;
       }
       this.addItem();
@@ -346,7 +327,7 @@ export default {
     },
     toogleValida(ciclo, alumno) {
       if (this.imResponsable) {
-        this.ciclo = {...ciclo};
+        this.ciclo = { ...ciclo };
         this.ciclo.nombre = alumno;
         this.dialogCiclo = true;
       }
@@ -354,9 +335,11 @@ export default {
     validaCiclo() {
       API.updateCicloAlum(this.ciclo)
         .then(resp => {
-          let alumIndex=this.items.findIndex(alum=>alum.id==resp.data.data.id);
-          let validado=this.ciclo.validado;
-          this.items.splice(alumIndex,1,resp.data.data);
+          let alumIndex = this.items.findIndex(
+            alum => alum.id == resp.data.data.id
+          );
+          let validado = this.ciclo.validado;
+          this.items.splice(alumIndex, 1, resp.data.data);
           this.closeDialogCiclo(); // No es el diálogo estándar
           this.msgOk(
             "updateCiclo",
@@ -369,7 +352,7 @@ export default {
           this.msgErr(err);
           this.closeDialogCiclo();
         });
-    },
+    }
   }
 };
 </script>

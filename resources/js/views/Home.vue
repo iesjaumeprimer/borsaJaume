@@ -11,11 +11,12 @@
       s'han preparat en el nostre Centre y que pensem que s'adaptaran
       perfectament als seus requeriments.
     </p>
-    <p>Una vegada publicada una oferta es pot veure el curriculum de les
-      persones que cumpleixen els requisits demanats. Els aspirants 
-      també ens poden indicar el seu interés per la nostra oferta de manera
+    <p>Una vegada publicada una oferta les
+      persones que cumpleixen els requisits demanats poden indicar si estan interessats en ella. 
+      L'empresa que publica l'oferta pot veure les dades i el curriculum dels aspirants 
+      que han mostrat interés per l'oferta de manera
       que siga senzill posar-se en contacte amb els que millor s'adapten a
-      les nostres necessitats.
+      les seues necessitats.
     </p>
     <h2>Sóc un ex-alumne que busque treball</h2>
     <p>Si busques treball l'únic que has de fer és registrar-te en la

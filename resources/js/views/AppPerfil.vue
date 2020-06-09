@@ -94,14 +94,14 @@ export default {
               myUser.email=this.item.email;
             }
             API.updateItem('users', this.myId, this.myUser)
-                .then(resp => {
+                .then(() => {
                     this.msgOk('update');
                 })
                 .catch(err => this.msgErr(err));
           },
           chgPassword() {
             API.changePassword(this.item)
-            .then(resp=>{
+            .then(()=>{
               this.msgOk('chgpwd','T\'hem enviat un mail amb l\'enllaç per a canviar la teua contrasenya');
               this.mailSended=true;
             })

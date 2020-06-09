@@ -5,77 +5,65 @@
     </div>
 
     <v-card>
-      <v-card-title>
+      <v-data-table
+      fluid
+        :items="items"
+        no-data-text="No hi ha dades disponibles"
+        :items-per-page="10"
+        footer-props.items-per-page-text="Registres per pàgina"
+        :headers="headers"
+        :search="search"
+        class="elevation-1"
+        item-key="id"
+        no-results-text="No hi ha dades amb el text indicat"
+            :footer-props="{
+      showFirstLastPage: true,
+      firstIcon: 'mdi-chevron-double-left',
+      lastIcon: 'mdi-chevron-double-right',
+      itemsPerPageText: 'Registres per pàgina'
+          }"
+      >
+    <template v-slot:footer.page-text="records">
+            {{ records.pageStart }} a {{ records.pageStop }} de {{ records.itemsLength }}
+    </template>
+
+    <template v-slot:body.append>
+          <help-button v-if="helpPage" :page="helpPage"></help-button>
+    </template>
+
+    <template v-slot:top>
+      <v-toolbar color="white">
         <v-text-field
           v-model="search"
-          append-icon="search"
+          append-icon="mdi-magnify"
           label="Filtrar taula"
           single-line
           hide-details
         ></v-text-field>
-
         <v-spacer></v-spacer>
-        <v-btn v-if="imAdmin" top right color="indigo" dark @click.stop="openDialog(false)">
-          <v-icon>add</v-icon>
-        </v-btn>
-      </v-card-title>
-      <v-data-table
-        :items="items"
-        no-data-text="No hi ha dades disponibles"
-        rows-per-page-text="Registres per pàgina"
-        :headers="headers"
-        :search="search"
-        class="elevation-1"
-      >
-        <template slot="headerCell" slot-scope="props">
-          <v-tooltip bottom>
-            <span slot="activator">{{ props.header.text }}</span>
-            <span>{{ props.header.text }}</span>
-          </v-tooltip>
-        </template>
-
-        <template slot="items" slot-scope="props">
-          <td>{{ props.item.codigo }}</td>
-          <td>{{ props.item.ciclo }}</td>
-          <td>{{ props.item.vCiclo }}</td>
-          <td>{{ nomResponsable(props.item.responsable) }}</td>
-          <td>{{ props.item.Dept }}</td>
-          <td>{{ props.item.vDept }}</td>
-          <td v-if="imAdmin" class="justify-center layout px-0">
-            <v-btn icon class="mx-0" @click="openDialog(props.item)">
-              <v-icon>edit</v-icon>
+        <v-divider
+          class="mx-4"
+          inset
+          vertical
+        ></v-divider>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="800px" @keydown.esc="closeDialog">
+          <template v-slot:activator="{ on }">
+            <v-btn color="indigo" dark class="mb-2" v-on="on">
+                        <v-icon>mdi-plus</v-icon>
             </v-btn>
-            <v-btn icon class="mx-0" @click="deleteItem(props.item, 'ciclo')">
-              <v-icon>delete</v-icon>
-            </v-btn>
-          </td>
-        </template>
-        <v-alert
-          slot="no-results"
-          :value="true"
-          color="error"
-          icon="warning"
-        >La cerca de "{{ search }}" no dona cap resultat</v-alert>
-        <template  class="text-sm-left" slot="actions-prepend">
-          <help-button v-if="helpPage" :page="helpPage"></help-button>
-        </template>
-        <template
-          slot="pageText"
-          slot-scope="props"
-        >Registres del {{ props.pageStart }} al {{ props.pageStop }} de {{ props.itemsLength }}</template>
-      </v-data-table>
-    </v-card>
-
-    <v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog">
-      <v-form ref="form" v-model="valid" lazy-validation>
-        <v-card>
-          <v-card-title class="grey lighten-4 py-4 title">{{ isNew?'Nou':'Editar' }} cicle</v-card-title>
-          <v-container grid-list-sm class="pa-4">
-            <v-layout row wrap>
-              <v-flex xs2>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ isNew?'Nou':'Editar' }} cicle</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="3" md="2">
                 <v-text-field label="Id" placeholder="Id" v-model="editItem.id" readonly></v-text-field>
-              </v-flex>
-              <v-flex xs3>
+              </v-col>
+                  <v-col cols="12" sm="5" md="3">
                 <v-text-field
                   label="Codi"
                   placeholder="Codi"
@@ -84,8 +72,8 @@
                   counter="4"
                   required
                 ></v-text-field>
-              </v-flex>
-              <v-flex xs7>
+              </v-col>
+                  <v-col cols="12" sm="10" md="7">
                 <v-text-field
                   label="Cicle"
                   placeholder="Cicle"
@@ -94,8 +82,8 @@
                   :rules="required50Rules"
                   required
                 ></v-text-field>
-              </v-flex>
-              <v-flex xs12>
+              </v-col>
+                  <v-col cols="12">
                 <v-text-field
                   label="Nom"
                   placeholder="Nom"
@@ -104,8 +92,8 @@
                   :rules="required80Rules"
                   required
                 ></v-text-field>
-              </v-flex>
-              <v-flex xs4>
+              </v-col>
+                  <v-col cols="12" sm="6" md="4">
                 <v-select
                   v-model=editItem.Dept
                   label="Departament"
@@ -114,8 +102,8 @@
                   item-text="nombre"
                   required>
                 </v-select>
-              </v-flex>
-              <v-flex xs6>
+              </v-col>
+                  <v-col cols="12" sm="9" md="6">
                 <v-select
                   label="Responsable"
                   :items="responsables"
@@ -125,18 +113,47 @@
                   required
                   single-line
                 ></v-select>
-              </v-flex>
-            </v-layout>
-          </v-container>
+              </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
           <v-card-actions>
-            <help-button v-if="helpPage" :page="helpPage+'/dialog'"></help-button>
+            <help-button v-if="helpPage" :page="helpPage+'#editar-un-ciclo'"></help-button>
             <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="preAddItem">Guardar</v-btn>
-            <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
+            <v-btn color="indigo" @click="preAddItem" :disabled="!valid">Guardar</v-btn>
+            <v-btn @click="closeDialog">Cancel·lar</v-btn>
           </v-card-actions>
-        </v-card>
-      </v-form>
-    </v-dialog>
+
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+
+        <template v-slot:item.responsable="{ item }">
+          <td>{{ nomResponsable(item.responsable) }}</td>
+        </template>
+
+    <template v-slot:item.action="{ item }">
+      <v-icon
+        
+        class="mr-2"
+        @click="openDialog(item)"
+      >
+        mdi-pencil
+      </v-icon>
+      <v-icon
+        
+        @click="deleteItem(item, `el cicle '${item.ciclo}'`)"
+      >
+        mdi-delete
+      </v-icon>
+    </template>
+
+
+
+      </v-data-table>
+    </v-card>
+
   </div>
 </template>
 
@@ -154,34 +171,32 @@ export default {
     table: "ciclos",
     helpPage: "ciclos",
     responsables: [],
-    departaments: [],
+        departaments: [], 
     headers: [
       { text: "Codi", value: "codigo" },
       { text: "Cicle", value: "ciclo" },
       { text: "Nom", value: "vCiclo" },
       { text: "Responsable", value: "responsable" },
-      { text: "CodDep.", value: "Dept" },
-      { text: "Família", value: "vDept" }
+      { text: "Família", value: "vDept" },
+      { text: "Accions", value: "action" }
     ]
   }),
-  mounted() {
-    this.$emit("setTitle", "Manteniment de Cicles");
-    this.loadData();
-  },
   computed: {
+    items() {
+      return this.$store.state.ciclos;
+    },
     objectProfes() {
       let aux = {};
       this.responsables.forEach(profe => (aux[profe.id] = profe.nombre));
       return aux;
     }
   },
+  mounted() {
+    this.$emit("setTitle", "Cicles");
+    this.$store.dispatch("loadData");
+  },
   methods: {
     loadData() {
-      API.getTable(this.table)
-        .then(resp => {
-          this.items = resp.data.data;
-        })
-        .catch(err => this.msgErr(err));
       API.getTable("users")
         .then(
           resp =>
@@ -195,15 +210,6 @@ export default {
               }))
         )
         .catch(err => this.msgErr(err));
-      this.departaments=[
-        {cod: 'Adm', nombre: 'Administratiu'},
-        {cod: 'Hos', nombre: 'Hosteleria i Turisme'},
-        {cod: 'Img', nombre: 'Imatge Personal'},
-        {cod: 'Inf', nombre: 'Informàtica'},
-        {cod: 'San', nombre: 'Sanitària'},
-        {cod: 'Srv', nombre: 'Serveis a la Comunitat'},
-        
-      ]
     },
     nomResponsable(id_resp) {
       let responsable = this.responsables.find(resp => resp.id == id_resp);

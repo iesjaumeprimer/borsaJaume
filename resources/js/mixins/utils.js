@@ -3,7 +3,7 @@ import API from '../lib/API';
 export default {
     data: () => ({
         search: "",
-        items: [],    
+//        items: [],    
         errors: [],
         // Para el dialogo
         dialog: false,
@@ -16,22 +16,32 @@ export default {
             return this.editIndex === -1;
         },
         imAdmin() {
-            return sessionStorage.user_rol=="2";
+            return localStorage.user_rol=="2";
         },
         imResponsable() {
-            return Number(sessionStorage.user_rol)<=3;
+            return Number(localStorage.user_rol)<=3;
         },
         imEmpresa() {
-            return sessionStorage.user_rol=="5";
+            return localStorage.user_rol=="5";
         },
         imAlumno() {
-            return sessionStorage.user_rol=="7";
+            return localStorage.user_rol=="7";
         },
         myId() {
-            return Number(sessionStorage.user_id);
+            return Number(localStorage.user_id);
         },
     },
     methods: {
+        toFecha(f) {
+            let fecha = new Date(f);
+            if (fecha.toLocaleDateString() === new Date().toLocaleDateString()) {
+                return fecha.toLocaleTimeString();
+            }
+            return fecha.toLocaleDateString()
+        },
+        goto(url) {
+            this.$router.push(url);
+        },
         // Métodos de DataTable
         toggleAll () {
             if (this.selected.length) this.selected = []
@@ -109,23 +119,15 @@ export default {
             }
         },      
         setToken(data) {
-            sessionStorage.access_token=data.access_token;
-            sessionStorage.expires_at=data.expires_at;
-            sessionStorage.user_rol=Number(data.rol);
-            sessionStorage.user_id=data.id;
-            sessionStorage.token_type=data.token_type;
+            localStorage.access_token=data.access_token;
+            localStorage.expires_at=data.expires_at;
+            localStorage.user_rol=Number(data.rol);
+            localStorage.user_id=data.id;
+            localStorage.token_type=data.token_type;
             this.$emit('setRol', {
               rol: Number(data.rol),
               name: data.name
             });
-        },
-        clearToken() {
-            sessionStorage.removeItem('access_token');
-            sessionStorage.removeItem('expires_at');
-            sessionStorage.removeItem('user_rol');
-            sessionStorage.removeItem('user_id');
-            sessionStorage.removeItem('token_type');
-            this.$emit('setRol');
         },
         deleteUser(item, msg) {
             if (confirm("¿Segur que vols esborrar " + msg+ "?")) {
@@ -138,8 +140,8 @@ export default {
                       this.msgOk('delete');
                       if (itsMy) {
                           // Me deslogueo
-                          this.clearToken();
-                          this.$router.push('/');
+                          this.$store.dispatch('logout')
+                          .then(() => this.$router.push('/'))
                       }
                     })
                     .catch(err => this.msgErr(err));    
@@ -198,7 +200,7 @@ export default {
     
         },
 
-        openDialog(item, defaultItem={}) {
+        openDialog(item) {
             // Si recibe una id carga en el diálogo el item con ese id
             // Si no screa un nuevo item con las propiedades pasadas por defecto
             // Parámetros:

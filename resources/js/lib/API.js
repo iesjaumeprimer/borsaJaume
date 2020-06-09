@@ -1,23 +1,19 @@
 const API_URL = '/api/';
 //const API_URL = 'https://borsaTreball.cipfpbatoi.es/api/';
-//const API_URL = 'http://borsaTreball.my/api/';
+//const API_URL = 'https://borsa.my/api/';
+//const API_URL = 'http://localhost:3000/';
 
 import axios from 'axios'
 
 function checkAuth() {
-    return (sessionStorage.expires_at &&
-        new Date(sessionStorage.expires_at)>new Date())
+    return localStorage.expires_at
+        ? (new Date(localStorage.expires_at)>new Date())
+        : false;
 }
 
 function json2urlencoded(json) {
     let pairs = [];
-    for (var prop in json) {
-        if (json.hasOwnProperty(prop)) {
-            var k = encodeURIComponent(prop),
-                v = encodeURIComponent(json[prop]);
-            pairs.push( k + "=" + v);
-        }
-    }
+    Object.keys(json).forEach((key) => pairs.push(`${encodeURIComponent(key)}=${encodeURIComponent(json[key])}`));
     return pairs.join("&");
 }
 export default {
@@ -29,15 +25,16 @@ export default {
                     'application/x-www-form-urlencoded'
             }
         }
-        if (auth) config.headers.Authorization=
-            sessionStorage.token_type+' '+sessionStorage.access_token;
+        if (auth) {
+            config.headers.Authorization = localStorage.token_type+' '+localStorage.access_token;
+        }
         return config;
     },
     getTable(table, query) {
         if (!checkAuth() && table!='menu') {
 //            this.$router.push('/login');
             return new Promise((resolve,reject)=>{
-                reject(new Error('No estás validado'))
+                reject(new Error(localStorage.expires_at?'La teua sessió ha caducat':'No estas loguejat'))
             });
         }
         if (query) {
@@ -49,7 +46,7 @@ export default {
     getItem(table, id) {
         return axios.get(API_URL + table + '/' + id, this.getConfig('json', true));
     },
-    delItem(table, id) {
+    delItem(table, id,) {
         return axios.delete(API_URL + table + '/' + id, this.getConfig('json', true));
     },
     saveItem(table, item) {
@@ -83,7 +80,7 @@ export default {
         return axios.get(API_URL + 'password/find/'+token);
     },
     sendPassword(user) {
-        return axios.post(API_URL + 'password/reset', user, this.getConfig('json', false));
+        return axios.post(API_URL + 'password/reset', user, this.getConfig('json'));
     },
     logoutUser() {
         return axios.get(API_URL + 'auth/logout', this.getConfig('urlencoded', true));

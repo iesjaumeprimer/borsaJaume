@@ -7,198 +7,101 @@
         </div>
 
   <v-card>
-    <v-card-title>
-    <v-btn
-      top
-      right
-      color="blue"
-      dark
-      @click.stop="editarItem(false)"
-    >
-      <v-icon>add</v-icon>
-    </v-btn>
-
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="search"
-        label="Filtrar taula"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-card-title>
-    <v-data-table
+      <v-data-table
+      fluid
         :items="items"
         no-data-text="No hi ha dades disponibles"
-        rows-per-page-text="Registres per pàgina"
+        :items-per-page="10"
+        footer-props.items-per-page-text="Registres per pàgina"
         :headers="headers"
         :search="search"
         class="elevation-1"
-    >
+        item-key="id"
+        no-results-text="No hi ha dades amb el text indicat"
+            :footer-props="{
+      showFirstLastPage: true,
+      firstIcon: 'mdi-chevron-double-left',
+      lastIcon: 'mdi-chevron-double-right',
+      itemsPerPageText: 'Registres per pàgina'
+          }"
+      >
+    <template v-slot:footer.page-text="records">
+            {{ records.pageStart }} a {{ records.pageStop }} de {{ records.itemsLength }}
+    </template>
 
-      <template slot="headerCell" slot-scope="props">
-            <v-tooltip bottom>
-                <span slot="activator">
-                    <!-- texto a mostrar-->
-                    {{ props.header.text }}
-                </span>
-                <span>
-                    <!-- title a mostrar -->
-                    {{ props.header.comment }}
-                </span>
-          </v-tooltip>
-      </template>
-        
-      <template slot="items" slot-scope="props">
-        <td class="text-xs-right">{{ props.item.id }}</td>
-        <td class="text-xs-right">{{ props.item.order }}</td>
-        <td>{{ props.item.text }}</td>
-        <td>{{ props.item.path }}</td>
-        <td><v-icon>{{ props.item.icon }}</v-icon></td>
-        <td>{{ props.item.children }} 
-            <a  v-if="props.item.children" @click="expande(props)"> 
-                <v-icon>add</v-icon>
-            </a>
-        </td>
-        <template v-if="props.item.children">
-            <td><v-icon>{{ props.item.model?'done':'clear' }}</v-icon></td>
-            <td><v-icon>{{ props.item.icon_alt }}</v-icon></td>
-        </template>
-        <td v-else colspan="2"></td>
-        <td>{{ props.item.rol }}</td>
-        <td><v-icon>{{ props.item.active?'done':'clear' }}</v-icon></td>
-        <td class="justify-center layout px-0">
-          <v-btn icon class="mx-0" @click="editarItem(props.item)">
-            <v-icon>edit</v-icon>
-          </v-btn>
-          <v-btn icon class="mx-0" @click="deleteItem(props.item, 'text')">
-            <v-icon>delete</v-icon>
-          </v-btn>
-        </td>
-      </template>
-      <v-alert slot="no-results" :value="true" color="error" icon="warning">
-        La búsqueda de "{{ search }}" no produjo ningún resultado.
-      </v-alert>
+    <template v-slot:body.append>
+          <help-button v-if="helpPage" :page="helpPage"></help-button>
+    </template>
 
-      <template slot="expand" slot-scope="props">
-          <table>
-              <tr>
-                <th>Submenú</th>
-                <th v-for="(encab,i) in headers" :key="i">{{ encab.text }}</th>
-              </tr>
-        <tr v-for="item in childItems" :key="item.id">
-            <td></td>
-            <td class="text-xs-right">{{ item.id }}</td>
-            <td class="text-xs-right">{{ item.order }}</td>
-            <td>{{ item.text }}</td>
-            <td>{{ item.path }}</td>
-            <td><v-icon>{{ item.icon }}</v-icon></td>
-            <td>{{ item.children }}</td>
-            <td><yes-no-icon :value="item.model"></yes-no-icon></td>
-            <td><v-icon>{{ item.icon_alt }}</v-icon></td>
-            <td>{{ item.rol }}</td>
-            <td><yes-no-icon :value="item.active"></yes-no-icon></td>
-        </tr>
-          </table>
-      </template>
-
-    <template slot="pageText" slot-scope="props">
-        Mostrando del {{ props.pageStart }} al {{ props.pageStop }} de {{ props.itemsLength }}
-        </template>
-    
-    </v-data-table>
-  </v-card>
-
-    <v-dialog v-model="dialog" width="800px" @keydown.esc="closeDialog">
-              <v-form ref="form" v-model="valid" lazy-validation>
-
-      <v-card>
-        <v-card-title
-          class="grey lighten-4 py-4 title"
-        >
-          {{ isNew?'Nou':'Editar' }} element del menú
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs1>
-              <v-text-field
-                label="Id"
-                placeholder="Id"
-                v-model="editItem.id"
-                readonly
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs2>
+    <template v-slot:top>
+      <v-toolbar flat color="white">
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Filtrar taula"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-divider
+          class="mx-4"
+          inset
+          vertical
+        ></v-divider>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="800px" @keydown.esc="closeDialog">
+          <template v-slot:activator="{ on }">
+            <v-btn color="indigo" dark class="mb-2" v-on="on">
+                        <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ isNew?'Nou':'Editar' }} element del menú</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+              <v-col cols="5" sm="2">
+                <v-text-field label="Id" placeholder="Id" v-model="editItem.id" disabled></v-text-field>
+              </v-col>
+                  <v-col cols="7" sm="3">
               <v-text-field
                 label="Order"
                 placeholder="Order"
                 v-model="editItem.order"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs6>
+            </v-col>
+            <v-col cols="12" sm="7">
               <v-text-field
                 label="Text"
                 placeholder="Text"
                 v-model="editItem.text"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs3>
+            </v-col>
+            <v-col cols="12" sm="5">
               <v-text-field
                 label="Ruta"
                 placeholder="Ruta"
                 v-model="editItem.path"
                 required
               ></v-text-field>
-            </v-flex>
-            <v-flex xs4>
-                <v-layout class="row">
+            </v-col>
+            <v-col cols="11" sm="6">
               <v-text-field
                 label="Icona"
                 placeholder="Icona"
                 v-model="editItem.icon"
                 required
               ></v-text-field>
-<v-icon>{{ editItem.icon }}</v-icon>
-
-                </v-layout>
-            </v-flex>
-
-
-            <v-flex xs4>
-              <v-checkbox
-                  v-model="editItem.model"
-                  label="Desplegat"
-                  placeholder="Si ha d'aparèixer desplegst per defecte"
-                :disabled="submenus.length==0"
-              ></v-checkbox>
-            </v-flex>
-
-            <v-flex xs4>
-                <v-layout class="row">
-              <v-text-field
-                label="Icona desplegat"
-                placeholder="Icona desplegat"
-                v-model="editItem.icon_alt"
-                :disabled="submenus.length==0"
-              ></v-text-field>
-<v-icon>{{ editItem.icon_alt }}</v-icon>
-
-                </v-layout>
-            </v-flex>
-            <v-flex xs3>
-              <v-checkbox
-                  v-model="editItem.active"
-                  label="Element actiu"
-                  placeholder="Si està actiu o deshabil·litat"
-              ></v-checkbox>
-            </v-flex>
-
-
-
+            </v-col>
+            <v-col cols="1">
+<v-icon>mdi-{{ editItem.icon }}</v-icon>
+            </v-col>
             <!-- Roles -->
-      <v-flex xs9>
+      <v-col cols="12" sm="9">
         <v-select
           :items="roles"
           item-value="id"
@@ -210,48 +113,80 @@
           hint="Qui tendrà accés a aquest menú"
           persistent-hint
         ></v-select>
-      </v-flex>
+      </v-col>
+            <v-col cols="12" sm="3">
+              <v-checkbox
+                  v-model="editItem.active"
+                  label="Element actiu"
+                  placeholder="Si està actiu o deshabil·litat"
+              ></v-checkbox>
+            </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+          <v-card-actions>
+            <help-button v-if="helpPage" :page="helpPage+'#editar-una-empresa'"></help-button>
+            <v-spacer></v-spacer>
+            <v-btn color="indigo" @click="addItem" :disabled="!valid">Guardar</v-btn>
+            <v-btn @click="closeDialog">Cancel·lar</v-btn>
+          </v-card-actions>
 
-    <!-- Submenús -->
-      <v-flex xs12>
-        <v-subheader v-text="'Marca los submenús de este menú'"></v-subheader>
-        <!-- <submenu-list v-model="submenus" :itemId="editItem.id"></submenu-list>           -->
-      </v-flex>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
 
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-btn flat color="primary">More</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="saveItem">Guardar</v-btn>
-          <v-btn flat @click="closeDialog">Cancel·lar</v-btn>
-        </v-card-actions>
-      </v-card>
-              </v-form>
-    </v-dialog>
+        <template v-slot:item.icon="{ item }">
+          <v-icon>mdi-{{ item.icon }}</v-icon>
+        </template>
+        <template v-slot:item.rol="{ item }">
+         <span :title="descRoles(item.rol)">{{ item.rol }}</span>
+        </template>
+        <template v-slot:item.active="{ item }">
+          <yes-no-icon :value="item.active"></yes-no-icon>
+        </template>
+
+    <template v-slot:item.action="{ item }">
+      <v-icon
+        
+        class="mr-2"
+        @click="openDialog(item)"
+      >
+        mdi-pencil
+      </v-icon>
+      <v-icon
+        
+        @click="deleteItem(item, `text`)"
+      >
+        mdi-delete
+      </v-icon>
+    </template>
+
+      </v-data-table>
+    </v-card>
 
     </div>
 </template>
 
 <script>
-import API from '../lib/API';
 import Headers from '../lib/Headers.js';
 import YesNoIcon from '../components/base/YesNoIcon';
 import Roles from '../lib/Rols.js';
 import utilsMixin from '../mixins/utils.js';
+import HelpButton from "../components/base/HelpButton";
 
 export default {
   mixins: [utilsMixin],
   components: {
     YesNoIcon,
+    HelpButton
 //    SubmenuList
   },
   data: () => ({
     table: 'menu',
     roles: Roles.getAllRoles(),
-    submenus: [],       // submenus del item que se está editando
-    thisRoles: [],      // roles del item que se está editando
-    expand: [],
+//    thisRoles: [],      // roles del item que se está editando
+    helpPage: "menu",
     headers: Headers.getTable("menu")
     /*        headers: [
           { text: 'Id', value: 'id' },
@@ -268,37 +203,34 @@ export default {
 */
   }),
   mounted() {
-    this.$emit('setTitle', 'Manteniment del Menú');
-    this.loadItems();
+    this.$emit('setTitle', 'Menú');
   },
   computed: {
-    childItems() {
-      return this.items.filter(item => this.expand.includes(item.id));
+    items() {
+      return this.$store.state.menu;
+    },
+    thisRoles: {
+      get() {
+        return Roles.getRoles(this.editItem.rol);
+      },
+      set(arrayValues) {
+        this.editItem.rol = arrayValues.reduce((total,item)=>total*item);
+      }
     }
   },
   methods: {
     editarItem(item) {
-      if (item.children) {
-        this.submenus = JSON.parse(item.children).map(elem => {
-            return { id: elem };
-        });
-      } else {
-          this.submenus=[];
-      }
       this.thisRoles = Roles.getRoles(item.rol)
       this.openDialog(item);
-    },
-    expande(props) {
-      if (props.item.children) {
-        props.expanded = !props.expanded;
-        this.expand = JSON.parse(props.item.children);
-      }
     },
     saveItem() {
         this.editItem.children=this.submenus.length?
             JSON.stringify(this.submenus.map(elem=>elem.id)):null;
         this.editItem.rol = this.thisRoles.reduce((total,elem)=>elem*total);
         this.addItem();
+    },
+    descRoles(rolNumber) {
+      return Roles.getRoles(rolNumber).reduce((cadena, item) => cadena+', '+item.rol, '').substr(2);
     }
   }
 };

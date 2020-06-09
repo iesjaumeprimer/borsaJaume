@@ -13,20 +13,10 @@
         >
           {{ isNew?'Nou':'Editar' }} usuari
         </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 ms9>
-              <div>
-              <v-text-field xs12 ms4
-                  v-model="item.name" 
-                  label="Nom d'usuari" 
-                  title="Nom d'usuari" 
-                  placeholder="Introduix un nom per a dirigir-nos a tu"
-                  required
-                  :rules="usernameRules"
-              >
-              </v-text-field>
-              <v-text-field xs12 ms5
+        <v-container  class="pa-4">
+          <v-row>
+            <v-col cols="12">
+              <v-text-field 
                   v-model="item.email" 
                   label="E-mail" 
                   title="E-mail" 
@@ -35,9 +25,11 @@
                   :rules="emailRules"
               >
               </v-text-field>
-              <v-text-field xs12 ms4
+            </v-col>
+            <v-col cols="6">
+              <v-text-field 
                   v-model="item.password" 
-                  :append-icon="show ? 'visibility' : 'visibility_off'"
+                  :append-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
                   :type="show ? 'text' : 'password'"
                   @click:append="show = !show"
                   hint="Al menys 6 caràcters"
@@ -50,9 +42,11 @@
                   :rules="required25Rules"
               >
               </v-text-field>
-              <v-text-field xs12 ms4
+            </v-col>
+            <v-col cols="6">
+              <v-text-field 
                   v-model="item.password_confirmation" 
-                  :append-icon="show ? 'visibility' : 'visibility_off'"
+                  :append-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
                   :type="show ? 'text' : 'password'"
                   @click:append="show = !show"
                   hint="Al menys 6 caràcters"
@@ -62,19 +56,17 @@
                   @change="checkPassword"
               >
               </v-text-field>
+            </v-col>
 
-              </div>
-
-            </v-flex>
-            <v-flex xs12 ms3>
-              <div>
+            <v-col cols="12">
             <v-radio-group 
                v-if="isNew"
                v-model="item.rol"
                label="Quin tipus d'uauri ets:" 
-              hint="Indica el teu rol en la Borsa:" 
+              hint="Indica el teu rol en la Borsa" 
               :persistent-hint="true" 
               required
+              row
             >
       <v-radio
         label="Empresa - Ofereix un treball"
@@ -90,23 +82,20 @@
       ></v-radio>
     </v-radio-group>
 
-              </div>
-            </v-flex>
+            </v-col>
 
-            <v-flex xs12 ms9>
-              <div>
-                <v-checkbox xs12
+            <v-col cols="12">
+                <v-checkbox
                   v-model="accepted"
                   label="Acepte la Política de privacitat de la Borsa de Treball"
                   :rules="requiredCheckRules"
                 ></v-checkbox>
-                <div xs6 class="font-weight-bold">Al registrar-se enviant aquest formulari està acceptant la <a href="/privacitat">Política de privacitat</a>
+                <div class="font-weight-bold">Al registrar-se enviant aquest formulari està acceptant la <a href="/privacitat">Política de privacitat</a>
                 i donant la seua <br>conformitat al tractament de les seues dades personals en els teminis
                 i condicions allí indicades.</div>
-              </div>
-              </v-flex>
+              </v-col>
 
-          </v-layout>
+          </v-row>
         </v-container>
         </v-form>
         <v-card-actions>
@@ -119,7 +108,7 @@
           dark
           @click.stop="guardar()"
           >
-          <v-icon>add</v-icon>Continuar
+          <v-icon>mdi-add</v-icon>Continuar
         </v-btn>
 
         </v-card-actions>
@@ -154,15 +143,7 @@ export default {
             }
         },
         checkUser() {
-          return;
-              API.ckeckUsername(this.item.username)
-                .then(resp => {
-                    if (resp.data!='ok') {
-                        alert('L\'usuari '+this.item.username+' no està lliure. Has de triar altre');
-                        this.item.username='';
-                    }
-                })
-                .catch(err => this.msgErr(err));
+//          return;
 
         },
         guardar() {
