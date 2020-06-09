@@ -32,12 +32,12 @@ abstract class ApiBaseController extends Controller
 
 
 
-    public function destroy($id)
-    {
-        if ($this->entity::destroy($id)) return response(1,200);
+        public function destroy($id)
+        {
+            if ($this->entity::destroy($id)) return response(1,200);
 
-        return response("No he pogut Esborrar $id",400);
-    }
+            return response("No he pogut Esborrar $id",400);
+        }
 
     public function store(Request $request)
     {
