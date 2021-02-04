@@ -12,9 +12,7 @@ cd ~/code/borsaBatoi
 
 Inicialitzem git i descarregem l'aplicació:
 ```bash
-git init
-git remote add origin https://github.com/cipfpbatoi/borsaBatoi.git
-git pull origin master
+git clone https://github.com/cipfpbatoi/borsaBatoi.git
 ```
 
 ## Desplegament per a producció
