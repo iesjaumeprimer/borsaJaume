@@ -54,8 +54,6 @@ openssl req -new -key ../private/borsa.key -out borsa.csr   # completem la infor
 openssl x509 -req -in borsa.csr -signkey ../private/borsa.key -out borsa.crt
 ```
 
-Posem en /etc/hosts el nom de la màquina (p.ej. `intranet.my`).
-
 Configurem el lloc web SSL en _/etc/apache2/sites-available_:
 * ServerName: p.ej. `ServerName borsa.my`
 * DocumentRoot: `DocumentRoot /var/www/html/borsaBatoi/public`
