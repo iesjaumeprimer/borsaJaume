@@ -44,7 +44,7 @@ mysql> exit;
 ### Configurar apache
 Creem els certificats (el _.key_ en /etc/ssl/private i els altres 2 en en /etc/ssl/certs):
 ```bash
-openssl genrsa -out borsa.key 1024
+openssl genrsa -out borsa.key 2048
 openssl req -new -key ../private/borsa.key -out borsa.csr   # completem la informació que ens demanen
 openssl x509 -req -in borsa.csr -signkey ../private/borsa.key -out borsa.crt
 ```
