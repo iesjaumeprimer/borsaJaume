@@ -26,25 +26,20 @@ Si només volem tindre l'aplicació funcionant necessitem un servidor on instal�
 
 Per a configurar el servidor de bases de dades hem d'executar el comando **`mysql_secure_installation`**. 
 
-NOTA: ara la validació dels usuaris la fa el sistema (el _plugin_ 'auth_socket' o 'unix_socket'). Per a configurar un usuari amb privilegis consulta [StackOverflow](https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for-user-rootlocalhost) o qualsevol altra pàgina en internet. En resum, el que hem de fer és:
+NOTA: ara la validació dels usuaris la fa el sistema (el _plugin_ 'auth_socket' o 'unix_socket'). Per a configurar un usuari amb privilegis el que hem de fer és:
 ```bash
 mysql_secure_installation
 sudo mysql -u root
 
-mysql> USE mysql;
+mysql> CREATE USER nomusuari@localhost IDENTIFIED BY 'P@ssw0rd';
+# SI volem vore-ho
 mysql> SELECT User, Host, plugin, authentication_string FROM mysql.user;
-### Si uso Mysql li canvie el plugin i li pose una contrasenya, en equest exemple P@ssw0rd
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'P@ssw0rd';
-### Si use MariaDB execute els 2 comandos següents per a canviar el password a l'usuari. Amb Mysql no cal
-mysql> UPDATE user SET password=PASSWORD('your_p@ssw0rd') WHERE User='root';
-mysql> UPDATE user SET plugin='auth_socket' WHERE User='root';
-### I per últim, tant en MariaDB com en Mysql, execute
-mysql> FLUSH PRIVILEGES;
+# Creem la base de dades
+mysql> CREATE DATABASE borsatreball;
+# i li donem privilegis a l'usuari
+mysql> GRANT ALL PRIVILEGES ON borsatreball.* TO nomusuari@localhost;
 mysql> exit;
-
-sudo systemctl restart mysql.service    # o mariadb.service
 ```
-Pots trobar més informació a '[How To Install MySQL on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-18-04#step-2-%E2%80%94-configuring-mysql)'.
 
 ### Configurar apache
 Creem els certificats (el _.key_ en /etc/ssl/private i els altres 2 en en /etc/ssl/certs):
