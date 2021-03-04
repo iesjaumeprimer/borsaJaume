@@ -81,11 +81,7 @@ Posem el nostre domini en el **/etc/hosts**:
 
 Ara descarreguem l'aplicació des de Github:
 ```bash
-mkdir /var/www/html/borsaBatoi
-cd /var/www/html/borsaBatoi
-git init
-git remote add origin https://github.com/cipfpbatoi/borsaBatoi.git
-git pull origin master
+git clone https://github.com/cipfpbatoi/borsaBatoi.git
 ```
 
 A continuació cal asegurar-se que l'usuari www-data pot escriure dins del directori **storage**.
@@ -99,9 +95,11 @@ sudo systemctl restart apache2.service
 ATENCIÓ: cal que estiga la carpeta borsaBatoi ja creada abans de reiniciar Apache per que no done un error.
 
 ## Configuració de l'aplicació
+Si estem desplegant per a producció necessitarem el gestor de dependències **composer** (en Homestead ja el tenim) així que ho [descarreguem](https://getcomposer.org/download/) en el directori de l'aplicació.
+
 Des de la carpeta on tenim l'apliocació descarregada instal·lem les llibreries necessàries (això tardarà prou perquè ha de baixar-se moltes llibreries de Internet):
 ```bash
-composer update
+composer install     # en producció: php composer.phar install
 npm install # aquest comando no cal fer-ho en producció
 ```
 
@@ -119,7 +117,7 @@ php artisan db:seed
 
 Hem de donar permisos d'escriptura a l'usuari www-data sobre la carpeta storage i el seu contingut.
 
-Per a l'autenticació hdem d'instal·lar [laravel/passport](https://laravel.com/docs/5.8/passport). A continuació executem el comando `passport:install` que crea las claus d'encriptació que s'utilitzen per a generar els tokens. A més crea els clients "personal access" i "password grant" clients which will be used to generate access tokens):
+Per a l'autenticació hem d'instal·lar [laravel/passport](https://laravel.com/docs/5.8/passport). A continuació executem el comando `passport:install` que crea las claus d'encriptació que s'utilitzen per a generar els tokens. A més crea els clients "personal access" i "password grant" clients which will be used to generate access tokens):
 ```bash
 php artisan passport:install
 ```
