@@ -123,9 +123,33 @@ php artisan passport:install
 ```
 
 ## Configurar el mail
-Nosaltres hem instal·lat **`postmail`** i hem creat en el sistema l'usuari `usrmail` per a enviar els correus. En el fitxer **`.env`** configurem:
+Nosaltres hem instal·lat **`exim4`** i hem creat en el sistema l'usuari `usrmail` per a enviar els correus. Configurem exim4 en /etc/exim4/update-exim4.conf.conf:
 ```bash
-MAIL_DRIVER=sendmail
+dc_eximconfig_configtype='satellite'
+dc_other_hostnames=''
+dc_local_interfaces=''
+dc_readhost='borsa@nosaltres.com'
+dc_relay_domains=''
+dc_minimaldns='false'
+dc_relay_nets=''
+dc_smarthost='smtp.gmail.com:587'
+CFILEMODE='644'
+dc_use_split_config='false'
+dc_hide_mailname='true'
+dc_mailname_in_oh='true'
+dc_localdelivery='mail_spool'
+```
+
+Configurem el compte de correu a utilitzar en /etc/exim4/passwd.client:
+```bash
+gmail-smtp.l.google.com:borsa@nosaltres.com:P@ssW0rd
+*.google.com:borsa@nosaltres.com:P@ssW0rd
+smtp.gmail.com:borsa@nosaltres.com:P@ssW0rd
+```
+
+I en el fitxer **`.env`** configurem:
+```bash
+MAIL_DRIVER=smtp
 MAIL_HOST=localhost
 MAIL_PORT=25
 MAIL_USERNAME=usrmail
