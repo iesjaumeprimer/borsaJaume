@@ -109,7 +109,7 @@ Copiem el fitxer **.env**, que no es descarrega de git, des de **.env-example**.
 - el mail: MAIL_DRIVER (sendmail), MAIL_HOST (localhost), MAIL_PORT (25), MAIL_USERNAME (usuario del sistema que envía los e-mails), MAIL_PASSWORD (su contrasenña), MAIL_ ENCRYPTION (null), MAIL_FROM_ADDRESS (borsatreball@cipfpbatoi.es), MAIL_FROM_NAME ("Borsa Treball Batoi")
 - 
 
-Creem la BBDD `borsatreball` i executem la migración:
+Creem la BBDD `borsatreball` i executem la migración (això no cal fer-ho si importem la BBDD en compte de crear-la):
 ```bash
 php artisan migrate
 php artisan db:seed
