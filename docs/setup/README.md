@@ -123,9 +123,9 @@ php artisan passport:install
 ```
 
 ## Configurar el mail
-Nosaltres hem instal·lat **`exim4`** i hem creat en el sistema l'usuari `usrmail` per a enviar els correus. Configurem exim4 en /etc/exim4/update-exim4.conf.conf:
+Nosaltres hem instal·lat **`exim4`** i hem creat en el sistema l'usuari `usrmail` per a enviar els correus. Configurem exim4 amb `dpkg-reconfigure exim4-config`. El fitxer /etc/exim4/update-exim4.conf.conf hauria de quedar-se:
 ```bash
-dc_eximconfig_configtype='satellite'
+dc_eximconfig_configtype='satellite'    // o 'smartmail'
 dc_other_hostnames=''
 dc_local_interfaces=''
 dc_readhost='borsa@nosaltres.com'
