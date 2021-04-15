@@ -38,18 +38,6 @@
           <tr color="red">
             <td>
               <v-chip
-                :color="props.item.validada ? 'teal' : 'red'"
-                :title="
-                  (props.item.activa ? 'Activa' : 'No activa') +
-                  ' / ' +
-                  (props.item.validada ? 'Validada' : 'No validada')
-                "
-              >
-                <yes-no-icon :value="props.item.activa"></yes-no-icon>
-              </v-chip>
-            </td>
-            <td>
-              <v-chip
                 @dblclick.stop="openDialogValidar(props.item)"
                 :color="props.item.interesado ? 'teal' : 'red'"
               >
@@ -222,7 +210,6 @@ export default {
     sortDesc: true,
     helpPage: "ofertas/ofertasxalumno",
     headers: [
-      { text: "Activa", value: "activa" },
       { text: "Interessat", value: "interesado" },
       { text: "Empresa", value: "id_empresa" },
       { text: "Lloc de treball", value: "puesto" },
