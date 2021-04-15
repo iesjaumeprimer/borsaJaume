@@ -210,12 +210,12 @@ export default {
     sortDesc: true,
     helpPage: "ofertas/ofertasxalumno",
     headers: [
+      { text: "Publicada", value: "updated_at" },
       { text: "Interessat", value: "interesado" },
       { text: "Empresa", value: "id_empresa" },
       { text: "Lloc de treball", value: "puesto" },
       { text: "Contracte", value: "tipo_contrato" },
       { text: "Cicles", value: "cicles" },
-      { text: "Publicada", value: "updated_at" },
     ],
     empresas: [],
     ciclos: [],
