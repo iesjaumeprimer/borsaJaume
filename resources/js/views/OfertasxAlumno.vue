@@ -12,7 +12,7 @@
         <v-text-field
           v-model="search"
           append-icon="search"
-          label="Filtrar taula"
+          label="Filtrar taula..."
           single-line
           hide-details
         ></v-text-field>
