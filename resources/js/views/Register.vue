@@ -18,31 +18,31 @@
             <v-flex xs12 ms9>
               <div>
               <v-text-field xs12 ms4
-                  v-model="item.name" 
-                  label="Nom d'usuari" 
-                  title="Nom d'usuari" 
+                  v-model="item.name"
+                  label="Nom d'usuari"
+                  title="Nom d'usuari"
                   placeholder="Introduix un nom per a dirigir-nos a tu"
                   required
                   :rules="usernameRules"
               >
               </v-text-field>
               <v-text-field xs12 ms5
-                  v-model="item.email" 
-                  label="E-mail" 
-                  title="E-mail" 
+                  v-model="item.email"
+                  label="E-mail"
+                  title="E-mail"
                   placeholder="Introduix el email amb el qual et loguejaràs"
                   required
                   :rules="emailRules"
               >
               </v-text-field>
               <v-text-field xs12 ms4
-                  v-model="item.password" 
+                  v-model="item.password"
                   :append-icon="show ? 'visibility' : 'visibility_off'"
                   :type="show ? 'text' : 'password'"
                   @click:append="show = !show"
                   hint="Al menys 6 caràcters"
-                  label="Contrasenya" 
-                  title="Contrasenya" 
+                  label="Contrasenya"
+                  title="Contrasenya"
                   required
                   min="4"
                   max="25"
@@ -51,13 +51,13 @@
               >
               </v-text-field>
               <v-text-field xs12 ms4
-                  v-model="item.password_confirmation" 
+                  v-model="item.password_confirmation"
                   :append-icon="show ? 'visibility' : 'visibility_off'"
                   :type="show ? 'text' : 'password'"
                   @click:append="show = !show"
                   hint="Al menys 6 caràcters"
-                  label="Repeteix la contrasenya" 
-                  title="Repeteix la contrasenya" 
+                  label="Repeteix la contrasenya"
+                  title="Repeteix la contrasenya"
                   required
                   @change="checkPassword"
               >
@@ -68,12 +68,12 @@
             </v-flex>
             <v-flex xs12 ms3>
               <div>
-            <v-radio-group 
+            <v-radio-group
                v-if="isNew"
                v-model="item.rol"
-               label="Quin tipus d'uauri ets:" 
-              hint="Indica el teu rol en la Borsa:" 
-              :persistent-hint="true" 
+               label="Quin tipus d'uauri ets:"
+              hint="Indica el teu rol en la Borsa:"
+              :persistent-hint="true"
               required
             >
       <v-radio
@@ -101,7 +101,7 @@
                   :rules="requiredCheckRules"
                 ></v-checkbox>
                 <div xs6 class="font-weight-bold">Al registrar-se enviant aquest formulari està acceptant la <a href="/privacitat">Política de privacitat</a>
-                i donant la seua <br>conformitat al tractament de les seues dades personals en els teminis
+                i donant la seua conformitat al tractament de les seues dades personals en els teminis
                 i condicions allí indicades.</div>
               </div>
               </v-flex>
@@ -167,7 +167,7 @@ export default {
         },
         guardar() {
           if (this.$refs.form.validate())
-            if (this.item.rol) 
+            if (this.item.rol)
               this.saveUser()
             else
               alert('Has de indicar si ets empresa o alumne')
@@ -177,7 +177,7 @@ export default {
         saveUser() {
             API.saveUser(this.item)
             .then(resp => {
-              this.setToken(resp.data);               
+              this.setToken(resp.data);
               alert(`El teu usuari s'ha creat correctament.
                   Ara has d'omplir les teues dades`);
               if (resp.data.rol==5) {
