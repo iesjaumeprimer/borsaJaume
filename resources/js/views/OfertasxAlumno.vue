@@ -37,6 +37,13 @@
         <template slot="items" slot-scope="props">
           <tr color="red">
             <td>
+              {{
+                props.item.updated_at
+                  ? new Date(props.item.updated_at).toLocaleDateString()
+                  : "---"
+              }}
+            </td>
+            <td>
               <v-chip
                 @dblclick.stop="openDialogValidar(props.item)"
                 :color="props.item.interesado ? 'teal' : 'red'"
@@ -64,13 +71,6 @@
                 </v-avatar>
                 {{ nomCiclo(ciclo.id_ciclo) }}
               </v-chip>
-            </td>
-            <td>
-              {{
-                props.item.updated_at
-                  ? new Date(props.item.updated_at).toLocaleDateString()
-                  : "---"
-              }}
             </td>
             <td class="justify-center layout px-0">
               <v-btn
