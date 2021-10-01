@@ -38,11 +38,11 @@ mysql> exit;
 
 Ara descarreguem l'aplicació des de Github:
 ```bash
-git clone https://github.com/cipfpbatoi/borsatreball-api.git
+git clone https://github.com/iesjaumeprimer/borsaJaume.git
 ```
 
 Copiem el fitxer **.env**, que no es descarrega de git, des de **.env-example**. Allí hem de configurar:
-- APP_NAME: Posem el nostr nom (CIP FP Batoi)
+- APP_NAME: Posem el nostr nom (IES Jaume I)
 - l'accés a la BBDD (DB_DATABASE, DB_USERNAME, DB_PASSWORD)
 - el mail (s'explica més avall)
 
@@ -61,12 +61,12 @@ openssl x509 -req -in borsa.csr -signkey ../private/borsa.key -out borsa.crt
 
 Configurem el lloc web SSL en _/etc/apache2/sites-available_:
 * ServerName: p.ej. `ServerName borsa.my`
-* DocumentRoot: `DocumentRoot /var/www/html/borsaBatoi/public`
+* DocumentRoot: `DocumentRoot /var/www/html/borsaJaume/public`
 * SSLCertificateFile: `SSLCertificateFile /etc/ssl/certs/borsa.crt`
 * SSLCertificateKeyFile: `SSLCertificateKeyFile /etc/ssl/private/borsa.key`
 * Creem un nou directori:`
 ```bash
-<Directory /var/www/html/borsaBatoi/public>
+<Directory /var/www/html/borsaJaume/public>
   AllowOverride All
   Order Allow,Deny
   Allow from All
@@ -76,7 +76,7 @@ Configurem el lloc web SSL en _/etc/apache2/sites-available_:
 Configurem el lloc web no SSL en _/etc/apache2/sites-available_ per a que redireccione al SSL:
 * ServerName: p.ej. `ServerName borsa.my`
 * Redireccionem: `Redirect permanent  /  https://borsa.my/`
-* DocumentRoot: `DocumentRoot /var/www/html/borsaBatoi/public`
+* DocumentRoot: `DocumentRoot /var/www/html/borsaJaume/public`
 
 Habilitem els sites si els hem creat nous:
 ```bash
