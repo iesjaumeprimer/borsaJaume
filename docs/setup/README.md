@@ -6,7 +6,7 @@ Si la nostra màquina és per a desenvolupar l'aplicació el més senzill és cr
 ### Descàrrega de l'aplicació del backend
 A l'hora de descarregar el codi, des de la carpeta `~/code` inicialitzem git i descarregem l'aplicació:
 ```bash
-git clone https://github.com/cipfpbatoi/borsatreball-api.git
+git clone https://github.com/iesjaumeprimer/borsaJaume.git
 ```
 
 ## Desplegament per a producció del backend
