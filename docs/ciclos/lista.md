@@ -22,8 +22,11 @@ Els cicles impartits són:
   - [Higiene Bucodental](https://ceice.gva.es/va/web/formacion-profesional/publicador-ciclos/-/asset_publisher/FRACVC0hANWa/content/ciclo-formativo-higiene-bucodent-1)
 
 ## Automoció
-- [Electromecànica de Vehicles Automòbils](https://ceice.gva.es/va/web/formacion-profesional/publicador-ciclos/-/asset_publisher/FRACVC0hANWa/content/ciclo-formativo-electromecanica-de-vehiculos-automoviles)
-- [Automoció](https://ceice.gva.es/va/web/formacion-profesional/publicador-ciclos/-/asset_publisher/FRACVC0hANWa/content/ciclo-formativo-automocion)
+- Grau Mitjà:
+    - [Electromecànica de Vehicles Automòbils](https://ceice.gva.es/va/web/formacion-profesional/publicador-ciclos/-/asset_publisher/FRACVC0hANWa/content/ciclo-formativo-electromecanica-de-vehiculos-automoviles)
+- Grau Superior:
+    - [Automoció](https://ceice.gva.es/va/web/formacion-profesional/publicador-ciclos/-/asset_publisher/FRACVC0hANWa/content/ciclo-formativo-automocion)
 
 ## Tèxtil
-- [Fabricació i Ennobliment de Productes Tèxtils](https://ceice.gva.es/va/web/formacion-profesional/publicador-ciclos/-/asset_publisher/FRACVC0hANWa/content/ciclo-formativo-fabricacion-y-ennoblecimiento-de-productos-textiles)
+- Grau Mitjà:
+    - [Fabricació i Ennobliment de Productes Tèxtils](https://ceice.gva.es/va/web/formacion-profesional/publicador-ciclos/-/asset_publisher/FRACVC0hANWa/content/ciclo-formativo-fabricacion-y-ennoblecimiento-de-productos-textiles)
