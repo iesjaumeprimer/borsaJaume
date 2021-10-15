@@ -1,5 +1,5 @@
 # Cicles formatius impartits a l'IES Jaume I
-Ací teniu la llista de cicles impartits en el Centre. Cada cicle pertàny a una família professional. Les famílies que trobem en Batoi són:
+Ací teniu la llista de cicles impartits en el Centre. Cada cicle pertàny a una família professional. Les famílies que trobem al nostre institut són:
 - [Electricitat i Electrònica](#electricitat-i-electrònica) (Ele)
 - [Sanitària](#sanitària) (San)
 - [Automoció](#automoció) (Aut)
