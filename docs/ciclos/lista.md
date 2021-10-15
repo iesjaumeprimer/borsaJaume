@@ -26,4 +26,4 @@ Els cicles impartits són:
 - [Automoció](https://ceice.gva.es/va/web/formacion-profesional/publicador-ciclos/-/asset_publisher/FRACVC0hANWa/content/ciclo-formativo-automocion)
 
 ## Tèxtil
-[Fabricació i Ennobliment de Productes Tèxtils](https://ceice.gva.es/va/web/formacion-profesional/publicador-ciclos/-/asset_publisher/FRACVC0hANWa/content/ciclo-formativo-fabricacion-y-ennoblecimiento-de-productos-textiles)
+- [Fabricació i Ennobliment de Productes Tèxtils](https://ceice.gva.es/va/web/formacion-profesional/publicador-ciclos/-/asset_publisher/FRACVC0hANWa/content/ciclo-formativo-fabricacion-y-ennoblecimiento-de-productos-textiles)
