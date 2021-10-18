@@ -213,4 +213,4 @@ MAIL_FROM_ADDRESS=borsa@nosaltres.com
 ```
 
 ## Configurar l'aplicació del frontend
-El que hem fet fins ara és preparar el nostre servidor per a rebre peticions de l'aplicació que utilitzarà l'usuari. Les instruccions per a descarregar i configurar l'aplicació d'usuari es troben a [https://github.com/cipfpbatoi/borsatreball-front](https://github.com/cipfpbatoi/borsatreball-front)
+El que hem fet fins ara és preparar el nostre servidor per a rebre peticions de l'aplicació que utilitzarà l'usuari. Les instruccions per a descarregar i configurar l'aplicació d'usuari es troben a [https://github.com/iesjaumeprimer/borsatreball-front](https://github.com/iesjaumeprimer/borsatreball-front)
